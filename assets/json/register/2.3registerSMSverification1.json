@@ -1,0 +1,13 @@
+{
+	"header": "SMS VERIFICATION",
+	"enter": "Enter the SMS verification code you received on your phone.",
+	"your": "Your phone number",
+	"remain": "Remaining time to enter your code",
+	"resend": "Resend the code",
+	"byclick": "By clicking the Verify button, you are deemed to have read and accepted the",
+	"user": "User Privacy",
+	"state": "Statement",
+	"and": "and the",
+	"privacy": "Privacy Policy",
+	"button": "VERIFY"
+}

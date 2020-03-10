@@ -1,0 +1,22 @@
+{
+  "header": "DEPOSIT",
+  "abailable": "AVAILABLE BALANCE",
+  "abailable_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "deposit": "DEPOSIT",
+  "choose": "CHOOSE DEPOSIT METHOD",
+  "method": [
+    "BANK TRANSFER",
+    "CARD"
+  ],
+  "howto": "HOWTO",
+  "footer_tab": [
+    "Deposit",
+    "Money Transfer",
+    "Exchange",
+    "Withdraw"
+  ]
+}

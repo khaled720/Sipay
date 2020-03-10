@@ -1,0 +1,38 @@
+{
+  "header": "WITHDRAW",
+  "abailable": "AVAILABLE BALANCE",
+  "abailable_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "tobank": "TO BANK ACCOUNT",
+  "select": "Select the bank account you wish to withdraw and determine the amount",
+  "account_select": [
+    "YAPIKREDI SAVINGS",
+    "IKREDI SAVI"
+  ],
+  "bank_select":[
+    "T.C.ZIRAAT BANKASI A.S.",
+    "T.C.ZIRAAT BANKASI A.S.S"
+  ],
+  "withdraw_field": [
+    "CHOOSE SAVED ACCOUNT",
+    "BANK",
+    "CURRENCY",
+    "ACCOUNT HOLDER NAME",
+    "IBAN",
+    "WITHDRAW AMOUNT",
+    "TRANSACTION FEE",
+    "NET ACCOUNT"
+  ],
+  "trys": [
+    "try",
+    "not_try"
+  ],
+  "button": [
+    "SUBMIT REQUEST",
+    "SEND REQUEST"
+  ],
+  "save": "Save This Account"
+}

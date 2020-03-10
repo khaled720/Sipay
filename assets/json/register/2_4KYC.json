@@ -1,0 +1,14 @@
+{
+	"header": "USER VERIFICATION",
+	"alert": "Your digital wallet has been created successfully! Verify your acount by entering your credentials.",
+	"input_field": [
+		"NAME",
+		"SURNAME",
+		"TCKN",
+		"E-MAIL",
+		"PASSWORD",
+		"CONFIRM YOUR PASSWORD",
+		"YEAR OF BIRTH"
+	],
+	"button": "VERIFY"
+}

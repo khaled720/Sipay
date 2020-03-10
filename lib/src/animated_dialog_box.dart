@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as math;
 
-class animated_dialog_box {
+class AnimatedDialogBox {
   static Future showCustomAlertBox({
     @required BuildContext context,
     @required Widget yourWidget,
@@ -73,6 +73,7 @@ class animated_dialog_box {
         barrierDismissible: true,
         barrierLabel: '',
         context: context,
+        // ignore: missing_return
         pageBuilder: (context, animation1, animation2) {});
   }
 
@@ -118,6 +119,7 @@ class animated_dialog_box {
         barrierDismissible: true,
         barrierLabel: '',
         context: context,
+        // ignore: missing_return
         pageBuilder: (context, animation1, animation2) {});
   }
 
@@ -134,6 +136,7 @@ class animated_dialog_box {
     assert(firstButton != null, "button is null!!");
     return showGeneralDialog(
         context: context,
+        // ignore: missing_return
         pageBuilder: (context, anim1, anim2) {},
         barrierDismissible: true,
         barrierColor: Colors.black.withOpacity(0.7),
@@ -143,7 +146,7 @@ class animated_dialog_box {
             angle: math.radians(anim1.value * 360),
             child: AlertDialog(
               shape:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
               title: title,
               content: Column(
                 mainAxisSize: MainAxisSize.min,

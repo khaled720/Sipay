@@ -1,0 +1,20 @@
+{
+  "header": "WITHDRAW",
+  "abailable": "AVAILABLE BALANCE",
+  "abailable_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "howto": "HOW TO?",
+  "button": [
+    "NEW REQUEST",
+    "WITHDRAWAL HISTORY"
+  ],
+  "footer_tab": [
+    "Deposit",
+    "Money Transfer",
+    "Withdraw",
+    "Exchange"
+  ]
+}

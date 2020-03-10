@@ -10,6 +10,10 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/resendotp';
   static final String kApiIndividualVerifySMSEndPoint =
       '$kBaseIndividualAPIEndPoint/verifysms';
+  static final String kApiIndividualRegisterEndPoint =
+      '$kBaseIndividualAPIEndPoint/individualRegister';
+  static final String kApiIndividualResetPasswordEndPoint =
+      '$kBaseIndividualAPIEndPoint/reset-password';
 
   //Corporate
   static final String kBaseCorporateAPIEndPoint =

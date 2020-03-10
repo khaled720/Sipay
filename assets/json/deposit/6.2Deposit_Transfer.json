@@ -1,0 +1,25 @@
+{
+  "header": "DEPOSIT",
+  "abailable": "AVAILABLE BALANCE",
+  "abailable_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "description": "BANK TRANSFER DEPOSIT",
+  "bankname": [
+    "T.C.ZIRAAT BANKASI A.S",
+    "A.C.ZIRAAT BANKASI A.S"
+  ],
+  "youcan": "You can only deposit money from a bank account registered with your name",
+  "hint_bank" : "BANK",
+  "hint_amount": "AMOUNT*",
+  "trys" : [
+    "TRY",
+    "CANCEL"
+  ],
+  "hint_register": "REGISTER",
+  "hint_iban": "IBAN",
+  "hint_PNR": "PNR",
+  "button": "SUBMIT"
+}

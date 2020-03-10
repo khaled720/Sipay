@@ -31,8 +31,14 @@ dependencies:
   flushbar: ^1.9.1
   flutter_spinkit: ^4.1.1+1
   http: 0.12.0+4
+  dart_math: ^0.0.9+4
+  font_awesome_flutter: ^8.7.0
   mask_text_input_formatter: ^1.0.6
   shared_preferences: ^0.5.6
+  quiver: 2.0.5
+  percent_indicator: ^2.1.1+1
+  gradient_text: ^1.0.2
+  sphere_bottom_navigation_bar: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +63,15 @@ flutter:
     - assets/home_logo.png
     - assets/slide.png
     - assets/appbar_bg.png
-  #  - images/a_dot_ham.jpeg
+    - assets/down_time.png
+    - assets/logo-dashboard.png
+    - assets/user_avatar.png
+    - assets/deposit.png
+    - assets/card.png
+    - assets/withdraw.png
+    - assets/json/register/
+    - assets/json/deposit/
+    - assets/json/Withdrawl/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

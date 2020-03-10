@@ -1,5 +1,5 @@
 //this class handles all the calls to the login API whether it's an individual or corporate.
-import 'package:fluttersipay/Login/login_models.dart';
+import 'package:fluttersipay/login_screens/login_models.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
 
@@ -35,6 +35,24 @@ class LoginRepository {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualResendOTPEndPoint);
     return result;
+  }
+
+  //Individual register
+  Future<LoginModel> registerIndividual(String phoneNumber) async {
+    Map<String, String> values = {'phone': phoneNumber};
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualRegisterEndPoint, values);
+    print('register result $result');
+    return LoginModel.mapJsonToModel(result);
+  }
+
+  //Individual reset password
+  Future<LoginModel> resetIndividualPassword(String email) async {
+    Map<String, String> values = {'email': email};
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualResetPasswordEndPoint, values);
+    print('reset password result $result');
+    return LoginModel.mapJsonToModel(result);
   }
 
   //Corporate login API methods.

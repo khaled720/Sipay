@@ -1,0 +1,22 @@
+{
+  "header": "DEPOSIT",
+  "abailable": "AVAILABLE BALANCE",
+  "abailable_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "card": "CARD DEPOSIT",
+  "credit": "Credit card deposits will be added to your total balance.",
+  "deposit_fields": [
+    "CREDIT CARD OWNER NAME",
+    "CREDIT CARD NUMBER",
+    "EXPIRY & CVV",
+    "AMOUNT"
+  ],
+  "trys": [
+    "TRY",
+    "CANCEL"
+  ],
+  "button": "MAKE DEPOSIT"
+}

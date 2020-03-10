@@ -1,0 +1,17 @@
+{
+		"header": "REGISTER",
+		"create": "CREATE YOUR WALLET",
+		"sign": "Sign up to create your digital wallet!",
+		"phone": "PHONE NUMBER",
+		"Have": "Have account?Login here",
+		"button": "SIGN UP",
+		"User": {
+			"User": "User Privacy Statement ",
+			"and": "and the",
+			"privacy": " Policy"
+		},
+		"fail": {
+			"user": "User already registered Click here to",
+			"login": "login"
+		}
+}

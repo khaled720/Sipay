@@ -1,0 +1,12 @@
+{
+	"header": "REGISTRATION",
+	"REGISTRATION": "REGISTRATION",
+	"enter": "Enter your phone number to register",
+	"user": {
+		"agreement": "User Agreement",
+		"privacy": "Privacy Policy"
+	},
+	"already": "Already registered?",
+	"login": "Login here",
+	"button": "REGISTER"
+}

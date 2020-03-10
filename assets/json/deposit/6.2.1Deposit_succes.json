@@ -1,0 +1,20 @@
+{
+  "header": "DEPOSIT",
+  "success": "SUCCESS",
+  "yourdeposit": "Your deposit request was successfully created",
+  "deposit_data": {
+    "bank": "T.C ZIRAAT BANKASI A.S.",
+    "reciever": "Sipay Elektronik Money \nand Payment Services Inc.",
+    "iban": "TR89 9797 9871 6541 6547 1232 48",
+    "PNR": "987541",
+    "AMOUNT": "102,00 TRY"
+  },
+  "footer_tab": [
+    "E-MAIL",
+    "SMS",
+    "WHATSAPP",
+    "COPY",
+    "CANCEL"
+  ],
+  "button": "DASHBOARD"
+}

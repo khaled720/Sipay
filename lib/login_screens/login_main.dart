@@ -3,25 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttersipay/Login/login_provider.dart';
-import 'package:fluttersipay/Login/login_repo.dart';
-import 'package:fluttersipay/Login/login_slide.dart';
-import 'package:fluttersipay/Login/reset_password.dart';
+import 'package:fluttersipay/login_screens/SMS_Verification.dart';
+import 'package:fluttersipay/login_screens/login_repo.dart';
+import 'package:fluttersipay/login_screens/login_widgets.dart';
+import 'package:fluttersipay/login_screens/providers/login_provider.dart';
+import 'package:fluttersipay/login_screens/reset_password.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:provider/provider.dart';
 
-final _formKey = GlobalKey<FormState>();
-
-class MainLogin extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: MyLoginPage(),
-    );
-  }
-}
+import 'login_slide.dart';
 
 class MyLoginPage extends StatefulWidget {
   @override
@@ -29,18 +19,6 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
-  bool _customer = true;
-  bool _remember = false;
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  void _updatecustomer() {
-    setState(() {
-      _customer = !_customer;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -52,8 +30,11 @@ class _MyLoginPageState extends State<MyLoginPage> {
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
     return ChangeNotifierProvider<LoginProvider>(
-        create: (context) => LoginProvider(LoginRepository(), _emailController,
-            _passwordController, _phoneController),
+        create: (context) => LoginProvider(
+            LoginRepository(),
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController()),
         child: Scaffold(body: SingleChildScrollView(
           child: Consumer<LoginProvider>(builder: (context, snapshot, _) {
             return Stack(
@@ -94,8 +75,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                     decoration: new BoxDecoration(
                                       border: Border(
                                         bottom: BorderSide(
-                                          //                   <--- left side
-                                          color: _customer
+                                          color: snapshot.customerOrCorporate
                                               ? Colors.blue
                                               : Colors.black26,
                                           width: 2.0,
@@ -107,15 +87,19 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                           width: ScreenUtil.getInstance()
                                               .setWidth(345),
                                           child: OutlineButton(
-                                            onPressed: _updatecustomer,
+                                            onPressed: () {
+                                              snapshot
+                                                  .toggleCustomerCorporate();
+                                            },
                                             borderSide: new BorderSide(
                                               style: BorderStyle.none,
                                             ),
                                             child: new Text(
-                                              'BİREYSEL',
+                                              'INDIVIDUAL',
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: _customer
+                                                  color: snapshot
+                                                          .customerOrCorporate
                                                       ? Colors.blue
                                                       : Colors.black26,
                                                   fontWeight: FontWeight.bold),
@@ -128,8 +112,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                     decoration: new BoxDecoration(
                                       border: Border(
                                         bottom: BorderSide(
-                                          //                   <--- left side
-                                          color: _customer
+                                          color: snapshot.customerOrCorporate
                                               ? Colors.black26
                                               : Colors.blue,
                                           width: 2.0,
@@ -141,17 +124,20 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                         width: ScreenUtil.getInstance()
                                             .setWidth(345),
                                         child: OutlineButton(
-                                          onPressed: _updatecustomer,
+                                          onPressed: () {
+                                            snapshot.toggleCustomerCorporate();
+                                          },
                                           borderSide: new BorderSide(
                                             style: BorderStyle.none,
                                           ),
                                           child: new Text(
-                                            'KURUMSAL',
+                                            'CORPORATE',
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: _customer
-                                                    ? Colors.black26
-                                                    : Colors.blue,
+                                                color:
+                                                    snapshot.customerOrCorporate
+                                                        ? Colors.black26
+                                                        : Colors.blue,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -174,9 +160,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              child: _customer
-                                  ? _showconsumer(context, snapshot)
-                                  : _showcorporate(snapshot),
+                              child: snapshot.customerOrCorporate
+                                  ? IndividualWidget(snapshot)
+                                  : CorporateWidget(snapshot),
                             ),
                             SizedBox(
                               height: ScreenUtil.getInstance().setHeight(20),
@@ -190,14 +176,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         Checkbox(
-                                          value: _remember,
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              _remember = value;
-                                            });
-                                          },
-                                        ),
-                                        Text("Beni hatırla"),
+                                            value: snapshot.rememberPassword,
+                                            onChanged: (bool value) {
+                                              snapshot
+                                                  .setRememberPassword(value);
+                                            }),
+                                        Text("Remember Me"),
                                       ],
                                     ),
                                   ),
@@ -210,11 +194,11 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ResetPassword()),
+                                                    ResetPasswordScreen()),
                                           );
                                         },
                                         child: Text(
-                                          'Şifreni mi unuttun?',
+                                          'Forgot Password',
                                           style: TextStyle(
                                             color: Colors.blue,
                                           ),
@@ -231,10 +215,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
                             Container(
                               width: ScreenUtil.getInstance().setWidth(690),
                               child: FlatButton(
-                                //disabledColor: Colors.blue,
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  'GİRİŞ YAP',
+                                  'LOGIN',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -242,13 +225,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                 ),
                                 color: Colors.blue,
                                 onPressed: () {
-                                  snapshot.login(_customer, (name) {
-                                    print('name is $name');
-                                    Flushbar(
-                                      title: "Login was successful!",
-                                      message: 'Welcome $name',
-                                      duration: Duration(seconds: 5),
-                                    )..show(context);
+                                  snapshot.login((loginData) {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SMSVerificationScreen(
+                                                    loginData,
+                                                    NavigationToSMSTypes
+                                                        .Login)));
                                   }, (errorMsg) {
                                     Flushbar(
                                         title: "Error in login",
@@ -263,7 +247,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
                               height: ScreenUtil.getInstance().setHeight(10),
                             ),
                             Container(
-                              child: _customer ? _noaccount() : null,
+                              child: snapshot.customerOrCorporate
+                                  ? NoAccountWidget()
+                                  : null,
                             ),
                           ],
                         ),
@@ -274,7 +260,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     Container(
                       padding: EdgeInsets.only(left: 40.0, right: 40.0),
                       child: Text(
-                        'HAZİRAN AYI BOYUNCA ALIŞVERİŞLERİNİZ 10% İNDİRİMLİ!',
+                        '%10 OFF SHOPPING IN JUNE!',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -292,178 +278,38 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 ),
                 Visibility(
                   visible: snapshot.showLoad,
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: SpinKitChasingDots(
-                      color: Colors.blue,
-                    ),
+                  child: SpinKitChasingDots(
+                    color: Colors.blue,
                   ),
                 )
               ],
             );
           }),
-        ) // This trailing comma makes auto-formatting nicer for build methods.
-            ));
+        )));
   }
 
-  Widget _noaccount() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(child: Text('Hesabınız mı yok?')),
-        Container(
-          child: FlatButton(
-            child: Text(
-              'Kayıt olun',
-              style: TextStyle(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+//  _showDialog(bool customer) {
+//    if (!customer) {
+//      String data = _emailController.text;
+//      if (data.length != 0) {
+//        setState(() {
+//          _checkEmail = false;
+//        });
+//        showDialog(context: context, builder: (_) => ErrorDialog(resetGame));
+//      }
+//    } else {
+//      String data = _phoneController.text;
+//      if (data.length != 0) {
+//        setState(() {
+//          _checkPhone = false;
+//        });
+//      } else {
+//        Navigator.pushNamed(context, '/merchant');
+//      }
+//    }
+//  }
 
-  Widget _showconsumer(context, LoginProvider loginProvider) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        SizedBox(
-          height: ScreenUtil.getInstance().setHeight(30),
-        ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.only(),
-            child: TextFormField(
-              style: TextStyle(color: Colors.black38),
-              controller: loginProvider.telephoneController,
-              inputFormatters: [maskFormatter],
-              keyboardType: TextInputType.numberWithOptions(),
-              decoration: InputDecoration(
-                hintText: 'Telefon numaranız',
-                hintStyle: CustomTextStyle.formField(context),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black38, width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black38, width: 1.0)),
-                prefixIcon: const Icon(
-                  Icons.phone,
-                  color: Colors.black38,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _showcorporate(LoginProvider loginProvider) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(
-            height: ScreenUtil.getInstance().setHeight(30),
-          ),
-          Container(
-            child: Padding(
-              padding: EdgeInsets.only(),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(color: Colors.black38),
-                controller: loginProvider.emailController,
-                decoration: InputDecoration(
-                  hintText: 'E-posta adresiniz',
-                  hintStyle: CustomTextStyle.formField(context),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.black38, width: 1.0)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.black38, width: 1.0)),
-                  prefixIcon: const Icon(
-                    Icons.email,
-                    color: Colors.black38,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Girdiğiniz bilgiler kayıtlarımızla uyuşmamaktadır.';
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ),
-          SizedBox(
-            height: ScreenUtil.getInstance().setHeight(30),
-          ),
-          Container(
-            child: Padding(
-              padding: EdgeInsets.only(),
-              child: TextFormField(
-                style: TextStyle(color: Colors.black38),
-                controller: loginProvider.passwordController,
-                decoration: InputDecoration(
-                  hintText: 'Şifreniz',
-                  hintStyle: CustomTextStyle.formField(context),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.black38, width: 1.0)),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.black38, width: 1.0)),
-                  prefixIcon: const Icon(
-                    Icons.lock,
-                    color: Colors.black38,
-                  ),
-                ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter password.';
-                  }
-                  return null;
-                },
-                obscureText: true,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _showDialog() {
-    if (_formKey.currentState.validate()) {}
-  }
-}
-
-class CustomTextStyle {
-  static TextStyle formField(BuildContext context) {
-    return Theme.of(context).textTheme.title.copyWith(
-        fontSize: 18.0, fontWeight: FontWeight.normal, color: Colors.black38);
-  }
-
-  static TextStyle title(BuildContext context) {
-    return Theme.of(context).textTheme.title.copyWith(
-        fontSize: 34, fontWeight: FontWeight.bold, color: Colors.white);
-  }
-
-  static TextStyle subTitle(BuildContext context) {
-    return Theme.of(context).textTheme.title.copyWith(
-        fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white);
-  }
-
-  static TextStyle button(BuildContext context) {
-    return Theme.of(context).textTheme.title.copyWith(
-        fontSize: 20, fontWeight: FontWeight.normal, color: Colors.white);
-  }
-
-  static TextStyle body(BuildContext context) {
-    return Theme.of(context).textTheme.title.copyWith(
-        fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white);
+  void resetGame() {
+    if (Navigator.canPop(context)) Navigator.pop(context);
   }
 }
