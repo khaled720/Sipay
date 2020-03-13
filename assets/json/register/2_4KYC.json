@@ -8,7 +8,8 @@
 		"E-MAIL",
 		"PASSWORD",
 		"CONFIRM YOUR PASSWORD",
-		"YEAR OF BIRTH"
+		"YEAR OF BIRTH",
+		"PROFESSION"
 	],
 	"button": "VERIFY"
 }

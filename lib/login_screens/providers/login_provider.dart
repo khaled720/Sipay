@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
+import 'package:fluttersipay/utils/constants.dart';
 
-import '../login_models.dart';
+import '../../main_api_data_model.dart';
 
 class LoginProvider with ChangeNotifier {
   LoginRepository _loginRepo;
@@ -38,6 +39,9 @@ class LoginProvider with ChangeNotifier {
 
   bool get rememberPassword => _rememberPassword;
 
+  UserTypes get userType =>
+      _customerOrCorporate ? UserTypes.Individual : UserTypes.Corporate;
+
   bool get customerOrCorporate => _customerOrCorporate;
 
   LoginProvider(this._loginRepo, this._emailController,
@@ -52,9 +56,9 @@ class LoginProvider with ChangeNotifier {
   void _loginIndividual(Function onSuccess, Function onFailure) async {
     if (_telephoneController.text != null) {
       if (_telephoneController.text.isNotEmpty) {
-        //_setPhoneNumberErrorText(false);
+        _setIndividualLoginErrorText(false);
         _setShowLoading(true);
-        LoginModel individualLoginResult =
+        MainApiModel individualLoginResult =
             await _loginRepo.individualLogin(_telephoneController.text.trim());
         _setShowLoading(false);
         //String name = individualLoginResult.data['user']['name'];
@@ -70,14 +74,18 @@ class LoginProvider with ChangeNotifier {
     if (_emailController.text != null && _passwordController.text != null) {
       if (_emailController.text.isNotEmpty &&
           _passwordController.text.isNotEmpty) {
+        _setCorporateLoginErrorText(false);
         _setShowLoading(true);
-        LoginModel corporateLoginResult = await _loginRepo.corporateLogin(
+        MainApiModel corporateLoginResult = await _loginRepo.corporateLogin(
             _emailController.text.trim(), _passwordController.text.trim());
         _setShowLoading(false);
         //String name = corporateLoginResult.data['user']['name'];
-        corporateLoginResult.statusCode == 100
-            ? onSuccess(corporateLoginResult)
-            : _setCorporateLoginErrorText(true);
+        if (corporateLoginResult.statusCode == 100) {
+          onSuccess(corporateLoginResult);
+        } else {
+          _setCorporateLoginErrorText(true);
+          onFailure('');
+        }
       }
     }
   }
@@ -107,12 +115,12 @@ class LoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-//  void _setPhoneNumberErrorText(bool isError) {
-//    isError
-//        ? _phoneNumberErrorText = 'User not found. Please Register.'
-//        : _phoneNumberErrorText = null;
-//    notifyListeners();
-//  }
+  void _setPhoneNumberErrorText(bool isError) {
+    isError
+        ? _phoneNumberErrorText = 'User not found. Please Register.'
+        : _phoneNumberErrorText = null;
+    notifyListeners();
+  }
 //
 //  void _setEmailAddressErrorText(bool isError) {
 //    isError

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/withdrawal/witdrawal.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -38,7 +39,9 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
                 onPressed: () {
                   if (select == 0) return;
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/deposit_panel');
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MerchantPanelScreen(null)));
+                  //Navigator.pushNamed(context, '/deposit_panel');
                 },
               ),
             ),

@@ -34,7 +34,9 @@ class NoAccountWidget extends StatelessWidget {
 
 class IndividualWidget extends StatelessWidget {
   final loginProvider;
+
   IndividualWidget(this.loginProvider);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,7 +68,11 @@ class IndividualWidget extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/register');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UserRegistrationScreen()));
                         },
                         child: Text(
                           'register',
@@ -126,7 +132,9 @@ class IndividualWidget extends StatelessWidget {
 
 class CorporateWidget extends StatelessWidget {
   final loginProvider;
+
   CorporateWidget(this.loginProvider);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -160,13 +168,12 @@ class CorporateWidget extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(),
             child: TextField(
-              style: TextStyle(
-                  color: !loginProvider.showCorporateLoginErrorMessage
-                      ? Colors.black38
-                      : Colors.red),
               controller: loginProvider.emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'Your email address',
+                errorText:
+                    loginProvider.showCorporateLoginErrorMessage ? '' : null,
                 hintStyle: CustomTextStyle.formField(context),
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -190,7 +197,6 @@ class CorporateWidget extends StatelessWidget {
                         color: Colors.red,
                       ),
               ),
-              obscureText: false,
             ),
           ),
         ),

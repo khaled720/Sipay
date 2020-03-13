@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 enum NavigationToSMSTypes { Login, Register }
+enum UserTypes { Individual, Corporate }
 
 final maskFormatter = new MaskTextInputFormatter(mask: '+################');
 

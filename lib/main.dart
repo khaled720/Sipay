@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'login_screens/login_main.dart';
+import 'package:fluttersipay/login_screens/login_main.dart';
 
 void main() => runApp(Main());
 
@@ -10,6 +9,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SiPay',
+      debugShowCheckedModeBanner: false,
       home: MyLoginPage(),
     );
   }

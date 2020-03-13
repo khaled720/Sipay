@@ -1,8 +1,8 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttersipay/login_screens/ErrorDialog.dart';
 import 'package:fluttersipay/login_screens/SMS_Verification.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/login_widgets.dart';
@@ -231,14 +231,14 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                             builder: (context) =>
                                                 SMSVerificationScreen(
                                                     loginData,
-                                                    NavigationToSMSTypes
-                                                        .Login)));
+                                                    NavigationToSMSTypes.Login,
+                                                    snapshot.userType)));
                                   }, (errorMsg) {
-                                    Flushbar(
-                                        title: "Error in login",
-                                        message: '$errorMsg',
-                                        duration: Duration(seconds: 5))
-                                      ..show(context);
+                                    showDialog(
+                                        context: context,
+                                        child: ErrorDialog(() {
+                                          Navigator.of(context).pop();
+                                        }));
                                   });
                                 },
                               ),

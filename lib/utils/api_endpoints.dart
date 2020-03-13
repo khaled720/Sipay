@@ -14,6 +14,14 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/individualRegister';
   static final String kApiIndividualResetPasswordEndPoint =
       '$kBaseIndividualAPIEndPoint/reset-password';
+  static final String kApiIndividualUserVerificationEndPoint =
+      '$kBaseIndividualAPIEndPoint/kyc/update';
+  static final String kApiIndividualSMSVerifyRegisterEndPoint =
+      '$kBaseIndividualAPIEndPoint/register/verifysms';
+  static final String kApiIndividualResendSMSVerifyRegisterEndPoint =
+      '$kBaseIndividualAPIEndPoint/register/resendotp';
+  static final String kApiIndividualOTPTestEndPoint =
+      '$kBaseIndividualAPIEndPoint/files/otp.txt';
 
   //Corporate
   static final String kBaseCorporateAPIEndPoint =
@@ -26,4 +34,6 @@ class APIEndPoints {
       '$kBaseCorporateAPIEndPoint/resendotp';
   static final String kApiCorporateVerifySMSEndPoint =
       '$kBaseCorporateAPIEndPoint/verifysms';
+  static final String kApiCorporateResetPasswordEndPoint =
+      '$kBaseIndividualAPIEndPoint/changepassword';
 }

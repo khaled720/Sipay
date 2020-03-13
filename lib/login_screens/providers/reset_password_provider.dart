@@ -1,22 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
+import 'package:fluttersipay/utils/validator.dart';
 
-import '../login_models.dart';
+import '../../main_api_data_model.dart';
 
 class ResetPasswordProvider with ChangeNotifier {
   LoginRepository _loginRepo;
   TextEditingController _emailController;
   bool _showLoad = false;
-  String _phoneNumberErrorText;
+  String _emailErrorText;
 
   TextEditingController get emailController => _emailController;
 
-  String get emailErrorText => _phoneNumberErrorText;
+  String get emailErrorText => _emailErrorText;
 
   bool get showLoad => _showLoad;
 
-  ResetPasswordProvider(this._loginRepo, this._emailController);
+  ResetPasswordProvider(this._loginRepo, this._emailController) {
+    _emailController.addListener(_emailValidator);
+  }
+
+  _emailValidator() {
+    _setEmailErrorText(false, '');
+    if (_emailController.text.isNotEmpty) {
+      if (!Validator.checkIfEmailIsValid(_emailController.text.trim())) {
+        _setEmailErrorText(true, 'Please enter a valid e-mail address.');
+      } else {
+        _setEmailErrorText(false, '');
+      }
+    }
+  }
 
   void _setShowLoading(bool load) {
     _showLoad = load;
@@ -24,16 +38,16 @@ class ResetPasswordProvider with ChangeNotifier {
   }
 
   void _setEmailErrorText(bool isError, String errorMsg) {
-    isError ? _phoneNumberErrorText = errorMsg : _phoneNumberErrorText = null;
+    isError ? _emailErrorText = errorMsg : _emailErrorText = null;
     notifyListeners();
   }
 
   void resetPassword(Function onSuccess, Function onFailure) async {
     if (_emailController.text != null) {
-      if (_emailController.text.isNotEmpty) {
+      if (_emailController.text.isNotEmpty && _emailErrorText == null) {
         _setEmailErrorText(false, '');
         _setShowLoading(true);
-        LoginModel resetPasswordResult = await _loginRepo
+        MainApiModel resetPasswordResult = await _loginRepo
             .resetIndividualPassword(_emailController.text.trim());
         _setShowLoading(false);
         resetPasswordResult.statusCode == 100

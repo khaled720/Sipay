@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 
-import '../login_models.dart';
+import '../../main_api_data_model.dart';
 
 class RegisterProvider with ChangeNotifier {
   LoginRepository _loginRepo;
@@ -33,12 +33,12 @@ class RegisterProvider with ChangeNotifier {
       if (_telephoneController.text.isNotEmpty) {
         _setPhoneNumberErrorText(false, '');
         _setShowLoading(true);
-        LoginModel individualRegisterResult = await _loginRepo
+        MainApiModel individualRegisterResult = await _loginRepo
             .registerIndividual(_telephoneController.text.trim());
         _setShowLoading(false);
         //String errorMsg = individualRegisterResult.data['user']['name'];
         individualRegisterResult.statusCode == 100
-            ? onSuccess(individualRegisterResult)
+            ? onSuccess(_telephoneController.text.trim())
             : _setPhoneNumberErrorText(
                 true, individualRegisterResult.description);
       }

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/deposit/deposit_panel.dart';
+import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/withdrawal/witdrawal.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MerchantPanel extends StatefulWidget {
-  MerchantPanel({Key key}) : super(key: key);
+class MerchantPanelScreen extends StatefulWidget {
+  final MainApiModel userData;
+  MerchantPanelScreen(this.userData);
   @override
-  MerchantPanelState createState() => MerchantPanelState();
+  MerchantPanelScreenState createState() => MerchantPanelScreenState();
 }
 
-class MerchantPanelState extends State<MerchantPanel> {
+class MerchantPanelScreenState extends State<MerchantPanelScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -230,7 +233,10 @@ class MerchantPanelState extends State<MerchantPanel> {
                 ),
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/deposit_panel');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DepositPanelScreen()));
                 },
               ),
             )),
@@ -457,7 +463,11 @@ class MerchantPanelState extends State<MerchantPanel> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/deposit_panel');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DepositPanelScreen()));
                           },
                         ),
                       ),

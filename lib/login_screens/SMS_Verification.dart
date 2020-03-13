@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/login_screens/login_models.dart';
+import 'package:fluttersipay/dashboard/merchant_panel.dart';
+import 'package:fluttersipay/loading_widget.dart';
+import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/sms_verification_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -16,10 +18,12 @@ import 'package:quiver/async.dart';
 import 'json_models/sms_verification_ui_model.dart';
 
 class SMSVerificationScreen extends StatefulWidget {
-  final LoginModel loginModel;
+  final MainApiModel loginModel;
   final NavigationToSMSTypes navigationToSMSType;
+  final UserTypes userType;
 
-  SMSVerificationScreen(this.loginModel, this.navigationToSMSType);
+  SMSVerificationScreen(
+      this.loginModel, this.navigationToSMSType, this.userType);
 
   @override
   SMSVerificationScreenState createState() => SMSVerificationScreenState();
@@ -84,193 +88,220 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                     child: SingleChildScrollView(child: Container(child:
                         Consumer<SMSVerificationProvider>(
                             builder: (context, snapshot, _) {
-                      return Column(
+                      return Stack(
+                        alignment: Alignment.center,
                         children: <Widget>[
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setWidth(60),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                users.enter,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black45,
-                                ),
+                          Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setWidth(60),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(30),
-                          ),
-                          Container(
-                              width: ScreenUtil.getInstance().setHeight(780),
-                              height: ScreenUtil.getInstance().setHeight(100),
-                              decoration: new BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.black12,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                              child: Padding(
+                              Padding(
                                 padding:
                                     EdgeInsets.only(left: 30.0, right: 30.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Text(
-                                        users.your,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black45,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        snapshot.phoneNumber,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(100),
-                                ),
-                                CircularPercentIndicator(
-                                    radius:
-                                        ScreenUtil.getInstance().setHeight(160),
-                                    lineWidth: 10.0,
-                                    percent: snapshot != null
-                                        ? snapshot.timerPercent
-                                        : 1.0,
-                                    backgroundColor: Colors.white10,
-                                    center: GradientText(
-                                        snapshot.secondsLeftOtp,
-                                        gradient: otpGradient,
-                                        style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center),
-                                    linearGradient: otpGradient),
-                                SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(60),
-                                ),
-                                Text(
-                                  users.remain,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black45,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            height: ScreenUtil.getInstance().setHeight(380),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                            child: TextField(
-                              style: TextStyle(color: Colors.black),
-                              keyboardType: TextInputType.number,
-                              controller: snapshot.smsController,
-                              decoration: InputDecoration(
-                                hintStyle: CustomTextStyle.formField(context),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black12, width: 1.0)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black12, width: 1.0)),
-                                prefixIcon: const Icon(
-                                  Icons.message,
-                                  color: Colors.black38,
-                                ),
-                              ),
-                              obscureText: false,
-                            ),
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(10),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 40),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: FlatButton(
-                                onPressed: () {},
-                                child: Text(
-                                  users.resend,
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(10),
-                          ),
-                          Container(
-                            child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    // set the default style for the children TextSpans
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    users.enter,
                                     style: TextStyle(
                                       fontSize: 16,
+                                      color: Colors.black45,
                                     ),
-                                    children: [
-                                      TextSpan(
-                                          text: users.byclicks,
-                                          style:
-                                              TextStyle(color: Colors.black45)),
-                                      TextSpan(
-                                          text: users.user,
-                                          style: TextStyle(color: Colors.blue)),
-                                      TextSpan(
-                                          text: users.and,
-                                          style:
-                                              TextStyle(color: Colors.black45)),
-                                      TextSpan(
-                                          text: users.privacy,
-                                          style: TextStyle(color: Colors.blue)),
-                                    ])),
-                            width: ScreenUtil.getInstance().setWidth(660),
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(50),
-                          ),
-                          Container(
-                            child: FlatButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/verify');
-                              },
-                              color: Colors.blue,
-                              disabledColor: Colors.blue,
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                users.button,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                  ),
                                 ),
                               ),
-                            ),
-                            width: ScreenUtil.getInstance().setWidth(690),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(30),
+                              ),
+                              Container(
+                                  width:
+                                      ScreenUtil.getInstance().setHeight(780),
+                                  height:
+                                      ScreenUtil.getInstance().setHeight(100),
+                                  decoration: new BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: Colors.black12,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 30.0, right: 30.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            users.your,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black45,
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            snapshot.phoneNumber,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: ScreenUtil.getInstance()
+                                          .setHeight(100),
+                                    ),
+                                    CircularPercentIndicator(
+                                        radius: ScreenUtil.getInstance()
+                                            .setHeight(160),
+                                        lineWidth: 10.0,
+                                        percent: snapshot != null
+                                            ? snapshot.timerPercent
+                                            : 1.0,
+                                        backgroundColor: Colors.white10,
+                                        center: GradientText(
+                                            snapshot.secondsLeftOtp,
+                                            gradient: otpGradient,
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center),
+                                        linearGradient: otpGradient),
+                                    SizedBox(
+                                      height: ScreenUtil.getInstance()
+                                          .setHeight(60),
+                                    ),
+                                    Text(
+                                      users.remain,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black45,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                height: ScreenUtil.getInstance().setHeight(380),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 30.0, right: 30.0),
+                                child: TextField(
+                                  style: TextStyle(color: Colors.black),
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 6,
+                                  controller: snapshot.smsController,
+                                  decoration: InputDecoration(
+                                    errorText: snapshot.otpErrorText,
+                                    hintStyle:
+                                        CustomTextStyle.formField(context),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black12, width: 1.0)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black12, width: 1.0)),
+                                    prefixIcon: const Icon(
+                                      Icons.message,
+                                      color: Colors.black38,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(10),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 40),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      snapshot.resendLoginVerificationSMS(
+                                          widget.userType, () {}, () {});
+                                    },
+                                    child: Text(
+                                      users.resend,
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(10),
+                              ),
+                              Container(
+                                child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                        // set the default style for the children TextSpans
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                              text: users.byclicks,
+                                              style: TextStyle(
+                                                  color: Colors.black45)),
+                                          TextSpan(
+                                              text: users.user,
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                          TextSpan(
+                                              text: users.and,
+                                              style: TextStyle(
+                                                  color: Colors.black45)),
+                                          TextSpan(
+                                              text: users.privacy,
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ])),
+                                width: ScreenUtil.getInstance().setWidth(660),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(50),
+                              ),
+                              Container(
+                                child: FlatButton(
+                                  onPressed: () {
+                                    snapshot.verifyLoginSMS(widget.userType,
+                                        (userData) {
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  MerchantPanelScreen(
+                                                      userData)),
+                                          (route) => false);
+                                    }, () {});
+                                  },
+                                  color: Colors.blue,
+                                  disabledColor: Colors.blue,
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                    users.button,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                width: ScreenUtil.getInstance().setWidth(690),
+                              )
+                            ],
+                          ),
+                          LoadingWidget(
+                            isVisible: snapshot.showLoad,
                           )
                         ],
                       );

@@ -7,11 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/register_provider.dart';
+import 'package:fluttersipay/login_screens/user_kyc_sms_verify.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:provider/provider.dart';
 
-import 'SMS_Verification.dart';
 import 'json_models/individual_ui_registration_model.dart';
 
 class UserRegistrationScreen extends StatefulWidget {
@@ -192,8 +192,8 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                       alignment: Alignment.centerRight,
                                       child: FlatButton(
                                         onPressed: () {
-                                          Navigator.popUntil(context,
-                                              ModalRoute.withName('/'));
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
                                         },
                                         child: Text(
                                           users.login,
@@ -216,11 +216,8 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        SMSVerificationScreen(
-                                                          loginData,
-                                                          NavigationToSMSTypes
-                                                              .Register,
-                                                        )));
+                                                        SMSUserVerificationScreen(
+                                                            loginData)));
                                           }, (errorMsg) {
                                             Flushbar(
                                                 title: "Error in login",
