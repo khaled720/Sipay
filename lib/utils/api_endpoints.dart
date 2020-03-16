@@ -22,6 +22,46 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/register/resendotp';
   static final String kApiIndividualOTPTestEndPoint =
       '$kBaseIndividualAPIEndPoint/files/otp.txt';
+  static final String kApiIndividualUserProfileEndPoint =
+      '$kBaseIndividualAPIEndPoint/profile';
+  static final String kApiIndividualUserProfileUpdateEndPoint =
+      '$kBaseIndividualAPIEndPoint/profile/update';
+  static final String kApiIndividualUserProfileUploadImageEndPoint =
+      '$kBaseIndividualAPIEndPoint/profile/image/upload';
+
+  //Individual Deposit
+  static final String kApiIndividualDepositIndividualEndPoint =
+      '$kBaseIndividualAPIEndPoint/deposit/create';
+  static final String kApiIndividualDepositDetailsEndPoint =
+      '$kBaseIndividualAPIEndPoint/deposit/details';
+  static final String kApiIndividualDepositDeleteEndPoint =
+      '$kBaseIndividualAPIEndPoint/deposit/delete';
+  static final String kApiIndividualDepositListEndPoint =
+      '$kBaseIndividualAPIEndPoint/deposit/list';
+  static final String kApiIndividualDepositUpdateEndPoint =
+      '$kBaseIndividualAPIEndPoint/deposit/update';
+
+  //Individual Withdraw
+  static final String kApiIndividualCreateWithdrawEndPoint =
+      '$kBaseIndividualAPIEndPoint/withdrawals/create';
+  static final String kApiIndividualWithdrawTransactionsListEndPoint =
+      '$kBaseIndividualAPIEndPoint/withdrawals/transactions';
+
+  //Individual Exchange
+  static final String kApiIndividualCreateExchangeEndPoint =
+      '$kBaseIndividualAPIEndPoint/exchange/create';
+  static final String kApiIndividualExchangeDetailsEndPoint =
+      '$kBaseIndividualAPIEndPoint/exchange/details';
+  static final String kApiIndividualExchangeListEndPoint =
+      '$kBaseIndividualAPIEndPoint/exchange/list';
+
+  //Individual Money Transfer
+  static final String kApiIndividualMoneyTransferBaseFormEndPoint =
+      '$kBaseIndividualAPIEndPoint/moneytransfer';
+  static final String kApiIndividualMoneyTransferDetailsEndPoint =
+      '$kBaseIndividualAPIEndPoint/moneytransfer/details';
+  static final String kApiIndividualMoneyTransferListRequestMoneyEndPoint =
+      '$kBaseIndividualAPIEndPoint/moneytransfer/list/requestmoney';
 
   //Corporate
   static final String kBaseCorporateAPIEndPoint =

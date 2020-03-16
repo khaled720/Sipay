@@ -30,12 +30,21 @@ class NetworkHelper {
     return body;
   }
 
-  static Future<String> makeGetRequest(String endPoint) async {
+  static Future<String> makeGetRequest(String endPoint, var bearerToken) async {
     // set up Get request arguments
     Response response;
     String body = "";
     try {
-      response = await get(endPoint);
+      Map<String, String> request = {
+        'Content-type': 'application/x-www-form-urlencoded',
+      };
+      if (bearerToken != null) {
+        request = {
+          'Content-type': 'application/x-www-form-urlencoded',
+          HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
+        };
+      }
+      response = await get(endPoint, headers: request);
       int statusCode = response
           .statusCode; // this API passes back the id of the new item added to the body
       if (statusCode == 200) {

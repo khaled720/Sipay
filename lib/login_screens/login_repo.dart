@@ -33,7 +33,7 @@ class LoginRepository {
   //Individual logout
   Future<String> logoutIndividual() async {
     String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kApiIndividualResendOTPEndPoint);
+        APIEndPoints.kApiIndividualResendOTPEndPoint, null);
     return result;
   }
 
@@ -58,7 +58,7 @@ class LoginRepository {
   //Individual register user verification KYC OTP
   Future<String> testRegisterOTP() async {
     String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kApiIndividualOTPTestEndPoint);
+        APIEndPoints.kApiIndividualOTPTestEndPoint, null);
     return result;
   }
 
@@ -165,7 +165,7 @@ class LoginRepository {
   //Corporate logout
   Future<String> logoutCorporate() async {
     String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kAPICorporateLogoutEndPoint);
+        APIEndPoints.kAPICorporateLogoutEndPoint, null);
     return result;
   }
 }
