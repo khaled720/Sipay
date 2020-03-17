@@ -8,25 +8,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'deposit_success.dart';
 
-TextEditingController amountController = TextEditingController();
-TextEditingController registerController = TextEditingController();
-TextEditingController ibanController = TextEditingController();
-TextEditingController pnrController = TextEditingController();
+TextEditingController _amont_ontroller = TextEditingController();
+TextEditingController _register_ontroller = TextEditingController();
+TextEditingController _IBAN_ontroller = TextEditingController();
+TextEditingController _PNR_ontroller = TextEditingController();
 
-Widget createDeposits() {
-  return CreatePanelScreen();
+Widget Create_deposits() {
+  return Create_panel();
 }
 
-class CreatePanelScreen extends StatefulWidget {
-  CreatePanelScreen({Key key}) : super(key: key);
+class Create_panel extends StatefulWidget {
+  Create_panel({Key key}) : super(key: key);
   @override
-  CreatePanelScreenState createState() => CreatePanelScreenState();
+  _Create_panel createState() => _Create_panel();
 }
 
-class CreatePanelScreenState extends State<CreatePanelScreen> {
+class _Create_panel extends State<Create_panel> {
   final _formKey = GlobalKey<FormState>();
-  var bankValue;
-  var tryValue;
+  var _bank_value = null;
+  var _try_value = null;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -41,14 +41,14 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.2Deposit_Transfer.json'),
         builder: (context, snapshot) {
-          TransferJsonModel users;
+          transfer_json users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = TransferJsonModel.fromJson(parsedJson);
-            if (bankValue == null && tryValue == null) {
-              bankValue = users.bankName[0];
-              tryValue = users.trys[0];
+            users = transfer_json.fromJson(parsedJson);
+            if(_bank_value == null && _try_value == null) {
+              _bank_value = users.bankname[0];
+              _try_value = users.trys[0];
             }
             return Scaffold(
               appBar: AppBar(
@@ -76,7 +76,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                   IconButton(
                     padding: const EdgeInsets.only(right: 20.0),
                     icon: Icon(
-                      Icons.chat_bubble_outline,
+                      FontAwesomeIcons.commentAlt,
                       color: Colors.white,
                       size: 16,
                     ),
@@ -96,7 +96,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       child: Text(
-                        users.available,
+                        users.abailable,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -119,7 +119,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.availableBalances[0] + '₺',
+                                  users.abailableBalances[0] + '₺',
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -138,7 +138,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.availableBalances[1] + "\$",
+                                  users.abailableBalances[1] + "\$",
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -149,7 +149,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                users.availableBalances[2] + '€',
+                                users.abailableBalances[2] +'€',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 16),
                               ),
@@ -175,7 +175,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
                           Text(
-                            users.youCan,
+                            users.youcan,
                             style:
                                 TextStyle(color: Colors.black54, fontSize: 16),
                           ),
@@ -192,7 +192,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                               Icons.keyboard_arrow_down,
                               size: 16,
                             ),
-                            items: users.bankName
+                            items: users.bankname
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -216,10 +216,10 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                             }).toList(),
                             onChanged: (value) {
                               setState(() {
-                                bankValue = value;
+                                _bank_value = value;
                               });
                             },
-                            value: bankValue,
+                            value: _bank_value,
                             isExpanded: true,
                           ),
                           Form(
@@ -236,97 +236,98 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(right: 20),
-                                            child: TextFormField(
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                              controller: amountController,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                focusedBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                prefixIcon: const Icon(
-                                                  Icons.map,
-                                                  size: 16,
-                                                  color: Colors.black45,
-                                                ),
-                                              ),
-                                              validator: (value) {
-                                                if (value.isEmpty) {
-                                                  return 'Please enter AMOUNT';
-                                                }
-                                                return null;
-                                              },
-                                              obscureText: false,
+                                Container(
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: TextFormField(
+                                          style: TextStyle(
+                                              color: Colors.black),
+                                          controller: _amont_ontroller,
+                                          decoration: InputDecoration(
+                                            enabledBorder:
+                                            UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                    Colors.black45,
+                                                    width: 1.0)),
+                                            focusedBorder:
+                                            UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                    Colors.black45,
+                                                    width: 1.0)),
+                                            prefixIcon: const Icon(
+                                              Icons.map,
+                                              size: 16,
+                                              color: Colors.black45,
                                             ),
                                           ),
-                                        ),
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(100),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: DropdownButton<String>(
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down,
-                                            size: 16,
-                                          ),
-                                          items: users.trys
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      value,
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.black45),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              tryValue = value;
-                                            });
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Please enter AMOUNT';
+                                            }
+                                            return null;
                                           },
-                                          value: tryValue,
-                                          isExpanded: true,
-                                        ),
+                                          obscureText: false,
+                                        )
                                       ),
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(110),
-                                      width: ScreenUtil.getInstance()
-                                          .setWidth(250),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                          decoration: new BoxDecoration(
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: Colors.black54,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                          ),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 16,
+                                            ),
+                                            items: users.trys
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                      children: <Widget>[
+                                                        SizedBox(width: 10),
+                                                        Expanded(
+                                                          child: Text(
+                                                            value,
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.black45),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _try_value = value;
+                                              });
+                                            },
+                                            value: _try_value,
+                                            isExpanded: true,
+                                          ),
+                                        ),
+                                        width: 100,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height:
@@ -339,7 +340,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                                 ),
                                 TextFormField(
                                   style: TextStyle(color: Colors.black),
-                                  controller: registerController,
+                                  controller: _register_ontroller,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -378,7 +379,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                                 ),
                                 TextFormField(
                                   style: TextStyle(color: Colors.black),
-                                  controller: ibanController,
+                                  controller: _IBAN_ontroller,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -417,7 +418,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                                 ),
                                 TextFormField(
                                   style: TextStyle(color: Colors.black),
-                                  controller: pnrController,
+                                  controller: _PNR_ontroller,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -456,7 +457,7 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                depositSuccess(),
+                                                Deposit_success(),
                                           ));
                                     },
                                     color: Colors.blue,
@@ -494,13 +495,13 @@ class CreatePanelScreenState extends State<CreatePanelScreen> {
   }
 }
 
-class TransferJsonModel {
+class transfer_json {
   String header;
-  String available;
-  List<String> availableBalances;
+  String abailable;
+  List<String> abailableBalances;
   String description;
-  List<String> bankName;
-  String youCan;
+  List<String> bankname;
+  String youcan;
   String hintBank;
   String hintAmount;
   List<String> trys;
@@ -509,13 +510,13 @@ class TransferJsonModel {
   String hintPNR;
   String button;
 
-  TransferJsonModel(
+  transfer_json(
       {this.header,
-      this.available,
-      this.availableBalances,
+      this.abailable,
+      this.abailableBalances,
       this.description,
-      this.bankName,
-      this.youCan,
+      this.bankname,
+      this.youcan,
       this.hintBank,
       this.hintAmount,
       this.trys,
@@ -524,13 +525,13 @@ class TransferJsonModel {
       this.hintPNR,
       this.button});
 
-  TransferJsonModel.fromJson(Map<String, dynamic> json) {
+  transfer_json.fromJson(Map<String, dynamic> json) {
     header = json['header'];
-    available = json['abailable'];
-    availableBalances = json['abailable_balances'].cast<String>();
+    abailable = json['abailable'];
+    abailableBalances = json['abailable_balances'].cast<String>();
     description = json['description'];
-    bankName = json['bankname'].cast<String>();
-    youCan = json['youcan'];
+    bankname = json['bankname'].cast<String>();
+    youcan = json['youcan'];
     hintBank = json['hint_bank'];
     hintAmount = json['hint_amount'];
     trys = json['trys'].cast<String>();
@@ -543,11 +544,11 @@ class TransferJsonModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['header'] = this.header;
-    data['abailable'] = this.available;
-    data['abailable_balances'] = this.availableBalances;
+    data['abailable'] = this.abailable;
+    data['abailable_balances'] = this.abailableBalances;
     data['description'] = this.description;
-    data['bankname'] = this.bankName;
-    data['youcan'] = this.youCan;
+    data['bankname'] = this.bankname;
+    data['youcan'] = this.youcan;
     data['hint_bank'] = this.hintBank;
     data['hint_amount'] = this.hintAmount;
     data['trys'] = this.trys;

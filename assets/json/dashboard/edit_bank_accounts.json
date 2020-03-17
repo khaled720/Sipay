@@ -1,0 +1,26 @@
+{
+  "header": "EDIT",
+  "edit": "EDIT NEW BANK ACCOUNT",
+  "account": "ACCOUNT NAME",
+  "bank": "BANK",
+  "bank_list": [
+  	"T.C.ZIRAAT BANKASI A.S.",
+    "T.C.ZIRAAT BANKASI A.S.S"
+  ],
+  "default_banklist": "T.C.ZIRAAT BANKASI A.S.",
+  "currency": "CURRENCY",
+  "currency_list": [
+  	"TRY",
+  	"TRYS"
+  ],
+  "default_currencylist": "TRY123",
+  "account_holder": "ACCOUNT HOLDER NAME",
+  "iban": "IBAN",
+  "status": "STATUS",
+  "status_list": [
+  	"ACTIVE",
+  	"NON ACTIVE"
+  ],
+  "default_statuslist": "ACTIVE123",
+  "button": "SAVE"
+}

@@ -1,0 +1,68 @@
+{
+  "total": "TOTAL BALANCE",
+  "available": "AVAILABLE",
+  "available_balances": [
+    "292,20",
+    "88,00",
+    "774,80"
+  ],
+  "welcome": "WELCOME",
+  "last": "LAST ACTIVITIES",
+  "balance": {
+  	"tot": "128.00",
+  	"avail": "92.20"
+  },
+  "profile": {
+  	"name": "SHALLI DOWEL CURTAIN",
+  	"phone": "+90 555 892 3116"
+  },
+  "last_activities": [
+    {
+      "title": "Money Transfer",
+      "value": "-100.50TL",
+      "description" : "LOREM IPSUM DOLOR(#76655)",
+      "dates": "13:48 - 12.09.2019"
+    },
+    {
+      "title": "Deposit",
+      "value": "250.50TL",
+      "description" : "LOREM IPSUM DOLOR(#76655)",
+      "dates": "13:48 - 12.09.2019"
+    },
+    {
+      "title": "Money Transfer",
+      "value": "-100.50TL",
+      "description" : "LOREM IPSUM DOLOR(#76655)",
+      "dates": "13:48 - 12.09.2019"
+    }
+  ],
+  "menu_list": {
+  	"menu": "MENU",
+  	"dashboard": "Dashboard",
+  	"transactions": "Transactions",
+  	"deposit": "Deposit",
+  	"withdrawals": "Withdrawals",
+  	"exchange": "Exchange",
+  	"money": [
+  		"Money Transfer",
+  		"Send Money",
+  		"Request Money"
+  	],
+  	"settings":[
+  		"Settings",
+  		"Profile",
+  		"Bank Account",
+  		"Money Transfer",
+  		"Notification"
+  	],
+  	"security": "Security",
+  	"help": "Help",
+  	"support": "Support",
+  	"language": [
+  		"ENGLISH",
+  		"RUSSIAN",
+  		"TURKISH"
+  	],
+  	"logout":"LOGOUT"
+  }
+}

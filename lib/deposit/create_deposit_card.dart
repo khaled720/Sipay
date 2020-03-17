@@ -8,26 +8,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'deposit_success.dart';
 
-TextEditingController nameController = TextEditingController();
-TextEditingController cardController = TextEditingController();
-TextEditingController expiryController = TextEditingController();
-TextEditingController cvvController = TextEditingController();
-TextEditingController amountController = TextEditingController();
+TextEditingController _name_ontroller = TextEditingController();
+TextEditingController _card_controller = TextEditingController();
+TextEditingController _EXPIRY_ontroller = TextEditingController();
+TextEditingController _CVV_ontroller = TextEditingController();
+TextEditingController _AMOUNT_ontroller = TextEditingController();
 
-Widget createCard() {
-  return CardPanelScreen();
+Widget Create_Card() {
+  return Card_panel();
 }
 
-class CardPanelScreen extends StatefulWidget {
-  CardPanelScreen({Key key}) : super(key: key);
+class Card_panel extends StatefulWidget {
+  Card_panel({Key key}) : super(key: key);
   @override
-  CardPanelScreenState createState() => CardPanelScreenState();
+  _Card_panel createState() => _Card_panel();
 }
 
-class CardPanelScreenState extends State<CardPanelScreen> {
+class _Card_panel extends State<Card_panel> {
+
+
   final _formKey = GlobalKey<FormState>();
 
-  var tryValue;
+  var _try_value = null;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -42,12 +44,12 @@ class CardPanelScreenState extends State<CardPanelScreen> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.3Deposit_card.json'),
         builder: (context, snapshot) {
-          CardModel users;
+          card_json users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = CardModel.fromJson(parsedJson);
-            if (tryValue == null) tryValue = users.trys[0];
+            users = card_json.fromJson(parsedJson);
+            if(_try_value == null)_try_value = users.trys[0];
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -71,7 +73,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                   IconButton(
                     padding: const EdgeInsets.only(right: 20.0),
                     icon: Icon(
-                      Icons.chat_bubble_outline,
+                      FontAwesomeIcons.commentAlt,
                       color: Colors.white,
                     ),
                     onPressed: () {
@@ -90,7 +92,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       child: Text(
-                        users.available,
+                        users.abailable,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -113,7 +115,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.availableBalances[0] + '₺',
+                                  users.abailableBalances[0] + '₺',
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -132,7 +134,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.availableBalances[1] + "\$",
+                                  users.abailableBalances[1] + "\$",
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -143,7 +145,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                users.availableBalances[2] + '€',
+                                users.abailableBalances[2] + '€',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 16),
                               ),
@@ -202,7 +204,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                 ),
                                 TextFormField(
                                   style: TextStyle(color: Colors.black),
-                                  controller: nameController,
+                                  controller: _name_ontroller,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -236,7 +238,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                 TextFormField(
                                   style: TextStyle(color: Colors.black),
                                   keyboardType: TextInputType.number,
-                                  controller: cardController,
+                                  controller: _card_controller,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -263,7 +265,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                       ScreenUtil.getInstance().setHeight(20),
                                 ),
                                 Text(
-                                  users.availableBalances[2],
+                                  users.abailableBalances[2],
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -274,7 +276,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                         padding: EdgeInsets.only(right: 10),
                                         child: TextFormField(
                                           style: TextStyle(color: Colors.black),
-                                          controller: expiryController,
+                                          controller: _EXPIRY_ontroller,
                                           decoration: InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -306,7 +308,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                         child: TextFormField(
                                           style: TextStyle(color: Colors.black),
                                           keyboardType: TextInputType.number,
-                                          controller: cvvController,
+                                          controller: _CVV_ontroller,
                                           decoration: InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -339,105 +341,105 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                       ScreenUtil.getInstance().setHeight(30),
                                 ),
                                 Text(
-                                  users.depositFields[3],
+                                 users.depositFields[3],
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(right: 20),
-                                            child: TextFormField(
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                              controller: amountController,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                focusedBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                prefixIcon: const Icon(
-                                                  Icons.map,
-                                                  size: 16,
-                                                  color: Colors.black45,
-                                                ),
-                                              ),
-                                              validator: (value) {
-                                                if (value.isEmpty) {
-                                                  return 'Please enter AMOUNT';
-                                                }
-                                                return null;
-                                              },
-                                              obscureText: false,
+                                Container(
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: TextFormField(
+                                          style: TextStyle(
+                                              color: Colors.black),
+                                          controller: _AMOUNT_ontroller,
+                                          decoration: InputDecoration(
+                                            enabledBorder:
+                                            UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                    Colors.black45,
+                                                    width: 1.0)),
+                                            focusedBorder:
+                                            UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color:
+                                                    Colors.black45,
+                                                    width: 1.0)),
+                                            prefixIcon: const Icon(
+                                              Icons.map,
+                                              size: 16,
+                                              color: Colors.black45,
+                                            ),
+                                          ),
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Please enter AMOUNT';
+                                            }
+                                            return null;
+                                          },
+                                          obscureText: false,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        decoration: new BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Colors.black54,
+                                              width: 1.0,
                                             ),
                                           ),
                                         ),
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(100),
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: DropdownButton<String>(
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down,
-                                            size: 16,
-                                          ),
-                                          items: users.trys
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      value,
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.black45),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 16,
+                                            ),
+                                            items: users.trys
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                      children: <Widget>[
+                                                        SizedBox(width: 10),
+                                                        Expanded(
+                                                          child: Text(
+                                                            value,
+                                                            style: TextStyle(
+                                                                color:
+                                                                Colors.black45),
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              tryValue = value;
-                                            });
-                                          },
-                                          value: tryValue,
-                                          isExpanded: true,
+                                                  );
+                                                }).toList(),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _try_value = value;
+                                              });
+                                            },
+                                            value: _try_value,
+                                            isExpanded: true,
+                                          ),
                                         ),
+                                        width: 100,
                                       ),
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(110),
-                                      width: ScreenUtil.getInstance()
-                                          .setWidth(250),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(20),
+                                  height:20,
                                 ),
                                 Container(
                                   child: FlatButton(
@@ -446,7 +448,7 @@ class CardPanelScreenState extends State<CardPanelScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                depositSuccess(),
+                                                Deposit_success(),
                                           ));
                                     },
                                     color: Colors.blue,
@@ -484,30 +486,30 @@ class CardPanelScreenState extends State<CardPanelScreen> {
   }
 }
 
-class CardModel {
+class card_json {
   String header;
-  String available;
-  List<String> availableBalances;
+  String abailable;
+  List<String> abailableBalances;
   String card;
   String credit;
   List<String> depositFields;
   List<String> trys;
   String button;
 
-  CardModel(
+  card_json(
       {this.header,
-      this.available,
-      this.availableBalances,
+      this.abailable,
+      this.abailableBalances,
       this.card,
       this.credit,
       this.depositFields,
       this.trys,
       this.button});
 
-  CardModel.fromJson(Map<String, dynamic> json) {
+  card_json.fromJson(Map<String, dynamic> json) {
     header = json['header'];
-    available = json['abailable'];
-    availableBalances = json['abailable_balances'].cast<String>();
+    abailable = json['abailable'];
+    abailableBalances = json['abailable_balances'].cast<String>();
     card = json['card'];
     credit = json['credit'];
     depositFields = json['deposit_fields'].cast<String>();
@@ -518,8 +520,8 @@ class CardModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['header'] = this.header;
-    data['abailable'] = this.available;
-    data['abailable_balances'] = this.availableBalances;
+    data['abailable'] = this.abailable;
+    data['abailable_balances'] = this.abailableBalances;
     data['card'] = this.card;
     data['credit'] = this.credit;
     data['deposit_fields'] = this.depositFields;

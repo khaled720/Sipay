@@ -4,19 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/Login/icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget depositSuccess() {
-  return DepositSuccessPanel();
+Widget Deposit_success() {
+  return Deposit_success_panel();
 }
 
-class DepositSuccessPanel extends StatefulWidget {
-  DepositSuccessPanel({Key key}) : super(key: key);
+class Deposit_success_panel extends StatefulWidget {
+  Deposit_success_panel({Key key}) : super(key: key);
   @override
-  DepositSuccessPanelState createState() => DepositSuccessPanelState();
+  _Deposit_success_panel createState() => _Deposit_success_panel();
 }
 
-class DepositSuccessPanelState extends State<DepositSuccessPanel> {
+class _Deposit_success_panel extends State<Deposit_success_panel> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -31,11 +32,11 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.2.1Deposit_succes.json'),
         builder: (context, snapshot) {
-          SuccessJsonModel users;
+          success_json users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = SuccessJsonModel.fromJson(parsedJson);
+            users = success_json.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -59,7 +60,7 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
                   IconButton(
                     padding: const EdgeInsets.only(right: 20.0),
                     icon: Icon(
-                      Icons.chat_bubble_outline,
+                      FontAwesomeIcons.commentAlt,
                       color: Colors.white,
                     ),
                     onPressed: () {
@@ -111,7 +112,7 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              users.yourDeposit,
+                              users.yourdeposit,
                               style: TextStyle(
                                   color: Colors.black45, fontSize: 15),
                             ),
@@ -214,7 +215,7 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('PNR: ' + users.depositData.pNR),
+                              child: Text('PNR: '+ users.depositData.pNR),
                             )
                           ],
                         ),
@@ -241,8 +242,7 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
                               width: 10,
                             ),
                             Expanded(
-                              child:
-                                  Text('AMOUNT: ' + users.depositData.aMOUNT),
+                              child: Text('AMOUNT: ' + users.depositData.aMOUNT),
                             )
                           ],
                         ),
@@ -400,26 +400,26 @@ class DepositSuccessPanelState extends State<DepositSuccessPanel> {
   }
 }
 
-class SuccessJsonModel {
+class success_json {
   String header;
   String success;
-  String yourDeposit;
+  String yourdeposit;
   DepositData depositData;
   List<String> footerTab;
   String button;
 
-  SuccessJsonModel(
+  success_json(
       {this.header,
-      this.success,
-      this.yourDeposit,
-      this.depositData,
-      this.footerTab,
-      this.button});
+        this.success,
+        this.yourdeposit,
+        this.depositData,
+        this.footerTab,
+        this.button});
 
-  SuccessJsonModel.fromJson(Map<String, dynamic> json) {
+  success_json.fromJson(Map<String, dynamic> json) {
     header = json['header'];
     success = json['success'];
-    yourDeposit = json['yourdeposit'];
+    yourdeposit = json['yourdeposit'];
     depositData = json['deposit_data'] != null
         ? new DepositData.fromJson(json['deposit_data'])
         : null;
@@ -431,7 +431,7 @@ class SuccessJsonModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['header'] = this.header;
     data['success'] = this.success;
-    data['yourdeposit'] = this.yourDeposit;
+    data['yourdeposit'] = this.yourdeposit;
     if (this.depositData != null) {
       data['deposit_data'] = this.depositData.toJson();
     }

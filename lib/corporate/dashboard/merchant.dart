@@ -7,22 +7,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttersipay/Dashboard/security.dart';
 import 'package:fluttersipay/Exchange/exchange.dart';
-import 'package:fluttersipay/Money/Requset_money.dart';
-import 'package:fluttersipay/Money/Send_money.dart';
-import 'package:fluttersipay/Witdrawal/witdrawal.dart';
+import 'package:fluttersipay/corporate/Money/money_panel.dart';
+import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
+import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'Bank_account.dart';
-import 'Help_panel.dart';
-import 'Live_support.dart';
-import 'Notification_settings.dart';
+import 'support.dart';
 import 'Profilesetting_panel.dart';
 import 'Transaction_history.dart';
-import 'Transfer_settins.dart';
+import 'installment.dart';
+import 'notification_panel.dart';
+import '../limits/limits_panel.dart';
+import 'agreements.dart';
 
-Widget Merchant_panel() {
+
+Widget C_Merchant_panel() {
   return MerchantPanel();
 }
+
 
 class MerchantPanel extends StatefulWidget {
   MerchantPanel({Key key}) : super(key: key);
@@ -31,6 +33,7 @@ class MerchantPanel extends StatefulWidget {
 }
 
 class _MerchantPanel extends State<MerchantPanel> {
+
 
   String _language_value = 'gb';
 
@@ -47,7 +50,7 @@ class _MerchantPanel extends State<MerchantPanel> {
     final _media = MediaQuery.of(context).size;
 
     Future<Map<String, String>> loadJson() async {
-      final jsonA = await DefaultAssetBundle.of(context).loadString('assets/json/dashboard/merchant_panel.json');
+      final jsonA = await DefaultAssetBundle.of(context).loadString('assets/json/dashboard/c_merchant_panel.json');
       final jsonB = await DefaultAssetBundle.of(context).loadString('assets/json/dashboard/footer_tab.json');
       return {
         'merchant': jsonA,
@@ -94,10 +97,10 @@ class _MerchantPanel extends State<MerchantPanel> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-//                Navigator.push(context,
-//                    MaterialPageRoute(
-//                      builder: (context)=> Notification_Panel(),
-//                    ));
+                        Navigator.push(context,
+                            MaterialPageRoute(
+                              builder: (context)=> C_Notification_Panel(),
+                            ));
                         // do something
                       },
                     )
@@ -259,7 +262,7 @@ class _MerchantPanel extends State<MerchantPanel> {
                                 Navigator.pop(context);
                                 Navigator.push(context,
                                     MaterialPageRoute(
-                                      builder: (context) => Transaction_History(),
+                                      builder: (context) => C_Transaction_History(),
                                     )
                                 );
                               },
@@ -275,51 +278,20 @@ class _MerchantPanel extends State<MerchantPanel> {
                                     child: Row(
                                       children: <Widget>[
                                         Icon(
-                                          Icons.map,
+                                          FontAwesomeIcons.dollarSign,
                                           color: Colors.blue,
                                           size: 20,
                                         ),
                                         SizedBox(
                                           width: 20,
                                         ),
-                                        Text(users.menuList.deposit),
+                                        Text(users.menuList.transactions),
                                       ],
                                     ),
                                   )),
                               onTap: () {
                                 Navigator.pop(context);
                                 Navigator.pushNamed(context, '/deposit_panel');
-                              },
-                            ),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
-                            ),
-                            ListTile(
-                              title: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          FontAwesomeIcons.database,
-                                          color: Colors.blue,
-                                          size: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(users.menuList.withdrawals),
-                                      ],
-                                    ),
-                                  )),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Witdrawal(),
-                                    ));
                               },
                             ),
                             Divider(
@@ -355,94 +327,147 @@ class _MerchantPanel extends State<MerchantPanel> {
                               color: Colors.black12,
                               height: 1.0,
                             ),
-                            ExpansionTile(
-                                title: Container(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            FontAwesomeIcons.paperPlane,
-                                            color: Colors.blue,
-                                            size: 20,
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(users.menuList.money[0]),
-                                        ],
-                                      ),
-                                    )),
-                                backgroundColor:
-                                Theme.of(context).accentColor.withOpacity(0.025),
-                                children: <Widget>[
-                                  Divider(
-                                    color: Colors.black12,
-                                    height: 1.0,
-                                  ),
-                                  new ListTile(
-                                    title: Container(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.userEdit,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(users.menuList.money[1]),
-                                            ],
-                                          ),
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Send_Money(),
-                                          )
-                                      );
-                                    },
-                                  ),
-                                  Divider(
-                                    color: Colors.black12,
-                                    height: 1.0,
-                                  ),
-                                  new ListTile(
-                                    title: Container(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.university,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(users.menuList.money[2]),
-                                            ],
-                                          ),
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => Request_Money(),
-                                      ));
-                                    },
-                                  ),
-                                ]),
+                            ListTile(
+                              title: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.map,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(users.menuList.deposit),
+                                      ],
+                                    ),
+                                  )),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => Security(),
+                                ));
+                              },
+                            ),
+                            Divider(
+                              color: Colors.black12,
+                              height: 1.0,
+                            ),
+                            ListTile(
+                              title: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          FontAwesomeIcons.indent,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(users.menuList.mobile),
+                                      ],
+                                    ),
+                                  )),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=> limits_Panel(),
+                                ));
+                              },
+                            ),
+                            Divider(
+                              color: Colors.black12,
+                              height: 1.0,
+                            ),
+                            ListTile(
+                              title: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          FontAwesomeIcons.chartPie,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(users.menuList.installment),
+                                      ],
+                                    ),
+                                  )),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=> Installment_Rates(),
+                                ));
+                              },
+                            ),
+                            Divider(
+                              color: Colors.black12,
+                              height: 1.0,
+                            ),
+                            ListTile(
+                              title: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.format_list_bulleted,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(users.menuList.agreements),
+                                      ],
+                                    ),
+                                  )),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context)=> Agreements_Panel(),
+                                ));
+                              },
+                            ),
+                            Divider(
+                              color: Colors.black12,
+                              height: 1.0,
+                            ),
+                            ListTile(
+                              title: Container(
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.chat_bubble,
+                                          color: Colors.blue,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(users.menuList.support),
+                                      ],
+                                    ),
+                                  )),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => Live_Support(),
+                                ));
+                              },
+                            ),
                             Divider(
                               color: Colors.black12,
                               height: 1.0,
@@ -498,74 +523,7 @@ class _MerchantPanel extends State<MerchantPanel> {
                                       Navigator.push(context,
                                           MaterialPageRoute(
                                             builder:
-                                                (context)=>PROFILE_Panel(),
-                                          ));
-                                    },
-                                  ),
-                                  Divider(
-                                    color: Colors.black12,
-                                    height: 1.0,
-                                  ),
-                                  new ListTile(
-                                    title: Container(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.university,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(users.menuList.settings[2]),
-                                            ],
-                                          ),
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(context,
-                                          MaterialPageRoute(
-                                            builder:
-                                                (context)=>Bank_account(),
-                                          ));
-                                    },
-                                  ),
-                                  Divider(
-                                    color: Colors.black12,
-                                    height: 1.0,
-                                  ),
-                                  new ListTile(
-                                    title: Container(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.commentDollar,
-                                                color: Colors.blue,
-                                                size: 20,
-                                              ),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(users.menuList.settings[3]),
-                                            ],
-                                          ),
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(context,
-                                          MaterialPageRoute(
-                                            builder: (context) => Transfer_Settings(),
+                                                (context)=>C_PROFILE_Panel(),
                                           ));
                                     },
                                   ),
@@ -590,7 +548,7 @@ class _MerchantPanel extends State<MerchantPanel> {
                                               SizedBox(
                                                 width: 20,
                                               ),
-                                              Text(users.menuList.settings[4]),
+                                              Text(users.menuList.settings[2]),
                                             ],
                                           ),
                                         )),
@@ -598,104 +556,14 @@ class _MerchantPanel extends State<MerchantPanel> {
                                       Navigator.pop(context);
                                       Navigator.push(context,
                                           MaterialPageRoute(
-                                            builder: (context)=> Notification_Settings(),
+                                            builder: (context)=> C_Notification_Panel(),
                                           ));
                                     },
                                   ),
                                 ]),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
-                            ),
-                            ListTile(
-                              title: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.security,
-                                          color: Colors.blue,
-                                          size: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(users.menuList.security),
-                                      ],
-                                    ),
-                                  )),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Security(),
-                                ));
-                              },
-                            ),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
-                            ),
-                            ListTile(
-                              title: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.headset_mic,
-                                          color: Colors.blue,
-                                          size: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text('Help'),
-                                      ],
-                                    ),
-                                  )),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=> Help_detail(),
-                                ));
-                              },
-                            ),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
-                            ),
-                            ListTile(
-                              title: Container(
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.chat_bubble,
-                                          color: Colors.blue,
-                                          size: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(users.menuList.support),
-                                      ],
-                                    ),
-                                  )),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Live_Support(),
-                                ));
-                              },
-                            ),
-                            Divider(
-                              color: Colors.black12,
-                              height: 1.0,
-                            ),
+
                             SizedBox(
-                              height: ScreenUtil.getInstance().setHeight(60),
+                              height: ScreenUtil.getInstance().setHeight(50),
                             ),
                             Row(
                               children: <Widget>[
@@ -968,12 +836,12 @@ class _MerchantPanel extends State<MerchantPanel> {
                     Dashboardbottom(context),
                   ],
                 ));
+
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
           return CircularProgressIndicator();
-        }
-    );
+        });
 
   }
 
@@ -1167,7 +1035,7 @@ Widget Dashboardbottom(BuildContext context){
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      Icons.map,
+                      FontAwesomeIcons.database,
                       color: Colors.white,
                       size: 15,
                     ),
@@ -1175,7 +1043,7 @@ Widget Dashboardbottom(BuildContext context){
                       height: 5,
                     ),
                     Text(
-                      'Deposit',
+                      'Withdraw',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -1184,7 +1052,9 @@ Widget Dashboardbottom(BuildContext context){
                   ],
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/deposit_panel');
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => Create_withdraws(),
+                  ));
                 },
               ),
             ),
@@ -1216,7 +1086,7 @@ Widget Dashboardbottom(BuildContext context){
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(
-                        builder: (context) => Send_Money(),
+                        builder: (context) => MoneyPanel(),
                       ));
                 },
               ),
@@ -1231,7 +1101,7 @@ Widget Dashboardbottom(BuildContext context){
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      FontAwesomeIcons.database,
+                      FontAwesomeIcons.link,
                       color: Colors.white,
                       size: 15,
                     ),
@@ -1239,7 +1109,8 @@ Widget Dashboardbottom(BuildContext context){
                       height: 5,
                     ),
                     Text(
-                      'Withdraw',
+                      'Payment Link',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white, fontSize: 12),
                     ),
@@ -1249,7 +1120,7 @@ Widget Dashboardbottom(BuildContext context){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Witdrawal(),
+                        builder: (context) => Payment_Link(),
                       ));
                 },
               ),
@@ -1264,7 +1135,7 @@ Widget Dashboardbottom(BuildContext context){
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      FontAwesomeIcons.exchangeAlt,
+                      FontAwesomeIcons.creditCard,
                       color: Colors.white,
                       size: 15,
                     ),
@@ -1272,7 +1143,7 @@ Widget Dashboardbottom(BuildContext context){
                       height: 5,
                     ),
                     Text(
-                      'Exchange',
+                      'Mobile POS',
                       style: TextStyle(
                           color: Colors.white, fontSize: 12),
                     ),
@@ -1280,7 +1151,7 @@ Widget Dashboardbottom(BuildContext context){
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => Exchange(),
+                    builder: (context) => limits_Panel(),
                   ));
                 },
               ),
@@ -1310,7 +1181,6 @@ class MyClipper extends CustomClipper<Path> {
     return true;
   }
 }
-
 
 class merchantpanel_json {
   String total;
@@ -1446,14 +1316,14 @@ class MenuList {
   String menu;
   String dashboard;
   String transactions;
-  String deposit;
-  String withdrawals;
+  String acitvities;
   String exchange;
-  List<String> money;
-  List<String> settings;
-  String security;
-  String help;
+  String deposit;
+  String mobile;
+  String installment;
+  String agreements;
   String support;
+  List<String> settings;
   List<String> language;
   String logout;
 
@@ -1461,14 +1331,14 @@ class MenuList {
       {this.menu,
         this.dashboard,
         this.transactions,
-        this.deposit,
-        this.withdrawals,
+        this.acitvities,
         this.exchange,
-        this.money,
-        this.settings,
-        this.security,
-        this.help,
+        this.deposit,
+        this.mobile,
+        this.installment,
+        this.agreements,
         this.support,
+        this.settings,
         this.language,
         this.logout});
 
@@ -1476,14 +1346,14 @@ class MenuList {
     menu = json['menu'];
     dashboard = json['dashboard'];
     transactions = json['transactions'];
-    deposit = json['deposit'];
-    withdrawals = json['withdrawals'];
+    acitvities = json['acitvities'];
     exchange = json['exchange'];
-    money = json['money'].cast<String>();
-    settings = json['settings'].cast<String>();
-    security = json['security'];
-    help = json['help'];
+    deposit = json['deposit'];
+    mobile = json['mobile'];
+    installment = json['installment'];
+    agreements = json['agreements'];
     support = json['support'];
+    settings = json['settings'].cast<String>();
     language = json['language'].cast<String>();
     logout = json['logout'];
   }
@@ -1493,19 +1363,21 @@ class MenuList {
     data['menu'] = this.menu;
     data['dashboard'] = this.dashboard;
     data['transactions'] = this.transactions;
-    data['deposit'] = this.deposit;
-    data['withdrawals'] = this.withdrawals;
+    data['acitvities'] = this.acitvities;
     data['exchange'] = this.exchange;
-    data['money'] = this.money;
-    data['settings'] = this.settings;
-    data['security'] = this.security;
-    data['help'] = this.help;
+    data['deposit'] = this.deposit;
+    data['mobile'] = this.mobile;
+    data['installment'] = this.installment;
+    data['agreements'] = this.agreements;
     data['support'] = this.support;
+    data['settings'] = this.settings;
     data['language'] = this.language;
     data['logout'] = this.logout;
     return data;
   }
 }
+
+//Footer
 
 class footer_json {
   List<String> footerTab;

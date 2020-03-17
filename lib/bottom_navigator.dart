@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/dashboard/merchant_panel.dart';
-import 'package:fluttersipay/withdrawal/witdrawal.dart';
+import 'package:fluttersipay/Money/Send_money.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
+import 'Exchange/exchange.dart';
+import 'Witdrawal/witdrawal.dart';
+
+Widget getCustomNavigator(BuildContext context, List<String> menu, int select){
+
   List<bool> selection = [false, false, false, false];
   selection[select] = true;
   return Align(
@@ -13,129 +16,126 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
       child: Row(
         children: <Widget>[
           Expanded(
+            flex: 1,
             child: Container(
               color: selection[0] ? Colors.white : Colors.blue,
               child: FlatButton(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.map,
+                    Icon(Icons.map,
                       color: selection[0] ? Colors.blue : Colors.white,
-                      size: 15,
-                    ),
+                      size: 15,),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      menu[0],
+                    Text(menu[0],
                       style: TextStyle(
                         color: selection[0] ? Colors.blue : Colors.white,
                         fontSize: 12,
-                      ),
-                    ),
+                      ),),
                   ],
                 ),
                 onPressed: () {
-                  if (select == 0) return;
+                  if(select == 0) return;
                   Navigator.pop(context);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MerchantPanelScreen(null)));
-                  //Navigator.pushNamed(context, '/deposit_panel');
+                  Navigator.pushNamed(context, '/deposit_panel');
                 },
               ),
             ),
           ),
           Expanded(
+            flex: 1,
             child: Container(
               color: selection[1] ? Colors.white : Colors.blue,
               child: FlatButton(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.paperPlane,
+                    Icon(FontAwesomeIcons.paperPlane,
                       color: selection[1] ? Colors.blue : Colors.white,
-                      size: 15,
-                    ),
+                      size: 15,),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      menu[1],
+                    Text(menu[1],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: selection[1] ? Colors.blue : Colors.white,
-                          fontSize: 12),
-                    ),
+                          fontSize: 12
+                      ),),
                   ],
                 ),
                 onPressed: () {
-                  if (select == 1) return;
-                },
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: selection[2] ? Colors.white : Colors.blue,
-              child: FlatButton(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.database,
-                      color: selection[2] ? Colors.blue : Colors.white,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      menu[2],
-                      style: TextStyle(
-                          color: selection[2] ? Colors.blue : Colors.white,
-                          fontSize: 12),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  if (select == 2) return;
+                  if(select == 1) return;
                   Navigator.pop(context);
-                  Navigator.push(
-                      context,
+                  Navigator.push(context,
                       MaterialPageRoute(
-                        builder: (context) => WithdrawalPanelScreen(),
+                        builder: (context) => Send_Money(),
                       ));
                 },
               ),
             ),
           ),
           Expanded(
+            flex: 1,
+            child: Container(
+              color: selection[2] ? Colors.white : Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.database,
+                      color: selection[2] ? Colors.blue : Colors.white,
+                      size: 15,),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(menu[2],
+                      style: TextStyle(
+                          color: selection[2] ? Colors.blue : Colors.white,
+                          fontSize: 12
+                      ),),
+                  ],
+                ),
+                onPressed: () {
+                  if ( select == 2) return;
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                        builder: (context) => Witdrawal(),
+                      ));
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
             child: Container(
               color: selection[3] ? Colors.white : Colors.blue,
               child: FlatButton(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.exchangeAlt,
+                    Icon(FontAwesomeIcons.exchangeAlt,
                       color: selection[3] ? Colors.blue : Colors.white,
-                      size: 15,
-                    ),
+                      size: 15,),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      menu[3],
+                    Text(menu[3],
                       style: TextStyle(
                           color: selection[3] ? Colors.blue : Colors.white,
-                          fontSize: 12),
-                    ),
+                          fontSize: 12
+                      ),),
                   ],
                 ),
                 onPressed: () {
-                  if (select == 3) return;
+                  if(select == 3) return;
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => Exchange(),
+                  ));
                 },
               ),
             ),

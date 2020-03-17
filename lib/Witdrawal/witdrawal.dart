@@ -1,31 +1,26 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Deposit/create_deposit_card.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'create_deposit_transfer.dart';
+import 'create_withdraw.dart';
 
-var _test= "";
 
-List<String> _listViewData;
-Widget Depost_Panel() {
-  return Depostpanel();
+Widget Witdrawal() {
+  return WitdrawalPanel();
 }
 
-class Depostpanel extends StatefulWidget {
-  Depostpanel({Key key}) : super(key: key);
+class WitdrawalPanel extends StatefulWidget {
+  WitdrawalPanel({Key key}) : super(key: key);
   @override
-  _Depostpanel createState() => _Depostpanel();
+  _WitdrawalPanel createState() => _WitdrawalPanel();
 }
 
-class _Depostpanel extends State<Depostpanel> {
-
-  var _value = null;
+class _WitdrawalPanel extends State<WitdrawalPanel> {
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -38,16 +33,13 @@ class _Depostpanel extends State<Depostpanel> {
           ..init(context);
     return new FutureBuilder(
         future: DefaultAssetBundle.of(context)
-            .loadString('assets/json/deposit/6.1DepositMethod.json'),
+            .loadString('assets/json/Withdrawl/8.5Withdraw.json'),
         builder: (context, snapshot) {
-          depositpanel_json users;
+          withdrw_json users;
           var parsedJson;
-          print(_test);
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = depositpanel_json.fromJson(parsedJson);
-            if( _value == null) _value = users.method[0];
-            _listViewData = users.method;
+            users = withdrw_json.fromJson(parsedJson);
             return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
@@ -115,7 +107,7 @@ class _Depostpanel extends State<Depostpanel> {
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        users.abailableBalances[0] + '৳',
+                                        users.abailableBalances[0] + '₺',
                                         style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 16),
@@ -135,7 +127,7 @@ class _Depostpanel extends State<Depostpanel> {
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        users.abailableBalances[1] + "\$",
+                                        users.abailableBalances[1] +"\$",
                                         style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 16),
@@ -156,80 +148,32 @@ class _Depostpanel extends State<Depostpanel> {
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(100),
-                          ),
                           Padding(
                             padding: EdgeInsets.only(left: 30.0, right: 30.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  users.deposit,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
                                 SizedBox(
                                   height:
                                       ScreenUtil.getInstance().setHeight(50),
                                 ),
-                                Text(
-                                  users.choose,
-                                  style: TextStyle(
-                                      color: Colors.black54, fontSize: 12),
-                                ),
-                                DropdownButton<String>(
-                                  icon: Icon(Icons.keyboard_arrow_down),
-                                  items: users.method
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Icon(Icons.note),
-                                          SizedBox(width: 10),
-                                          Expanded(
-                                            child: Text(
-                                              value,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _value = value;
-                                    });
-                                  },
-                                  value: _value,
-                                  isExpanded: true,
-                                ),
-                                SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(30),
-                                ),
                                 Container(
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Image.asset('assets/deposit.png'),
+                                    child: Image.asset('assets/withdraw.png'),
                                   ),
                                   height:
-                                      ScreenUtil.getInstance().setHeight(400),
+                                      ScreenUtil.getInstance().setHeight(450),
                                 ),
                                 SizedBox(
                                   height:
-                                      ScreenUtil.getInstance().setHeight(30),
+                                      ScreenUtil.getInstance().setHeight(20),
                                 ),
                                 Align(
                                   alignment: Alignment.center,
                                   child: FlatButton(
                                     onPressed: () {
-                                      Create_deposit();
+                                      Create_withdraw(0);
                                     },
                                     child: Text(
                                       users.howto,
@@ -240,6 +184,48 @@ class _Depostpanel extends State<Depostpanel> {
                                   ),
                                 ),
                                 SizedBox(
+                                  height:
+                                      ScreenUtil.getInstance().setHeight(10),
+                                ),
+                                Container(
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      Create_withdraw(1);
+                                    },
+                                    color: Colors.blue,
+                                    disabledColor: Colors.blue,
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Text(
+                                      users.button[0],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  width: ScreenUtil.getInstance().setWidth(690),
+                                ),
+                                SizedBox(
+                                  height:
+                                      ScreenUtil.getInstance().setHeight(30),
+                                ),
+                                Container(
+                                  child: FlatButton(
+                                    onPressed: () {},
+                                    color: Colors.blue,
+                                    disabledColor: Colors.blue,
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Text(
+                                      users.button[1],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  width: ScreenUtil.getInstance().setWidth(690),
+                                ),
+                                SizedBox(
                                   height: 60,
                                 ),
                               ],
@@ -248,7 +234,7 @@ class _Depostpanel extends State<Depostpanel> {
                         ],
                       ),
                     ),
-                    getCustomNavigator(context, users.footerTab, 0),
+                    getCustomNavigator(context, users.footerTab, 2),
                   ],
                 ));
           } else if (snapshot.hasError) {
@@ -258,51 +244,37 @@ class _Depostpanel extends State<Depostpanel> {
         });
   }
 
-  void Create_deposit() {
-    if (_value == _listViewData[0]) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Create_deposits(),
-          ));
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Create_Card(),
-          ));
-    }
+  void Create_withdraw(int data) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Create_withdraws(data),
+        ));
   }
 }
 
-class depositpanel_json {
+class withdrw_json {
   String header;
   String abailable;
   List<String> abailableBalances;
-  String deposit;
-  String choose;
-  List<String> method;
   String howto;
+  List<String> button;
   List<String> footerTab;
 
-  depositpanel_json(
+  withdrw_json(
       {this.header,
       this.abailable,
       this.abailableBalances,
-      this.deposit,
-      this.choose,
-      this.method,
       this.howto,
+      this.button,
       this.footerTab});
 
-  depositpanel_json.fromJson(Map<String, dynamic> json) {
+  withdrw_json.fromJson(Map<String, dynamic> json) {
     header = json['header'];
     abailable = json['abailable'];
     abailableBalances = json['abailable_balances'].cast<String>();
-    deposit = json['deposit'];
-    choose = json['choose'];
-    method = json['method'].cast<String>();
     howto = json['howto'];
+    button = json['button'].cast<String>();
     footerTab = json['footer_tab'].cast<String>();
   }
 
@@ -311,10 +283,8 @@ class depositpanel_json {
     data['header'] = this.header;
     data['abailable'] = this.abailable;
     data['abailable_balances'] = this.abailableBalances;
-    data['deposit'] = this.deposit;
-    data['choose'] = this.choose;
-    data['method'] = this.method;
     data['howto'] = this.howto;
+    data['button'] = this.button;
     data['footer_tab'] = this.footerTab;
     return data;
   }
