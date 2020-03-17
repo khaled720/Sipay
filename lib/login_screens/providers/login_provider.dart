@@ -115,12 +115,12 @@ class LoginProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _setPhoneNumberErrorText(bool isError) {
-    isError
-        ? _phoneNumberErrorText = 'User not found. Please Register.'
-        : _phoneNumberErrorText = null;
-    notifyListeners();
-  }
+//  void _setPhoneNumberErrorText(bool isError) {
+//    isError
+//        ? _phoneNumberErrorText = 'User not found. Please Register.'
+//        : _phoneNumberErrorText = null;
+//    notifyListeners();
+//  }
 //
 //  void _setEmailAddressErrorText(bool isError) {
 //    isError

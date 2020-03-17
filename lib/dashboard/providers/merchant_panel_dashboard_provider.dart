@@ -1,6 +1,8 @@
+import 'package:fluttersipay/dashboard/providers/base_provider.dart';
+import 'package:fluttersipay/dashboard/repos/merchant_repo.dart';
 
-import 'package:flutter/foundation.dart';
-
-class MerchantPanelProvider with ChangeNotifier{
-
+class MerchantPanelProvider extends BaseMainProvider {
+  MerchantMainRepository merchantMainRepository;
+  MerchantPanelProvider(this.merchantMainRepository)
+      : super(merchantMainRepository);
 }

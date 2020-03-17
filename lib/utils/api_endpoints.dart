@@ -62,8 +62,24 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/moneytransfer/details';
   static final String kApiIndividualMoneyTransferListRequestMoneyEndPoint =
       '$kBaseIndividualAPIEndPoint/moneytransfer/list/requestmoney';
+  static final String kApiIndividualMoneyTransferListSendMoneyEndPoint =
+      '$kBaseIndividualAPIEndPoint/moneytransfer/list';
+  static final String kApiIndividualCreateMoneyRequestEndPoint =
+      '$kBaseIndividualAPIEndPoint/requestmoney/create';
+  static final String kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint =
+      '$kBaseIndividualAPIEndPoint/validatesendmoney';
+
+  //Individual Transactions
+  static final String kApiIndividualTransactionsListActivityEndPoint =
+      '$kBaseIndividualAPIEndPoint/transaction/list/activities';
+  static final String kApiIndividualTransactionDetailsEndPoint =
+      '$kBaseIndividualAPIEndPoint/transaction/details';
+  static final String kApiIndividualTransactionListEndPoint =
+      '$kBaseIndividualAPIEndPoint/transaction/list';
 
   //Corporate
+
+  //Corporate login
   static final String kBaseCorporateAPIEndPoint =
       'https://provisioning.sipay.com.tr/merchant/api';
   static final String kAPICorporateLoginEndPoint =
@@ -76,4 +92,62 @@ class APIEndPoints {
       '$kBaseCorporateAPIEndPoint/verifysms';
   static final String kApiCorporateResetPasswordEndPoint =
       '$kBaseIndividualAPIEndPoint/changepassword';
+
+  //Corporate B2B
+  static final String kAPICorporateB2BPaymentEndPoint =
+      '$kBaseCorporateAPIEndPoint/b2bpayment/add';
+  static final String kAPICorporateGetAllMerchantsEndPoint =
+      '$kBaseCorporateAPIEndPoint/b2bpayment/getallmerchant';
+
+  //Corporate Cashout
+  static final String kAPICorporateCashoutCreateEndPoint =
+      '$kBaseCorporateAPIEndPoint/cashouts/create';
+  static final String kAPICorporateCashoutViewEndPoint =
+      '$kBaseCorporateAPIEndPoint/cashout/view';
+
+  //Corporate Deposit
+  static final String kApiDepositCorporateEndPoint =
+      '$kBaseCorporateAPIEndPoint/deposit/create';
+  static final String kApiCorporateDepositDeleteEndPoint =
+      '$kBaseCorporateAPIEndPoint/deposit/delete';
+  static final String kApiCorporateDepositDetailsEndPoint =
+      '$kBaseCorporateAPIEndPoint/deposit/details';
+  static final String kApiCorporateDepositListEndPoint =
+      '$kBaseCorporateAPIEndPoint/deposit/list';
+  static final String kApiCorporateDepositUpdateEndPoint =
+      '$kBaseCorporateAPIEndPoint/deposit/update';
+
+  //Corporate Withdraw
+  static final String kApiCorporateBaseWithdrawEndPoint =
+      '$kBaseCorporateAPIEndPoint/withdraw';
+  static final String kApiCorporateCreateWithdrawEndPoint =
+      '$kBaseCorporateAPIEndPoint/withdraw/add';
+  static final String kApiCorporateWithdrawTransactionsListEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction/withdraws_transactions';
+
+  //Corporate Exchange
+  static final String kApiCorporateCreateExchangeEndPoint =
+      '$kBaseCorporateAPIEndPoint/exchange/create';
+  static final String kApiCorporateExchangeDetailsEndPoint =
+      '$kBaseCorporateAPIEndPoint/exchange/details';
+  static final String kApiCorporateExchangeListEndPoint =
+      '$kBaseCorporateAPIEndPoint/exchange/list';
+
+  //Corporate DPL
+  static final String kApiCorporateCreateDPLEndPoint =
+      '$kBaseCorporateAPIEndPoint/creatingdpl';
+  static final String kApiCorporateDPLDetailsEndPoint =
+      '$kBaseCorporateAPIEndPoint/detailsdpl';
+  static final String kApiCorporateDPLListEndPoint =
+      '$kBaseCorporateAPIEndPoint/activepassivedpl';
+  static final String kApiCorporateStoreDPLEndPoint =
+      '$kBaseCorporateAPIEndPoint/storedpl';
+
+  //Corporate Refund Requests/Transaction
+  static final String kApiCorporateRefundRequestEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction';
+  static final String kApiCorporateRefundsTransactionDetailsEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction/details';
+  static final String kApiCorporateRefundRequestEditEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction/edit';
 }
