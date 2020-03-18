@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttersipay/dashboard/repos/base_main_repo.dart';
+import 'package:fluttersipay/base_main_repo.dart';
 
 class BaseMainProvider with ChangeNotifier {
   BaseMainRepository baseMainRepository;

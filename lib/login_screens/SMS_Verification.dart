@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/merchant.dart';
 import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/loading_widget.dart';
-import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/sms_verification_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -15,6 +15,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 
+import '../main_api_data_model.dart';
 import 'json_models/sms_verification_ui_model.dart';
 
 class SMSVerificationScreen extends StatefulWidget {
@@ -276,12 +277,16 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                 child: FlatButton(
                                   onPressed: () {
                                     snapshot.verifyLoginSMS(widget.userType,
-                                        (userData) {
+                                        (userData, token) {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MerchantPanelScreen(
-                                                      userData)),
+                                              builder: (context) => widget
+                                                          .userType ==
+                                                      UserTypes.Individual
+                                                  ? MerchantPanelScreen(
+                                                      userData, token)
+                                                  : CorporateMerchantPanelScreen(
+                                                      userData, token)),
                                           (route) => false);
                                     }, () {});
                                   },

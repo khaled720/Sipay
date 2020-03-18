@@ -1,11 +1,8 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Deposit/create_deposit_card.dart';
-import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'merchant.dart';

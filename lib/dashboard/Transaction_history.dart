@@ -1,11 +1,7 @@
-import 'dart:convert';
-
-import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:date_field/date_field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Transaction_detail.dart';
@@ -526,14 +522,13 @@ class _Transaction_Panel extends State<Transaction_Panel> {
                       scrollDirection: Axis.vertical,
                       itemCount: _Transcation_data.length,
                       primary: true,
-                      itemBuilder: (BuildContext content, int index){
+                      itemBuilder: (BuildContext content, int index) {
                         return Transaction_list(
-                            title:  _Transcation_data[index]['title'],
-                            value:_Transcation_data[index]['value'],
+                            title: _Transcation_data[index]['title'],
+                            value: _Transcation_data[index]['value'],
                             IDS: _Transcation_data[index]['IDS'],
                             dates: _Transcation_data[index]['dates'],
-                          type: _Transcation_data[index]['type']
-                        );
+                            type: _Transcation_data[index]['type']);
                       },
                     ),
                   ),
@@ -548,15 +543,18 @@ class _Transaction_Panel extends State<Transaction_Panel> {
         ));
   }
 
-  Widget Transaction_list({String title, String value, String IDS, String dates, String type}) {
-
+  Widget Transaction_list(
+      {String title, String value, String IDS, String dates, String type}) {
     var _color;
-    if(type =="0") _color = Colors.red;
-    else if(type == "1") _color =Colors.green;
-    else if(type == "2") _color = Colors.blue;
+    if (type == "0")
+      _color = Colors.red;
+    else if (type == "1")
+      _color = Colors.green;
+    else if (type == "2") _color = Colors.blue;
     return new GestureDetector(
-      onTap: (){
-        Navigator.push(context,
+      onTap: () {
+        Navigator.push(
+            context,
             MaterialPageRoute(
               builder: (context) => Transaction_detail(),
             ));
@@ -577,15 +575,13 @@ class _Transaction_Panel extends State<Transaction_Panel> {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                     ),
                     Text(
                       value,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold,
                         color: _color,
                       ),
                       textAlign: TextAlign.right,
@@ -598,9 +594,7 @@ class _Transaction_Panel extends State<Transaction_Panel> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text(
-                          IDS
-                      ),
+                      child: Text(IDS),
                     ),
                     Text(
                       dates,

@@ -30,11 +30,13 @@ class LoginRepository {
     return MainApiModel.mapJsonToModel(result);
   }
 
-  //Individual logout
-  Future<String> logoutIndividual() async {
-    String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kApiIndividualResendOTPEndPoint, null);
-    return result;
+  //Individual Password login
+  Future<MainApiModel> loginVerifiedIndividualWithPassword(
+      String phone, String password) async {
+    Map<String, String> values = {'phone': phone, 'password': password};
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
+    return MainApiModel.mapJsonToModel(result);
   }
 
   //Individual register
@@ -51,7 +53,6 @@ class LoginRepository {
     Map<String, String> values = {'phone': phoneNumber, 'OTP': otp};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualSMSVerifyRegisterEndPoint, values, null);
-    print('smsVerifyRegisterIndividual $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -160,12 +161,5 @@ class LoginRepository {
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiCorporateResetPasswordEndPoint, values, null);
     return MainApiModel.mapJsonToModel(result);
-  }
-
-  //Corporate logout
-  Future<String> logoutCorporate() async {
-    String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kAPICorporateLogoutEndPoint, null);
-    return result;
   }
 }

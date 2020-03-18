@@ -1,16 +1,10 @@
-import 'dart:convert';
-
-import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Deposit/create_deposit_card.dart';
-import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'merchant_panel.dart';
-
 
 Widget Notification_Settings() {
   return Notification_SettingsPanel();
@@ -23,26 +17,24 @@ class Notification_SettingsPanel extends StatefulWidget {
 }
 
 class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
-
-  var _check_value = List<List<bool>>.generate(4,
-      (i) => List<bool>.generate(3, (j) => false)
-  );
+  var _check_value =
+      List<List<bool>>.generate(4, (i) => List<bool>.generate(3, (j) => false));
   var _setting_data = [
     {
       "title": "Money Transfer",
-      "description" : " Simply dummy text",
+      "description": " Simply dummy text",
     },
     {
       "title": "Transaction Refunds",
-      "description" : "Simply dummy text",
+      "description": "Simply dummy text",
     },
     {
       "title": "Money Requests",
-      "description" : "Simply dummy text",
+      "description": "Simply dummy text",
     },
     {
       "title": "Weekly Report",
-      "description" : " Simply dummy text",
+      "description": " Simply dummy text",
     },
   ];
   @override
@@ -53,8 +45,8 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -90,7 +82,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
         body: Stack(
           children: <Widget>[
             SingleChildScrollView(
-              child:Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -106,17 +98,14 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                         Text(
                           'NOTIFICATION SETTINGS',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          ),
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         Text(
                           'Turn on or turn off notification options as desired.',
-                          style: TextStyle(
-                              color: Colors.black54, fontSize: 16),
+                          style: TextStyle(color: Colors.black54, fontSize: 16),
                         ),
                         SizedBox(
                           height: 30,
@@ -143,9 +132,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                       'APP',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black45
-                                      ),
+                                          fontSize: 10, color: Colors.black45),
                                     )
                                   ],
                                 ),
@@ -168,9 +155,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                       'SMS',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black45
-                                      ),
+                                          fontSize: 10, color: Colors.black45),
                                     )
                                   ],
                                 ),
@@ -193,9 +178,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                       'E-MAIL',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.black45
-                                      ),
+                                          fontSize: 10, color: Colors.black45),
                                     )
                                   ],
                                 ),
@@ -214,12 +197,11 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                       scrollDirection: Axis.vertical,
                       itemCount: _setting_data.length,
                       primary: true,
-                      itemBuilder: (BuildContext content, int index){
+                      itemBuilder: (BuildContext content, int index) {
                         return setting_list(
                             title: _setting_data[index]["title"],
                             description: _setting_data[index]["description"],
-                            number: index
-                        );
+                            number: index);
                       },
                     ),
                   ),
@@ -230,7 +212,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
                     child: Container(
                       child: FlatButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pop(context);
                         },
                         color: Colors.blue,
@@ -274,18 +256,13 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Row(
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Text(
-                        description
-                    ),
+                    child: Text(description),
                   ),
                   Expanded(
                     flex: 1,
@@ -341,7 +318,4 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
       ],
     );
   }
-
-
 }
-

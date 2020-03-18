@@ -4,27 +4,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Deposit/create_deposit_card.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
+import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
+import 'package:fluttersipay/deposit/create_deposit_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'create_deposit_transfer.dart';
 
-var _test= "";
+var _test = "";
 
 List<String> _listViewData;
-Widget Depost_Panel() {
-  return Depostpanel();
-}
 
-class Depostpanel extends StatefulWidget {
-  Depostpanel({Key key}) : super(key: key);
+class DepositPanelScreen extends StatefulWidget {
+  final IndividualMainRepository mainRepo;
+  final List userWallets;
+  DepositPanelScreen(this.mainRepo, this.userWallets);
   @override
-  _Depostpanel createState() => _Depostpanel();
+  _DepositPanelScreenState createState() => _DepositPanelScreenState();
 }
 
-class _Depostpanel extends State<Depostpanel> {
-
+class _DepositPanelScreenState extends State<DepositPanelScreen> {
   var _value = null;
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class _Depostpanel extends State<Depostpanel> {
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
             users = depositpanel_json.fromJson(parsedJson);
-            if( _value == null) _value = users.method[0];
+            if (_value == null) _value = users.method[0];
             _listViewData = users.method;
             return Scaffold(
                 appBar: AppBar(

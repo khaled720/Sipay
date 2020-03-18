@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../dashboard/merchant.dart';
 Widget Withdraw_success() {
   return Withdraw_success_panel();
 }
@@ -27,8 +25,8 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new FutureBuilder(
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/Withdrawl/8.7Withdraw_success.json'),
@@ -131,11 +129,12 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                           child: Container(
                             child: FlatButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => C_Merchant_panel(),
-                                    ));
+//                                Navigator.push(
+//                                    context,
+//                                    MaterialPageRoute(
+//                                      builder: (context) =>
+//                                          CorporateMerchantPanelScreen(),
+//                                    ));
                               },
                               color: Colors.blue,
                               disabledColor: Colors.blue,

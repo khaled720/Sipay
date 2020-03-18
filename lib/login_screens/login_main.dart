@@ -6,6 +6,7 @@ import 'package:fluttersipay/login_screens/ErrorDialog.dart';
 import 'package:fluttersipay/login_screens/SMS_Verification.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/login_widgets.dart';
+import 'package:fluttersipay/login_screens/password_verify.dart';
 import 'package:fluttersipay/login_screens/providers/login_provider.dart';
 import 'package:fluttersipay/login_screens/reset_password.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -226,6 +227,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                 color: Colors.blue,
                                 onPressed: () {
                                   snapshot.login((loginData) {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VerifyPasswordScreen(
+                                                    loginData)));
+                                  }, (loginData) {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>

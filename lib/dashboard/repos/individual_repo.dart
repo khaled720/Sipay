@@ -1,4 +1,4 @@
-import 'package:fluttersipay/dashboard/repos/base_main_repo.dart';
+import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -8,13 +8,28 @@ import '../../main_api_data_model.dart';
 class IndividualMainRepository extends BaseMainRepository {
   String bearerToken;
 
-  IndividualMainRepository(bearerToken)
+  IndividualMainRepository(this.bearerToken)
       : super(bearerToken, UserTypes.Individual);
+
+  //Individual logout
+  Future<MainApiModel> logoutIndividual() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kAPIIndividualLogoutEndPoint, bearerToken);
+    print('logout result $result');
+    return MainApiModel.mapJsonToModel(result);
+  }
 
   //Individual Profile
   Future<MainApiModel> getUserProfile() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualUserProfileEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Individual Wallet
+  Future<MainApiModel> getUserWallet() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiIndividualWalletEndPoint, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -349,10 +364,10 @@ class IndividualMainRepository extends BaseMainRepository {
       'currency': currency,
       'daterange': dateRange,
     };
-    String result = await NetworkHelper.makePostRequest(
+    String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualTransactionsListActivityEndPoint,
-        values,
         bearerToken);
+    print('transactions list $result');
     return MainApiModel.mapJsonToModel(result);
   }
 

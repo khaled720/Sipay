@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
+import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:quiver/async.dart';
 
@@ -80,10 +80,11 @@ class SMSVerificationProvider with ChangeNotifier {
             MainApiModel verifyIndividualSMS =
                 await _loginRepo.verifyIndividualSMSOTP(
                     _smsController.text.trim(), userID.toString());
+            print('token is ${verifyIndividualSMS.data['token']}');
             _setShowLoading(false);
             verifyIndividualSMS.statusCode != 100
                 ? _setOTPErrorText(true, verifyIndividualSMS.description)
-                : onSuccess(verifyIndividualSMS);
+                : onSuccess(_loginModel, verifyIndividualSMS.data['token']);
             break;
           case UserTypes.Corporate:
             _setShowLoading(true);
@@ -93,7 +94,7 @@ class SMSVerificationProvider with ChangeNotifier {
             _setShowLoading(false);
             verifyCorporateSMS.statusCode != 100
                 ? _setOTPErrorText(true, verifyCorporateSMS.description)
-                : onSuccess(verifyCorporateSMS);
+                : onSuccess(_loginModel, verifyCorporateSMS.data['token']);
             break;
         }
       }

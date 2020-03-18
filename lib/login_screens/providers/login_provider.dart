@@ -47,13 +47,14 @@ class LoginProvider with ChangeNotifier {
   LoginProvider(this._loginRepo, this._emailController,
       this._passwordController, this._telephoneController);
 
-  void login(Function onSuccess, Function onFailure) {
+  void login(Function onSuccess, Function onNotVerified, Function onFailure) {
     _customerOrCorporate
-        ? _loginIndividual(onSuccess, onFailure)
-        : _loginCorporate(onSuccess, onFailure);
+        ? _loginIndividual(onSuccess, onNotVerified, onFailure)
+        : _loginCorporate(onSuccess, onNotVerified, onFailure);
   }
 
-  void _loginIndividual(Function onSuccess, Function onFailure) async {
+  void _loginIndividual(
+      Function onSuccess, Function onNotVerified, Function onFailure) async {
     if (_telephoneController.text != null) {
       if (_telephoneController.text.isNotEmpty) {
         _setIndividualLoginErrorText(false);
@@ -61,16 +62,19 @@ class LoginProvider with ChangeNotifier {
         MainApiModel individualLoginResult =
             await _loginRepo.individualLogin(_telephoneController.text.trim());
         _setShowLoading(false);
-        //String name = individualLoginResult.data['user']['name'];
-        individualLoginResult.statusCode == 100
-            ? onSuccess(individualLoginResult)
-            : _setIndividualLoginErrorText(true);
+        if (individualLoginResult.statusCode == 100) {
+          individualLoginResult.data['message'] ==
+                  'Enter password to continue login'
+              ? onSuccess(_telephoneController.text.trim())
+              : onNotVerified(_telephoneController.text.trim());
+        } else
+          _setIndividualLoginErrorText(true);
       }
     }
   }
 
-  void _loginCorporate(
-      Function onSuccess, Function(String errorMsg) onFailure) async {
+  void _loginCorporate(Function onSuccess, Function onNotVerified,
+      Function(String errorMsg) onFailure) async {
     if (_emailController.text != null && _passwordController.text != null) {
       if (_emailController.text.isNotEmpty &&
           _passwordController.text.isNotEmpty) {
@@ -79,11 +83,14 @@ class LoginProvider with ChangeNotifier {
         MainApiModel corporateLoginResult = await _loginRepo.corporateLogin(
             _emailController.text.trim(), _passwordController.text.trim());
         _setShowLoading(false);
-        //String name = corporateLoginResult.data['user']['name'];
-        if (corporateLoginResult.statusCode == 100) {
-          onSuccess(corporateLoginResult);
-        } else {
-          _setCorporateLoginErrorText(true);
+        // int verified = corporateLoginResult.data['user']['verified'];
+        if (corporateLoginResult.statusCode == 100)
+          // verified == 1
+          // ? onSuccess(corporateLoginResult)
+          // :
+          onNotVerified(corporateLoginResult);
+        else {
+          _setIndividualLoginErrorText(true);
           onFailure('');
         }
       }

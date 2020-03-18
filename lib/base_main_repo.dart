@@ -2,7 +2,7 @@ import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
 
-import '../../main_api_data_model.dart';
+import 'main_api_data_model.dart';
 
 class BaseMainRepository {
   String bearerToken;

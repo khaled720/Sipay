@@ -29,6 +29,14 @@ class APIEndPoints {
   static final String kApiIndividualUserProfileUploadImageEndPoint =
       '$kBaseIndividualAPIEndPoint/profile/image/upload';
 
+  //Individual Wallet
+  static final String kApiIndividualWalletEndPoint =
+      '$kBaseIndividualAPIEndPoint/wallet/list';
+
+  //Individual activity list
+  static final String kApiIndividualActivityListEndPoint =
+      '$kBaseIndividualAPIEndPoint/profile/image/upload';
+
   //Individual Deposit
   static final String kApiIndividualDepositIndividualEndPoint =
       '$kBaseIndividualAPIEndPoint/deposit/create';
@@ -150,4 +158,8 @@ class APIEndPoints {
       '$kBaseCorporateAPIEndPoint/transaction/details';
   static final String kApiCorporateRefundRequestEditEndPoint =
       '$kBaseCorporateAPIEndPoint/transaction/edit';
+
+  //Corporate Wallet
+  static final String kApiCorporateWalletEndPoint =
+      '$kBaseCorporateAPIEndPoint/wallet/list';
 }

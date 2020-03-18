@@ -1,18 +1,18 @@
 import 'package:fluttersipay/base_provider.dart';
-import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
-import 'package:fluttersipay/main_api_data_model.dart';
 
-class IndividualPanelProvider extends BaseMainProvider {
-  IndividualMainRepository _individualMainRepository;
-  MainApiModel _userDataModel;
+import '../../../main_api_data_model.dart';
+import '../merchant_repo.dart';
+
+class MerchantPanelProvider extends BaseMainProvider {
+  MerchantMainRepository _merchantMainRepository;
+  MainApiModel _merchantDataModel;
   Map<String, dynamic> _userInfo;
   List _userWallets;
   List _userLastTransactionsActivity;
 
-  IndividualPanelProvider(this._individualMainRepository, this._userDataModel)
-      : super(_individualMainRepository) {
-    _userInfo = _userDataModel.data['user'];
-    getDashboardDataFromApi();
+  MerchantPanelProvider(this._merchantMainRepository, this._merchantDataModel)
+      : super(_merchantMainRepository) {
+    _userInfo = _merchantDataModel.data['user'];
   }
 
   dynamic getUserInfoValue(String key) =>
@@ -24,7 +24,7 @@ class IndividualPanelProvider extends BaseMainProvider {
 
   get userProfileImage => getUserInfoValue('avatar');
 
-  get individualMainRepository => _individualMainRepository;
+  get corporateMainRepository => _merchantMainRepository;
 
   get userLastTransactionsActivity => _userLastTransactionsActivity;
 
@@ -40,12 +40,11 @@ class IndividualPanelProvider extends BaseMainProvider {
   //User wallet
 
   void _getUserWallets() async {
-    MainApiModel userWalletModel =
-        await _individualMainRepository.getUserWallet();
-    if (userWalletModel.statusCode == 100) {
-      _userWallets = userWalletModel.data['wallet'];
-      notifyListeners();
-    }
+    String userWalletModel = await _merchantMainRepository.getUserWallet();
+//    if (userWalletModel.statusCode == 100) {
+//      _userWallets = userWalletModel.data['wallet'];
+//      notifyListeners();
+//    }
   }
 
   String getTotalWalletAmount(int index) {
@@ -74,21 +73,20 @@ class IndividualPanelProvider extends BaseMainProvider {
 
   void getDashboardDataFromApi() async {
     _getUserWallets();
-    _getUserActivityList();
+    //_getUserActivityList();
   }
 
   void _getUserActivityList() async {
-    MainApiModel userLastTransactionActivity = await _individualMainRepository
-        .individualTransactionsListActivity('', '');
-    if (userLastTransactionActivity.statusCode == 100)
-      _userLastTransactionsActivity =
-          userLastTransactionActivity.data['transactions']['data'];
+//    MainApiModel userLastTransactionActivity = await _corporateMainRepository
+//        .individualTransactionsListActivity('', '');
+//    if (userLastTransactionActivity.statusCode == 100)
+//      _userLastTransactionsActivity =
+//      userLastTransactionActivity.data['transactions']['data'];
     notifyListeners();
   }
 
-  logoutUser(Function onSuccess, Function onFailure) async {
-    MainApiModel logoutUser =
-        await _individualMainRepository.logoutIndividual();
+  logoutMerchant(Function onSuccess, Function onFailure) async {
+    MainApiModel logoutUser = await _merchantMainRepository.logoutCorporate();
     logoutUser.statusCode == 100 ? onSuccess() : onFailure();
   }
 }

@@ -3,11 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/login_verification.dart';
+import 'package:fluttersipay/Login/login_main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../Login/login_main.dart';
-import '../dashboard/merchant.dart';
 
 TextEditingController _SMSController = TextEditingController();
 Widget C_SMSVERIFICAION() {
@@ -21,10 +18,6 @@ class Verify extends StatefulWidget {
 }
 
 class _sms_verify extends State<Verify> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -33,15 +26,15 @@ class _sms_verify extends State<Verify> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new FutureBuilder(
-        future: DefaultAssetBundle.of(context)
-            .loadString('assets/json/register/2.3registerSMSverification2.json'),
-        builder: (context, snapshot){
+        future: DefaultAssetBundle.of(context).loadString(
+            'assets/json/register/2.3registerSMSverification2.json'),
+        builder: (context, snapshot) {
           sms_verify users;
           var parsedJson;
-          if (snapshot.hasData){
+          if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
             users = sms_verify.fromJson(parsedJson);
             return Scaffold(
@@ -58,9 +51,7 @@ class _sms_verify extends State<Verify> {
                     return IconButton(
                       icon: const Icon(Icons.arrow_back_ios),
                       onPressed: () {
-                        Navigator.pop(
-                            context
-                        );
+                        Navigator.pop(context);
                       },
                     );
                   },
@@ -119,8 +110,10 @@ class _sms_verify extends State<Verify> {
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(100),
                               ),
-                              Image.asset('assets/down_time.png',
-                                height: ScreenUtil.getInstance().setHeight(170),),
+                              Image.asset(
+                                'assets/down_time.png',
+                                height: ScreenUtil.getInstance().setHeight(170),
+                              ),
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(80),
                               ),
@@ -142,11 +135,11 @@ class _sms_verify extends State<Verify> {
                           decoration: InputDecoration(
                             hintStyle: CustomTextStyle.formField(context),
                             enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.black45, width: 1.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black45, width: 1.0)),
                             focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.black45, width: 1.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black45, width: 1.0)),
                             prefixIcon: const Icon(
                               Icons.message,
                               color: Colors.black38,
@@ -166,8 +159,9 @@ class _sms_verify extends State<Verify> {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: FlatButton(
-                                        onPressed: (){
-                                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                                        onPressed: () {
+                                          Navigator.popUntil(context,
+                                              ModalRoute.withName('/'));
                                         },
                                         child: Text(
                                           users.resend,
@@ -189,13 +183,13 @@ class _sms_verify extends State<Verify> {
                         ),
                         Container(
                           child: FlatButton(
-                            onPressed: (){
-//                              Navigator.pushNamed(context, '/merchant');
-                              Navigator.push(context,
-                                  MaterialPageRoute(
-                                    builder: (context) => C_Merchant_panel(),
-                                  )
-                              );
+                            onPressed: () {
+//                              Navigator.push(
+//                                  context,
+//                                  MaterialPageRoute(
+//                                    builder: (context) =>
+//                                        CorporateMerchantPanelScreen(),
+//                                  ));
                             },
                             color: Colors.blue,
                             disabledColor: Colors.blue,
@@ -211,18 +205,17 @@ class _sms_verify extends State<Verify> {
                           width: ScreenUtil.getInstance().setWidth(690),
                         )
                       ],
-                    )
-                ),
+                    )),
               ),
             );
-          } else if (snapshot.hasError){
+          } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
           return CircularProgressIndicator();
-
         });
   }
 }
+
 class sms_verify {
   String header;
   String smsVerification;
@@ -238,16 +231,16 @@ class sms_verify {
 
   sms_verify(
       {this.header,
-        this.smsVerification,
-        this.byclick,
-        this.privacy,
-        this.and,
-        this.privacys,
-        this.remain,
-        this.resend,
-        this.already,
-        this.login,
-        this.button});
+      this.smsVerification,
+      this.byclick,
+      this.privacy,
+      this.and,
+      this.privacys,
+      this.remain,
+      this.resend,
+      this.already,
+      this.login,
+      this.button});
 
   sms_verify.fromJson(Map<String, dynamic> json) {
     header = json['header'];

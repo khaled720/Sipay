@@ -39,6 +39,9 @@ dependencies:
   percent_indicator: ^2.1.1+1
   gradient_text: ^1.0.2
   sphere_bottom_navigation_bar: ^1.0.0
+  country_icons: ^1.1.1
+  custom_switch_button: ^0.5.0
+  date_field: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -60,18 +63,39 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/home_logo.png
-    - assets/slide.png
     - assets/appbar_bg.png
-    - assets/down_time.png
-    - assets/logo-dashboard.png
-    - assets/user_avatar.png
-    - assets/deposit.png
     - assets/card.png
+    - assets/deposit.png
+    - assets/down_time.png
+    - assets/home_logo.png
+    - assets/sipay_splash.png
+    - assets/json/deposit/6.1DepositMethod.json
+    - assets/json/deposit/6.2.1Deposit_succes.json
+    - assets/json/deposit/6.2Deposit_Transfer.json
+    - assets/json/deposit/6.3Deposit_card.json
+    - assets/json/register/2.1Register.json
+    - assets/json/register/2.2Registration.json
+    - assets/json/register/2.3registerSMSverification1.json
+    - assets/json/register/2.3registerSMSverification2.json
+    - assets/json/register/2_4KYC.json
+    - assets/json/Withdrawl/8.5Withdraw.json
+    - assets/json/Withdrawl/8.6Withdraw_request.json
+    - assets/json/Withdrawl/8.7Withdraw_success.json
+    - assets/json/dashboard/c_merchant_panel.json
+    - assets/json/dashboard/merchant_panel.json
+    - assets/json/dashboard/add_new_account.json
+    - assets/json/dashboard/edit_bank_accounts.json
+    - assets/json/dashboard/footer_tab.json
+    - assets/logo-dashboard.png
+    - assets/slide.png
+    - assets/user_avatar.png
     - assets/withdraw.png
-    - assets/json/register/
-    - assets/json/deposit/
-    - assets/json/Withdrawl/
+    - assets/dash_back.png
+    - assets/welcome.png
+    - assets/money_transfer.png
+    - assets/password.png
+    - assets/verify_attention.png
+  #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

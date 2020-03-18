@@ -1,16 +1,10 @@
-import 'dart:convert';
-
-import 'package:custom_switch_button/custom_switch_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Deposit/create_deposit_card.dart';
-import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'merchant_panel.dart';
-
 
 Widget Transfer_Settings() {
   return Transfer_SettingsPanel();
@@ -23,12 +17,8 @@ class Transfer_SettingsPanel extends StatefulWidget {
 }
 
 class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
-
   var _priority_value = "AVAILABLE BALANCE";
-  List<String> _priority_data = [
-    "AVAILABLE BALANCE",
-    "AVAILABLE BALANCES"
-  ];
+  List<String> _priority_data = ["AVAILABLE BALANCE", "AVAILABLE BALANCES"];
   bool isallowed = false;
   @override
   Widget build(BuildContext context) {
@@ -38,8 +28,8 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -86,18 +76,15 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                     ),
                     Text(
                       'MONEY TRANSFER SETTINGS',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16
-                      ),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(
                       height: 40,
                     ),
                     Text(
                       'MONEY TRANSFER REQUEST',
-                      style: TextStyle(
-                          color: Colors.black54, fontSize: 12),
+                      style: TextStyle(color: Colors.black54, fontSize: 12),
                     ),
                     SizedBox(
                       height: 30,
@@ -120,9 +107,7 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                           child: Text(
                             'ALLOW REQUESTS',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
-                            ),
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                         ),
                         Container(
@@ -133,14 +118,17 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                               });
                             },
                             child: Center(
-                              child: CustomSwitchButton(
-                                backgroundColor: Colors.blueGrey,
-                                unCheckedColor: Colors.white,
-                                animationDuration: Duration(milliseconds: 400),
-                                checkedColor: Colors.lightGreen,
-                                checked: isallowed,
-                              ),
-                            ),
+                                child: SizedBox(
+                              height: 10.0,
+                            )
+//                              CustomSwitchButton(
+//                                backgroundColor: Colors.blueGrey,
+//                                unCheckedColor: Colors.white,
+//                                animationDuration: Duration(milliseconds: 400),
+//                                checkedColor: Colors.lightGreen,
+//                                checked: isallowed,
+//                              ),
+                                ),
                           ),
                         )
                       ],
@@ -158,15 +146,19 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                     RichText(
                         textAlign: TextAlign.left,
                         text: TextSpan(
-                          // set the default style for the children TextSpans
-                            style: TextStyle(
-                                fontSize: 13, wordSpacing: 3),
+                            // set the default style for the children TextSpans
+                            style: TextStyle(fontSize: 13, wordSpacing: 3),
                             children: [
                               WidgetSpan(
-                                child: Icon(Icons.info, size: 14,color: Colors.black45,),
+                                child: Icon(
+                                  Icons.info,
+                                  size: 14,
+                                  color: Colors.black45,
+                                ),
                               ),
                               TextSpan(
-                                  text: 'Turning this option off prevents other users from requesting money from you. Sending and requesting money functions are not affected by this optiion.',
+                                  text:
+                                      'Turning this option off prevents other users from requesting money from you. Sending and requesting money functions are not affected by this optiion.',
                                   style: TextStyle(color: Colors.black45)),
                             ])),
                     SizedBox(
@@ -174,8 +166,7 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                     ),
                     Text(
                       'MONEY TRANSFER PRIORITY',
-                      style: TextStyle(
-                          color: Colors.black54, fontSize: 12),
+                      style: TextStyle(color: Colors.black54, fontSize: 12),
                     ),
                     DropdownButton<String>(
                       icon: Icon(Icons.keyboard_arrow_down),
@@ -184,8 +175,7 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Icon(Icons.note),
                               SizedBox(width: 10),
@@ -211,7 +201,7 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                     ),
                     Container(
                       child: FlatButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pop(context);
                         },
                         color: Colors.blue,
@@ -238,7 +228,4 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
           ],
         ));
   }
-
-
 }
-

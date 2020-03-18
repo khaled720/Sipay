@@ -27,7 +27,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("ŞİFRE SIFIRLAMA"),
+          title: Text("RESET PASSWORD"),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -69,7 +69,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: Padding(
                           padding: EdgeInsets.only(top: 30.0, left: 30.0),
                           child: Text(
-                            'ŞİFRENİZİ Mİ UNUTTUNUZ?',
+                            'FORGOT YOUR PASSWORD?',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -83,7 +83,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 30.0, right: 30.0),
                             child: Text(
-                              'Şifrenizi sıfırlamak için hesabınıza bağlı olan e-posta adresin',
+                              'Enter your e-mail address linked to your account to reset your password.',
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
@@ -99,7 +99,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               style: TextStyle(color: Colors.black38),
                               controller: snapshot.emailController,
                               decoration: InputDecoration(
-                                hintText: 'E-posta adresiniz',
+                                hintText: 'E-mail',
                                 errorText: snapshot.emailErrorText,
                                 hintStyle: CustomTextStyle.formField(context),
                                 enabledBorder: UnderlineInputBorder(
@@ -139,7 +139,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                'SIFIRLAMA BAĞLANTISI GÖNDER',
+                                'SEND RESET LINK',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

@@ -1,4 +1,4 @@
-import 'package:fluttersipay/dashboard/repos/base_main_repo.dart';
+import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -10,8 +10,23 @@ class MerchantMainRepository extends BaseMainRepository {
   int merchantID;
   String merchantName;
 
-  MerchantMainRepository(bearerToken, this.merchantID, this.merchantName)
+  MerchantMainRepository(this.bearerToken)
       : super(bearerToken, UserTypes.Corporate);
+
+  //Corporate logout
+  Future<MainApiModel> logoutCorporate() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kAPICorporateLogoutEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Corporate Wallet
+  Future<String> getUserWallet() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiCorporateWalletEndPoint, bearerToken);
+    print('corporate wallet is $result');
+    return result;
+  }
 
   //Corporate B2B Payment
   Future<MainApiModel> corporateB2BPayment(
