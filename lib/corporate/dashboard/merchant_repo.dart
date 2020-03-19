@@ -20,12 +20,18 @@ class MerchantMainRepository extends BaseMainRepository {
     return MainApiModel.mapJsonToModel(result);
   }
 
+  //Corporate Dashboard
+  Future<MainApiModel> getCorporateDashboard() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiCorporateDashboardEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
   //Corporate Wallet
-  Future<String> getUserWallet() async {
+  Future<MainApiModel> getUserWallet() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiCorporateWalletEndPoint, bearerToken);
-    print('corporate wallet is $result');
-    return result;
+    return MainApiModel.mapJsonToModel(result);
   }
 
   //Corporate B2B Payment

@@ -13,6 +13,7 @@ class MerchantPanelProvider extends BaseMainProvider {
   MerchantPanelProvider(this._merchantMainRepository, this._merchantDataModel)
       : super(_merchantMainRepository) {
     _userInfo = _merchantDataModel.data['user'];
+    getDashboardDataFromApi();
   }
 
   dynamic getUserInfoValue(String key) =>
@@ -40,11 +41,12 @@ class MerchantPanelProvider extends BaseMainProvider {
   //User wallet
 
   void _getUserWallets() async {
-    String userWalletModel = await _merchantMainRepository.getUserWallet();
-//    if (userWalletModel.statusCode == 100) {
-//      _userWallets = userWalletModel.data['wallet'];
-//      notifyListeners();
-//    }
+    MainApiModel userWalletModel =
+        await _merchantMainRepository.getUserWallet();
+    if (userWalletModel.statusCode == 100) {
+      _userWallets = userWalletModel.data['wallet'];
+      notifyListeners();
+    }
   }
 
   String getTotalWalletAmount(int index) {
@@ -73,15 +75,15 @@ class MerchantPanelProvider extends BaseMainProvider {
 
   void getDashboardDataFromApi() async {
     _getUserWallets();
-    //_getUserActivityList();
+    _getCorporateActivityList();
   }
 
-  void _getUserActivityList() async {
-//    MainApiModel userLastTransactionActivity = await _corporateMainRepository
-//        .individualTransactionsListActivity('', '');
-//    if (userLastTransactionActivity.statusCode == 100)
-//      _userLastTransactionsActivity =
-//      userLastTransactionActivity.data['transactions']['data'];
+  void _getCorporateActivityList() async {
+    MainApiModel userLastTransactionActivity =
+        await _merchantMainRepository.getCorporateDashboard();
+    if (userLastTransactionActivity.statusCode == 100)
+      _userLastTransactionsActivity =
+          userLastTransactionActivity.data['activities']['data'];
     notifyListeners();
   }
 

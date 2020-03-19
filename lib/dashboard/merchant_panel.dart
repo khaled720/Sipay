@@ -361,7 +361,11 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => Witdrawal(),
+                                            builder: (context) =>
+                                                UserWithdrawalPanelScreen(
+                                                    snapshot
+                                                        .individualMainRepository,
+                                                    snapshot.userWallets),
                                           ));
                                     },
                                   ),
@@ -1383,7 +1387,9 @@ Widget Dashboardbottom(BuildContext context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Witdrawal(),
+                          builder: (context) => UserWithdrawalPanelScreen(
+                              snapshot.individualMainRepository,
+                              snapshot.userWallets),
                         ));
                   },
                 ),

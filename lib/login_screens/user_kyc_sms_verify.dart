@@ -103,7 +103,7 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'SMS İLE DOĞRULAMA',
+                                      'SMS VERIFICATION',
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,

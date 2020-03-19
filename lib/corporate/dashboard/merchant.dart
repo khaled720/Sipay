@@ -8,11 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttersipay/Dashboard/security.dart';
 import 'package:fluttersipay/Exchange/exchange.dart';
-import 'package:fluttersipay/corporate/Money/money_panel.dart';
+import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
+import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
+import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -328,9 +330,12 @@ class _CorporateMerchantPanelScreenState
                                       ),
                                     )),
                                     onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.pushNamed(
-                                          context, '/deposit_panel');
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) =>
+                                              DepositPanelScreen(
+                                                  snapshot
+                                                      .corporateMainRepository,
+                                                  snapshot.userWallets)));
                                     },
                                   ),
                                   Divider(
@@ -843,9 +848,9 @@ class _CorporateMerchantPanelScreenState
                                                           activeSize: 7.0,
                                                         )),
                                                 children: <Widget>[
-                                                  _getSlide(users),
-                                                  _getSlide(users),
-                                                  _getSlide(users),
+                                                  _getSlide(users, 0),
+                                                  _getSlide(users, 1),
+                                                  _getSlide(users, 2),
                                                 ],
                                               )),
                                           height: 130,
@@ -923,23 +928,24 @@ class _CorporateMerchantPanelScreenState
                                           child: new ListView.builder(
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
-                                            itemCount:
-                                                users.lastActivities.length,
+                                            itemCount: snapshot
+                                                .getTransactionsListActivity()
+                                                .length,
                                             itemBuilder: (BuildContext content,
                                                 int index) {
                                               return LastActivityList(
-                                                  title: users
-                                                      .lastActivities[index]
-                                                      .title,
-                                                  value: users
-                                                      .lastActivities[index]
-                                                      .value,
-                                                  description: users
-                                                      .lastActivities[index]
-                                                      .description,
-                                                  dates: users
-                                                      .lastActivities[index]
-                                                      .dates);
+                                                  title: AppUtils
+                                                      .getTransactionableType(
+                                                          snapshot.userLastTransactionsActivity[
+                                                                  index][
+                                                              'transactionable_type']),
+                                                  value:
+                                                      '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
+                                                  description:
+                                                      '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
+                                                  dates: snapshot
+                                                          .userLastTransactionsActivity[
+                                                      index]['created_at']);
                                             },
                                           ),
                                           height: _media.height * 0.5 - 160,
@@ -960,7 +966,7 @@ class _CorporateMerchantPanelScreenState
             }));
   }
 
-  Widget _getSlide(users) {
+  Widget _getSlide(users, index) {
     return Consumer<MerchantPanelProvider>(builder: (context, snapshot, _) {
       return Padding(
         padding: EdgeInsets.only(left: 30.0, right: 30.0),
@@ -989,14 +995,14 @@ class _CorporateMerchantPanelScreenState
                                   fontSize: 16, fontWeight: FontWeight.bold),
                               children: [
                                 TextSpan(
-                                  text: users.balance.tot,
+                                  text: snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 45,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: 'TL',
+                                    text: snapshot.getWalletCurrencyCode(index),
                                     style: TextStyle(color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomLeft,
@@ -1031,14 +1037,15 @@ class _CorporateMerchantPanelScreenState
                                   fontSize: 16, fontWeight: FontWeight.bold),
                               children: [
                                 TextSpan(
-                                  text: users.balance.avail,
+                                  text:
+                                      snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: 'TL',
+                                    text: snapshot.getWalletCurrencyCode(index),
                                     style: TextStyle(color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomRight,
@@ -1148,7 +1155,6 @@ Widget Dashboardbottom(BuildContext context) {
         child: Row(
           children: <Widget>[
             Expanded(
-              flex: 1,
               child: Container(
                 color: Colors.blue,
                 child: FlatButton(
@@ -1176,14 +1182,16 @@ Widget Dashboardbottom(BuildContext context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Create_withdraws(),
+                          builder: (context) =>
+                              CreateCorporateWithdrawalsPanelScreen(
+                                  snapshot.corporateMainRepository,
+                                  snapshot.userWallets),
                         ));
                   },
                 ),
               ),
             ),
             Expanded(
-              flex: 1,
               child: Container(
                 color: Colors.blue,
                 child: FlatButton(
@@ -1209,7 +1217,9 @@ Widget Dashboardbottom(BuildContext context) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MoneyPanel(),
+                          builder: (context) => MoneyPanelScreen(
+                              snapshot.corporateMainRepository,
+                              snapshot.userWallets),
                         ));
                   },
                 ),

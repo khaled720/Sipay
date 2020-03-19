@@ -12,8 +12,8 @@ import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'json_models/kyc_ui_verification_model.dart';
 import '../main_api_data_model.dart';
+import 'json_models/kyc_ui_verification_model.dart';
 
 class KYCUserVerificationScreen extends StatefulWidget {
   final MainApiModel registerData;
@@ -385,7 +385,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      users.inputField[7],
+                                      users.inputField[7] ?? '',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
