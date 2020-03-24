@@ -4,20 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
+import 'package:fluttersipay/deposit/json_models/deposit_success_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget Deposit_success() {
-  return Deposit_success_panel();
-}
-
-class Deposit_success_panel extends StatefulWidget {
-  Deposit_success_panel({Key key}) : super(key: key);
+class DepositSuccessScreen extends StatefulWidget {
+  final DepositSuccessModel successModel;
+  DepositSuccessScreen(this.successModel);
   @override
-  _Deposit_success_panel createState() => _Deposit_success_panel();
+  _DepositSuccessScreenState createState() => _DepositSuccessScreenState();
 }
 
-class _Deposit_success_panel extends State<Deposit_success_panel> {
+class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -97,7 +94,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              users.success,
+                              widget.successModel.status,
                               style: TextStyle(
                                   color: Colors.green,
                                   fontSize: 20,
@@ -112,7 +109,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              users.yourdeposit,
+                              widget.successModel.message,
                               style: TextStyle(
                                   color: Colors.black45, fontSize: 15),
                             ),
@@ -134,7 +131,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text(users.depositData.bank),
+                              child: Text(widget.successModel.bankName),
                             )
                           ],
                         ),
@@ -161,7 +158,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text(users.depositData.reciever),
+                              child: Text(widget.successModel.siPayBankName),
                             )
                           ],
                         ),
@@ -188,7 +185,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('IBAN: ' + users.depositData.iban),
+                              child: Text('IBAN: ' + widget.successModel.iban),
                             ),
                           ],
                         ),
@@ -215,7 +212,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('PNR: '+ users.depositData.pNR),
+                              child: Text('PNR: ' + widget.successModel.pnr),
                             )
                           ],
                         ),
@@ -242,7 +239,9 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('AMOUNT: ' + users.depositData.aMOUNT),
+                              child: Text('AMOUNT: ' +
+                                  widget.successModel.amount +
+                                  widget.successModel.currencyText),
                             )
                           ],
                         ),
@@ -410,11 +409,11 @@ class success_json {
 
   success_json(
       {this.header,
-        this.success,
-        this.yourdeposit,
-        this.depositData,
-        this.footerTab,
-        this.button});
+      this.success,
+      this.yourdeposit,
+      this.depositData,
+      this.footerTab,
+      this.button});
 
   success_json.fromJson(Map<String, dynamic> json) {
     header = json['header'];

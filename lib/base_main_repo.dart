@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -22,7 +23,7 @@ class BaseMainRepository {
 
   //Deposit create
   Future<MainApiModel> depositCreate(String amount, int currencyID,
-      String pnrCode, int bankID, String ibanNumber, String bearerToken) async {
+      String pnrCode, int bankID, String ibanNumber) async {
     Map<String, String> values = {
       'amount': amount,
       'currency_id': currencyID.toString(),
@@ -37,6 +38,7 @@ class BaseMainRepository {
             : APIEndPoints.kApiDepositCorporateEndPoint,
         values,
         bearerToken);
+    debugPrint('bank deposit result $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -79,6 +81,17 @@ class BaseMainRepository {
             : APIEndPoints.kApiCorporateDepositUpdateEndPoint,
         values,
         bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Withdraw form
+  Future<MainApiModel> getWithdrawForm() async {
+    String result = await NetworkHelper.makeGetRequest(
+        userType == UserTypes.Individual
+            ? APIEndPoints.kApiIndividualBaseWithdrawEndPoint
+            : APIEndPoints.kApiCorporateBaseWithdrawEndPoint,
+        bearerToken);
+    debugPrint('withdraw form is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -145,6 +158,40 @@ class BaseMainRepository {
         userType == UserTypes.Individual
             ? APIEndPoints.kApiIndividualExchangeListEndPoint
             : APIEndPoints.kApiCorporateExchangeListEndPoint,
+        values,
+        bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Profile Settings
+  Future<MainApiModel> getUserProfile() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiIndividualUserProfileEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Profile update
+  Future<MainApiModel> userProfileUpdate(
+      String country, String city, String address) async {
+    Map<String, String> values = {
+      'country': country,
+      'city': city,
+      'address': address,
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualUserProfileUpdateEndPoint,
+        values,
+        bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Profile upload base 64 image
+  Future<MainApiModel> uploadBase64Image(String base64Image) async {
+    Map<String, String> values = {
+      'image': base64Image,
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualUserProfileUploadImageEndPoint,
         values,
         bearerToken);
     return MainApiModel.mapJsonToModel(result);

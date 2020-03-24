@@ -50,6 +50,8 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/deposit/update';
 
   //Individual Withdraw
+  static final String kApiIndividualBaseWithdrawEndPoint =
+      '$kBaseIndividualAPIEndPoint/withdrawals';
   static final String kApiIndividualCreateWithdrawEndPoint =
       '$kBaseIndividualAPIEndPoint/withdrawals/create';
   static final String kApiIndividualWithdrawTransactionsListEndPoint =

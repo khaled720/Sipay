@@ -192,7 +192,15 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                         alignment: Alignment.center,
                                         child: FlatButton(
                                           onPressed: () {
-                                            createWithdraw(0);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreateWithdrawScreen(
+                                                          snapshot.mainRepo,
+                                                          snapshot.userWallets,
+                                                          0),
+                                                ));
                                           },
                                           child: Text(
                                             users.howto,
@@ -209,7 +217,15 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                       Container(
                                         child: FlatButton(
                                           onPressed: () {
-                                            createWithdraw(1);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreateWithdrawScreen(
+                                                          snapshot.mainRepo,
+                                                          snapshot.userWallets,
+                                                          1),
+                                                ));
                                           },
                                           color: Colors.blue,
                                           disabledColor: Colors.blue,
@@ -255,7 +271,8 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                               ],
                             ),
                           ),
-                          getCustomNavigator(context, users.footerTab, 2),
+                          getCustomNavigator(context, users.footerTab, 2,
+                              widget.mainRepo, widget.userWallets),
                         ],
                       );
                     }));
@@ -264,13 +281,5 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
               }
               return CircularProgressIndicator();
             }));
-  }
-
-  void createWithdraw(int data) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Create_withdraws(data),
-        ));
   }
 }

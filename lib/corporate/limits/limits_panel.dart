@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Money/request_details.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../bottom_navigator.dart';
 import '../dashboard/merchant.dart';
 import 'limit_increase.dart';
 
@@ -14,6 +12,7 @@ class limits_Panel extends StatefulWidget {
   @override
   _limits_Panel createState() => _limits_Panel();
 }
+
 class _limits_Panel extends State<limits_Panel> {
   var _Limit_data = [
     {
@@ -44,8 +43,8 @@ class _limits_Panel extends State<limits_Panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -113,10 +112,8 @@ class _limits_Panel extends State<limits_Panel> {
                         Align(
                           child: Text(
                             'You can view, edit and request new limits.',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black38
-                            ),
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.black38),
                           ),
                           alignment: Alignment.centerLeft,
                         ),
@@ -129,10 +126,8 @@ class _limits_Panel extends State<limits_Panel> {
                         Align(
                           child: Text(
                             'ABAILABLE LIMIT',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black26
-                            ),
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black26),
                           ),
                           alignment: Alignment.centerRight,
                         ),
@@ -142,17 +137,14 @@ class _limits_Panel extends State<limits_Panel> {
                         Align(
                           child: Text(
                             'TOTAL LIMIT',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black26
-                            ),
+                            style:
+                                TextStyle(fontSize: 13, color: Colors.black26),
                           ),
                           alignment: Alignment.centerRight,
                         ),
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: 20,
                   ),
@@ -163,13 +155,12 @@ class _limits_Panel extends State<limits_Panel> {
                       scrollDirection: Axis.vertical,
                       itemCount: _Limit_data.length,
                       primary: true,
-                      itemBuilder: (BuildContext content, int index){
+                      itemBuilder: (BuildContext content, int index) {
                         return Limits_list(
-                            title:  _Limit_data[index]['title'],
-                            description:_Limit_data[index]['description'],
+                            title: _Limit_data[index]['title'],
+                            description: _Limit_data[index]['description'],
                             samount: _Limit_data[index]['samount'],
-                            eamount: _Limit_data[index]['eamount']
-                        );
+                            eamount: _Limit_data[index]['eamount']);
                       },
                     ),
                   ),
@@ -179,11 +170,13 @@ class _limits_Panel extends State<limits_Panel> {
                   Container(
                     padding: EdgeInsets.only(left: 30.0, right: 30.0),
                     child: FlatButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=> limits_Increase(),
-                        ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => limits_Increase(),
+                            ));
                       },
                       color: Colors.blue,
                       disabledColor: Colors.blue,
@@ -201,15 +194,14 @@ class _limits_Panel extends State<limits_Panel> {
                 ],
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null),
           ],
         ));
   }
 
-  Widget Limits_list({String title, String description, String samount, String eamount}) {
-
+  Widget Limits_list(
+      {String title, String description, String samount, String eamount}) {
     return new GestureDetector(
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -226,18 +218,15 @@ class _limits_Panel extends State<limits_Panel> {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
-                        ),
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                     ),
                     Text(
                       samount,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                        fontSize: 14
-                      ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                          fontSize: 14),
                       textAlign: TextAlign.right,
                     )
                   ],
@@ -249,19 +238,13 @@ class _limits_Panel extends State<limits_Panel> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                          description,
-                          style: TextStyle(
-                              fontSize: 12,
-                            color: Colors.black45
-                          ),
+                        description,
+                        style: TextStyle(fontSize: 12, color: Colors.black45),
                       ),
                     ),
                     Text(
                       eamount,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black38
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.black38),
                     ),
                   ],
                 )
@@ -274,7 +257,7 @@ class _limits_Panel extends State<limits_Panel> {
           ),
           Divider(
             color: Colors.black26,
-            height:0.8,
+            height: 0.8,
           )
         ],
       ),

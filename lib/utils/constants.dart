@@ -7,6 +7,12 @@ enum UserTypes { Individual, Corporate }
 
 final maskFormatter = new MaskTextInputFormatter(mask: '+################');
 
+final ibanMaskFormatter = MaskTextInputFormatter(
+    mask: '#### #### #### #### #### #### #### ####',
+    filter: {"#": RegExp(r'^[a-zA-Z0-9_.-]*$')});
+
+final siPayBankName = 'Sipay Elektronik Money and Payment Services Inc.';
+
 final loadingDots = SpinKitChasingDots(color: Colors.blue);
 
 final otpGradient =

@@ -268,7 +268,8 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                               ],
                             ),
                           ),
-                          getCustomNavigator(context, users.footerTab, 0),
+                          getCustomNavigator(context, users.footerTab, 0,
+                              widget.mainRepo, widget.userWallets),
                         ],
                       );
                     }));

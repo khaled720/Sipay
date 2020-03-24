@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 
 class NetworkHelper {
   static Future<String> makePostRequest(
-      String endPoint, dynamic postValues, var bearerToken) async {
+      var endPoint, dynamic postValues, var bearerToken) async {
     // make POST Request
     Response response;
     String body = "";
@@ -30,7 +30,7 @@ class NetworkHelper {
     return body;
   }
 
-  static Future<String> makeGetRequest(String endPoint, var bearerToken) async {
+  static Future<String> makeGetRequest(var endPoint, var bearerToken) async {
     // set up Get request arguments
     Response response;
     String body = "";

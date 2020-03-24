@@ -538,7 +538,7 @@ class _Transaction_Panel extends State<Transaction_Panel> {
                 ],
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null),
           ],
         ));
   }

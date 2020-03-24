@@ -80,7 +80,6 @@ class SMSVerificationProvider with ChangeNotifier {
             MainApiModel verifyIndividualSMS =
                 await _loginRepo.verifyIndividualSMSOTP(
                     _smsController.text.trim(), userID.toString());
-            print('token is ${verifyIndividualSMS.data['token']}');
             _setShowLoading(false);
             verifyIndividualSMS.statusCode != 100
                 ? _setOTPErrorText(true, verifyIndividualSMS.description)

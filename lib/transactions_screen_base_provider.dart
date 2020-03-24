@@ -4,6 +4,7 @@ import 'package:fluttersipay/base_main_repo.dart';
 class TransactionsScreenBaseProvider with ChangeNotifier {
   BaseMainRepository mainRepo;
   List userWallets;
+  bool showLoad;
   TransactionsScreenBaseProvider(this.mainRepo, this.userWallets);
 
   String getAvailableWalletAmount(int index) {
@@ -12,5 +13,10 @@ class TransactionsScreenBaseProvider with ChangeNotifier {
         return this.userWallets[index]['available_amount'].toString();
     }
     return '0.0';
+  }
+
+  setShowLoad(bool load) {
+    showLoad = load;
+    notifyListeners();
   }
 }

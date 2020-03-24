@@ -235,7 +235,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                 ],
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null, null),
           ],
         ));
   }

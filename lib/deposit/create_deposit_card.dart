@@ -25,8 +25,6 @@ class Card_panel extends StatefulWidget {
 }
 
 class _Card_panel extends State<Card_panel> {
-
-
   final _formKey = GlobalKey<FormState>();
 
   var _try_value = null;
@@ -49,7 +47,7 @@ class _Card_panel extends State<Card_panel> {
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
             users = card_json.fromJson(parsedJson);
-            if(_try_value == null)_try_value = users.trys[0];
+            if (_try_value == null) _try_value = users.trys[0];
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -341,7 +339,7 @@ class _Card_panel extends State<Card_panel> {
                                       ScreenUtil.getInstance().setHeight(30),
                                 ),
                                 Text(
-                                 users.depositFields[3],
+                                  users.depositFields[3],
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -352,21 +350,16 @@ class _Card_panel extends State<Card_panel> {
                                     children: <Widget>[
                                       Expanded(
                                         child: TextFormField(
-                                          style: TextStyle(
-                                              color: Colors.black),
+                                          style: TextStyle(color: Colors.black),
                                           controller: _AMOUNT_ontroller,
                                           decoration: InputDecoration(
-                                            enabledBorder:
-                                            UnderlineInputBorder(
+                                            enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color:
-                                                    Colors.black45,
+                                                    color: Colors.black45,
                                                     width: 1.0)),
-                                            focusedBorder:
-                                            UnderlineInputBorder(
+                                            focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
-                                                    color:
-                                                    Colors.black45,
+                                                    color: Colors.black45,
                                                     width: 1.0)),
                                             prefixIcon: const Icon(
                                               Icons.map,
@@ -404,26 +397,26 @@ class _Card_panel extends State<Card_panel> {
                                             items: users.trys
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Row(
-                                                      mainAxisAlignment:
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Row(
+                                                  mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
-                                                      children: <Widget>[
-                                                        SizedBox(width: 10),
-                                                        Expanded(
-                                                          child: Text(
-                                                            value,
-                                                            style: TextStyle(
-                                                                color:
+                                                  children: <Widget>[
+                                                    SizedBox(width: 10),
+                                                    Expanded(
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(
+                                                            color:
                                                                 Colors.black45),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  );
-                                                }).toList(),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            }).toList(),
                                             onChanged: (value) {
                                               setState(() {
                                                 _try_value = value;
@@ -439,7 +432,7 @@ class _Card_panel extends State<Card_panel> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height:20,
+                                  height: 20,
                                 ),
                                 Container(
                                   child: FlatButton(
@@ -448,7 +441,7 @@ class _Card_panel extends State<Card_panel> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                Deposit_success(),
+                                                DepositSuccessScreen(null),
                                           ));
                                     },
                                     color: Colors.blue,

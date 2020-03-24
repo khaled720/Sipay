@@ -19,19 +19,18 @@ class Help_detail_Panel extends StatefulWidget {
 }
 
 class _Help_detail_Panel extends State<Help_detail_Panel> {
-
- List<String> help_list = [
-   "What is SiPay?",
-   "Is it paid to use SiPay?",
-   "How do I use it?",
-   "What can I do with SiPay Wallet?",
-   "What is My Desposit Limit?",
-   "Can I Make Deposit 24/7?",
-       "How do I use it?",
-   "What can I do with SiPay Wallet?",
-   "What is My Desposit Limit?",
-   "Can I Make Deposit 24/7?"
- ];
+  List<String> help_list = [
+    "What is SiPay?",
+    "Is it paid to use SiPay?",
+    "How do I use it?",
+    "What can I do with SiPay Wallet?",
+    "What is My Desposit Limit?",
+    "Can I Make Deposit 24/7?",
+    "How do I use it?",
+    "What can I do with SiPay Wallet?",
+    "What is My Desposit Limit?",
+    "Can I Make Deposit 24/7?"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,8 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -94,16 +93,12 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
                           Text(
                             "F.A.Q",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20
-                            ),
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            "Describe Your issue"
-                          ),
+                          Text("Describe Your issue"),
                           SizedBox(
                             height: 20,
                           ),
@@ -117,62 +112,63 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
                     height: 10,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        TextField(
-                          style: TextStyle(color: Colors.black ),
-                          controller: _search_controller,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(color: Colors.white),
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          TextField(
+                            style: TextStyle(color: Colors.black),
+                            controller: _search_controller,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              border: InputBorder.none,
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.search,
+                                color: Colors.black26,
+                                size: 16,
+                              ),
+                              hintText: "can I put money in my wa",
+                              hintStyle:
+                                  TextStyle(color: Colors.black26, height: 1.3),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            border: InputBorder.none,
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.search,
-                              color: Colors.black26,
-                              size: 16,
-                            ),
-                            hintText: "can I put money in my wa",
-                            hintStyle: TextStyle(color: Colors.black26, height: 1.3),
+                            obscureText: false,
                           ),
-                          obscureText: false,
-                        ),
-                        Container(
-                          child: new ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: help_list.length,
-                            primary: true,
-                            itemBuilder: (BuildContext content, int index){
-                              return detail_list(help_list[index]);
-                            },
+                          Container(
+                            child: new ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: help_list.length,
+                              primary: true,
+                              itemBuilder: (BuildContext content, int index) {
+                                return detail_list(help_list[index]);
+                              },
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ),
+                        ],
+                      )),
                   SizedBox(
                     height: 60,
                   )
                 ],
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null, null),
           ],
-        )
-    );
+        ));
   }
 
   Widget detail_list(String help_list) {
@@ -182,18 +178,17 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
           height: 10,
         ),
         Container(
-          child:Padding(
-            padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 15.0,bottom: 15.0),
-            child:  Row(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   child: Text(
                     help_list,
-                    style: TextStyle(
-                        fontSize: 20
-                    ),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ),
                 Align(
@@ -204,7 +199,7 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
                 )
               ],
             ),
-        ),
+          ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             color: Colors.white,
@@ -217,5 +212,4 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
       ],
     );
   }
-
 }

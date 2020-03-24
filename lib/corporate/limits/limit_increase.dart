@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../dashboard/merchant.dart';
@@ -14,7 +11,6 @@ TextEditingController _countryController = new TextEditingController();
 TextEditingController _cityController = new TextEditingController();
 TextEditingController _addressController = new TextEditingController();
 
-
 class limits_Increase extends StatefulWidget {
   limits_Increase({Key key}) : super(key: key);
   @override
@@ -22,8 +18,6 @@ class limits_Increase extends StatefulWidget {
 }
 
 class _limits_Increase extends State<limits_Increase> {
-
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -32,8 +26,8 @@ class _limits_Increase extends State<limits_Increase> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -92,17 +86,20 @@ class _limits_Increase extends State<limits_Increase> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: Text('One Time Limit', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                          child: Text('One Time Limit',
+                              style: TextStyle(
+                                  color: Colors.black45, fontSize: 17)),
                         ),
                         Expanded(
                           child: Container(
                               child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  '2.000,00 TL',
-                                  style: TextStyle(color: Colors.black87, fontSize: 16),
-                                ),
-                              )),
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              '2.000,00 TL',
+                              style: TextStyle(
+                                  color: Colors.black87, fontSize: 16),
+                            ),
+                          )),
                         ),
                       ],
                     ),
@@ -119,17 +116,20 @@ class _limits_Increase extends State<limits_Increase> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: Text('Daily Limit', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                          child: Text('Daily Limit',
+                              style: TextStyle(
+                                  color: Colors.black45, fontSize: 17)),
                         ),
                         Expanded(
                           child: Container(
                               child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  '7.500,00 TL',
-                                  style: TextStyle(color: Colors.black87, fontSize: 16),
-                                ),
-                              )),
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              '7.500,00 TL',
+                              style: TextStyle(
+                                  color: Colors.black87, fontSize: 16),
+                            ),
+                          )),
                         ),
                       ],
                     ),
@@ -146,17 +146,20 @@ class _limits_Increase extends State<limits_Increase> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: Text('Daily Limit', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                          child: Text('Daily Limit',
+                              style: TextStyle(
+                                  color: Colors.black45, fontSize: 17)),
                         ),
                         Expanded(
                           child: Container(
                               child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  '25.000,00 TL',
-                                  style: TextStyle(color: Colors.black87, fontSize: 16),
-                                ),
-                              )),
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              '25.000,00 TL',
+                              style: TextStyle(
+                                  color: Colors.black87, fontSize: 16),
+                            ),
+                          )),
                         ),
                       ],
                     ),
@@ -171,21 +174,24 @@ class _limits_Increase extends State<limits_Increase> {
                       height: 30,
                     ),
                     TextField(
-                      style: TextStyle(color: Colors.black38 ),
+                      style: TextStyle(color: Colors.black38),
                       controller: _countryController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black26 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black26, width: 0.3)),
                         focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black38 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black38, width: 0.3)),
                         prefixIcon: const Icon(
                           FontAwesomeIcons.indent,
                           color: Colors.black26,
                           size: 16,
                         ),
                         hintText: "One Time Limit",
-                        hintStyle: TextStyle(color: Colors.black26, height: 1.3),
+                        hintStyle:
+                            TextStyle(color: Colors.black26, height: 1.3),
                       ),
                       inputFormatters: [
                         WhitelistingTextInputFormatter.digitsOnly,
@@ -198,21 +204,24 @@ class _limits_Increase extends State<limits_Increase> {
                       height: 10,
                     ),
                     TextField(
-                      style: TextStyle(color: Colors.black38 ),
+                      style: TextStyle(color: Colors.black38),
                       controller: _cityController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black26 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black26, width: 0.3)),
                         focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black38 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black38, width: 0.3)),
                         prefixIcon: const Icon(
                           FontAwesomeIcons.sun,
                           color: Colors.black26,
                           size: 16,
                         ),
                         hintText: "Daily Limit",
-                        hintStyle: TextStyle(color: Colors.black26, height: 1.3),
+                        hintStyle:
+                            TextStyle(color: Colors.black26, height: 1.3),
                       ),
                       inputFormatters: [
                         WhitelistingTextInputFormatter.digitsOnly,
@@ -225,14 +234,16 @@ class _limits_Increase extends State<limits_Increase> {
                       height: 10,
                     ),
                     TextField(
-                      style: TextStyle(color: Colors.black38 ),
+                      style: TextStyle(color: Colors.black38),
                       controller: _countryController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black26 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black26, width: 0.3)),
                         focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black38 , width: 0.3)),
+                            borderSide:
+                                BorderSide(color: Colors.black38, width: 0.3)),
                         prefixIcon: const Icon(
                           FontAwesomeIcons.calendarCheck,
                           color: Colors.black26,
@@ -253,11 +264,13 @@ class _limits_Increase extends State<limits_Increase> {
                     ),
                     Container(
                       child: FlatButton(
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context)=> Limit_Success(),
-                          ));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Limit_Success(),
+                              ));
                         },
                         color: Colors.blue,
                         disabledColor: Colors.blue,
@@ -277,11 +290,8 @@ class _limits_Increase extends State<limits_Increase> {
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null),
           ],
         ));
   }
-
-
 }
-

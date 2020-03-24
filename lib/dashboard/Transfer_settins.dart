@@ -224,7 +224,7 @@ class _Transfer_SettingsPanel extends State<Transfer_SettingsPanel> {
                 ),
               ),
             ),
-            Dashboardbottom(context),
+            Dashboardbottom(context, null, null),
           ],
         ));
   }

@@ -79,7 +79,7 @@ class IndividualPanelProvider extends BaseMainProvider {
 
   void _getUserActivityList() async {
     MainApiModel userLastTransactionActivity = await _individualMainRepository
-        .individualTransactionsListActivity('', '');
+        .individualTransactionsListActivity2('', '');
     if (userLastTransactionActivity.statusCode == 100)
       _userLastTransactionsActivity =
           userLastTransactionActivity.data['transactions']['data'];

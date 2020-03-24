@@ -18,7 +18,7 @@
     "TRY",
     "CANCEL"
   ],
-  "hint_register": "REGISTER",
+  "hint_register": "RECEIVER",
   "hint_iban": "IBAN",
   "hint_PNR": "PNR",
   "button": "SUBMIT"

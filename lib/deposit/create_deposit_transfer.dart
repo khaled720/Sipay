@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/deposit/json_models/bank_list_model.dart';
 import 'package:fluttersipay/deposit/json_models/bank_transfer_deposit_model.dart';
 import 'package:fluttersipay/deposit/providers/bank_transfer_deposit_provider.dart';
+import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -91,190 +92,204 @@ class _CreateBankTransferDepositScreenState
                   ),
                   body: Consumer<DepositBankTransferProvider>(
                       builder: (context, snapshot, _) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(50),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 30, right: 30),
-                            child: Text(
-                              users.abailable,
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(50),
-                          ),
-                          Row(
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                    decoration: new BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(
-                                          color: Colors.black54,
-                                          width: 1.0,
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(50),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 30, right: 30),
+                                child: Text(
+                                  users.abailable,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(50),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                        decoration: new BoxDecoration(
+                                          border: Border(
+                                            right: BorderSide(
+                                              color: Colors.black54,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            snapshot.getAvailableWalletAmount(
+                                                    0) +
+                                                '₺',
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 16),
+                                          ),
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                        decoration: new BoxDecoration(
+                                          border: Border(
+                                            right: BorderSide(
+                                              color: Colors.black54,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            snapshot.getAvailableWalletAmount(
+                                                    1) +
+                                                "\$",
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 16),
+                                          ),
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          snapshot.getAvailableWalletAmount(2) +
+                                              '€',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16),
                                         ),
                                       ),
                                     ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        snapshot.getAvailableWalletAmount(0) +
-                                            '₺',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 16),
-                                      ),
-                                    )),
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                child: Container(
-                                    decoration: new BoxDecoration(
-                                      border: Border(
-                                        right: BorderSide(
-                                          color: Colors.black54,
-                                          width: 1.0,
-                                        ),
-                                      ),
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(70),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(left: 30.0, right: 30.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      users.description,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
                                     ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        snapshot.getAvailableWalletAmount(1) +
-                                            "\$",
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 16),
-                                      ),
-                                    )),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      snapshot.getAvailableWalletAmount(2) +
-                                          '€',
+                                    SizedBox(
+                                      height: ScreenUtil.getInstance()
+                                          .setHeight(30),
+                                    ),
+                                    Text(
+                                      users.youcan,
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
                                     ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(70),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  users.description,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(30),
-                                ),
-                                Text(
-                                  users.youcan,
-                                  style: TextStyle(
-                                      color: Colors.black54, fontSize: 16),
-                                ),
-                                SizedBox(
-                                  height:
-                                      ScreenUtil.getInstance().setHeight(50),
-                                ),
-                                Text(
-                                  users.hintBank,
-                                  style: TextStyle(
-                                      color: Colors.black54, fontSize: 12),
-                                ),
-                                snapshot.bankList != null
-                                    ? DropdownButton<BankModel>(
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          size: 16,
-                                        ),
-                                        value: snapshot.selectedDropDownValue,
-                                        items: snapshot.banksDropdown,
-                                        onChanged: (BankModel bank) {
-                                          snapshot.selectedDropDownValue = bank;
-                                        },
-                                        isExpanded: true,
-                                      )
-                                    : SizedBox(
-                                        width: 0.0,
-                                      ),
-                                Form(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(10),
-                                      ),
-                                      Text(
-                                        users.hintAmount,
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12),
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: <Widget>[
-                                            Expanded(
-                                                child: TextFormField(
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                              controller:
-                                                  snapshot.amountController,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: InputDecoration(
-                                                enabledBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                suffix: Text(snapshot
-                                                        .bankCurrentCurrency ??
-                                                    'TRY'),
-                                                focusedBorder:
-                                                    UnderlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.black45,
-                                                            width: 1.0)),
-                                                prefixIcon: const Icon(
-                                                  Icons.map,
-                                                  size: 16,
-                                                  color: Colors.black45,
-                                                ),
-                                              ),
-                                              validator: (value) {
-                                                if (value.isEmpty) {
-                                                  return 'Please enter AMOUNT';
-                                                }
-                                                return null;
-                                              },
-                                            )),
+                                    SizedBox(
+                                      height: ScreenUtil.getInstance()
+                                          .setHeight(50),
+                                    ),
+                                    Text(
+                                      users.hintBank,
+                                      style: TextStyle(
+                                          color: Colors.black54, fontSize: 12),
+                                    ),
+                                    snapshot.bankList != null
+                                        ? DropdownButton<BankModel>(
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              size: 16,
+                                            ),
+                                            value:
+                                                snapshot.selectedDropDownValue,
+                                            items: snapshot.banksDropdown,
+                                            onChanged: (BankModel bank) {
+                                              snapshot.selectedDropDownValue =
+                                                  bank;
+                                            },
+                                            isExpanded: true,
+                                          )
+                                        : SizedBox(
+                                            width: 0.0,
+                                          ),
+                                    Form(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(10),
+                                          ),
+                                          Text(
+                                            users.hintAmount,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12),
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: <Widget>[
+                                                Expanded(
+                                                    child: TextFormField(
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                  controller:
+                                                      snapshot.amountController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    enabledBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black45,
+                                                                    width:
+                                                                        1.0)),
+                                                    suffix: Text(snapshot
+                                                            .bankCurrentCurrency ??
+                                                        'TRY'),
+                                                    focusedBorder:
+                                                        UnderlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black45,
+                                                                    width:
+                                                                        1.0)),
+                                                    prefixIcon: const Icon(
+                                                      Icons.map,
+                                                      size: 16,
+                                                      color: Colors.black45,
+                                                    ),
+                                                  ),
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return 'Please enter AMOUNT';
+                                                    }
+                                                    return null;
+                                                  },
+                                                )),
 //                                            SizedBox(
 //                                              width: 20,
 //                                            ),
@@ -326,176 +341,215 @@ class _CreateBankTransferDepositScreenState
 //                                              ),
 //                                              width: 100,
 //                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(10),
-                                      ),
-                                      Text(
-                                        users.hintRegister,
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12),
-                                      ),
-                                      TextFormField(
-                                        style: TextStyle(color: Colors.black),
-                                        controller: snapshot.registerController,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          prefixIcon: const Icon(
-                                            Icons.person,
-                                            size: 16,
-                                            color: Colors.black45,
-                                          ),
-                                          suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.collections_bookmark,
-                                                size: 16,
-                                              ),
-                                              onPressed: () {}),
-                                        ),
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter REGISTER';
-                                          }
-                                          return null;
-                                        },
-                                        obscureText: false,
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(10),
-                                      ),
-                                      Text(
-                                        users.hintIban,
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12),
-                                      ),
-                                      TextFormField(
-                                        style: TextStyle(color: Colors.black),
-                                        controller: snapshot.ibanController,
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          prefixIcon: const Icon(
-                                            FontAwesomeIcons.hashtag,
-                                            color: Colors.black45,
-                                            size: 16,
-                                          ),
-                                          suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.collections_bookmark,
-                                                size: 16,
-                                              ),
-                                              onPressed: () {}),
-                                        ),
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter IBAN';
-                                          }
-                                          return null;
-                                        },
-                                        obscureText: false,
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(10),
-                                      ),
-                                      Text(
-                                        users.hintPNR,
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 12),
-                                      ),
-                                      TextFormField(
-                                        style: TextStyle(color: Colors.black),
-                                        controller: snapshot.pnrController,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          prefixIcon: const Icon(
-                                            FontAwesomeIcons.hashtag,
-                                            color: Colors.black45,
-                                            size: 16,
-                                          ),
-                                          suffixIcon: IconButton(
-                                              icon: Icon(
-                                                Icons.collections_bookmark,
-                                                size: 16,
-                                              ),
-                                              onPressed: () {}),
-                                        ),
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter PNR';
-                                          }
-                                          return null;
-                                        },
-                                        obscureText: false,
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(30),
-                                      ),
-                                      Container(
-                                        child: FlatButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Deposit_success(),
-                                                ));
-                                          },
-                                          color: Colors.blue,
-                                          disabledColor: Colors.blue,
-                                          padding: EdgeInsets.all(15.0),
-                                          child: Text(
-                                            users.button,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
+                                              ],
                                             ),
                                           ),
-                                        ),
-                                        width: ScreenUtil.getInstance()
-                                            .setWidth(690),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(10),
+                                          ),
+                                          Text(
+                                            users.hintRegister,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12),
+                                          ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            controller:
+                                                snapshot.receiverController,
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              prefixIcon: const Icon(
+                                                Icons.person,
+                                                size: 16,
+                                                color: Colors.black45,
+                                              ),
+                                              suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    Icons.collections_bookmark,
+                                                    size: 16,
+                                                  ),
+                                                  onPressed: () {}),
+                                            ),
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Please enter REGISTER';
+                                              }
+                                              return null;
+                                            },
+                                            obscureText: false,
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(10),
+                                          ),
+                                          Text(
+                                            users.hintIban,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12),
+                                          ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            controller: snapshot.ibanController,
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              prefixIcon: const Icon(
+                                                FontAwesomeIcons.hashtag,
+                                                color: Colors.black45,
+                                                size: 16,
+                                              ),
+                                              suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    Icons.collections_bookmark,
+                                                    size: 16,
+                                                  ),
+                                                  onPressed: () {}),
+                                            ),
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Please enter IBAN';
+                                              }
+                                              return null;
+                                            },
+                                            obscureText: false,
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(10),
+                                          ),
+                                          Text(
+                                            users.hintPNR,
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12),
+                                          ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            controller: snapshot.pnrController,
+                                            decoration: InputDecoration(
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black45,
+                                                          width: 1.0)),
+                                              prefixIcon: const Icon(
+                                                FontAwesomeIcons.hashtag,
+                                                color: Colors.black45,
+                                                size: 16,
+                                              ),
+                                              suffixIcon: IconButton(
+                                                  icon: Icon(
+                                                    Icons.collections_bookmark,
+                                                    size: 16,
+                                                  ),
+                                                  onPressed: () {}),
+                                            ),
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Please enter PNR';
+                                              }
+                                              return null;
+                                            },
+                                            obscureText: false,
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(30),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                snapshot.depositErrorText !=
+                                                    null,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Text(
+                                                  snapshot.depositErrorText ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      color: Colors.red[800],
+                                                      fontSize: 14),
+                                                ),
+                                                SizedBox(
+                                                  height:
+                                                      ScreenUtil.getInstance()
+                                                          .setHeight(30),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            child: FlatButton(
+                                              onPressed: () {
+                                                snapshot.createDeposit(
+                                                    (successModel) {
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DepositSuccessScreen(
+                                                                successModel),
+                                                      ));
+                                                });
+                                              },
+                                              color: Colors.blue,
+                                              disabledColor: Colors.blue,
+                                              padding: EdgeInsets.all(15.0),
+                                              child: Text(
+                                                users.button,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ),
+                                            width: ScreenUtil.getInstance()
+                                                .setWidth(690),
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(30),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(30),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        LoadingWidget(
+                          isVisible: snapshot.showLoad ?? false,
+                        )
+                      ],
                     );
                   }),
                 );

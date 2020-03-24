@@ -5,8 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Exchange/exchange.dart';
 import 'Witdrawal/witdrawal.dart';
+import 'deposit/deposit_panel.dart';
 
-Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
+Widget getCustomNavigator(
+    BuildContext context, List<String> menu, int select, repo, wallets) {
   List<bool> selection = [false, false, false, false];
   selection[select] = true;
   return Align(
@@ -42,7 +44,9 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
                 onPressed: () {
                   if (select == 0) return;
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/deposit_panel');
+                  print('selected');
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DepositPanelScreen(repo, wallets)));
                 },
               ),
             ),
@@ -74,11 +78,12 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
                 ),
                 onPressed: () {
                   if (select == 1) return;
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Send_Money(),
+                        builder: (context) =>
+                            MoneyTransferSendScreen(repo, wallets),
                       ));
                 },
               ),
@@ -110,12 +115,12 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
                 ),
                 onPressed: () {
                   if (select == 2) return;
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            UserWithdrawalPanelScreen(null, null),
+                            UserWithdrawalPanelScreen(repo, wallets),
                       ));
                 },
               ),
@@ -151,7 +156,8 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select) {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Exchange(),
+                        builder: (context) =>
+                            ExchangePanelScreen(repo, wallets),
                       ));
                 },
               ),

@@ -4,34 +4,29 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../base_main_repo.dart';
 import '../bottom_navigator.dart';
 
 TextEditingController _phone_ontroller = new TextEditingController();
 TextEditingController _amount_ontroller = new TextEditingController();
 TextEditingController _description_ontroller = new TextEditingController();
 
-Widget Request_Money() {
-  return Request_Money_Panel();
-}
-
-class Request_Money_Panel extends StatefulWidget {
-  Request_Money_Panel({Key key}) : super(key: key);
+class RequestMoneyScreen extends StatefulWidget {
+  final BaseMainRepository baseRepo;
+  final List wallets;
+  RequestMoneyScreen(this.baseRepo, this.wallets);
   @override
-  _Request_Money_Panel createState() => _Request_Money_Panel();
+  _RequestMoneyScreenState createState() => _RequestMoneyScreenState();
 }
 
-class _Request_Money_Panel extends State<Request_Money_Panel> {
-
+class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
   bool check_state = true;
   bool check_states = true;
   bool _autoValidate = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var _try_value = "TRY";
-  List<String> _listtryData = [
-    "TRY",
-    "TRYS"
-  ];
+  List<String> _listtryData = ["TRY", "TRYS"];
   List<String> _list_footer = [
     "Deposit",
     "Money Transfer",
@@ -47,8 +42,8 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -94,7 +89,8 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                     padding: EdgeInsets.only(left: 30, right: 30),
                     child: Text(
                       'AVAILABLE BALANCE',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(
@@ -116,7 +112,8 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                               alignment: Alignment.center,
                               child: Text(
                                 '292,20₺',
-                                style: TextStyle(color: Colors.black54, fontSize: 16),
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16),
                               ),
                             )),
                       ),
@@ -134,7 +131,8 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                               alignment: Alignment.center,
                               child: Text(
                                 "80,00\$",
-                                style: TextStyle(color: Colors.black54, fontSize: 16),
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16),
                               ),
                             )),
                       ),
@@ -144,7 +142,8 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                             alignment: Alignment.center,
                             child: Text(
                               '774,80€',
-                              style: TextStyle(color: Colors.black54, fontSize: 16),
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 16),
                             ),
                           ),
                         ),
@@ -162,9 +161,7 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                         Text(
                           'SEND MONEY',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16
-                          ),
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(50),
@@ -180,14 +177,15 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                               ),
                               Text(
                                 'RECEIVER PHONE NUMBER',
-                                style: TextStyle(color: Colors.black54, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 12),
                               ),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
                                 keyboardType: TextInputType.phone,
                                 controller: _phone_ontroller,
-                                onChanged: (text){
-                                  if(text.length > 0 && !check_states){
+                                onChanged: (text) {
+                                  if (text.length > 0 && !check_states) {
                                     setState(() {
                                       check_states = true;
                                     });
@@ -200,11 +198,13 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Colors.black45, width: 1.0)),
-                                  prefixIcon: check_states ? const Icon(
-                                    FontAwesomeIcons.phoneAlt,
-                                    size: 16,
-                                    color: Colors.black45,
-                                  ) : CupertinoActivityIndicator(),
+                                  prefixIcon: check_states
+                                      ? const Icon(
+                                          FontAwesomeIcons.phoneAlt,
+                                          size: 16,
+                                          color: Colors.black45,
+                                        )
+                                      : CupertinoActivityIndicator(),
                                 ),
                                 obscureText: false,
                               ),
@@ -214,48 +214,61 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: Padding(
-                                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                                  child: check_states ?
-                                  Container(
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(
-                                        color: Colors.black38,
-                                      ),
-                                    ),
-                                    height: 0,
-                                  )
-                                      :
-                                  RichText(
-                                      textAlign: TextAlign.right,
-                                      text: TextSpan(
-                                        // set the default style for the children TextSpans
-                                          style: TextStyle(
-                                              fontSize: 13, wordSpacing: 3),
-                                          children: [
-                                            WidgetSpan(
-                                              child: Icon(FontAwesomeIcons.userCheck, size: 14,color: Colors.blue,),
+                                  padding:
+                                      EdgeInsets.only(left: 10.0, right: 10.0),
+                                  child: check_states
+                                      ? Container(
+                                          child: Text(
+                                            '',
+                                            style: TextStyle(
+                                              color: Colors.black38,
                                             ),
-                                            TextSpan(
-                                                text: ' AIGERIM KAIROLDAYEVA',
-                                                style: TextStyle(color: Colors.blue)),
-                                          ])),
+                                          ),
+                                          height: 0,
+                                        )
+                                      : RichText(
+                                          textAlign: TextAlign.right,
+                                          text: TextSpan(
+                                              // set the default style for the children TextSpans
+                                              style: TextStyle(
+                                                  fontSize: 13, wordSpacing: 3),
+                                              children: [
+                                                WidgetSpan(
+                                                  child: Icon(
+                                                    FontAwesomeIcons.userCheck,
+                                                    size: 14,
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                    text:
+                                                        ' AIGERIM KAIROLDAYEVA',
+                                                    style: TextStyle(
+                                                        color: Colors.blue)),
+                                              ])),
                                 ),
                               ),
                               Text(
                                 'AMOUNT',
-                                style: TextStyle(color:check_state ? Colors.black54 : Colors.red, fontSize: 12),
+                                style: TextStyle(
+                                    color: check_state
+                                        ? Colors.black54
+                                        : Colors.red,
+                                    fontSize: 12),
                               ),
                               Container(
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child:TextFormField(
-                                        style: TextStyle(color: check_state ? Colors.black : Colors.red),
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                            color: check_state
+                                                ? Colors.black
+                                                : Colors.red),
                                         keyboardType: TextInputType.number,
                                         controller: _amount_ontroller,
-                                        onChanged: (text){
-                                          if(text.length > 0 && !check_state){
+                                        onChanged: (text) {
+                                          if (text.length > 0 && !check_state) {
                                             setState(() {
                                               check_state = true;
                                             });
@@ -264,24 +277,27 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                                         decoration: InputDecoration(
                                           enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: Colors.black45, width: 1.0)),
+                                                  color: Colors.black45,
+                                                  width: 1.0)),
                                           focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: Colors.black45, width: 1.0)),
-                                          prefixIcon: check_state? const Icon(
-                                            Icons.map,
-                                            size: 16,
-                                            color: Colors.black45,
-                                          ): const Icon(
-                                            Icons.cancel,
-                                            size: 16,
-                                            color: Colors.red,
-                                          ),
+                                                  color: Colors.black45,
+                                                  width: 1.0)),
+                                          prefixIcon: check_state
+                                              ? const Icon(
+                                                  Icons.map,
+                                                  size: 16,
+                                                  color: Colors.black45,
+                                                )
+                                              : const Icon(
+                                                  Icons.cancel,
+                                                  size: 16,
+                                                  color: Colors.red,
+                                                ),
                                         ),
                                         obscureText: false,
                                       ),
                                     ),
-
                                     SizedBox(
                                       width: 20,
                                     ),
@@ -297,21 +313,26 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<String>(
                                           icon: Icon(
-                                            Icons.keyboard_arrow_down,size: 16,
+                                            Icons.keyboard_arrow_down,
+                                            size: 16,
                                           ),
-                                          items:_listtryData.map<DropdownMenuItem<String>>((String value){
+                                          items: _listtryData
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: <Widget>[
                                                   SizedBox(width: 10),
                                                   Expanded(
-                                                    child:  Text(
+                                                    child: Text(
                                                       value,
                                                       style: TextStyle(
-                                                          color: Colors.black45
-                                                      ),
+                                                          color:
+                                                              Colors.black45),
                                                     ),
                                                   )
                                                 ],
@@ -337,27 +358,28 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(right: 120),
-                                child: check_state?
-                                Container(
-                                  height: 0,
-                                ):
-                                Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    "Please enter valid amount",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
+                                child: check_state
+                                    ? Container(
+                                        height: 0,
+                                      )
+                                    : Container(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Please enter valid amount",
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ),
                               ),
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(20),
                               ),
                               Text(
                                 'DESCRIPTION',
-                                style: TextStyle(color: Colors.black54, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 12),
                               ),
                               TextFormField(
                                 style: TextStyle(color: Colors.black),
@@ -385,16 +407,14 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                                 },
                                 obscureText: false,
                               ),
-
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(50),
                               ),
                               Container(
                                 child: FlatButton(
                                   onPressed: () {
-                                    if ( _amount_ontroller.text.length == 0){
-
-                                    }else {
+                                    if (_amount_ontroller.text.length == 0) {
+                                    } else {
                                       setState(() {
                                         check_states = false;
                                         check_state = false;
@@ -429,11 +449,9 @@ class _Request_Money_Panel extends State<Request_Money_Panel> {
                 ],
               ),
             ),
-            getCustomNavigator(context, _list_footer, 1),
+            getCustomNavigator(
+                context, _list_footer, 1, widget.baseRepo, widget.wallets),
           ],
-        )
-    );
+        ));
   }
-
-
 }

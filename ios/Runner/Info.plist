@@ -11,6 +11,10 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Needs to upload image</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Needs to upload image</string>
 	<string>fluttersipay</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>

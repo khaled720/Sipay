@@ -19,44 +19,10 @@ class IndividualMainRepository extends BaseMainRepository {
     return MainApiModel.mapJsonToModel(result);
   }
 
-  //Individual Profile
-  Future<MainApiModel> getUserProfile() async {
-    String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kApiIndividualUserProfileEndPoint, bearerToken);
-    return MainApiModel.mapJsonToModel(result);
-  }
-
   //Individual Wallet
   Future<MainApiModel> getUserWallet() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualWalletEndPoint, bearerToken);
-    return MainApiModel.mapJsonToModel(result);
-  }
-
-  //Individual profile update
-  Future<MainApiModel> userProfileUpdate(
-      String country, String city, String address) async {
-    Map<String, String> values = {
-      'country': country,
-      'city': city,
-      'address': address,
-    };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualUserProfileUpdateEndPoint,
-        values,
-        bearerToken);
-    return MainApiModel.mapJsonToModel(result);
-  }
-
-  //Individual profile upload base 64 image
-  Future<MainApiModel> uploadBase64Image(String base64Image) async {
-    Map<String, String> values = {
-      'image': base64Image,
-    };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualUserProfileUploadImageEndPoint,
-        values,
-        bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -155,34 +121,34 @@ class IndividualMainRepository extends BaseMainRepository {
   }
 
   //Individual money transfer request money list
-  Future<MainApiModel> moneyTransferListRequestMoney(
-      String currency, String dateRange, String searchKey) async {
+  Future<MainApiModel> moneyTransferListRequestMoney(String currency,
+      String dateRange, String searchKey, String receiverGSM) async {
     Map<String, String> values = {
       'currency': currency,
       'daterange': dateRange,
       'search_key': searchKey,
-      'reciever_gsm': ''
+      'receiver_gsm': receiverGSM
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualMoneyTransferListRequestMoneyEndPoint,
-        values,
-        bearerToken);
+    final newUri = Uri.parse(
+            APIEndPoints.kApiIndividualMoneyTransferListRequestMoneyEndPoint)
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Individual money transfer send money list
-  Future<MainApiModel> moneyTransferListSendMoney(
-      String currency, String dateRange, String searchKey) async {
+  Future<MainApiModel> moneyTransferListSendMoney(String currency,
+      String dateRange, String searchKey, String receiverGSM) async {
     Map<String, String> values = {
       'currency': currency,
       'daterange': dateRange,
       'search_key': searchKey,
-      'reciever_gsm': ''
+      'receiver_gsm': receiverGSM
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualMoneyTransferListSendMoneyEndPoint,
-        values,
-        bearerToken);
+    final newUri =
+        Uri.parse(APIEndPoints.kApiIndividualMoneyTransferListSendMoneyEndPoint)
+            .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -364,6 +330,20 @@ class IndividualMainRepository extends BaseMainRepository {
       'currency': currency,
       'daterange': dateRange,
     };
+    final newUri =
+        Uri.parse(APIEndPoints.kApiIndividualTransactionsListActivityEndPoint)
+            .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Individual transactions list activity
+  Future<MainApiModel> individualTransactionsListActivity2(
+      String currency, String dateRange) async {
+    Map<String, String> values = {
+      'currency': currency,
+      'daterange': dateRange,
+    };
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualTransactionsListActivityEndPoint,
         bearerToken);
@@ -373,14 +353,14 @@ class IndividualMainRepository extends BaseMainRepository {
 
   //Individual transaction details
   Future<MainApiModel> individualTransactionsDetailsActivity(
-      int transactionID) async {
+      int transactionID, String transactionType) async {
     Map<String, String> values = {
-      'transactiontype': 'purchase',
+      'transactionType': transactionType,
     };
-    String result = await NetworkHelper.makePostRequest(
-        '${APIEndPoints.kApiIndividualTransactionDetailsEndPoint}/transactionID',
-        values,
-        bearerToken);
+    final newUri = Uri.parse(
+            '${APIEndPoints.kApiIndividualTransactionDetailsEndPoint}/${transactionID.toString()}')
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -389,23 +369,19 @@ class IndividualMainRepository extends BaseMainRepository {
       String searchKey,
       String transactionState,
       String currency,
-      String minAmount,
-      String maxAmount,
-      String merchantName,
+      String transactionType,
       String dateRange) async {
     Map<String, String> values = {
       'searchkey': searchKey,
       'transactionState': transactionState,
       'currency': currency,
-      'minamount': minAmount,
-      'maxamount': maxAmount,
-      'merchantname': merchantName,
+      'transactionType': transactionType,
       'daterange': dateRange
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualTransactionListEndPoint,
-        values,
-        bearerToken);
+    final newUri = Uri.parse(APIEndPoints.kApiIndividualTransactionListEndPoint)
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    print('transactions list is $result');
     return MainApiModel.mapJsonToModel(result);
   }
 }
