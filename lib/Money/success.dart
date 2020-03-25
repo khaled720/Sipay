@@ -2,11 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
-import 'package:fluttersipay/Money/Send_individual.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'Send_individual.dart';
 
 Widget Transfer_success() {
   return Individual_success_panel();
@@ -27,8 +23,8 @@ class _Individual_success_panel extends State<Individual_success_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -118,17 +114,20 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Ammount Sent: ', style: TextStyle(color: Colors.black45, fontSize: 17),),
+                      child: Text(
+                        'Ammount Sent: ',
+                        style: TextStyle(color: Colors.black45, fontSize: 17),
+                      ),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '1.220, 00 TL',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '1.220, 00 TL',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,
@@ -151,17 +150,19 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Reciever Merchant ID: ', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                      child: Text('Reciever Merchant ID: ',
+                          style:
+                              TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '114952',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '114952',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,
@@ -184,17 +185,19 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Transaction Date: ', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                      child: Text('Transaction Date: ',
+                          style:
+                              TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '20.10.2019 14:19',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '20.10.2019 14:19',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,

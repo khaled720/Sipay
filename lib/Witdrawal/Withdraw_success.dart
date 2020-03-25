@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget Withdraw_success() {
@@ -114,7 +113,7 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                               users.your,
+                                users.your,
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 18),
                                 textAlign: TextAlign.center,

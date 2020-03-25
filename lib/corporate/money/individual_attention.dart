@@ -2,12 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
 import 'package:fluttersipay/Money/success.dart';
-import 'package:fluttersipay/Money/Send_individual.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'Send_individual.dart';
 
 Widget Individual_attention() {
   return Individual_attention_panel();
@@ -20,7 +16,6 @@ class Individual_attention_panel extends StatefulWidget {
 }
 
 class _Individual_attention_panel extends State<Individual_attention_panel> {
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -29,8 +24,8 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -107,7 +102,8 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                     alignment: Alignment.center,
                     child: Text(
                       'Money will be held for 72 hours until the \n recipient registers to Sipay. \n If the receiver does not register within 72 hours, your money will be returned to \n your account.',
-                      style: TextStyle(color: Colors.black45, fontSize: 18, height: 1.5),
+                      style: TextStyle(
+                          color: Colors.black45, fontSize: 18, height: 1.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -121,17 +117,19 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Reciever GSM: ', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                      child: Text('Reciever GSM: ',
+                          style:
+                              TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '+90 554 987 65 43',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '+90 554 987 65 43',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,
@@ -154,17 +152,19 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Expiry Date: ', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                      child: Text('Expiry Date: ',
+                          style:
+                              TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '20.10.2019 14:19',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '20.10.2019 14:19',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,
@@ -217,7 +217,8 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                         child: FlatButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MaterialPageRoute(
                                   builder: (context) => Transfer_success(),
                                 ));

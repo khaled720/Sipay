@@ -3,14 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/login_main.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/reset_password.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import 'SMS_Verification.dart';
 import 'json_models/password_verification_ui_model.dart';
 import 'providers/verify_password_provider.dart';

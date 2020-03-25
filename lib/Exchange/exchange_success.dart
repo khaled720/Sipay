@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget Exchange_success() {
@@ -26,8 +23,8 @@ class _Exchange_success_panel extends State<Exchange_success_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -104,7 +101,8 @@ class _Exchange_success_panel extends State<Exchange_success_panel> {
                   child: Text(
                     'Below is the details of your  transaction, which updates your account balance to ',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black45, fontSize: 16, height: 1.5),
+                    style: TextStyle(
+                        color: Colors.black45, fontSize: 16, height: 1.5),
                   ),
                 ),
                 SizedBox(
@@ -128,17 +126,20 @@ class _Exchange_success_panel extends State<Exchange_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Exchange to: ', style: TextStyle(color: Colors.black45, fontSize: 17),),
+                      child: Text(
+                        'Exchange to: ',
+                        style: TextStyle(color: Colors.black45, fontSize: 17),
+                      ),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '280,00 €',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '280,00 €',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,
@@ -161,17 +162,19 @@ class _Exchange_success_panel extends State<Exchange_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Total balance: ', style: TextStyle(color: Colors.black45, fontSize: 17)),
+                      child: Text('Total balance: ',
+                          style:
+                              TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
                     Expanded(
                       child: Container(
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              '484,00 €',
-                              style: TextStyle(color: Colors.black87, fontSize: 16),
-                            ),
-                          )),
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          '484,00 €',
+                          style: TextStyle(color: Colors.black87, fontSize: 16),
+                        ),
+                      )),
                     ),
                     SizedBox(
                       width: 30,

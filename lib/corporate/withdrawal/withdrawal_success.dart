@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../dashboard/merchant.dart';
+
 Widget Withdraw_success() {
   return Withdraw_success_panel();
 }
@@ -129,12 +131,13 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                           child: Container(
                             child: FlatButton(
                               onPressed: () {
-//                                Navigator.push(
-//                                    context,
-//                                    MaterialPageRoute(
-//                                      builder: (context) =>
-//                                          CorporateMerchantPanelScreen(),
-//                                    ));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CorporateMerchantPanelScreen(
+                                              null, null),
+                                    ));
                               },
                               color: Colors.blue,
                               disabledColor: Colors.blue,

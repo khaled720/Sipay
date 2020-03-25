@@ -142,6 +142,7 @@ class BaseMainRepository {
             : APIEndPoints.kApiCorporateCreateExchangeEndPoint,
         values,
         bearerToken);
+    debugPrint('result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

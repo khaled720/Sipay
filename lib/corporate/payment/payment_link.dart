@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/payment/multi_time.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:fluttersipay/corporate/payment/one_time.dart';
+import 'package:fluttersipay/corporate/payment/dpl_history.dart';
+import 'package:fluttersipay/corporate/payment_method/payment_method.dart';
 
 class Payment_Link extends StatefulWidget {
   Payment_Link({Key key}) : super(key: key);
@@ -193,9 +195,9 @@ class _Payment_Link extends State<Payment_Link> {
                     child: FlatButton(
                       onPressed: (){
                         Navigator.pop(context);
-//                        Navigator.push(context, MaterialPageRoute(
-//                          builder: (context)=> limits_Increase(),
-//                        ));
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context)=> Multi_Time(),
+                        ));
                       },
                       color: Colors.blue,
                       disabledColor: Colors.blue,
@@ -278,9 +280,9 @@ class _Payment_Link extends State<Payment_Link> {
                     child: FlatButton(
                       onPressed: (){
                         Navigator.pop(context);
-//                        Navigator.push(context, MaterialPageRoute(
-//                          builder: (context)=> limits_Increase(),
-//                        ));
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context)=> Dpl_History(),
+                        ));
                       },
                       color: Colors.blue,
                       disabledColor: Colors.blue,
@@ -292,7 +294,7 @@ class _Payment_Link extends State<Payment_Link> {
                               width: 100,
                             ),
                             SizedBox(
-                              child: Icon(FontAwesomeIcons.backward, color: Colors.white, size: 15,),
+                              child: Icon(Icons.settings_backup_restore, color: Colors.white, size: 17,),
                               width: 30,
                             ),
                             SizedBox(
@@ -324,7 +326,9 @@ class _Payment_Link extends State<Payment_Link> {
                     alignment: Alignment.center,
                     child: FlatButton(
                       onPressed: (){
-//                        Send_money();
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => Payment_Method(),
+                        ));
                       },
                       child: Text(
                         "HOW TO?",

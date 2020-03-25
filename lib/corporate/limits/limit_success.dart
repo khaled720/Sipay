@@ -2,11 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Login/icons.dart';
-import 'package:fluttersipay/Money/Send_individual.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-
 
 Widget Limit_Success() {
   return Limit_success_panel();
@@ -27,8 +23,8 @@ class _Limit_success_panel extends State<Limit_success_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -106,7 +102,8 @@ class _Limit_success_panel extends State<Limit_success_panel> {
                     alignment: Alignment.center,
                     child: Text(
                       'Your limit increase request has been created. You will be informed by our team as soon as possible.',
-                      style: TextStyle(color: Colors.black45, fontSize: 18, height: 1.5),
+                      style: TextStyle(
+                          color: Colors.black45, fontSize: 18, height: 1.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
