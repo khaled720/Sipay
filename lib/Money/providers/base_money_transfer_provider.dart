@@ -14,7 +14,7 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
   WithdrawalBankModel _selectedBankDropDownValue;
   String _selectedCurrencyDropDownValue = 'TRY';
   String _withdrawalErrorText;
-  IndividualMainRepository _userRepo;
+  IndividualMainRepository userRepo;
   WithdrawalBankModel _savedAccountSelectedDropdownValue;
   TextEditingController _receiverController;
   TextEditingController _amountController;
@@ -52,7 +52,7 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
     this._amountController,
     this._descriptionController,
   ) : super(repo, wallets) {
-    _userRepo = repo;
+    userRepo = repo;
     getMoneyTransferForm();
   }
 
@@ -66,6 +66,11 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
     notifyListeners();
   }
 
+  set selectedCurrencyDropdownValue(String currency) {
+    _selectedCurrencyDropDownValue = currency;
+    notifyListeners();
+  }
+
   _setWithdrawalErrorText(String text) {
     _withdrawalErrorText = text;
     notifyListeners();
@@ -73,7 +78,7 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
 
   getMoneyTransferForm() async {
     MainApiModel moneyTransferFormModel =
-        await this._userRepo.moneyTransferForm();
+        await this.userRepo.moneyTransferForm();
     if (moneyTransferFormModel.statusCode == 100) {
       moneyTransferForm = moneyTransferFormModel.data;
       notifyListeners();

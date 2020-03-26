@@ -68,6 +68,8 @@ flutter:
   assets:
     - assets/appbar_bg.png
     - assets/card.png
+    - assets/mobile/
+    - assets/splash/
     - assets/deposit.png
     - assets/down_time.png
     - assets/home_logo.png

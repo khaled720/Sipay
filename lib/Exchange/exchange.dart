@@ -1,9 +1,11 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Exchange/providers/exchange_provider.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
+import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -350,6 +352,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                                           child: Align(
                                             alignment: Alignment.topCenter,
                                             child: TextFormField(
+                                              enabled: false,
                                               style: TextStyle(
                                                   color: Colors.black),
                                               keyboardType: TextInputType.phone,
@@ -411,7 +414,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                                   child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: Text(
-                                  '+90 554 987 65 43',
+                                  snapshot.userPhone,
                                   style: TextStyle(
                                       color: Colors.black87, fontSize: 16),
                                 ),
@@ -475,7 +478,21 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                               child: Container(
                                 child: FlatButton(
                                   onPressed: () {
-                                    checkVerify();
+                                    snapshot.createExchange(() {
+                                      Navigator.of(context).pop();
+                                      Flushbar(
+                                        title: "Successful!",
+                                        message:
+                                            "Your exchange was successful!",
+                                        duration: Duration(seconds: 3),
+                                      )..show(context);
+                                    }, (description) {
+                                      Flushbar(
+                                        title: "Failure",
+                                        message: description,
+                                        duration: Duration(seconds: 3),
+                                      )..show(context);
+                                    });
                                   },
                                   color: Colors.blue,
                                   disabledColor: Colors.blue,
@@ -505,6 +522,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                       3,
                       widget.baseRepo,
                       widget.wallets),
+                  LoadingWidget(isVisible: snapshot.showLoad ?? false)
                 ],
               );
             })));

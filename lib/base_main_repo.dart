@@ -131,18 +131,16 @@ class BaseMainRepository {
 
   //Exchange form
   Future<MainApiModel> exchangeForm(
-      int firstCurrencyID, int secondCurrencyID) async {
+      int firstCurrencyID, int secondCurrencyID, bool initial) async {
     Map<String, String> values = {
-      'first_currency_id': firstCurrencyID.toString(),
-      'second_currency_id': secondCurrencyID.toString(),
+      'first_currency_id': initial ? '' : firstCurrencyID.toString(),
+      'second_currency_id': initial ? '' : secondCurrencyID.toString(),
     };
-    String result = await NetworkHelper.makePostRequest(
-        userType == UserTypes.Individual
+    final newUri = Uri.parse(userType == UserTypes.Individual
             ? APIEndPoints.kApiIndividualCreateExchangeEndPoint
-            : APIEndPoints.kApiCorporateCreateExchangeEndPoint,
-        values,
-        bearerToken);
-    debugPrint('result is $result', wrapWidth: 1024);
+            : APIEndPoints.kApiCorporateCreateExchangeEndPoint)
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 

@@ -1,8 +1,8 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/Money/individual_attention.dart';
 import 'package:fluttersipay/Money/providers/send_to_individual_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,9 @@ import '../base_main_repo.dart';
 class SendMoneyToIndividualScreen extends StatefulWidget {
   final BaseMainRepository baseMainRepository;
   final List wallets;
+
   SendMoneyToIndividualScreen(this.baseMainRepository, this.wallets);
+
   @override
   _SendMoneyToIndividualScreenState createState() =>
       _SendMoneyToIndividualScreenState();
@@ -20,14 +22,11 @@ class SendMoneyToIndividualScreen extends StatefulWidget {
 
 class _SendMoneyToIndividualScreenState
     extends State<SendMoneyToIndividualScreen> {
-  bool _autoValidate = false;
-
   bool check_state = true;
   bool check_states = true;
-  var _bank_value = "MERCHANT";
   List<String> _listBankData = ["MERCHANT", "INDIVIDUAL"];
-  var _try_value = "TRY";
-  List<String> _listtryData = ["TRY", "TRYS"];
+  List<String> _listtryData = ["TRY", "USD", 'EUR'];
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -204,11 +203,9 @@ class _SendMoneyToIndividualScreenState
                             );
                           }).toList(),
                           onChanged: (value) {
-                            setState(() {
-                              _bank_value = value;
-                            });
+                            snapshot.selectedReceiverDropdownValue = value;
                           },
-                          value: _bank_value,
+                          value: snapshot.selectedReceiverDropdownValue,
                           isExpanded: true,
                         ),
                         Column(
@@ -226,13 +223,6 @@ class _SendMoneyToIndividualScreenState
                               style: TextStyle(color: Colors.black),
                               keyboardType: TextInputType.phone,
                               controller: snapshot.receiverController,
-                              onChanged: (text) {
-                                if (text.length > 0 && !check_states) {
-                                  setState(() {
-                                    check_states = true;
-                                  });
-                                }
-                              },
                               decoration: InputDecoration(
                                 enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
@@ -379,11 +369,11 @@ class _SendMoneyToIndividualScreenState
                                           );
                                         }).toList(),
                                         onChanged: (value) {
-                                          setState(() {
-                                            _try_value = value;
-                                          });
+                                          snapshot.selectedCurrencyDropdownValue =
+                                              value;
                                         },
-                                        value: _try_value,
+                                        value: snapshot
+                                            .selectedCurrencyDropDownValue,
                                         isExpanded: true,
                                       ),
                                     ),
@@ -452,20 +442,33 @@ class _SendMoneyToIndividualScreenState
                             Container(
                               child: FlatButton(
                                 onPressed: () {
-                                  if (snapshot.amountController.text.length ==
-                                      0) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              Individual_attention(),
-                                        ));
-                                  } else {
-                                    setState(() {
-                                      check_states = false;
-                                      check_state = false;
-                                    });
-                                  }
+//                                  if (snapshot.amountController.text.length ==
+//                                      0) {
+//                                    Navigator.push(
+//                                        context,
+//                                        MaterialPageRoute(
+//                                          builder: (context) =>
+//                                              Individual_attention(),
+//                                        ));
+//                                  } else {
+//                                    setState(() {
+//                                      check_states = false;
+//                                      check_state = false;
+//                                    });
+//                                  }
+                                  snapshot.moneyTransfer((otpModel, userType) {
+//                                    Navigator.of(context).push(
+//                                        MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                OTPMoneyTransferScreen(
+//                                                    otpModel, userType)));
+                                  }, (description) {
+                                    Flushbar(
+                                      title: "Failure",
+                                      message: description,
+                                      duration: Duration(seconds: 3),
+                                    )..show(context);
+                                  });
                                 },
                                 color: Colors.blue,
                                 disabledColor: Colors.blue,

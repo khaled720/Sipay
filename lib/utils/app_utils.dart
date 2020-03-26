@@ -29,6 +29,34 @@ class AppUtils {
     return '';
   }
 
+  static List<int> getRoundedAndCentAmountFromDouble(double amount) {
+    List<int> result = List();
+    List split = amount.toString().split('.');
+    print('split is $split');
+    if (split != null) {
+      if (split.isNotEmpty && split.length >= 2) {
+        result.add(int.parse(split[0]));
+        result.add(int.parse(split[1]));
+      }
+    }
+    return result;
+  }
+
+  static int mapCurrencyTextToID(String currency) {
+    switch (currency) {
+      case 'TRY':
+        return 1;
+        break;
+      case 'USD':
+        return 2;
+        break;
+      case 'EUR':
+        return 3;
+        break;
+    }
+    return 1;
+  }
+
   static String mapCurrencyIDToCurrencySign(int currencyID) {
     switch (currencyID) {
       case 1:

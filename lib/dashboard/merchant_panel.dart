@@ -328,14 +328,16 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         ],
                                       ),
                                     )),
-                                    onTap: () {
+                                    onTap: () async {
                                       Navigator.pop(context);
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              DepositPanelScreen(
-                                                  snapshot
-                                                      .individualMainRepository,
-                                                  snapshot.userWallets)));
+                                      await Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DepositPanelScreen(
+                                                      snapshot
+                                                          .individualMainRepository,
+                                                      snapshot.userWallets)));
+                                      snapshot.getDashboardDataFromApi();
                                     },
                                   ),
                                   Divider(
@@ -360,9 +362,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         ],
                                       ),
                                     )),
-                                    onTap: () {
+                                    onTap: () async {
                                       Navigator.pop(context);
-                                      Navigator.push(
+                                      await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
@@ -371,6 +373,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                         .individualMainRepository,
                                                     snapshot.userWallets),
                                           ));
+                                      snapshot.getDashboardDataFromApi();
                                     },
                                   ),
                                   Divider(
@@ -395,9 +398,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         ],
                                       ),
                                     )),
-                                    onTap: () {
+                                    onTap: () async {
                                       Navigator.pop(context);
-                                      Navigator.push(
+                                      await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
@@ -406,6 +409,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                         .individualMainRepository,
                                                     snapshot.userWallets),
                                           ));
+                                      snapshot.getDashboardDataFromApi();
                                     },
                                   ),
                                   Divider(
@@ -459,9 +463,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                               ],
                                             ),
                                           )),
-                                          onTap: () {
+                                          onTap: () async {
                                             Navigator.pop(context);
-                                            Navigator.push(
+                                            await Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
@@ -470,6 +474,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                               .baseMainRepository,
                                                           snapshot.userWallets),
                                                 ));
+                                            snapshot.getDashboardDataFromApi();
                                           },
                                         ),
                                         Divider(
@@ -497,9 +502,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                               ],
                                             ),
                                           )),
-                                          onTap: () {
+                                          onTap: () async {
                                             Navigator.pop(context);
-                                            Navigator.push(
+                                            await Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
@@ -508,6 +513,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                               .baseMainRepository,
                                                           snapshot.userWallets),
                                                 ));
+                                            snapshot.getDashboardDataFromApi();
                                           },
                                         ),
                                       ]),

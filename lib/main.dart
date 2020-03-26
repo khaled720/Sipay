@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/login_screens/login_main.dart';
+
+import 'SplashScreen.dart';
 
 void main() => runApp(Main());
 
@@ -10,7 +11,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
       title: 'SiPay',
       debugShowCheckedModeBanner: false,
-      home: MyLoginPage(),
+      home: SplashScreen(),
     );
   }
 }
