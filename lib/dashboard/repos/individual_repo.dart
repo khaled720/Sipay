@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -170,7 +171,7 @@ class IndividualMainRepository extends BaseMainRepository {
 
   //Individual create money send to merchant
   Future<MainApiModel> createMoneySendToMerchantValidate(
-    int merchantID,
+    var merchantID,
     String phone,
     String amount,
     int currency,
@@ -188,6 +189,7 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+    debugPrint('send to merchant result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -195,15 +197,14 @@ class IndividualMainRepository extends BaseMainRepository {
   Future<MainApiModel> createMoneySendToUserVerifyOTP(
     String senderName,
     String senderPhone,
-    int senderID,
-    int senderUserCategory,
+    var senderID,
+    var senderUserCategory,
     String receiverPhone,
     String amount,
-    int currencyID,
+    var currencyID,
     String description,
-    int sendType,
-    int userType,
-    int receiverUserType,
+    var sendType,
+    var userType,
     String receiverEmail,
     String otpCode,
   ) async {
@@ -219,14 +220,68 @@ class IndividualMainRepository extends BaseMainRepository {
       'description': description,
       'send_type': sendType.toString(), //6
       'user_type': userType.toString(), //0
-      'receiver_user_type': receiverUserType.toString(), //2
-      'receiver_email': receiverEmail,
+      'receiver_email': receiverEmail ?? '',
       'otp_code': otpCode
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+    debugPrint('send money otp response is $result');
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  Future<MainApiModel> createMoneySendToMerchantVerifyOTP(
+    String senderName,
+    String senderPhone,
+    var senderID,
+    var senderUserCategory,
+    String receiverPhone,
+    String amount,
+    var currencyID,
+    String description,
+    var sendType,
+    var userType,
+    String receiverEmail,
+    var receiverUserType,
+    String otpCode,
+  ) async {
+    Map<String, String> values = {
+      'action': 'VERIFYOTP',
+      'sender_name': senderName,
+      'sender_phone': senderPhone,
+      'sender_id': senderID.toString(),
+      'sender_user_category': senderUserCategory.toString(), //3
+      'receiver_phone': receiverPhone,
+      'amount': amount,
+      'currency_id': currencyID.toString(),
+      'description': description,
+      'send_type': sendType.toString(), //6
+      'user_type': userType.toString(), //0
+      'receiver_email': receiverEmail ?? '',
+      'receiver_user_type': receiverUserType.toString(),
+      'otp_code': otpCode
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
+        values,
+        bearerToken);
+    debugPrint('send money to merchant verify otp is $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  Future<MainApiModel> moneyTransferReceiverInfo(
+      var merchantID, var phone) async {
+    print('merchant id is $merchantID');
+    Map<String, String> values = {
+      'merchant_id': merchantID.toString() ?? '',
+      'phone': phone ?? '',
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualGetMerchantReceiverInfoEndPoint,
+        values,
+        bearerToken);
+    debugPrint('money receiver $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -234,15 +289,15 @@ class IndividualMainRepository extends BaseMainRepository {
   Future<MainApiModel> resendOTPMoneySendToMerchant(
     String senderName,
     String senderPhone,
-    int senderID,
-    int senderUserCategory,
+    var senderID,
+    var senderUserCategory,
     String receiverPhone,
     String amount,
-    int currencyID,
+    var currencyID,
     String description,
-    int sendType,
-    int userType,
-    int receiverUserType,
+    var sendType,
+    var userType,
+    var receiverUserType,
     String receiverEmail,
   ) async {
     Map<String, String> values = {
@@ -258,12 +313,13 @@ class IndividualMainRepository extends BaseMainRepository {
       'send_type': sendType.toString(), //6
       'user_type': userType.toString(), //0
       'receiver_user_type': receiverUserType.toString(), //2
-      'receiver_email': receiverEmail
+      'receiver_email': receiverEmail ?? ''
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+    debugPrint('resend merchant otp result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -285,6 +341,7 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+    debugPrint('send to user result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -314,12 +371,13 @@ class IndividualMainRepository extends BaseMainRepository {
       'description': description,
       'send_type': sendType.toString(), //1
       'user_type': userType.toString(), //0
-      'receiver_email': receiverEmail
+      'receiver_email': receiverEmail ?? ''
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+    debugPrint('resend otp is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

@@ -19,6 +19,7 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
   TextEditingController _receiverController;
   TextEditingController _amountController;
   TextEditingController _descriptionController;
+  bool _showLoad;
 
   WithdrawalBankModel get selectedBankDropDownValue =>
       _selectedBankDropDownValue;
@@ -31,6 +32,8 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
       _savedAccountSelectedDropdownValue;
 
   TextEditingController get receiverController => _receiverController;
+
+  bool get showLoad => _showLoad;
 
   TextEditingController get amountController => _amountController;
 
@@ -58,6 +61,11 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
 
   set selectedDropDownValue(WithdrawalBankModel value) {
     _selectedBankDropDownValue = value;
+    notifyListeners();
+  }
+
+  set showLoad(bool load) {
+    _showLoad = load;
     notifyListeners();
   }
 
