@@ -5,12 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/providers/money_requests_list_provider.dart';
 import 'package:fluttersipay/Money/request_details.dart';
 import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
+import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MoneyRequestsListScreen extends StatefulWidget {
   final IndividualMainRepository mainRepository;
+
   MoneyRequestsListScreen(this.mainRepository);
+
   @override
   _MoneyRequestsListScreenState createState() =>
       _MoneyRequestsListScreenState();
@@ -76,7 +79,6 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
     },
   ];
 
-  bool incoming_state = true;
   int _index = 0;
 
   @override
@@ -146,7 +148,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                       border: Border(
                                         bottom: BorderSide(
                                           //                   <--- left side
-                                          color: incoming_state
+                                          color: snapshot.incomingState
                                               ? Colors.blue
                                               : Colors.black26,
                                           width: 2.0,
@@ -158,7 +160,9 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                           width: ScreenUtil.getInstance()
                                               .setWidth(345),
                                           child: OutlineButton(
-                                            onPressed: _updateincoming,
+                                            onPressed: () {
+                                              snapshot.setIncomingState();
+                                            },
                                             borderSide: new BorderSide(
                                               style: BorderStyle.none,
                                             ),
@@ -166,7 +170,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                               'INCOMING',
                                               style: TextStyle(
                                                   fontSize: 16,
-                                                  color: incoming_state
+                                                  color: snapshot.incomingState
                                                       ? Colors.blue
                                                       : Colors.black26,
                                                   fontWeight: FontWeight.bold),
@@ -180,7 +184,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                       border: Border(
                                         bottom: BorderSide(
                                           //                   <--- left side
-                                          color: incoming_state
+                                          color: snapshot.incomingState
                                               ? Colors.black26
                                               : Colors.blue,
                                           width: 2.0,
@@ -192,7 +196,9 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                         width: ScreenUtil.getInstance()
                                             .setWidth(345),
                                         child: OutlineButton(
-                                          onPressed: _updateincoming,
+                                          onPressed: () {
+                                            snapshot.setIncomingState();
+                                          },
                                           borderSide: new BorderSide(
                                             style: BorderStyle.none,
                                           ),
@@ -200,7 +206,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                             'OUTGOING',
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: incoming_state
+                                                color: snapshot.incomingState
                                                     ? Colors.black26
                                                     : Colors.blue,
                                                 fontWeight: FontWeight.bold),
@@ -220,30 +226,46 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                       height: 30,
                     ),
                     Container(
-                      child: new ListView.builder(
+                      child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: incoming_state
-                            ? _incoming_data
-                                .length //snapshot._moneyTransferRequestsList.length
-                            : _outgoing_data
-                                .length, ////snapshot._moneyTransferSendList.length
+                        itemCount: snapshot.incomingState
+                            ? snapshot.moneyTransferRequestsList.length
+                            : snapshot.moneyTransferSendList.length,
                         primary: true,
                         itemBuilder: (BuildContext content, int index) {
                           return in_out_list(
-                              title: incoming_state
-                                  ? _incoming_data[index]["title"]
-                                  : _outgoing_data[index]['title'],
-                              value: incoming_state
-                                  ? _incoming_data[index]["value"]
-                                  : _outgoing_data[index]['value'],
-                              status: incoming_state
-                                  ? _incoming_data[index]["status"]
-                                  : _outgoing_data[index]['status'],
-                              dates: incoming_state
-                                  ? _incoming_data[index]["dates"]
-                                  : _outgoing_data[index]['dates']);
+                              title: snapshot.incomingState
+                                  ? '#' +
+                                      snapshot.moneyTransferRequestsList[index]
+                                              ["id"]
+                                          .toString() +
+                                      ' - ' +
+                                      snapshot.moneyTransferRequestsList[index]
+                                          ["user_name"]
+                                  : '#' +
+                                      snapshot.moneyTransferSendList[index]["id"]
+                                          .toString() +
+                                      ' - ' +
+                                      snapshot.moneyTransferSendList[index]
+                                          ["user_name"],
+                              value: snapshot.incomingState
+                                  ? snapshot.moneyTransferRequestsList[index]["net"].toString() +
+                                      ' ' +
+                                      AppUtils.mapCurrencyIDToCurrencySign(
+                                          snapshot.moneyTransferRequestsList[index]
+                                              ['currency_id'])
+                                  : snapshot.moneyTransferSendList[index]['net']
+                                          .toString() +
+                                      ' ' +
+                                      AppUtils.mapCurrencyIDToCurrencySign(
+                                          snapshot.moneyTransferSendList[index]['currency_id']),
+                              status: snapshot.incomingState ? 'RECEIVED' : 'SENT',
+                              dates: snapshot.incomingState ? snapshot.moneyTransferRequestsList[index]['created_at'] : snapshot.moneyTransferSendList[index]['created_at'],
+                              snapshot: snapshot,
+                              index: index,
+                              incomingState: snapshot.incomingState);
                         },
                       ),
                     ),
@@ -253,20 +275,26 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
             })));
   }
 
-  void _updateincoming() {
-    setState(() {
-      incoming_state = !incoming_state;
-    });
-  }
-
   Widget in_out_list(
-      {String title, String value, String status, String dates}) {
+      {String title,
+      String value,
+      String status,
+      String dates,
+      int index,
+      MoneyRequestListProvider snapshot,
+      bool incomingState}) {
     return new GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Request_detail(),
+              builder: (context) => MoneyTransferRequestDetailsScreen(
+                snapshot.userRepo,
+                snapshot.incomingState
+                    ? snapshot.moneyTransferRequestsList[index]["id"].toString()
+                    : snapshot.moneyTransferSendList[index]["id"].toString(),
+                incomingState ? 'receive' : 'send',
+              ),
             ));
       },
       child: Column(
@@ -324,7 +352,9 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: incoming_state ? Icon(Icons.check_circle) : null,
+                        child: incomingState ?? false
+                            ? Icon(Icons.check_circle)
+                            : null,
                         width: 40,
                       ),
                       Container(

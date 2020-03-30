@@ -29,20 +29,18 @@ List transactionDetailsMap(var values, String type) {
   };
   result.add(status);
   var creditCardNumber = {
-    'title': 'Credit Card No',
-    'value': AppUtils.replaceNullItemsToEmptyValues(typeMap['credit_card_no'])
+    'title': 'IBAN',
+    'value': AppUtils.replaceNullItemsToEmptyValues(typeMap['iban'])
   };
   result.add(creditCardNumber);
   var cardHolderName = {
-    'title': 'Card Holder Bank',
-    'value': AppUtils.replaceNullItemsToEmptyValues(typeMap['card_holder_name'])
+    'title': 'Bank Name',
+    'value': AppUtils.replaceNullItemsToEmptyValues(typeMap['bank_name'])
   };
   result.add(cardHolderName);
   var amount = {
     'title': 'Amount',
-    'value': typeMap['gross'] != null
-        ? '${typeMap['gross']}${typeMap['currency_symbol']}'
-        : 'Not Found' //TODO
+    'value': typeMap['net'] != null ? '${typeMap['net']}' : 'Not Found' //TODO
   };
   result.add(amount);
   var productPrice = {

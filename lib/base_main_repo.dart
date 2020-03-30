@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -38,7 +39,6 @@ class BaseMainRepository {
             : APIEndPoints.kApiDepositCorporateEndPoint,
         values,
         bearerToken);
-    debugPrint('bank deposit result $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -91,7 +91,6 @@ class BaseMainRepository {
             ? APIEndPoints.kApiIndividualBaseWithdrawEndPoint
             : APIEndPoints.kApiCorporateBaseWithdrawEndPoint,
         bearerToken);
-    debugPrint('withdraw form is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -185,13 +184,10 @@ class BaseMainRepository {
   }
 
   //Profile upload base 64 image
-  Future<MainApiModel> uploadBase64Image(String base64Image) async {
-    Map<String, String> values = {
-      'image': base64Image,
-    };
-    String result = await NetworkHelper.makePostRequest(
+  Future<MainApiModel> uploadBase64Image(File base64Image) async {
+    String result = await NetworkHelper.uploadBase64Image(
         APIEndPoints.kApiIndividualUserProfileUploadImageEndPoint,
-        values,
+        base64Image,
         bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }

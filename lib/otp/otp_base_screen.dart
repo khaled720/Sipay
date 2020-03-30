@@ -57,43 +57,46 @@ class OTPBaseScreen extends StatelessWidget {
             SizedBox(
               height: ScreenUtil.getInstance().setHeight(30),
             ),
-            Container(
-                width: ScreenUtil.getInstance().setHeight(780),
-                height: ScreenUtil.getInstance().setHeight(100),
-                decoration: new BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black12,
-                      width: 1.0,
+            Visibility(
+              visible: phoneNumber != null ?? false,
+              child: Container(
+                  width: ScreenUtil.getInstance().setHeight(780),
+                  height: ScreenUtil.getInstance().setHeight(100),
+                  decoration: new BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
+                        width: 1.0,
+                      ),
                     ),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Your phone number',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black45,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            'Your phone number',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black45,
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          phoneNumber,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            phoneNumber ?? '',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
             Container(
               child: Column(
                 children: <Widget>[

@@ -72,9 +72,9 @@ class IndividualPanelProvider extends BaseMainProvider {
     return 'TRY';
   }
 
-  void getDashboardDataFromApi() async {
-    _getUserWallets();
-    _getUserActivityList();
+  Future<void> getDashboardDataFromApi() async {
+    await _getUserWallets();
+    await _getUserActivityList();
   }
 
   void _getUserActivityList() async {

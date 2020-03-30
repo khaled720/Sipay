@@ -1,18 +1,19 @@
 import 'dart:convert';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
 import 'package:fluttersipay/Witdrawal/providers/create_bank_withdrawal_provider.dart';
+import 'package:fluttersipay/Witdrawal/withdrawal_otp.dart';
 import 'package:fluttersipay/corporate/withdrawal/json_models/withdraw_request_ui_model.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
-import 'Withdraw_success.dart';
 
 int button_set = 0;
 
@@ -399,7 +400,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                'SWIFT NO',
+                                                'SWIFT CODE',
                                                 style: TextStyle(
                                                     color: Colors.black54,
                                                     fontSize: 12),
@@ -809,15 +810,45 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           ),
                                           alignment: Alignment.centerRight,
                                         )),
+                                    Visibility(
+                                      visible:
+                                          snapshot.withdrawalErrorText != null,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            snapshot.withdrawalErrorText ?? '',
+                                            style: TextStyle(
+                                                color: Colors.red[800],
+                                                fontSize: 14),
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(30),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                     Container(
                                       child: FlatButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Withdraw_success(),
-                                              ));
+                                          snapshot.createWithdrawal(
+                                              (phoneNumber, otpModel, mainRepo,
+                                                  userType) {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        WithdrawalOTPScreen(
+                                                            phoneNumber,
+                                                            otpModel,
+                                                            userType,
+                                                            mainRepo)));
+                                          }, (description) {
+                                            Flushbar(
+                                              title: "Failure",
+                                              message: description,
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+                                          });
                                         },
                                         color: Colors.blue,
                                         disabledColor: Colors.blue,

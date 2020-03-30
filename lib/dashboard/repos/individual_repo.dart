@@ -16,7 +16,6 @@ class IndividualMainRepository extends BaseMainRepository {
   Future<MainApiModel> logoutIndividual() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kAPIIndividualLogoutEndPoint, bearerToken);
-    print('logout result $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -43,7 +42,7 @@ class IndividualMainRepository extends BaseMainRepository {
       int userType) async {
     Map<String, String> values = {
       'action': 'WithdrawalRequest',
-      'swift_code': swiftCode,
+      'swift_code': swiftCode ?? '',
       'bank_static_id': bankStaticId.toString(),
       'account_holder_name': accountHolderName,
       'iban_no': ibanNo,
@@ -57,37 +56,71 @@ class IndividualMainRepository extends BaseMainRepository {
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualCreateWithdrawEndPoint, values, bearerToken);
+    debugPrint('withdraw create is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Withdraw otp
   Future<MainApiModel> withdrawOTP(
     String swiftCode,
-    int bankStaticId,
+    var bankStaticId,
     String accountHolderName,
     String ibanNo,
     String amount,
-    int currencyID,
+    var currencyID,
     String bankName,
+    String logo,
     String bankSaveCheck,
     String savedBankAccount,
-    int userType,
+    var userType,
     String withdrawOTP,
   ) async {
     Map<String, String> values = {
       'action': 'VERIFYOTP',
-      'swift_code': swiftCode,
+      'swift_code': swiftCode ?? '',
       'bank_static_id': bankStaticId.toString(),
       'account_holder_name': accountHolderName,
       'iban_no': ibanNo,
       'amount': amount,
       'currency_id': currencyID.toString(), //method id should be 7...
       'bank_name': bankName,
-      'logo': 'logo.jpg',
+      'logo': logo ?? '',
       'bankSaveCheck': bankSaveCheck,
       'savedBankAccount': savedBankAccount,
       'user_type': userType.toString(),
       'withdraw_otp': withdrawOTP
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiIndividualCreateWithdrawEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  Future<MainApiModel> resendWithdrawOTP(
+    String swiftCode,
+    var bankStaticId,
+    String accountHolderName,
+    String ibanNo,
+    String amount,
+    var currencyID,
+    String bankName,
+    String logo,
+    String bankSaveCheck,
+    String savedBankAccount,
+    var userType,
+  ) async {
+    Map<String, String> values = {
+      'action': 'RESENDOTP',
+      'swift_code': swiftCode ?? '',
+      'bank_static_id': bankStaticId.toString(),
+      'account_holder_name': accountHolderName,
+      'iban_no': ibanNo,
+      'amount': amount,
+      'currency_id': currencyID.toString(), //method id should be 7...
+      'bank_name': bankName,
+      'logo': logo ?? '',
+      'bankSaveCheck': bankSaveCheck,
+      'savedBankAccount': savedBankAccount,
+      'user_type': userType.toString(),
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualCreateWithdrawEndPoint, values, bearerToken);
@@ -105,12 +138,13 @@ class IndividualMainRepository extends BaseMainRepository {
 
   //Individual money details
   Future<MainApiModel> moneyTransferDetails(
-      int transferID, String transactionType) async {
+      var transferID, String transactionType) async {
     Map<String, String> values = {'transactiontype': transactionType ?? 'send'};
-    String result = await NetworkHelper.makePostRequest(
-        '${APIEndPoints.kApiIndividualMoneyTransferDetailsEndPoint}/$transferID',
-        values,
-        bearerToken);
+    final newUri = Uri.parse(
+            '${APIEndPoints.kApiIndividualMoneyTransferDetailsEndPoint}/${transferID.toString()}')
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    debugPrint('money transfer details is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -134,6 +168,7 @@ class IndividualMainRepository extends BaseMainRepository {
             APIEndPoints.kApiIndividualMoneyTransferListRequestMoneyEndPoint)
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    //debugPrint('incoming is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -150,6 +185,7 @@ class IndividualMainRepository extends BaseMainRepository {
         Uri.parse(APIEndPoints.kApiIndividualMoneyTransferListSendMoneyEndPoint)
             .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    debugPrint('outgoing is $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -166,6 +202,7 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualCreateMoneyRequestEndPoint,
         values,
         bearerToken);
+    debugPrint('create money request is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -189,7 +226,6 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('send to merchant result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -227,7 +263,6 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('send money otp response is $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -266,22 +301,21 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('send money to merchant verify otp is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
   Future<MainApiModel> moneyTransferReceiverInfo(
-      var merchantID, var phone) async {
+      String merchantID, String phone) async {
     print('merchant id is $merchantID');
     Map<String, String> values = {
-      'merchant_id': merchantID.toString() ?? '',
+      'merchant_id': merchantID ?? '',
       'phone': phone ?? '',
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualGetMerchantReceiverInfoEndPoint,
         values,
         bearerToken);
-    debugPrint('money receiver $result', wrapWidth: 1024);
+    debugPrint('receiver info is $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -319,7 +353,6 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('resend merchant otp result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -341,7 +374,6 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('send to user result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -377,7 +409,6 @@ class IndividualMainRepository extends BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
-    debugPrint('resend otp is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -392,6 +423,7 @@ class IndividualMainRepository extends BaseMainRepository {
         Uri.parse(APIEndPoints.kApiIndividualTransactionsListActivityEndPoint)
             .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    debugPrint('transactions list is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -405,7 +437,6 @@ class IndividualMainRepository extends BaseMainRepository {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiIndividualTransactionsListActivityEndPoint,
         bearerToken);
-    print('transactions list $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -423,7 +454,7 @@ class IndividualMainRepository extends BaseMainRepository {
   }
 
   //Individual transactions list
-  Future<MainApiModel> individualTransactionsList(
+  Future<MainApiModel> searchIndividualTransactionsList(
       String searchKey,
       String transactionState,
       String currency,
@@ -439,7 +470,7 @@ class IndividualMainRepository extends BaseMainRepository {
     final newUri = Uri.parse(APIEndPoints.kApiIndividualTransactionListEndPoint)
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
-    print('transactions list is $result');
+    debugPrint('search transactions list is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 }

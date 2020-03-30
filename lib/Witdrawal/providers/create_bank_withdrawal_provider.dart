@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
+import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 
 import '../../base_main_repo.dart';
 
@@ -17,6 +19,7 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
   String _selectedCurrencyDropDownValue = 'TRY';
   String _withdrawalErrorText;
   WithdrawalBankModel _savedAccountSelectedDropdownValue;
+  WithdrawalBankModel _currentSelectedBank;
   TextEditingController _amountController;
   TextEditingController _accountHolderController;
   TextEditingController _ibanController;
@@ -24,14 +27,16 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
   TextEditingController _swiftController;
   TextEditingController _netAccountController;
   bool _showSwiftCode;
+  bool _savedAccount = false;
   bool _checkbox = false;
+  int _userType = 0;
 
   WithdrawalBankModel get selectedBankDropDownValue =>
       _selectedBankDropDownValue;
 
   String get selectedCurrencyDropDownValue => _selectedCurrencyDropDownValue;
 
-  String get depositErrorText => _withdrawalErrorText;
+  String get withdrawalErrorText => _withdrawalErrorText;
 
   WithdrawalBankModel get savedAccountSelectedDropdownValue =>
       _savedAccountSelectedDropdownValue;
@@ -81,11 +86,16 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
 
   set selectedDropDownValue(WithdrawalBankModel value) {
     _selectedBankDropDownValue = value;
+    _currentSelectedBank = value;
     notifyListeners();
   }
 
   void setSavedBankAccountDropdownValue(WithdrawalBankModel value) {
     _savedAccountSelectedDropdownValue = value;
+    if (value.name != 'No accounts found') {
+      _savedAccount = true;
+      _currentSelectedBank = value;
+    }
     notifyListeners();
   }
 
@@ -124,6 +134,10 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
           AppUtils.mapWithdrawalBankListToDropdownMenuItems(savedBanks);
       _savedAccountSelectedDropdownValue = savedBanks[0];
       _commissionsList = userBankList.data['commissions'];
+      if (_commissionsList != null) {
+        if (_commissionsList.isNotEmpty)
+          _userType = _commissionsList[0]['user_type'] ?? 0;
+      }
       notifyListeners();
     }
   }
@@ -157,27 +171,44 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
     }
   }
 
-//  void createWithdrawal(Function onSuccess) async {
-//    _setWithdrawalErrorText(null);
-//    if (_amountController.text.trim().isNotEmpty &&
-//        _netAccountController.text.trim().isNotEmpty &&
-//        ibanController.text.trim().isNotEmpty) {
-//      print(
-//          'values are ${_amountController.text}currency id${_selectedBankDropDownValue.currencyID}');
-//      print(
-//          'pnr ${_netAccountController.text} id ${_selectedBankDropDownValue.id} iban ${_ibanController.text}');
-//      setShowLoad(true);
-//      MainApiModel bankDepositModel = await mainRepo.depositCreate(
-//          amountController.text.trim(),
-//          _selectedBankDropDownValue.currencyID,
-//          _netAccountController.text.trim(),
-//          _selectedBankDropDownValue.id,
-//          _ibanController.text.trim());
-//      setShowLoad(false);
-//      bankDepositModel.statusCode == 100 || bankDepositModel.statusCode == 4
-//          ? onSuccess(bankDepositModel)
-//          : _setWithdrawalErrorText(bankDepositModel.description);
-//    } else
-//      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
-//  }
+  void createWithdrawal(Function onSuccess, Function onFailure) async {
+    _setWithdrawalErrorText(null);
+    if (_amountController.text.trim().isNotEmpty &&
+        _netAccountController.text.trim().isNotEmpty &&
+        ibanController.text.trim().isNotEmpty &&
+        _accountHolderController.text.trim().isNotEmpty) {
+      String swiftCode = _swiftController.text.trim();
+      if (_selectedCurrencyDropDownValue != 'TRY') {
+        if (_swiftController.text.trim().isEmpty) {
+          _setWithdrawalErrorText(
+              'One of the fields is empty. Please try again.');
+          return;
+        }
+      }
+      IndividualMainRepository repo = mainRepo;
+      setShowLoad(true);
+      MainApiModel bankWithdrawalModel = await repo.withdrawCreate(
+          swiftCode,
+          _currentSelectedBank.id,
+          _accountHolderController.text.trim(),
+          _ibanController.text.trim(),
+          _amountController.text.trim(),
+          AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
+          _currentSelectedBank.name,
+          _checkbox ? '1' : '0',
+          _savedAccount ? '1' : '0',
+          _userType);
+      setShowLoad(false);
+      if (bankWithdrawalModel.statusCode == 100 ||
+          bankWithdrawalModel.statusCode == 4) {
+        onSuccess(null, bankWithdrawalModel, repo, UserTypes.Individual);
+      } else {
+        onFailure(bankWithdrawalModel.description);
+        _setWithdrawalErrorText(bankWithdrawalModel.description);
+      }
+    } else {
+      Future.delayed(Duration(seconds: 1));
+      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
+    }
+  }
 }

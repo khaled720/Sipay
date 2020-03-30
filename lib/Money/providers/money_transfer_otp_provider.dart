@@ -66,7 +66,6 @@ class MoneyTransferOTPProvider extends BaseOTPVerificationProvider {
       //Sending money to an individual
       case UserTypes.Individual:
         IndividualMainRepository userRepo = _baseMainRepository;
-        print('data is $data');
         return await userRepo.createMoneySendToUserVerifyOTP(
             data['sender_name'],
             data['sender_phone'],

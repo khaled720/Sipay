@@ -6,19 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../dashboard/merchant.dart';
-
-Widget Withdraw_success() {
-  return Withdraw_success_panel();
-}
-
-class Withdraw_success_panel extends StatefulWidget {
-  Withdraw_success_panel({Key key}) : super(key: key);
+class WithdrawSuccessScreen extends StatefulWidget {
+  WithdrawSuccessScreen({Key key}) : super(key: key);
   @override
-  _Withdraw_success_panel createState() => _Withdraw_success_panel();
+  _WithdrawSuccessScreenState createState() => _WithdrawSuccessScreenState();
 }
 
-class _Withdraw_success_panel extends State<Withdraw_success_panel> {
+class _WithdrawSuccessScreenState extends State<WithdrawSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -131,13 +125,8 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                           child: Container(
                             child: FlatButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          CorporateMerchantPanelScreen(
-                                              null, null),
-                                    ));
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
                               },
                               color: Colors.blue,
                               disabledColor: Colors.blue,

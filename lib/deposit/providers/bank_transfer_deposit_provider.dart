@@ -84,10 +84,6 @@ class DepositBankTransferProvider extends TransactionsScreenBaseProvider {
     if (_amountController.text.trim().isNotEmpty &&
         _pnrController.text.trim().isNotEmpty &&
         ibanController.text.trim().isNotEmpty) {
-      print(
-          'values are ${_amountController.text}currency id${_selectedBankDropDownValue.currencyID}');
-      print(
-          'pnr ${_pnrController.text} id ${_selectedBankDropDownValue.id} iban ${_ibanController.text}');
       setShowLoad(true);
       MainApiModel bankDepositModel = await mainRepo.depositCreate(
           amountController.text.trim(),

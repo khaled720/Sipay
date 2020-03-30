@@ -260,7 +260,11 @@ class _SendMoneyToIndividualScreenState
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Icon(FontAwesomeIcons.userCheck,
+                                      Icon(
+                                          snapshot.receiverData ==
+                                                  'Non SiPay User'
+                                              ? FontAwesomeIcons.userTimes
+                                              : FontAwesomeIcons.userCheck,
                                           size: 15.0,
                                           color: snapshot.receiverData ==
                                                   'Non SiPay User'

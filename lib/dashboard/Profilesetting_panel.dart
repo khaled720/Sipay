@@ -100,10 +100,14 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                                     .toString()
                                                     .trim(),
                                               )
-                                            : Image.asset(
-                                                'assets/user_avatar.png',
-                                                fit: BoxFit.cover,
-                                              ).image),
+                                            : (snapshot.imageFromGallery != null
+                                                ? FileImage(
+                                                    snapshot.imageFromGallery,
+                                                  )
+                                                : Image.asset(
+                                                    'assets/user_avatar.png',
+                                                    fit: BoxFit.cover,
+                                                  ).image)),
                                 height: ScreenUtil.getInstance().setHeight(130),
                                 width: ScreenUtil.getInstance().setHeight(130),
                               ),
@@ -158,7 +162,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                 snapshot.pickImageFromLibrary(() {
                                   Flushbar(
                                       title: "Successful",
-                                      message: 'Image selected!',
+                                      message: 'Image Uploaded!',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
                                 });
@@ -262,10 +266,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             child: FlatButton(
                               onPressed: () {
                                 snapshot.saveProfileUpdate(() {
+                                  Navigator.of(context).pop();
                                   Flushbar(
                                       title: "Successful",
                                       message:
-                                          'Updated your profile successfully',
+                                          'Your profile was successfully uploaded',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
                                 }, () {

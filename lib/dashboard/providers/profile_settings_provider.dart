@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:country_pickers/country.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +16,8 @@ class ProfileSettingsProvider with ChangeNotifier {
   Country selectedCountry;
   Map<String, dynamic> _userInfo;
   Map _countriesMap;
-  var _imageFromGallery;
+  File _imageFromGallery;
+  File _tempImage;
   bool _showLoad;
 
   ProfileSettingsProvider(this.baseRepo, this._userLoginModel,
@@ -40,7 +43,7 @@ class ProfileSettingsProvider with ChangeNotifier {
 
   List get countriesList => _countriesList;
 
-  get imageFromGallery => _imageFromGallery;
+  File get imageFromGallery => _imageFromGallery;
 
   load(bool load) {
     _showLoad = load;
@@ -66,9 +69,13 @@ class ProfileSettingsProvider with ChangeNotifier {
         await ImagePicker.pickImage(source: ImageSource.gallery);
     if (_imageFromGallery != null) _uploadImage(onSuccess);
   }
-  
-  _uploadImage(Function onSuccess){
-    //await baseRepo.uploadBase64Image(base64Image)
+
+  _uploadImage(Function onSuccess) async {
+    load(true);
+    MainApiModel uploadImageModel =
+        await baseRepo.uploadBase64Image(_imageFromGallery);
+    load(false);
+    if (uploadImageModel.statusCode == 100) onSuccess();
   }
 
   saveProfileUpdate(Function onSuccess, Function onFailure) async {
