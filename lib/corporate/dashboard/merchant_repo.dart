@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -221,6 +222,7 @@ class MerchantMainRepository extends BaseMainRepository {
   Future<MainApiModel> createMerchantDPL() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiCorporateCreateDPLEndPoint, bearerToken);
+    debugPrint('result is $result',wrapWidth:1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

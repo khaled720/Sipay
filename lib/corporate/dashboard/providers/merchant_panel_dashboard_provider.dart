@@ -73,9 +73,9 @@ class MerchantPanelProvider extends BaseMainProvider {
     return 'TRY';
   }
 
-  void getDashboardDataFromApi() async {
-    _getUserWallets();
-    _getCorporateActivityList();
+  Future<void> getDashboardDataFromApi() async {
+    await _getUserWallets();
+    await _getCorporateActivityList();
   }
 
   void _getCorporateActivityList() async {

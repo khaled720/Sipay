@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttersipay/Dashboard/security.dart';
-import 'package:fluttersipay/Exchange/exchange.dart';
+import 'package:fluttersipay/corporate/exchange/exchange_create.dart';
 import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
@@ -325,7 +325,7 @@ class _CorporateMerchantPanelScreenState
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.transactions),
+                                          Text('Deposit'),
                                         ],
                                       ),
                                     )),
@@ -365,12 +365,8 @@ class _CorporateMerchantPanelScreenState
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                ExchangePanelScreen(
-                                                    snapshot
-                                                        .corporateMainRepository,
-                                                    snapshot.userWallets),
-                                          ));
+                                              builder: (context) =>
+                                                  Exchange_Create()));
                                     },
                                   ),
                                   Divider(
@@ -391,7 +387,7 @@ class _CorporateMerchantPanelScreenState
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.deposit),
+                                          Text('Security'),
                                         ],
                                       ),
                                     )),
