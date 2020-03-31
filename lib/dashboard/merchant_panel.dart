@@ -1167,7 +1167,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                   text: snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 45,
+                                      fontSize: 35,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
@@ -1210,7 +1210,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 30,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
