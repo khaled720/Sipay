@@ -27,7 +27,7 @@ class Card_panel extends StatefulWidget {
 class _Card_panel extends State<Card_panel> {
   final _formKey = GlobalKey<FormState>();
 
-  var _try_value = null;
+  var _try_value;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -42,11 +42,11 @@ class _Card_panel extends State<Card_panel> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.3Deposit_card.json'),
         builder: (context, snapshot) {
-          card_json users;
+          DepositCardUIModel users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = card_json.fromJson(parsedJson);
+            users = DepositCardUIModel.fromJson(parsedJson);
             if (_try_value == null) _try_value = users.trys[0];
             return Scaffold(
               appBar: AppBar(
@@ -479,7 +479,7 @@ class _Card_panel extends State<Card_panel> {
   }
 }
 
-class card_json {
+class DepositCardUIModel {
   String header;
   String abailable;
   List<String> abailableBalances;
@@ -489,7 +489,7 @@ class card_json {
   List<String> trys;
   String button;
 
-  card_json(
+  DepositCardUIModel(
       {this.header,
       this.abailable,
       this.abailableBalances,
@@ -499,7 +499,7 @@ class card_json {
       this.trys,
       this.button});
 
-  card_json.fromJson(Map<String, dynamic> json) {
+  DepositCardUIModel.fromJson(Map<String, dynamic> json) {
     header = json['header'];
     abailable = json['abailable'];
     abailableBalances = json['abailable_balances'].cast<String>();

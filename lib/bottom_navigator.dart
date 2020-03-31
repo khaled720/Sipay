@@ -44,7 +44,6 @@ Widget getCustomNavigator(
                 onPressed: () {
                   if (select == 0) return;
                   Navigator.pop(context);
-                  print('selected');
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => DepositPanelScreen(repo, wallets)));
                 },

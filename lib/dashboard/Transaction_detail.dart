@@ -153,19 +153,23 @@ Widget detailsList({String title, String value}) {
         height: 15,
       ),
       Padding(
-        padding: EdgeInsets.only(left: 30.0, right: 30.0),
+        padding: EdgeInsets.only(left: 15.0, right: 15.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
             Text(
-              value,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.right,
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
+            Flexible(
+              child: Text(
+                value,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+              ),
             )
           ],
         ),

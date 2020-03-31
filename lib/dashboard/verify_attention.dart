@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/success.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 Widget Verify_attention() {
   return Verify_attention_panel();
 }
@@ -17,7 +16,6 @@ class Verify_attention_panel extends StatefulWidget {
 }
 
 class _Verify_attention_panel extends State<Verify_attention_panel> {
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -26,8 +24,8 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -102,19 +100,19 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                 Padding(
                   padding: EdgeInsets.only(left: 115.0, right: 30.0),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/verify_attention.png',
-                                height: ScreenUtil.getInstance().setHeight(400),
-                              ),
-                            ],
-                          ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/verify_attention.png',
+                              height: ScreenUtil.getInstance().setHeight(400),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -122,8 +120,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 40.0, right: 30.0),
-                  child: Text(
-                      'You must verify your account to view this page.',
+                  child: Text('You must verify your account to view this page.',
                       style: TextStyle(color: Colors.black45, fontSize: 15)),
                 ),
                 SizedBox(
@@ -137,9 +134,11 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                         child: FlatButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MaterialPageRoute(
-                                  builder: (context) => Transfer_success(),
+                                  builder: (context) =>
+                                      TransferSuccessScreen(null, null),
                                 ));
                           },
                           color: Colors.blue,

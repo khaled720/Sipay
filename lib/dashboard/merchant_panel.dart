@@ -298,12 +298,11 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                TransactionHistoryScreen(
-                                                    snapshot
-                                                        .individualMainRepository,
-                                                    snapshot.userWallets),
-                                          ));
+                                              builder: (context) =>
+                                                  TransactionHistoryScreen(
+                                                      snapshot
+                                                          .individualMainRepository,
+                                                      snapshot.userWallets)));
                                     },
                                   ),
                                   Divider(
@@ -1088,28 +1087,33 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         builder: (context, snapshot, _) {
                                       return SingleChildScrollView(
                                         child: Container(
-                                          child: ListView.builder(
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: snapshot
-                                                .getTransactionsListActivity()
-                                                .length,
-                                            itemBuilder: (BuildContext content,
-                                                int index) {
-                                              return LastActivityList(
-                                                  title: AppUtils
-                                                      .getTransactionableType(
-                                                          snapshot.userLastTransactionsActivity[
-                                                                  index][
-                                                              'transactionable_type']),
-                                                  value:
-                                                      '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
-                                                  description:
-                                                      '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
-                                                  dates: snapshot
-                                                          .userLastTransactionsActivity[
-                                                      index]['created_at']);
-                                            },
+                                          child: RefreshIndicator(
+                                            onRefresh: snapshot
+                                                .getDashboardDataFromApi,
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: snapshot
+                                                  .getTransactionsListActivity()
+                                                  .length,
+                                              itemBuilder:
+                                                  (BuildContext content,
+                                                      int index) {
+                                                return lastActivityList(
+                                                    title: AppUtils
+                                                        .getTransactionableType(
+                                                            snapshot.userLastTransactionsActivity[
+                                                                    index][
+                                                                'transactionable_type']),
+                                                    value:
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
+                                                    description:
+                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
+                                                    dates: snapshot
+                                                            .userLastTransactionsActivity[
+                                                        index]['created_at']);
+                                              },
+                                            ),
                                           ),
                                           height: _media.height * 0.5 - 160,
                                         ),
@@ -1252,7 +1256,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
     );
   }
 
-  Widget LastActivityList(
+  Widget lastActivityList(
       {String title, String value, String description, String dates}) {
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.start,

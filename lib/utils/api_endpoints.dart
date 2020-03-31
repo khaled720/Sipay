@@ -78,6 +78,10 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/requestmoney/create';
   static final String kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint =
       '$kBaseIndividualAPIEndPoint/validatesendmoney';
+  static final String kApiIndividualGetMerchantReceiverInfoEndPoint =
+      '$kBaseIndividualAPIEndPoint/getreceiverinfo';
+  static final String kApiIndividualRequestMoneyCreateEndPoint =
+      '$kBaseIndividualAPIEndPoint/requestmoney/create';
 
   //Individual Transactions
   static final String kApiIndividualTransactionsListActivityEndPoint =

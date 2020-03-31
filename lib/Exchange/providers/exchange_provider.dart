@@ -81,7 +81,6 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
     if (rateModel.statusCode == 100) {
       _exchangeRate =
           rateModel.data['exchange']['exchanges_to_second_currency_value'] ?? 0;
-      print('exchangeRate is $_exchangeRate');
       _amountListener();
     }
     notifyListeners();

@@ -24,7 +24,7 @@ class DepositPanelScreen extends StatefulWidget {
 }
 
 class _DepositPanelScreenState extends State<DepositPanelScreen> {
-  var _value = null;
+  var _value;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

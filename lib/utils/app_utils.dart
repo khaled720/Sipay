@@ -7,8 +7,6 @@ class AppUtils {
   static String getTransactionableType(String type) {
     List splittedString = type.split('\\');
     if (splittedString.length >= 3) {
-      if (splittedString[2] == 'Send' || splittedString[2] == 'Receive')
-        return 'Money Transfer';
       return splittedString[2];
     }
     return type;
@@ -29,10 +27,32 @@ class AppUtils {
     return '';
   }
 
+  static String mapTransactionTypeToMoneyFlowSign(int transactionTypeID) {
+    switch (transactionTypeID) {
+      case 1:
+        return '-';
+        break;
+      case 2:
+        return '+';
+        break;
+      case 3:
+        return '-';
+        break;
+      case 4:
+        return '-';
+        break;
+      case 5:
+        return '+';
+        break;
+      default:
+        return '-';
+        break;
+    }
+  }
+
   static List<int> getRoundedAndCentAmountFromDouble(double amount) {
     List<int> result = List();
     List split = amount.toString().split('.');
-    print('split is $split');
     if (split != null) {
       if (split.isNotEmpty && split.length >= 2) {
         result.add(int.parse(split[0]));

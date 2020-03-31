@@ -435,35 +435,35 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 30,
-                            ),
-                            Expanded(
-                              child: Text('Expiry Date: ',
-                                  style: TextStyle(
-                                      color: Colors.black45, fontSize: 17)),
-                            ),
-                            Expanded(
-                              child: Container(
-                                  child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: Text(
-                                  '20.10.2019 14:19',
-                                  style: TextStyle(
-                                      color: Colors.black87, fontSize: 16),
-                                ),
-                              )),
-                            ),
-                            SizedBox(
-                              width: 30,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
+//                        Row(
+//                          children: <Widget>[
+//                            SizedBox(
+//                              width: 30,
+//                            ),
+//                            Expanded(
+//                              child: Text('Expiry Date: ',
+//                                  style: TextStyle(
+//                                      color: Colors.black45, fontSize: 17)),
+//                            ),
+//                            Expanded(
+//                              child: Container(
+//                                  child: Align(
+//                                alignment: Alignment.bottomRight,
+//                                child: Text(
+//                                  '20.10.2019 14:19',
+//                                  style: TextStyle(
+//                                      color: Colors.black87, fontSize: 16),
+//                                ),
+//                              )),
+//                            ),
+//                            SizedBox(
+//                              width: 30,
+//                            ),
+//                          ],
+//                        ),
+//                        SizedBox(
+//                          height: 20,
+//                        ),
                         Divider(
                           color: Colors.black26,
                           height: 1.0,

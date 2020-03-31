@@ -220,7 +220,8 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Transfer_success(),
+                                  builder: (context) =>
+                                      TransferSuccessScreen(null, null),
                                 ));
                           },
                           color: Colors.blue,

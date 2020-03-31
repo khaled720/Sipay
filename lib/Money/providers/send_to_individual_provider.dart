@@ -7,7 +7,8 @@ import '../../base_main_repo.dart';
 import 'base_money_transfer_provider.dart';
 
 class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
-  String _selectedReceiverDropdownValue = "MERCHANT";
+  String _receiverName;
+  bool _phoneLoading;
 
   SendMoneyToIndividualProvider(
       BaseMainRepository repo,
@@ -16,13 +17,38 @@ class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
       TextEditingController amountController,
       TextEditingController descriptionController)
       : super(repo, wallets, receiverController, amountController,
-            descriptionController);
+            descriptionController) {
+    _phoneLoading = false;
+  }
 
-  String get selectedReceiverDropdownValue => _selectedReceiverDropdownValue;
+  String get receiverData => _receiverName;
 
-  set selectedReceiverDropdownValue(String value) {
-    _selectedReceiverDropdownValue = value;
+  bool get phoneLoading => _phoneLoading;
+
+  set receiverData(String value) {
+    _receiverName = value;
     notifyListeners();
+  }
+
+  set phoneLoading(bool load) {
+    _phoneLoading = load;
+    notifyListeners();
+  }
+
+  onReceiverPhoneSubmitted(value) async {
+    if (value != null) {
+      if (value.toString().trim().isNotEmpty) {
+        phoneLoading = true;
+        receiverData = null;
+        MainApiModel moneyReceiverInfo =
+            await userRepo.moneyTransferReceiverInfo(null, value);
+        phoneLoading = false;
+        if (moneyReceiverInfo.statusCode == 100)
+          receiverData = moneyReceiverInfo.data['receiver_info']['name'];
+        else
+          receiverData = 'Non SiPay User';
+      }
+    }
   }
 
   void moneyTransfer(Function onSendToOTP, Function onFailure) async {
@@ -30,33 +56,24 @@ class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
         amountController.text.trim().isNotEmpty) {
       double amount = double.parse(amountController.text.trim());
       if (amount > 0.0) {
-        switch (_selectedReceiverDropdownValue) {
-          case 'MERCHANT':
-            MainApiModel sendToMerchantModel =
-                await userRepo.createMoneySendToMerchantValidate(
-                    0,
-                    receiverController.text.trim(),
-                    amountController.text.trim(),
-                    AppUtils.mapCurrencyTextToID(selectedReceiverDropdownValue),
-                    descriptionController.text.trim() ?? '');
-            if (sendToMerchantModel != null)
-              sendToMerchantModel.statusCode == 100
-                  ? onSendToOTP(sendToMerchantModel, UserTypes.Corporate)
-                  : onFailure(sendToMerchantModel.description);
-            break;
-          case 'INDIVIDUAL':
+        if (receiverData != null) {
+          if (receiverData != 'Non SiPay User') {
+            showLoad = true;
             MainApiModel sendToUserModel =
                 await userRepo.createMoneySendToUserValidate(
                     receiverController.text.trim(),
                     amountController.text.trim(),
-                    AppUtils.mapCurrencyTextToID(selectedReceiverDropdownValue),
+                    AppUtils.mapCurrencyTextToID(selectedCurrencyDropDownValue),
                     descriptionController.text.trim() ?? '');
+            showLoad = false;
             if (sendToUserModel != null)
               sendToUserModel.statusCode == 100
-                  ? onSendToOTP(sendToUserModel, UserTypes.Individual)
+                  ? onSendToOTP(sendToUserModel.data['inputs']['sender_phone'],
+                      sendToUserModel, userRepo, UserTypes.Individual)
                   : onFailure(sendToUserModel.description);
-            break;
-        }
+          }
+        } else
+          onReceiverPhoneSubmitted(receiverController.text.trim());
       }
     }
   }

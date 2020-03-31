@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Witdrawal/providers/withdrawal_provider.dart';
 import 'package:fluttersipay/corporate/withdrawal/json_models/withdraw_request_ui_model.dart';
+import 'package:fluttersipay/corporate/withdrawal/withdrawal_success.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../base_main_repo.dart';
-import 'Withdrawal_success.dart';
 
 TextEditingController _iban_ontroller = TextEditingController();
 TextEditingController _withdraw_controller = TextEditingController();
@@ -612,7 +612,7 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                Withdraw_success(),
+                                                WithdrawSuccessScreen(),
                                           ));
                                     },
                                     color: Colors.blue,

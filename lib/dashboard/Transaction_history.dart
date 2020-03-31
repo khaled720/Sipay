@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/providers/transaction_history_provider.dart';
-import 'package:fluttersipay/loading_widget.dart';
-import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../base_main_repo.dart';
+import '../loading_widget.dart';
 import 'Transaction_detail.dart';
 import 'merchant_panel.dart';
 
@@ -24,10 +24,10 @@ class TransactionHistoryScreen extends StatefulWidget {
 }
 
 class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
-  var _try_value = "CURRENCY";
-  List<String> _listtryData = ["CURRENCY", "TRY", "USD", "EUR"];
-  var _type_value = "TYPES";
-  List<String> _listtypeData = [
+  var _tryValue = "CURRENCY";
+  List<String> _listTryData = ["CURRENCY", "TRY", "USD", "EUR"];
+  var _typeValue = "TYPES";
+  List<String> _listTypeData = [
     "TYPES",
     "Purchase",
     "Deposit",
@@ -36,20 +36,15 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     'Receive',
     'Exchange'
   ];
-  var _status_value = "STATES";
-  List<String> _list_status_Data = [
-    "STATES",
-    "Completed",
-    "Rejected",
-    'Pending'
-  ];
-  DateTime enddate;
-  DateTime startdate;
+  var _statusValue = "STATES";
+  List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending'];
+  DateTime endDate;
+  DateTime startDate;
 
   Future<dynamic> startDatePicker() async {
     var order = await getDate();
     setState(() {
-      startdate = order;
+      startDate = order;
     });
     return order;
   }
@@ -57,7 +52,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   Future<dynamic> endDatePicker() async {
     var order = await getDate();
     setState(() {
-      enddate = order;
+      endDate = order;
     });
     return order;
   }
@@ -171,12 +166,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  startdate == null
+                                                  startDate == null
                                                       ? ''
-                                                      : startdate.day
+                                                      : startDate.day
                                                               .toString() +
                                                           '-' +
-                                                          startdate.month
+                                                          startDate.month
                                                               .toString(),
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -222,11 +217,11 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  enddate == null
+                                                  endDate == null
                                                       ? ''
-                                                      : enddate.day.toString() +
+                                                      : endDate.day.toString() +
                                                           '-' +
-                                                          enddate.month
+                                                          endDate.month
                                                               .toString(),
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -267,7 +262,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               Icons.keyboard_arrow_down,
                                               size: 16,
                                             ),
-                                            items: _listtryData
+                                            items: _listTryData
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
                                               return DropdownMenuItem<String>(
@@ -291,13 +286,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               );
                                             }).toList(),
                                             onChanged: (value) {
-                                              setState(() {
-                                                _try_value = value;
-//                                                snapshot.selectedCurrency =
-//                                                    value;
-                                              });
+                                              snapshot.selectedCurrency = value;
                                             },
-                                            value: _try_value,
+                                            value: snapshot.selectedCurrency,
                                             isExpanded: true,
                                           ),
                                         ),
@@ -355,7 +346,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               Icons.keyboard_arrow_down,
                                               size: 16,
                                             ),
-                                            items: _list_status_Data
+                                            items: _listStatusData
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
                                               return DropdownMenuItem<String>(
@@ -380,12 +371,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                             }).toList(),
                                             onChanged: (value) {
                                               setState(() {
-                                                _status_value = value;
+                                                _statusValue = value;
                                                 snapshot.selectedTransactionState =
                                                     value;
                                               });
                                             },
-                                            value: _status_value,
+                                            value: _statusValue,
                                             isExpanded: true,
                                           ),
                                         ),
@@ -412,7 +403,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               Icons.keyboard_arrow_down,
                                               size: 16,
                                             ),
-                                            items: _listtypeData
+                                            items: _listTypeData
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
                                               return DropdownMenuItem<String>(
@@ -437,12 +428,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                             }).toList(),
                                             onChanged: (value) {
                                               setState(() {
-                                                _type_value = value;
+                                                _typeValue = value;
                                               });
                                               snapshot.selectedTransactionType =
                                                   value;
                                             },
-                                            value: _type_value,
+                                            value: _typeValue,
                                             isExpanded: true,
                                           ),
                                         ),
@@ -516,26 +507,36 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                         ),
                         Container(
                           child: new ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: snapshot.userTransactionsList().length,
-                            primary: true,
-                            itemBuilder: (BuildContext content, int index) {
-                              return transactionsList(
-                                  title: AppUtils.getTransactionableType(
-                                      snapshot.userTransactionsList()[index]
-                                          ['transactionable_type']),
-                                  value:
-                                      '${snapshot.userTransactionsList()[index]['money_flow']} ${snapshot.userTransactionsList()[index]['gross'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(snapshot.userTransactionsList()[index]['currency_id'])}',
-                                  id:
-                                      'Transaction ID: #${snapshot.userTransactionsList()[index]['transactionable_id']}',
-                                  dates: snapshot.userTransactionsList()[index]
-                                      ['created_at'],
-                                  type:
-                                      '${AppUtils.mapMoneyFlowToColorType(snapshot.userTransactionsList()[index]['money_flow'])}');
-                            },
-                          ),
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: snapshot.userTransactionsList().length,
+                              primary: true,
+                              itemBuilder: (BuildContext content, int index) {
+                                return transactionsList(
+                                        title: snapshot
+                                                .getDataFromTransactionsList(
+                                                    TransactionData.Title,
+                                                    index) ??
+                                            '',
+                                        value: snapshot
+                                                .getDataFromTransactionsList(
+                                                    TransactionData.Value,
+                                                    index) ??
+                                            '',
+                                        id: snapshot.getDataFromTransactionsList(
+                                                TransactionData.ID, index) ??
+                                            '',
+                                        dates: snapshot
+                                                .getDataFromTransactionsList(
+                                                    TransactionData.Date,
+                                                    index) ??
+                                            '',
+                                        type:
+                                            snapshot.getDataFromTransactionsList(
+                                                TransactionData.Type, index)) ??
+                                    '';
+                              }),
                         ),
                         SizedBox(
                           height: 60,

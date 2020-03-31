@@ -2,19 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/main_api_data_model.dart';
+import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
-Widget Transfer_success() {
-  return Individual_success_panel();
-}
-
-class Individual_success_panel extends StatefulWidget {
-  Individual_success_panel({Key key}) : super(key: key);
+class TransferSuccessScreen extends StatefulWidget {
+  final MainApiModel otpModel;
+  final UserTypes userType;
+  TransferSuccessScreen(this.userType, this.otpModel);
   @override
-  _Individual_success_panel createState() => _Individual_success_panel();
+  _TransferSuccessScreenState createState() => _TransferSuccessScreenState();
 }
 
-class _Individual_success_panel extends State<Individual_success_panel> {
+class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
+  var otpModelData;
+  String amount;
+  String currency;
+  String date;
+  String data;
+  @override
+  void initState() {
+    super.initState();
+    otpModelData = widget.otpModel.data['inputs'];
+    currency =
+        AppUtils.mapCurrencyIDToText(int.parse(otpModelData['currency_id']));
+    amount = '${otpModelData['amount']} $currency';
+    final df = DateFormat('dd.MM.yyyy hh:mm');
+    date = df.format(DateTime.now());
+    data = otpModelData['receiver_phone'];
+//    if (widget.userType == UserTypes.Individual) {
+//      data = otpModelData['receiver_phone'];
+//    } else {
+//      data = otpModelData['merchant_id'];
+//    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -115,7 +139,7 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                     ),
                     Expanded(
                       child: Text(
-                        'Ammount Sent: ',
+                        'Amount Sent: ',
                         style: TextStyle(color: Colors.black45, fontSize: 17),
                       ),
                     ),
@@ -124,7 +148,7 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '1.220, 00 TL',
+                          amount ?? '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -150,7 +174,10 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Reciever Merchant ID: ',
+                      child: Text('Reciever GSM NO: ',
+//                          widget.userType == UserTypes.Individual
+//                              ? 'Reciever GSM NO: '
+//                              : 'Reciever Merchant ID: ',
                           style:
                               TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
@@ -159,7 +186,7 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '114952',
+                          data ?? '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -194,7 +221,7 @@ class _Individual_success_panel extends State<Individual_success_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '20.10.2019 14:19',
+                          date ?? '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),

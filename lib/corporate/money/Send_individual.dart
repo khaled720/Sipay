@@ -5,13 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/individual_attention.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'success.dart';
-
 TextEditingController _amont_ontroller = TextEditingController();
 TextEditingController _register_ontroller = TextEditingController();
 TextEditingController _IBAN_ontroller = TextEditingController();
 TextEditingController _PNR_ontroller = TextEditingController();
-
 
 Widget Send_individual() {
   return Individual_panel();
@@ -33,15 +30,9 @@ class _Individual_panel extends State<Individual_panel> {
   bool check_state = true;
   bool check_states = true;
   var _bank_value = "MERCHANT";
-  List<String> _listBankData = [
-    "MERCHANT",
-    "INDIVIDUAL"
-  ];
+  List<String> _listBankData = ["MERCHANT", "INDIVIDUAL"];
   var _try_value = "TRY";
-  List<String> _listtryData = [
-    "TRY",
-    "TRYS"
-  ];
+  List<String> _listtryData = ["TRY", "TRYS"];
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -50,8 +41,8 @@ class _Individual_panel extends State<Individual_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -64,7 +55,10 @@ class _Individual_panel extends State<Individual_panel> {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(Icons.arrow_back_ios,size: 16,),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 16,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -163,10 +157,7 @@ class _Individual_panel extends State<Individual_panel> {
                 children: <Widget>[
                   Text(
                     'SEND MONEY',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(50),
@@ -177,9 +168,11 @@ class _Individual_panel extends State<Individual_panel> {
                   ),
                   DropdownButton<String>(
                     icon: Icon(
-                      Icons.keyboard_arrow_down,size: 16,
+                      Icons.keyboard_arrow_down,
+                      size: 16,
                     ),
-                    items:_listBankData.map<DropdownMenuItem<String>>((String value){
+                    items: _listBankData
+                        .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Row(
@@ -188,10 +181,11 @@ class _Individual_panel extends State<Individual_panel> {
                             Icon(
                               FontAwesomeIcons.creditCard,
                               color: Colors.grey,
-                              size: 15,),
+                              size: 15,
+                            ),
                             SizedBox(width: 20),
                             Expanded(
-                              child:  Text(
+                              child: Text(
                                 value,
                               ),
                             )
@@ -224,8 +218,8 @@ class _Individual_panel extends State<Individual_panel> {
                           style: TextStyle(color: Colors.black),
                           keyboardType: TextInputType.phone,
                           controller: _register_ontroller,
-                          onChanged: (text){
-                            if(text.length > 0 && !check_states){
+                          onChanged: (text) {
+                            if (text.length > 0 && !check_states) {
                               setState(() {
                                 check_states = true;
                               });
@@ -238,11 +232,13 @@ class _Individual_panel extends State<Individual_panel> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Colors.black45, width: 1.0)),
-                            prefixIcon: check_states ? const Icon(
-                              FontAwesomeIcons.phoneAlt,
-                              size: 16,
-                              color: Colors.black45,
-                            ) : CupertinoActivityIndicator(),
+                            prefixIcon: check_states
+                                ? const Icon(
+                                    FontAwesomeIcons.phoneAlt,
+                                    size: 16,
+                                    color: Colors.black45,
+                                  )
+                                : CupertinoActivityIndicator(),
                           ),
                           obscureText: false,
                         ),
@@ -253,47 +249,56 @@ class _Individual_panel extends State<Individual_panel> {
                           alignment: Alignment.centerRight,
                           child: Padding(
                             padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: check_states ?
-                            Container(
-                              child: Text(
-                                '',
-                                style: TextStyle(
-                                  color: Colors.black38,
-                                ),
-                              ),
-                              height: 0,
-                            )
-                                :
-                            RichText(
-                                textAlign: TextAlign.right,
-                                text: TextSpan(
-                                  // set the default style for the children TextSpans
-                                    style: TextStyle(
-                                        fontSize: 13, wordSpacing: 3),
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(FontAwesomeIcons.userCheck, size: 14,color: Colors.blue,),
+                            child: check_states
+                                ? Container(
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: Colors.black38,
                                       ),
-                                      TextSpan(
-                                          text: ' AIGERIM KAIROLDAYEVA',
-                                          style: TextStyle(color: Colors.blue)),
-                                    ])),
+                                    ),
+                                    height: 0,
+                                  )
+                                : RichText(
+                                    textAlign: TextAlign.right,
+                                    text: TextSpan(
+                                        // set the default style for the children TextSpans
+                                        style: TextStyle(
+                                            fontSize: 13, wordSpacing: 3),
+                                        children: [
+                                          WidgetSpan(
+                                            child: Icon(
+                                              FontAwesomeIcons.userCheck,
+                                              size: 14,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                              text: ' AIGERIM KAIROLDAYEVA',
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ])),
                           ),
                         ),
                         Text(
                           'AMOUNT',
-                          style: TextStyle(color:check_state ? Colors.black54 : Colors.red, fontSize: 12),
+                          style: TextStyle(
+                              color: check_state ? Colors.black54 : Colors.red,
+                              fontSize: 12),
                         ),
                         Container(
                           child: Row(
                             children: <Widget>[
                               Expanded(
-                                child:TextFormField(
-                                  style: TextStyle(color: check_state ? Colors.black : Colors.red),
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      color: check_state
+                                          ? Colors.black
+                                          : Colors.red),
                                   keyboardType: TextInputType.number,
                                   controller: _amont_ontroller,
-                                  onChanged: (text){
-                                    if(text.length > 0 && !check_state){
+                                  onChanged: (text) {
+                                    if (text.length > 0 && !check_state) {
                                       setState(() {
                                         check_state = true;
                                       });
@@ -306,20 +311,21 @@ class _Individual_panel extends State<Individual_panel> {
                                     focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Colors.black45, width: 1.0)),
-                                    prefixIcon: check_state? const Icon(
-                                      Icons.map,
-                                      size: 16,
-                                      color: Colors.black45,
-                                    ): const Icon(
-                                      Icons.cancel,
-                                      size: 16,
-                                      color: Colors.red,
-                                    ),
+                                    prefixIcon: check_state
+                                        ? const Icon(
+                                            Icons.map,
+                                            size: 16,
+                                            color: Colors.black45,
+                                          )
+                                        : const Icon(
+                                            Icons.cancel,
+                                            size: 16,
+                                            color: Colors.red,
+                                          ),
                                   ),
                                   obscureText: false,
                                 ),
                               ),
-
                               SizedBox(
                                 width: 20,
                               ),
@@ -335,21 +341,24 @@ class _Individual_panel extends State<Individual_panel> {
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
                                     icon: Icon(
-                                      Icons.keyboard_arrow_down,size: 16,
+                                      Icons.keyboard_arrow_down,
+                                      size: 16,
                                     ),
-                                    items:_listtryData.map<DropdownMenuItem<String>>((String value){
+                                    items: _listtryData
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             SizedBox(width: 10),
                                             Expanded(
-                                              child:  Text(
+                                              child: Text(
                                                 value,
                                                 style: TextStyle(
-                                                    color: Colors.black45
-                                                ),
+                                                    color: Colors.black45),
                                               ),
                                             )
                                           ],
@@ -375,20 +384,20 @@ class _Individual_panel extends State<Individual_panel> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 120),
-                          child: check_state?
-                          Container(
-                            height: 0,
-                          ):
-                          Container(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              "Please enter valid amount",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
+                          child: check_state
+                              ? Container(
+                                  height: 0,
+                                )
+                              : Container(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Please enter valid amount",
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
                         ),
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(20),
@@ -423,19 +432,20 @@ class _Individual_panel extends State<Individual_panel> {
                           },
                           obscureText: false,
                         ),
-
                         SizedBox(
                           height: ScreenUtil.getInstance().setHeight(50),
                         ),
                         Container(
                           child: FlatButton(
                             onPressed: () {
-                              if ( _amont_ontroller.text.length == 0){
-                                Navigator.push(context,
+                              if (_amont_ontroller.text.length == 0) {
+                                Navigator.push(
+                                    context,
                                     MaterialPageRoute(
-                                      builder: (context) => Individual_attention(),
+                                      builder: (context) =>
+                                          IndividualAttentionScreen(null, null),
                                     ));
-                              }else {
+                              } else {
                                 setState(() {
                                   check_states = false;
                                   check_state = false;
@@ -469,7 +479,7 @@ class _Individual_panel extends State<Individual_panel> {
       ),
     );
   }
-  
+
   void _validateInputs() {
     if (_formKey.currentState.validate()) {
 //    If all data are correct then save data to out variables
@@ -482,5 +492,3 @@ class _Individual_panel extends State<Individual_panel> {
     }
   }
 }
-
-

@@ -75,21 +75,21 @@ class KYCProvider with ChangeNotifier {
     _showLoad = load;
     notifyListeners();
   }
-
-  testKYC(Function onSuccess) async {
-    if (_registerData != null) {
-      String token = _registerData.data['token'];
-      MainApiModel testKYC = await _loginRepo.userVerificationKYC(
-          'İpek',
-          'Alan',
-          '36067901608',
-          'test@email.com',
-          'Nop@ss1234',
-          'Nop@ss1234',
-          '1993',
-          token);
-    }
-  }
+//
+//  testKYC(Function onSuccess) async {
+//    if (_registerData != null) {
+//      String token = _registerData.data['token'];
+//      MainApiModel testKYC = await _loginRepo.userVerificationKYC(
+//          'İpek',
+//          'Alan',
+//          '36067901608',
+//          'test@email.com',
+//          'Nop@ss1234',
+//          'Nop@ss1234',
+//          '1993',
+//          token);
+//    }
+//  }
 
   verifyKYCUser(Function onSuccess) async {
     if (nameController.text.isNotEmpty &&

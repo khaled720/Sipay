@@ -932,28 +932,33 @@ class _CorporateMerchantPanelScreenState
                                         builder: (context, snapshot, _) {
                                       return SingleChildScrollView(
                                         child: Container(
-                                          child: new ListView.builder(
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: snapshot
-                                                .getTransactionsListActivity()
-                                                .length,
-                                            itemBuilder: (BuildContext content,
-                                                int index) {
-                                              return LastActivityList(
-                                                  title: AppUtils
-                                                      .getTransactionableType(
-                                                          snapshot.userLastTransactionsActivity[
-                                                                  index][
-                                                              'transactionable_type']),
-                                                  value:
-                                                      '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
-                                                  description:
-                                                      '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
-                                                  dates: snapshot
-                                                          .userLastTransactionsActivity[
-                                                      index]['created_at']);
-                                            },
+                                          child: RefreshIndicator(
+                                            onRefresh: snapshot
+                                                .getDashboardDataFromApi,
+                                            child: new ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: snapshot
+                                                  .getTransactionsListActivity()
+                                                  .length,
+                                              itemBuilder:
+                                                  (BuildContext content,
+                                                      int index) {
+                                                return LastActivityList(
+                                                    title: AppUtils
+                                                        .getTransactionableType(
+                                                            snapshot.userLastTransactionsActivity[
+                                                                    index][
+                                                                'transactionable_type']),
+                                                    value:
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
+                                                    description:
+                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
+                                                    dates: snapshot
+                                                            .userLastTransactionsActivity[
+                                                        index]['created_at']);
+                                              },
+                                            ),
                                           ),
                                           height: _media.height * 0.5 - 160,
                                         ),

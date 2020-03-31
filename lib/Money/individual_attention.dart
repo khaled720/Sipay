@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/success.dart';
+import 'package:fluttersipay/main_api_data_model.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget Individual_attention() {
-  return Individual_attention_panel();
-}
-
-class Individual_attention_panel extends StatefulWidget {
-  Individual_attention_panel({Key key}) : super(key: key);
+class IndividualAttentionScreen extends StatefulWidget {
+  final MainApiModel otpModel;
+  final UserTypes userType;
+  IndividualAttentionScreen(this.userType, this.otpModel);
   @override
-  _Individual_attention_panel createState() => _Individual_attention_panel();
+  _IndividualAttentionScreenState createState() =>
+      _IndividualAttentionScreenState();
 }
 
-class _Individual_attention_panel extends State<Individual_attention_panel> {
+class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -126,7 +127,9 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '+90 554 987 65 43',
+                          widget.otpModel != null
+                              ? widget.otpModel.data['inputs']['receiver_phone']
+                              : '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -161,7 +164,7 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '20.10.2019 14:19',
+                          '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -220,7 +223,8 @@ class _Individual_attention_panel extends State<Individual_attention_panel> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Transfer_success(),
+                                  builder: (context) => TransferSuccessScreen(
+                                      widget.userType, widget.otpModel),
                                 ));
                           },
                           color: Colors.blue,
