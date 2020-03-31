@@ -1,23 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant.dart';
+import 'package:fluttersipay/corporate/datas.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttersipay/corporate/deposit/json_models/c_deposit_success.dart';
 
 import 'create_deposit.dart';
 
-Widget C_Deposit_success() {
-  return Deposit_success_panel();
-}
 
-class Deposit_success_panel extends StatefulWidget {
-  Deposit_success_panel({Key key}) : super(key: key);
+class C_Deposit_success extends StatefulWidget {
+  final C_DepositSuccessModel successModel;
+  C_Deposit_success(this.successModel);
   @override
   _Deposit_success_panel createState() => _Deposit_success_panel();
 }
 
-class _Deposit_success_panel extends State<Deposit_success_panel> {
+class _Deposit_success_panel extends State<C_Deposit_success> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -88,7 +89,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'SUCCESSS',
+                      widget.successModel.status,
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 20,
@@ -102,7 +103,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                 Padding(
                   padding: EdgeInsets.only(left: 20.0, right: 20.0),
                   child: Text(
-                    'Deposit request has been sent \nsuccessfully.\nAmount will be added to your acailable balance when you make bank transfer.',
+                    widget.successModel.message,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black45, fontSize: 16, height: 1.5),
@@ -127,7 +128,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          'TR12 0000 0000 0000 0000 1234 56',
+                          widget.successModel.iban,
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -162,7 +163,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                           child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '484,00 ₺',
+                          widget.successModel.amount + '₺',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
                       )),
@@ -190,11 +191,6 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                         child: OutlineButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => C_Create_deposits(),
-                                ));
                           },
                           borderSide: BorderSide(
                             color: Colors.black26, //Color of the border
@@ -224,7 +220,7 @@ class _Deposit_success_panel extends State<Deposit_success_panel> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      CorporateMerchantPanelScreen(null, null),
+                                      CorporateMerchantPanelScreen(datas.loginModel, datas.tokens),
                                 ));
                           },
                           color: Colors.blue,

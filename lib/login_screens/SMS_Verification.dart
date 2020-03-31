@@ -17,6 +17,7 @@ import 'package:quiver/async.dart';
 
 import '../main_api_data_model.dart';
 import 'json_models/sms_verification_ui_model.dart';
+import 'package:fluttersipay/corporate/datas.dart';
 
 class SMSVerificationScreen extends StatefulWidget {
   final MainApiModel loginModel;
@@ -278,6 +279,8 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                   onPressed: () {
                                     snapshot.verifyLoginSMS(widget.userType,
                                         (userData, token) {
+                                      datas.loginModel = userData;
+                                      datas.tokens = token;
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) => widget

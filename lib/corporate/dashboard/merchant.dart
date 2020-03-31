@@ -325,7 +325,7 @@ class _CorporateMerchantPanelScreenState
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text('Deposit'),
+                                          Text(users.menuList.deposit),
                                         ],
                                       ),
                                     )),
@@ -366,6 +366,10 @@ class _CorporateMerchantPanelScreenState
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
+//                                                ExchangePanelScreen(
+//                                                    snapshot
+//                                                        .corporateMainRepository,
+//                                                    snapshot.userWallets),
                                                   Exchange_Create()));
                                     },
                                   ),
@@ -1006,7 +1010,7 @@ class _CorporateMerchantPanelScreenState
                                   text: snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 45,
+                                      fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
@@ -1049,7 +1053,7 @@ class _CorporateMerchantPanelScreenState
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 30,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
