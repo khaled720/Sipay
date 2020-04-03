@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
 
+import '../../base_main_repo.dart';
+
 class TransactionsHistoryProvider with ChangeNotifier {
-  IndividualMainRepository _individualMainRepository;
+  BaseMainRepository _baseRepo;
   List _userTransactionsList;
   var startDate;
   var endDate;
@@ -25,7 +26,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
     return List();
   }
 
-  TransactionsHistoryProvider(this._individualMainRepository) {
+  TransactionsHistoryProvider(this._baseRepo) {
     _initalTransactionsList = true;
     _selectedCurrency = 'CURRENCY';
     getDashboardDataFromApi();
@@ -102,8 +103,8 @@ class TransactionsHistoryProvider with ChangeNotifier {
   }
 
   void _getUserActivityList() async {
-    MainApiModel userLastTransactionActivity = await _individualMainRepository
-        .individualTransactionsListActivity('\'', '');
+    MainApiModel userLastTransactionActivity =
+        await _baseRepo.individualTransactionsListActivity('\'', '');
     if (userLastTransactionActivity.statusCode == 100)
       _userTransactionsList =
           userLastTransactionActivity.data['transactions']['data'];
@@ -120,7 +121,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
     print(
         'state $selectedTransactionState, type $selectedTransactionType, currency $_selectedCurrency, daterage $dateRange');
     MainApiModel userLastTransactionActivity =
-        await _individualMainRepository.searchIndividualTransactionsList(
+        await _baseRepo.searchIndividualTransactionsList(
             searchKey ?? '',
             selectedTransactionState == 'STATES' ||
                     selectedTransactionState == null

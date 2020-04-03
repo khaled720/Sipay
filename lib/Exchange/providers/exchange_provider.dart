@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 
@@ -16,13 +15,17 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
   var _exchangeRate;
   TextEditingController _fromController;
   TextEditingController _toController;
+  String _from;
 
-  IndividualMainRepository _individualMainRepository;
+  String get from => _from;
+  String _to;
+
+//  IndividualMainRepository _individualMainRepository;
 
   ExchangeProvider(BaseMainRepository repo, List wallets, this._fromController,
       this._toController)
       : super(repo, wallets) {
-    _individualMainRepository = repo;
+//    _individualMainRepository = repo;
     getExchangeForm();
     _fromController.addListener(_amountListener);
   }
@@ -43,16 +46,31 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
 
   TextEditingController get fromController => _fromController;
 
+  get exchangeRate {}
+
   _amountListener() {
     if (_exchangeRate != null) {
       if (_fromController.text.trim().isNotEmpty) {
         double fromAmount = double.parse(_fromController.text.trim());
-        double toAmount = fromAmount - (fromAmount * _exchangeRate);
+        double toAmount = _calculateAmount(fromAmount);
         _toController.text = toAmount.toStringAsFixed(2);
       } else {
         _toController.text = '0.0';
       }
     }
+  }
+
+  double _calculateAmount(double from) {
+    if (_exchangeRate != null) {
+      return (from - (from * _exchangeRate)).abs();
+    }
+    return 0.0;
+  }
+
+  get exchangeUIText {
+    _from = '1,00 $_selectedCurrencyDropDownValue1:';
+    _to =
+        '${_calculateAmount(1.00).toStringAsFixed(2)} $_selectedCurrencyDropDownValue2';
   }
 
   set selectedCurrencyDropDownValue1(String value) {
@@ -76,23 +94,24 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
         AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue1);
     int currency2 =
         AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue2);
-    MainApiModel rateModel = await _individualMainRepository.exchangeForm(
-        currency1, currency2, false);
+    MainApiModel rateModel =
+        await mainRepo.exchangeForm(currency1, currency2, false);
     if (rateModel.statusCode == 100) {
       _exchangeRate =
           rateModel.data['exchange']['exchanges_to_second_currency_value'] ?? 0;
       _amountListener();
+      exchangeUIText;
     }
     notifyListeners();
   }
 
   void getExchangeForm() async {
-    MainApiModel exchangeFormModel =
-        await _individualMainRepository.exchangeForm(1, 1, true);
+    MainApiModel exchangeFormModel = await mainRepo.exchangeForm(1, 1, true);
     if (exchangeFormModel.statusCode == 100) {
       _userPhone = exchangeFormModel.data['user']['phone'];
       _exchangeRate = exchangeFormModel.data['exchange']
           ['exchanges_to_second_currency_value'];
+      exchangeUIText;
       notifyListeners();
     }
   }
@@ -109,14 +128,13 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
       double decimal = (amount - amount.toInt()) * 100;
       int deci = decimal.round();
       setShowLoad(true);
-      MainApiModel exchangeCreateModel =
-          await _individualMainRepository.createExchange(
-              1,
-              currency1,
-              currency2,
-              amount.toString(),
-              deci.toString(),
-              _exchangeRate.toString());
+      MainApiModel exchangeCreateModel = await mainRepo.createExchange(
+          1,
+          currency1,
+          currency2,
+          amount.toString(),
+          deci.toString(),
+          _exchangeRate.toString());
       setShowLoad(false);
       if (exchangeCreateModel != null) {
         exchangeCreateModel.statusCode == 100
@@ -125,4 +143,6 @@ class ExchangeProvider extends TransactionsScreenBaseProvider {
       }
     }
   }
+
+  String get to => _to;
 }

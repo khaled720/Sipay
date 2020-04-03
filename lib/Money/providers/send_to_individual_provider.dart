@@ -41,7 +41,7 @@ class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
         phoneLoading = true;
         receiverData = null;
         MainApiModel moneyReceiverInfo =
-            await userRepo.moneyTransferReceiverInfo(null, value);
+            await mainRepo.moneyTransferReceiverInfo(null, value);
         phoneLoading = false;
         if (moneyReceiverInfo.statusCode == 100)
           receiverData = moneyReceiverInfo.data['receiver_info']['name'];
@@ -60,7 +60,7 @@ class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
           if (receiverData != 'Non SiPay User') {
             showLoad = true;
             MainApiModel sendToUserModel =
-                await userRepo.createMoneySendToUserValidate(
+                await mainRepo.createMoneySendToUserValidate(
                     receiverController.text.trim(),
                     amountController.text.trim(),
                     AppUtils.mapCurrencyTextToID(selectedCurrencyDropDownValue),
@@ -69,7 +69,7 @@ class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
             if (sendToUserModel != null)
               sendToUserModel.statusCode == 100
                   ? onSendToOTP(sendToUserModel.data['inputs']['sender_phone'],
-                      sendToUserModel, userRepo, UserTypes.Individual)
+                      sendToUserModel, mainRepo, UserTypes.Individual)
                   : onFailure(sendToUserModel.description);
           }
         } else

@@ -405,7 +405,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                               width: 30,
                             ),
                             Expanded(
-                              child: Text('Reciever GSM: ',
+                              child: Text(snapshot.from ?? '',
                                   style: TextStyle(
                                       color: Colors.black45, fontSize: 17)),
                             ),
@@ -414,7 +414,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                                   child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: Text(
-                                  snapshot.userPhone,
+                                  snapshot.to ?? '',
                                   style: TextStyle(
                                       color: Colors.black87, fontSize: 16),
                                 ),

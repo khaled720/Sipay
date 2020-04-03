@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttersipay/Dashboard/security.dart';
-import 'package:fluttersipay/corporate/exchange/exchange_create.dart';
+import 'package:fluttersipay/Exchange/exchange.dart';
 import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
+import 'package:fluttersipay/dashboard/Transaction_history.dart';
 import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
@@ -21,7 +22,6 @@ import 'package:provider/provider.dart';
 import '../../main_api_data_model.dart';
 import '../limits/limits_panel.dart';
 import 'Profilesetting_panel.dart';
-import 'Transaction_history.dart';
 import 'agreements.dart';
 import 'installment.dart';
 import 'json_models/corporate_merchant_panel_ui_model.dart';
@@ -302,9 +302,11 @@ class _CorporateMerchantPanelScreenState
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                C_Transaction_History(),
-                                          ));
+                                              builder: (context) =>
+                                                  TransactionHistoryScreen(
+                                                      snapshot
+                                                          .baseMainRepository,
+                                                      snapshot.userWallets)));
                                     },
                                   ),
                                   Divider(
@@ -365,12 +367,12 @@ class _CorporateMerchantPanelScreenState
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-//                                                ExchangePanelScreen(
-//                                                    snapshot
-//                                                        .corporateMainRepository,
-//                                                    snapshot.userWallets),
-                                                  Exchange_Create()));
+                                            builder: (context) =>
+                                                ExchangePanelScreen(
+                                                    snapshot
+                                                        .corporateMainRepository,
+                                                    snapshot.userWallets),
+                                          ));
                                     },
                                   ),
                                   Divider(

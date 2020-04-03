@@ -172,4 +172,8 @@ class APIEndPoints {
   //Corporate dashboard
   static final String kApiCorporateDashboardEndPoint =
       '$kBaseCorporateAPIEndPoint/dashboard';
+
+  //Corporate Transactions list
+  static final String kApiCorporateTransactionListEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction';
 }

@@ -42,7 +42,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
         phoneLoading = true;
         receiverData = null;
         MainApiModel moneyReceiverInfo =
-            await userRepo.moneyTransferReceiverInfo(value, null);
+            await mainRepo.moneyTransferReceiverInfo(value, null);
         phoneLoading = false;
         if (moneyReceiverInfo.statusCode == 100) {
           receiverData = moneyReceiverInfo.data['receiver_info']['name'];
@@ -63,7 +63,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
             if (_receiverPhone != null) {
               showLoad = true;
               MainApiModel sendToMerchantModel =
-                  await userRepo.createMoneySendToMerchantValidate(
+                  await mainRepo.createMoneySendToMerchantValidate(
                       receiverData,
                       _receiverPhone,
                       amountController.text.trim(),
@@ -76,7 +76,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
                     ? onSendToOTP(
                         sendToMerchantModel.data['inputs']['sender_phone'],
                         sendToMerchantModel,
-                        userRepo,
+                        mainRepo,
                         UserTypes.Corporate)
                     : onFailure(sendToMerchantModel.description);
               }
