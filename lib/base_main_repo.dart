@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -236,7 +235,6 @@ class BaseMainRepository {
             '${APIEndPoints.kApiIndividualMoneyTransferDetailsEndPoint}/${transferID.toString()}')
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
-    debugPrint('money transfer details is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -260,7 +258,6 @@ class BaseMainRepository {
             APIEndPoints.kApiIndividualMoneyTransferListRequestMoneyEndPoint)
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
-    //debugPrint('incoming is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -293,7 +290,6 @@ class BaseMainRepository {
         APIEndPoints.kApiIndividualCreateMoneyRequestEndPoint,
         values,
         bearerToken);
-    debugPrint('create money request is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -397,7 +393,6 @@ class BaseMainRepository {
 
   Future<MainApiModel> moneyTransferReceiverInfo(
       String merchantID, String phone) async {
-    print('merchant id is $merchantID');
     Map<String, String> values = {
       'merchant_id': merchantID ?? '',
       'phone': phone ?? '',
@@ -521,7 +516,6 @@ class BaseMainRepository {
             : APIEndPoints.kApiCorporateTransactionListEndPoint)
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
-    debugPrint('search transactions list is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -609,7 +603,6 @@ class BaseMainRepository {
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiBankUpdateEndPoint, values, bearerToken);
-    debugPrint('bank update is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -667,7 +660,6 @@ class BaseMainRepository {
     String encode = jsonEncode(values);
     String result = await NetworkHelper.makePostRequestJsonHeaders(
         APIEndPoints.kApiNotificationSettingsEndPoint, encode, bearerToken);
-    debugPrint('notification settings update is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
