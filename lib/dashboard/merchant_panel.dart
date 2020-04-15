@@ -613,7 +613,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Bank_account(),
+                                                      BankAccountScreen(snapshot
+                                                          .baseMainRepository),
                                                 ));
                                           },
                                         ),
@@ -650,7 +651,10 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Transfer_Settings(),
+                                                      TransferSettingsScreen(
+                                                    baseRepo: snapshot
+                                                        .baseMainRepository,
+                                                  ),
                                                 ));
                                           },
                                         ),
@@ -686,7 +690,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Notification_Settings(),
+                                                      NotificationSettingsScreen(
+                                                          snapshot
+                                                              .baseMainRepository),
                                                 ));
                                           },
                                         ),

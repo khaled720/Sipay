@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -405,7 +406,6 @@ class BaseMainRepository {
         APIEndPoints.kApiIndividualGetMerchantReceiverInfoEndPoint,
         values,
         bearerToken);
-    debugPrint('receiver info is $result');
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -522,6 +522,243 @@ class BaseMainRepository {
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     debugPrint('search transactions list is $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Bank Account Settings APIs
+
+  //Add bank account
+  Future<MainApiModel> addNewBankAccount(
+      String bankName,
+      String logo,
+      String staticBankID,
+      var currencyID,
+      var iban,
+      String accountHolderName,
+      var accountNo,
+      String swiftCode,
+      var status) async {
+    Map<String, String> values = {
+      'bank_name': bankName,
+      'logo': logo,
+      'static_bank_id': staticBankID,
+      'currency_id': currencyID.toString(),
+      'account_holder_name': accountHolderName, //3
+      'account_no': accountNo.toString(),
+      'iban': iban.toString(),
+      'swift_code': swiftCode ?? '', //1
+      'status': status.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiAddBankAccountEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Bank Account Form
+  Future<MainApiModel> bankAccountSettingsForm() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiBankAccountFormEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Bank Accounts List
+  Future<MainApiModel> bankAccountsList() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiBankAccountListEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Bank Accounts Details
+  Future<MainApiModel> bankAccountDetails(int bankID) async {
+    String result = await NetworkHelper.makeGetRequest(
+        '${APIEndPoints.kApiBankDetailsEndPoint}/${bankID.toString()}',
+        bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Bank Accounts Delete
+  Future<MainApiModel> bankAccountDelete(int bankID) async {
+    String result = await NetworkHelper.makeGetRequest(
+        '${APIEndPoints.kApiBankDeleteEndPoint}/$bankID', bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Update bank account
+  Future<MainApiModel> updateBankAccount(
+      var bankID,
+      String bankName,
+      String staticBankID,
+      String logo,
+      var currencyID,
+      var iban,
+      String accountHolderName,
+      var accountNo,
+      String swiftCode,
+      var status) async {
+    Map<String, String> values = {
+      'bank_id': bankID.toString(),
+      'bank_name': bankName,
+      'logo': logo,
+      'static_bank_id': staticBankID.toString(),
+      'currency_id': currencyID.toString(),
+      'account_holder_name': accountHolderName, //3
+      'account_no': accountNo.toString(),
+      'iban': iban.toString(),
+      'swift_code': swiftCode ?? '', //1
+      'status': status.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiBankUpdateEndPoint, values, bearerToken);
+    debugPrint('bank update is $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Money Transfer settings
+  Future<MainApiModel> moneyTransferSettings() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiMoneyTransferSettingsEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Money Transfer settings update
+  Future<MainApiModel> moneyTransferSettingsUpdate(
+      int enableMoneyTransfer, int moneyTransferFromTotalBalance) async {
+    Map<String, String> values = {
+      'enable_money_transfer': enableMoneyTransfer.toString(),
+      'money_transfer_from_total_balance':
+          moneyTransferFromTotalBalance.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiMoneyTransferSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Notification settings
+  Future<MainApiModel> notificationSettings() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiNotificationSettingsEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Notification settings update
+  Future<MainApiModel> notificationSettingsUpdate(
+      Map<String, String> smsValues, Map<String, String> emailValues) async {
+    Map<String, String> secondsIDs = {
+      '0': '1',
+      '1': '2',
+      '2': '3',
+      '3': '4',
+      '4': '5',
+      '5': '6',
+      '6': '7',
+      '7': '8',
+      '8': '9',
+      '9': '10',
+      '10': '11',
+      '11': '12',
+      '12': '13',
+      '13': '14'
+    };
+    Map<String, dynamic> values = {
+      'ids': secondsIDs,
+      'is_sms_enable': smsValues,
+      'is_email_enable': emailValues
+    };
+    String encode = jsonEncode(values);
+    String result = await NetworkHelper.makePostRequestJsonHeaders(
+        APIEndPoints.kApiNotificationSettingsEndPoint, encode, bearerToken);
+    debugPrint('notification settings update is $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Security APIs
+
+  //Change Email
+  Future<MainApiModel> changeEmail(String currentPassword, String email) async {
+    Map<String, String> values = {
+      'action': 'CHANGEMAIL',
+      'current_password': currentPassword,
+      'email': email.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiEmailChangeSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change Email Verify OTP
+  Future<MainApiModel> changeEmailVerifyOTP(
+      String currentPassword, String email, var otp, var userID) async {
+    Map<String, String> values = {
+      'action': 'VERIFYOTP',
+      'current_password': currentPassword,
+      'email': email.toString(),
+      'user_id': userID.toString(),
+      'otp_code': otp.toString()
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiEmailChangeSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change Email Resend OTP
+  Future<MainApiModel> changeEmailResendOTP(
+      String currentPassword, String email, var userID) async {
+    Map<String, String> values = {
+      'action': 'RESENDOTP',
+      'current_password': currentPassword,
+      'email': email.toString(),
+      'user_id': userID.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiEmailChangeSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change Password
+  Future<MainApiModel> changePassword(
+    String currentPassword,
+    String password,
+    String confirmPassword,
+  ) async {
+    Map<String, String> values = {
+      'action': 'CHANGEPASS',
+      'current_password': currentPassword,
+      'password': password,
+      'confirm_password': confirmPassword
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiPasswordChangeSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change Password Verify OTP
+  Future<MainApiModel> changePasswordVerifyOTP(String currentPassword,
+      String password, String confirmPassword, var otp, var userID) async {
+    Map<String, String> values = {
+      'action': 'VERIFYOTP',
+      'current_password': currentPassword,
+      'passowrd': password,
+      'confirm_password': confirmPassword,
+      'user_id': userID.toString(),
+      'otp_code': otp.toString()
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiPasswordChangeSettingsEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change Email Resend OTP
+  Future<MainApiModel> changePasswordResendOTP(String currentPassword,
+      String password, String confirmPassword, var userID) async {
+    Map<String, String> values = {
+      'action': 'RESENDOTP',
+      'current_password': currentPassword,
+      'passowrd': password,
+      'confirm_password': confirmPassword,
+      'user_id': userID.toString(),
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiPasswordChangeSettingsEndPoint, values, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 }

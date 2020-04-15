@@ -91,6 +91,34 @@ class APIEndPoints {
   static final String kApiIndividualTransactionListEndPoint =
       '$kBaseIndividualAPIEndPoint/transaction/list';
 
+  //Bank Account settings
+  static final String kApiAddBankAccountEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/bankadd';
+  static final String kApiBankAccountFormEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/bankform';
+  static final String kApiBankAccountListEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/banklist';
+  static final String kApiBankDetailsEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/bankdetails';
+  static final String kApiBankDeleteEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/bankdelete';
+  static final String kApiBankUpdateEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/bankupdate';
+
+  //Money Transfer settings
+  static final String kApiMoneyTransferSettingsEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/moneytransfer';
+
+  //Notification settings
+  static final String kApiNotificationSettingsEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/notification';
+
+  //Security settings
+  static final String kApiEmailChangeSettingsEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/changeemail';
+  static final String kApiPasswordChangeSettingsEndPoint =
+      '$kBaseIndividualAPIEndPoint/setting/changepassword';
+
   //Corporate
 
   //Corporate login

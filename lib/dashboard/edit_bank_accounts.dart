@@ -1,44 +1,28 @@
-import 'dart:convert';
-
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/providers/add_bank_account_provider.dart';
+import 'package:fluttersipay/utils/dialog_utils/delete_bank_account_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
+import '../avaliable_banks_model.dart';
+import '../base_main_repo.dart';
+import '../loading_widget.dart';
 
-TextEditingController _account_ontroller = TextEditingController();
-TextEditingController _holder_controller = TextEditingController();
-TextEditingController _iban_ontroller = TextEditingController();
+class EditBankAccountScreen extends StatefulWidget {
+  final bankModel;
+  final BaseMainRepository baseRepo;
 
-Widget Edit_bank_account() {
-  return Edit_account_panel();
-}
+  EditBankAccountScreen(this.bankModel, this.baseRepo);
 
-class Edit_account_panel extends StatefulWidget {
-  Edit_account_panel({Key key}) : super(key: key);
   @override
-  _Edit_account_panel createState() => _Edit_account_panel();
+  _EditBankAccountScreenState createState() => _EditBankAccountScreenState();
 }
 
-class _Edit_account_panel extends State<Edit_account_panel> {
-
-  var _bank_value = "T.C.ZIRAAT BANKASI A.S.";
-  List<String> _bank_data = [
-    "T.C.ZIRAAT BANKASI A.S.",
-    "T.C.ZIRAAT BANKASI A.S.S"
-  ];
-  var _currency_value = "TRY";
-  List<String> _currency_data = [
-    "TRY",
-    "NOT TRY"
-  ];
-  var _active_value = "ACTIVE";
-  List<String> _active_data = [
-    "ACTIVE",
-    "NON ACTIVE"
-  ];
-
+class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -47,295 +31,345 @@ class _Edit_account_panel extends State<Edit_account_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
-    return new Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("EDIT"),
-        flexibleSpace: Image(
-          image: AssetImage('assets/appbar_bg.png'),
-          height: 100,
-          fit: BoxFit.fitWidth,
-        ),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            );
-          },
-        ),
-        actions: <Widget>[
-          IconButton(
-            padding: const EdgeInsets.only(right: 20.0),
-            icon: Icon(
-              FontAwesomeIcons.commentAlt,
-              color: Colors.white,
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
+    return ChangeNotifierProvider(
+        create: (context) => AddBankAccountProvider(
+            widget.baseRepo,
+            TextEditingController(),
+            TextEditingController(),
+            TextEditingController(),
+            widget.bankModel),
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("EDIT"),
+            flexibleSpace: Image(
+              image: AssetImage('assets/appbar_bg.png'),
+              height: 100,
+              fit: BoxFit.fitWidth,
             ),
-            onPressed: () {
-              // do something
-            },
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(right: 30.0, left: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+            actions: <Widget>[
+              IconButton(
+                padding: const EdgeInsets.only(right: 20.0),
+                icon: Icon(
+                  FontAwesomeIcons.commentAlt,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // do something
+                },
+              )
+            ],
+          ),
+          body:
+              Consumer<AddBankAccountProvider>(builder: (context, snapshot, _) {
+            return Stack(
+              alignment: Alignment.center,
               children: <Widget>[
-                SizedBox(
-                  height: ScreenUtil.getInstance().setHeight(30),
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      child: Text(
-                        'EDIT BANK ACCOUNT',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16
-                        ),
+                SingleChildScrollView(
+                    child: Padding(
+                  padding: EdgeInsets.only(right: 30.0, left: 30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: ScreenUtil.getInstance().setHeight(30),
                       ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                        alignment: Alignment.centerRight,
-                        icon: Icon(FontAwesomeIcons.trash, color:  const Color(0xFFc14b6f),),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'ACCOUNT NAME',
-                  style: TextStyle(
-                      color: Colors.black54, fontSize: 12),
-                ),
-                TextField(
-                  style: TextStyle(color: Colors.black),
-                  controller: _account_ontroller,
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.signature,
-                      size: 16,
-                      color: Colors.black45,
-                    ),
-                  ),
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'BANK',
-                  style: TextStyle(
-                      color: Colors.black54, fontSize: 12),
-                ),
-                DropdownButton<String>(
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  items: _bank_data
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                      Row(
                         children: <Widget>[
-                          Icon(Icons.note),
-                          SizedBox(width: 10),
-                          Expanded(
+                          Container(
                             child: Text(
-                              value,
+                              'EDIT BANK ACCOUNT',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                              onPressed: () {
+                                DeleteBankAccountDialog.showDeleteDialog(
+                                    context, () {
+                                  snapshot.deleteBankAccount(() {
+                                    Navigator.of(context).pop();
+                                    Flushbar(
+                                      title: "Success",
+                                      message: 'Deleted successfully.',
+                                      duration: Duration(seconds: 3),
+                                    )..show(context);
+                                  }, (description) {
+                                    Flushbar(
+                                      title: "Failure",
+                                      message: description,
+                                      duration: Duration(seconds: 3),
+                                    )..show(context);
+                                  });
+                                });
+                              },
+                              alignment: Alignment.centerRight,
+                              icon: Icon(
+                                FontAwesomeIcons.trash,
+                                color: const Color(0xFFc14b6f),
+                              ),
                             ),
                           )
                         ],
                       ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _bank_value = value;
-                    });
-                  },
-                  value: _bank_value,
-                  isExpanded: true,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "CURRENCY",
-                  style:
-                  TextStyle(color: Colors.black54, fontSize: 12),
-                ),
-                Container(
-                  child: DropdownButton<String>(
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    items: _currency_data
-                        .map<DropdownMenuItem<String>>(
-                            (String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Icon(Icons.map),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    value,
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _currency_value = value;
-                      });
-                    },
-                    value: _currency_value,
-                    isExpanded: true,
-                  ),
-                  width: ScreenUtil.getInstance().setWidth(300),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'ACCOUNT HOLDER NAME',
-                  style: TextStyle(
-                      color: Colors.black54, fontSize: 12),
-                ),
-                TextField(
-                  style: TextStyle(color: Colors.black),
-                  controller: _holder_controller,
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      size: 16,
-                      color: Colors.black45,
-                    ),
-                  ),
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'IBAN',
-                  style: TextStyle(
-                      color: Colors.black54, fontSize: 12),
-                ),
-                TextField(
-                  style: TextStyle(color: Colors.black),
-                  controller: _iban_ontroller,
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black45, width: 1.0)),
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.hashtag,
-                      size: 16,
-                      color: Colors.black45,
-                    ),
-                  ),
-                  obscureText: false,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "STATUS",
-                  style:
-                  TextStyle(color: Colors.black54, fontSize: 12),
-                ),
-                Container(
-                  child: DropdownButton<String>(
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    items:
-                    _active_data.map<DropdownMenuItem<String>>(
-                            (String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Icon(Icons.map),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    value,
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _active_value = value;
-                      });
-                    },
-                    value: _active_value,
-                    isExpanded: true,
-                  ),
-                  width: ScreenUtil.getInstance().setWidth(300),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  child: FlatButton(
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                    color: Colors.blue,
-                    disabledColor: Colors.blue,
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                      SizedBox(
+                        height: 20,
                       ),
-                    ),
+                      Text(
+                        'ACCOUNT NAME',
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        controller: snapshot.accountNameTextController,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.signature,
+                            size: 16,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        obscureText: false,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'BANK',
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      snapshot.bankList != null
+                          ? DropdownButton<AvailableBankModel>(
+                              icon: Icon(Icons.keyboard_arrow_down),
+                              items: snapshot.banksDropDown,
+                              onChanged: (bank) {
+                                snapshot.selectedBankDropDownValue = bank;
+                              },
+                              value: snapshot.selectedBankDropDownValue,
+                              isExpanded: true,
+                            )
+                          : SizedBox(
+                              width: 0.0,
+                            ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "CURRENCY",
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      Container(
+                        child: DropdownButton<String>(
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black26,
+                          ),
+                          items: snapshot.currenciesList
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.map,
+                                    size: 18,
+                                    color: Colors.black38,
+                                  ),
+                                  SizedBox(width: 20),
+                                  Expanded(
+                                    child: Text(
+                                      value,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            snapshot.selectedCurrencyDropDownValue = value;
+                          },
+                          value: snapshot.selectedCurrencyDropDownValue,
+                          isExpanded: true,
+                        ),
+                        width: ScreenUtil.getInstance().setWidth(300),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'ACCOUNT HOLDER NAME',
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        controller: snapshot.accountHolderNameController,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          prefixIcon: const Icon(
+                            Icons.person,
+                            size: 16,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        obscureText: false,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'IBAN',
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        controller: snapshot.ibanController,
+                        decoration: InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.black45, width: 1.0)),
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.hashtag,
+                            size: 16,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        obscureText: false,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "STATUS",
+                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                      ),
+                      Container(
+                        child: DropdownButton<String>(
+                          icon: Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.black26,
+                          ),
+                          items: snapshot.activeList
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.map,
+                                    color: Colors.black38,
+                                    size: 18,
+                                  ),
+                                  SizedBox(width: 20),
+                                  Expanded(
+                                    child: Text(
+                                      value,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            snapshot.selectedActiveDropDownValue = value;
+                          },
+                          value: snapshot.selectedActiveDropDownValue,
+                          isExpanded: true,
+                        ),
+                        width: ScreenUtil.getInstance().setWidth(300),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Visibility(
+                        visible: snapshot.addBankErrorText != null,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              snapshot.addBankErrorText ?? '',
+                              style: TextStyle(
+                                  color: Colors.red[800], fontSize: 14),
+                            ),
+                            SizedBox(
+                              height: ScreenUtil.getInstance().setHeight(30),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: FlatButton(
+                          onPressed: () {
+                            snapshot.editBankAccount((description) {
+                              Navigator.of(context).pop();
+                              Flushbar(
+                                title: "Success",
+                                message: description,
+                                duration: Duration(seconds: 3),
+                              )..show(context);
+                            }, (description) {
+                              Flushbar(
+                                title: "Failure",
+                                message: description,
+                                duration: Duration(seconds: 3),
+                              )..show(context);
+                            });
+                          },
+                          color: Colors.blue,
+                          disabledColor: Colors.blue,
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            "SAVE",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        width: ScreenUtil.getInstance().setWidth(690),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      )
+                    ],
                   ),
-                  width: ScreenUtil.getInstance().setWidth(690),
-                ),
-                SizedBox(
-                  height: 20,
+                )),
+                LoadingWidget(
+                  isVisible: snapshot.showLoad ?? false,
                 )
               ],
-            ),
-          )
-      ),
-    );
+            );
+          }),
+        ));
   }
 }
-

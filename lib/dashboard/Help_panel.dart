@@ -140,7 +140,7 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "can I put money in my wa",
+                              hintText: "can I put money in my wallet?",
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),

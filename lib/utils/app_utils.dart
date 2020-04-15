@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
+import 'package:fluttersipay/avaliable_banks_model.dart';
 import 'package:fluttersipay/deposit/json_models/bank_list_model.dart';
 import 'package:intl/intl.dart';
 
@@ -143,6 +144,30 @@ class AppUtils {
           children: <Widget>[
             Icon(Icons.note),
             SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                bank.name,
+              ),
+            )
+          ],
+        ),
+      );
+      dropdownBanks.add(dropdownMenuItem);
+    }
+    return dropdownBanks;
+  }
+
+  static List<DropdownMenuItem<AvailableBankModel>>
+      mapAvailableBankListToDropdownMenuItems(List banks) {
+    List<DropdownMenuItem<AvailableBankModel>> dropdownBanks = List();
+    for (AvailableBankModel bank in banks) {
+      DropdownMenuItem dropdownMenuItem = DropdownMenuItem<AvailableBankModel>(
+        value: bank,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Icon(Icons.note),
+            SizedBox(width: 20),
             Expanded(
               child: Text(
                 bank.name,
