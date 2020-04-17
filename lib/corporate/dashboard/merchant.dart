@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:fluttersipay/Dashboard/security.dart';
 import 'package:fluttersipay/Exchange/exchange.dart';
 import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
 import 'package:fluttersipay/dashboard/Transaction_history.dart';
+import 'package:fluttersipay/dashboard/security.dart';
 import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
@@ -402,7 +402,9 @@ class _CorporateMerchantPanelScreenState
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => Security(),
+                                            builder: (context) =>
+                                                SecurityScreen(snapshot
+                                                    .baseMainRepository),
                                           ));
                                     },
                                   ),

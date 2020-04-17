@@ -5,6 +5,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 enum NavigationToSMSTypes { Login, Register }
 enum UserTypes { Individual, Corporate }
 enum TransactionData { Title, ID, Value, Date, Type }
+enum SecuritySettingsTypes { Password, Email }
 
 final maskFormatter = new MaskTextInputFormatter(mask: '+################');
 

@@ -729,7 +729,7 @@ class BaseMainRepository {
     Map<String, String> values = {
       'action': 'VERIFYOTP',
       'current_password': currentPassword,
-      'passowrd': password,
+      'password': password,
       'confirm_password': confirmPassword,
       'user_id': userID.toString(),
       'otp_code': otp.toString()

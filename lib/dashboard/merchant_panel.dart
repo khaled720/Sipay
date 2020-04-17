@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:fluttersipay/Dashboard/security.dart';
 import 'package:fluttersipay/Exchange/exchange.dart';
 import 'package:fluttersipay/Money/Requset_money.dart';
 import 'package:fluttersipay/Money/Send_money.dart';
@@ -15,6 +14,7 @@ import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/json_models/merchant_panel_ui_model.dart';
 import 'package:fluttersipay/dashboard/providers/individual_panel_dashboard_provider.dart';
 import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
+import 'package:fluttersipay/dashboard/security.dart';
 import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
@@ -724,7 +724,9 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => Security(),
+                                            builder: (context) =>
+                                                SecurityScreen(snapshot
+                                                    .baseMainRepository),
                                           ));
                                     },
                                   ),
