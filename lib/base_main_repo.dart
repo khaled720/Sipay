@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -92,6 +93,7 @@ class BaseMainRepository {
             ? APIEndPoints.kApiIndividualBaseWithdrawEndPoint
             : APIEndPoints.kApiCorporateBaseWithdrawEndPoint,
         bearerToken);
+    debugPrint('withdraw form result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -185,7 +187,7 @@ class BaseMainRepository {
   }
 
   //Profile upload base 64 image
-  Future<MainApiModel> uploadBase64Image(File base64Image) async {
+  Future<MainApiModel> uploadBase64CorporateImage(File base64Image) async {
     String result = await NetworkHelper.uploadBase64Image(
         APIEndPoints.kApiIndividualUserProfileUploadImageEndPoint,
         base64Image,
@@ -707,7 +709,7 @@ class BaseMainRepository {
   }
 
   //Change Password
-  Future<MainApiModel> changePassword(
+  Future<MainApiModel> changeCorporatePassword(
     String currentPassword,
     String password,
     String confirmPassword,
@@ -718,6 +720,7 @@ class BaseMainRepository {
       'password': password,
       'confirm_password': confirmPassword
     };
+    print('current user type is $userType');
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiPasswordChangeSettingsEndPoint, values, bearerToken);
     return MainApiModel.mapJsonToModel(result);

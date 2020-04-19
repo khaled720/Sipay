@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
 import 'package:fluttersipay/avaliable_banks_model.dart';
+import 'package:fluttersipay/corporate/withdrawal/json_models/corporate_withdrawal_bank_model.dart';
 import 'package:fluttersipay/deposit/json_models/bank_list_model.dart';
 import 'package:intl/intl.dart';
 
@@ -133,6 +134,31 @@ class AppUtils {
     return total;
   }
 
+  static List<DropdownMenuItem<CorporateWithdrawalBankModel>>
+      mapCorporateWithdrawalBankListToDropdownMenuItems(List banks) {
+    List<DropdownMenuItem<CorporateWithdrawalBankModel>> dropdownBanks = List();
+    for (CorporateWithdrawalBankModel bank in banks) {
+      DropdownMenuItem dropdownMenuItem =
+          DropdownMenuItem<CorporateWithdrawalBankModel>(
+        value: bank,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Icon(Icons.note),
+            SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                bank.bankName ?? '',
+              ),
+            )
+          ],
+        ),
+      );
+      dropdownBanks.add(dropdownMenuItem);
+    }
+    return dropdownBanks;
+  }
+
   static List<DropdownMenuItem<WithdrawalBankModel>>
       mapWithdrawalBankListToDropdownMenuItems(List banks) {
     List<DropdownMenuItem<WithdrawalBankModel>> dropdownBanks = List();
@@ -146,7 +172,7 @@ class AppUtils {
             SizedBox(width: 10),
             Expanded(
               child: Text(
-                bank.name,
+                bank.name ?? '',
               ),
             )
           ],

@@ -105,4 +105,26 @@ class NetworkHelper {
 // check the status code for the result
     return body;
   }
+
+  static Future<String> makeGetRequestJsonHeaders(
+      var endPoint, var bearerToken) async {
+    // set up Get request arguments
+    Response response;
+    String body = "";
+    try {
+      Map<String, String> request = {
+        'Content-type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
+      };
+      response = await get(endPoint, headers: request);
+      int statusCode = response
+          .statusCode; // this API passes back the id of the new item added to the body
+      if (statusCode == 200) {
+        body = response.body;
+      }
+    } // request
+    catch (e) {}
+// check the status code for the result
+    return body;
+  }
 }

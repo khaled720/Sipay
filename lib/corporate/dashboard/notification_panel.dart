@@ -2,22 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
+import 'package:fluttersipay/corporate/dashboard/providers/corporate_notifications_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'merchant.dart';
 import 'notification_settings.dart';
 
-Widget C_Notification_Panel() {
-  return NotificationPanel();
-}
-
-class NotificationPanel extends StatefulWidget {
-  NotificationPanel({Key key}) : super(key: key);
+class CorporateNotificationsScreen extends StatefulWidget {
+  final MerchantMainRepository merchantMainRepository;
+  CorporateNotificationsScreen(this.merchantMainRepository);
   @override
-  _NotificationPanel createState() => _NotificationPanel();
+  _CorporateNotificationsScreenState createState() =>
+      _CorporateNotificationsScreenState();
 }
 
-class _NotificationPanel extends State<NotificationPanel> {
+class _CorporateNotificationsScreenState
+    extends State<CorporateNotificationsScreen> {
   var _notification_data = [
     {
       "title": "Money Transfer completed",
@@ -61,180 +63,192 @@ class _NotificationPanel extends State<NotificationPanel> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
-    return new Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('NOTIFICATIONS'),
-          flexibleSpace: Image(
-            image: AssetImage('assets/appbar_bg.png'),
-            height: 100,
-            fit: BoxFit.fitWidth,
-          ),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-          actions: <Widget>[
-            IconButton(
-              padding: const EdgeInsets.only(right: 20.0),
-              icon: Icon(
-                FontAwesomeIcons.commentAlt,
-                color: Colors.white,
+    return ChangeNotifierProvider(
+        create: (context) =>
+            CorporateNotificationsMainProvider(widget.merchantMainRepository),
+        child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text('NOTIFICATIONS'),
+              flexibleSpace: Image(
+                image: AssetImage('assets/appbar_bg.png'),
+                height: 100,
+                fit: BoxFit.fitWidth,
               ),
-              onPressed: () {
-                // do something
-              },
-            )
-          ],
-        ),
-        body: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              physics: ScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+              actions: <Widget>[
+                IconButton(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  icon: Icon(
+                    FontAwesomeIcons.commentAlt,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    // do something
+                  },
+                )
+              ],
+            ),
+            body: Consumer<CorporateNotificationsMainProvider>(
+                builder: (context, snapshot, _) {
+              return Stack(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: 30.0,
-                        right: 30.0,
-                        top: ScreenUtil.getInstance().setHeight(40)),
-                    child: Row(
+                  SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'ALL NOTIFICATIONS',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        Expanded(
-                            child: Align(
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 30.0,
+                              right: 30.0,
+                              top: ScreenUtil.getInstance().setHeight(40)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: const Color(0xFFc14b6f),
-                                ),
-                                onPressed: () {},
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            C_Notification_Settings(),
-                                      ));
-                                },
-                                icon: Icon(
-                                  Icons.settings,
-                                  color: Colors.black,
+                              Text(
+                                'ALL NOTIFICATIONS',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: Colors.black87,
                                 ),
                               ),
+                              Expanded(
+                                  child: Align(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: const Color(0xFFc14b6f),
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  C_Notification_Settings(),
+                                            ));
+                                      },
+                                      icon: Icon(
+                                        Icons.settings,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
                             ],
                           ),
-                        )),
+                        ),
+                        SizedBox(
+                          height: ScreenUtil.getInstance().setHeight(20),
+                        ),
+                        Container(
+                          child: new ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.notificationsList.length,
+                            primary: true,
+                            itemBuilder: (BuildContext content, int index) {
+                              return notificationListBuilder(
+                                  title: snapshot.notificationsList[index]
+                                      ['data_en'],
+                                  dates: snapshot.notificationsList[index]
+                                      ["created_at"],
+                                  description: '');
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 60,
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(20),
-                  ),
-                  Container(
-                    child: new ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: _notification_data.length,
-                      primary: true,
-                      itemBuilder: (BuildContext content, int index) {
-                        return notificationlist(
-                            title: _notification_data[index]["title"],
-                            dates: _notification_data[index]["dates"],
-                            description: _notification_data[index]
-                                ["description"]);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 60,
-                  ),
+                  Dashboardbottom(context, null),
                 ],
-              ),
-            ),
-            Dashboardbottom(context, null),
-          ],
-        ));
+              );
+            })));
   }
+}
 
-  Widget notificationlist({String title, String dates, String description}) {
-    return new Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
+Widget notificationListBuilder(
+    {String title, String dates, String description}) {
+  return new Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Padding(
+          padding: EdgeInsets.only(left: 30.0, right: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
                       title,
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ),
-                    Expanded(
-                      child: IconButton(
-                        alignment: Alignment.centerRight,
-                        icon: const Icon(
-                          FontAwesomeIcons.trash,
-                          color: const Color(0xFFc14b6f),
-                          size: 15,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                  child: Text(
-                    dates,
-                    style: TextStyle(
-//                          fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Colors.black45),
-                    textAlign: TextAlign.left,
                   ),
-                ),
-                SizedBox(
-                  height: ScreenUtil.getInstance().setHeight(40),
-                ),
-                Text(
-                  description,
+                  IconButton(
+                    alignment: Alignment.centerRight,
+                    icon: const Icon(
+                      FontAwesomeIcons.trash,
+                      color: const Color(0xFFc14b6f),
+                      size: 15,
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                child: Text(
+                  dates,
                   style: TextStyle(
 //                          fontWeight: FontWeight.bold,
                       fontSize: 13,
                       color: Colors.black45),
                   textAlign: TextAlign.left,
-                )
-              ],
-            )),
-        SizedBox(
-          height: 20,
-        ),
-        Divider(
-          color: Colors.black26,
-          height: 1.0,
-        )
-      ],
-    );
-  }
+                ),
+              ),
+//              SizedBox(
+//                height: ScreenUtil.getInstance().setHeight(40),
+//              ),
+//              Text(
+//                description,
+//                style: TextStyle(
+////                          fontWeight: FontWeight.bold,
+//                    fontSize: 13,
+//                    color: Colors.black45),
+//                textAlign: TextAlign.left,
+//              )
+            ],
+          )),
+      SizedBox(
+        height: 20,
+      ),
+      Divider(
+        color: Colors.black26,
+        height: 1.0,
+      )
+    ],
+  );
 }

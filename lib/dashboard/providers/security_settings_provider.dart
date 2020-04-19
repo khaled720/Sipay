@@ -105,10 +105,11 @@ class SecuritySettingsProvider with ChangeNotifier {
       return;
     }
     _setShowLoad(true);
-    MainApiModel changePasswordModel = await _baseMainRepository.changePassword(
-        _currentPassword.text.trim(),
-        _newPasswordController.text.trim(),
-        _confirmPasswordController.text.trim());
+    MainApiModel changePasswordModel =
+        await _baseMainRepository.changeCorporatePassword(
+            _currentPassword.text.trim(),
+            _newPasswordController.text.trim(),
+            _confirmPasswordController.text.trim());
     _setShowLoad(false);
     if (changePasswordModel != null) {
       changePasswordModel.statusCode == 100

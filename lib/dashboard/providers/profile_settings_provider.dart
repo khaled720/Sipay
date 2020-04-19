@@ -73,7 +73,7 @@ class ProfileSettingsProvider with ChangeNotifier {
   _uploadImage(Function onSuccess) async {
     load(true);
     MainApiModel uploadImageModel =
-        await baseRepo.uploadBase64Image(_imageFromGallery);
+        await baseRepo.uploadBase64CorporateImage(_imageFromGallery);
     load(false);
     if (uploadImageModel.statusCode == 100) onSuccess();
   }

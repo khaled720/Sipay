@@ -17,11 +17,11 @@ class WithdrawalBankModel {
         0, 'No accounts found', '', '', '', '', '', '', 0);
   }
 
-  factory WithdrawalBankModel.fromMap(Map values) {
+  factory WithdrawalBankModel.fromMap(Map values, bool saved) {
     return WithdrawalBankModel(
         values['id'],
-        values['name'],
-        values['code'],
+        saved ? values['bank_name'] : values['name'],
+        saved ? values['iban'] : values['code'],
         values['symbol'],
         values['issuer_name'],
         values['address'],

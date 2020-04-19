@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/Send_corp.dart';
 import 'package:fluttersipay/Money/providers/money_transfer_send_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -296,7 +297,9 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => SendMoneyToCorporateScreen(
-                widget.baseMainRepository, widget.wallets),
+                widget.baseMainRepository,
+                widget.wallets,
+                UserTypes.Individual),
           ));
     }
   }

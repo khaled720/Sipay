@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
@@ -43,19 +45,34 @@ class MerchantMainRepository extends BaseMainRepository {
       String centAmount,
       int currencyID,
       String description) async {
+//    Map<String, String> values = {
+//      'action': 'send-otp-for-b2b',
+//      'merchant_id': merchantID.toString(),
+//      'merchant_name': merchantName,
+//      'receiver_merchant_id': receiverMerchantID.toString(),
+//      'receiver_merchant_name': receiverMerchantName,
+//      'rounded_amount': roundedAmount,
+//      'cent_amount': centAmount,
+//      'currency_id': currencyID.toString(),
+//      'description': description
+//    };
+    print('merchant id is $merchantID');
     Map<String, String> values = {
       'action': 'send-otp-for-b2b',
       'merchant_id': merchantID.toString(),
-      'merchant_name': merchantName,
-      'receiver_merchant_id': receiverMerchantID.toString(),
-      'receiver_merchant_name': receiverMerchantName,
+      'merchant_name': 'Sipay Test merchant',
+      'receiver_merchant_id': '61159',
+      'receiver_merchant_name': 'Test Merchant',
       'rounded_amount': roundedAmount,
       'cent_amount': centAmount,
       'currency_id': currencyID.toString(),
       'description': description
     };
+
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
+    debugPrint('b2b merchant corporate payment result: $result',
+        wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -82,6 +99,7 @@ class MerchantMainRepository extends BaseMainRepository {
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
+    debugPrint('b2b merchant payment otp confirm: $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -89,6 +107,49 @@ class MerchantMainRepository extends BaseMainRepository {
   Future<MainApiModel> getAllMerchantsB2BPayment() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kAPICorporateGetAllMerchantsEndPoint, bearerToken);
+    debugPrint('get all b2b merchant b2b result: $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Corporate get all merchants B2B payment
+  Future<MainApiModel> getB2BMerchantReceiverInfo(
+      String receiverMerchantID) async {
+    Map<String, String> values = {
+      'action': 'check-receiver-merchant',
+      'receiver_merchant_id': receiverMerchantID,
+    };
+    final newUri = Uri.parse(APIEndPoints.kAPICorporateB2BPaymentEndPoint)
+        .replace(queryParameters: values);
+    String result =
+        await NetworkHelper.makeGetRequestJsonHeaders(newUri, bearerToken);
+    debugPrint('b2b merchant receiver info result: $result', wrapWidth: 1024);
+    // return MainApiModel.mapJsonToModel(result);
+    return null;
+  }
+
+  Future<MainApiModel> resendCorporateOTPB2BPayment(
+      int receiverMerchantID,
+      String receiverMerchantName,
+      String roundedAmount,
+      String centAmount,
+      int currencyID,
+      String description,
+      String b2bOTP) async {
+    Map<String, String> values = {
+      'action': 'resend-otp',
+      'merchant_id': merchantID.toString(),
+      'merchant_name': merchantName,
+      'receiver_merchant_id': receiverMerchantID.toString(),
+      'receiver_merchant_name': receiverMerchantName,
+      'rounded_amount': roundedAmount,
+      'cent_amount': centAmount,
+      'currency_id': currencyID.toString(),
+      'description': description,
+      // 'b2b_otp': b2bOTP
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
+    debugPrint('b2b otp resend result: $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -165,13 +226,55 @@ class MerchantMainRepository extends BaseMainRepository {
     Map<String, String> values = {
       'action': 'get-merchant-bank-info',
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiCorporateBaseWithdrawEndPoint, values, bearerToken);
+    final newUri = Uri.parse(APIEndPoints.kApiCorporateBaseWithdrawEndPoint)
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Corporate withdraw create/add/send otp
   Future<MainApiModel> corporateWithdrawAdd(
+    int bankID,
+    int bankStaticId,
+    String accountHolderName,
+    int currencyID,
+    String bankName,
+    String amountRound,
+    String amountCents,
+    int platformID,
+    String swiftCode,
+  ) async {
+    Map<String, String> values = {
+      'bank_id': bankID.toString(),
+      'bank_name': bankName,
+      'bank_static_id': bankStaticId.toString(),
+      'account_holder_name': accountHolderName,
+      'platform_id': platformID ?? '767676767676',
+      'swift_code': swiftCode ?? '',
+      'currency_id': currencyID.toString(),
+      'amount_round': amountRound,
+      'amount_cents': amountCents,
+      '': ''
+    };
+//    Map<String, String> values = {
+//      'bank_id': '5',
+//      'bank_name': 'Turkeye Cumhur Bank',
+//      'account_holder_name': 'Test',
+//      'bank_static_id': '1',
+//      'platform_id': '767676767676',
+//      'swift_code': '23',
+//      'currency_id': '1',
+//      'amount_round': '10',
+//      'amount_cents': '0',
+//    };
+
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiCorporateCreateWithdrawEndPoint, values, bearerToken);
+    debugPrint('withdraw create response is $result', wrapWidth: 1024);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  Future<MainApiModel> corporateConfirmWithdrawOTP(
     int bankID,
     int bankStaticId,
     String accountHolderName,
@@ -190,7 +293,7 @@ class MerchantMainRepository extends BaseMainRepository {
       'bank_name': bankName,
       'bank_static_id': bankStaticId.toString(),
       'account_holder_name': accountHolderName,
-      'platform_id': platformID.toString(),
+      'platform_id': platformID.toString() ?? '767676767676',
       'swift_code': swiftCode,
       'currency_id': currencyID.toString(),
       'amount_round': amountRound,
@@ -211,10 +314,10 @@ class MerchantMainRepository extends BaseMainRepository {
     Map<String, String> values = {
       'amount': amount, //''
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiIndividualWithdrawTransactionsListEndPoint,
-        values,
-        bearerToken);
+    final newUri =
+        Uri.parse(APIEndPoints.kApiIndividualWithdrawTransactionsListEndPoint)
+            .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -222,7 +325,7 @@ class MerchantMainRepository extends BaseMainRepository {
   Future<MainApiModel> createMerchantDPL() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiCorporateCreateDPLEndPoint, bearerToken);
-    debugPrint('result is $result',wrapWidth:1024);
+    debugPrint('result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -322,6 +425,63 @@ class MerchantMainRepository extends BaseMainRepository {
   Future<MainApiModel> refundRequestEdit(int transactionID) async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kApiCorporateRefundRequestEditEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Profile Settings
+  //Profile upload base 64 image
+  Future<MainApiModel> uploadBase64CorporateImage(File base64Image) async {
+    String result = await NetworkHelper.uploadBase64Image(
+        APIEndPoints.kApiCorporateUploadImageEndPoint,
+        base64Image,
+        bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Change corporate password
+  Future<MainApiModel> changeCorporatePassword(
+    String currentPassword,
+    String password,
+    String confirmPassword,
+  ) async {
+    Map<String, String> values = {
+      'current_password': currentPassword,
+      'new_password': password,
+      'confirm_new_password': confirmPassword
+    };
+    String result = await NetworkHelper.makePostRequest(
+        APIEndPoints.kApiCorporateChangePasswordEndPoint, values, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Profile form
+  Future<MainApiModel> corporateProfileInfo() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiProfileSettingsEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Corporate Notifications form
+  Future<MainApiModel> corporateNotificationsForm() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiCorporateNotificationsEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Corporate Read all Notifications
+  Future<MainApiModel> corporateReadAllNotifications() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kApiCorporateReadNotificationsEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  //Corporate Read all Notifications
+  Future<MainApiModel> corporateReadSingleNotification(
+      String notificationID) async {
+    String result = await NetworkHelper.makeGetRequest(
+        '${APIEndPoints.kApiCorporateReadNotificationsEndPoint}/$notificationID',
+        bearerToken);
+    debugPrint('notification read is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 }

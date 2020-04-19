@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/corporate/money/Send_corp.dart';
-import 'package:fluttersipay/corporate/money/Send_individual.dart';
+import 'package:fluttersipay/Money/Send_corp.dart';
 import 'package:fluttersipay/corporate/money/providers/money_panel_provider.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,8 @@ class MoneyPanelScreen extends StatefulWidget {
 }
 
 class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
-  var _value = "INDIVIDUAL";
-  List<String> _listViewData = ["INDIVIDUAL", "CORP"];
+  var _value = "CORP";
+  List<String> _listViewData = ["CORP"];
 
   @override
   Widget build(BuildContext context) {
@@ -231,18 +231,11 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
   }
 
   void sendMoney() {
-    if (_value == _listViewData[0]) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Send_individual(),
-          ));
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Send_corp(),
-          ));
-    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SendMoneyToCorporateScreen(
+              widget.mainRepo, widget.userWallets, UserTypes.Corporate),
+        ));
   }
 }

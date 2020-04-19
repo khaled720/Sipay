@@ -112,12 +112,12 @@ class _CorporateMerchantPanelScreenState
                             ),
                             onPressed: () {
                               snapshot.getDashboardDataFromApi();
-//                              Navigator.push(
-//                                  context,
-//                                  MaterialPageRoute(
-//                                    builder: (context) =>
-//                                        C_Notification_Panel(),
-//                                  ));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CorporateNotificationsScreen(snapshot
+                                              .corporateMainRepository)));
                               // do something
                             },
                           );
@@ -593,9 +593,12 @@ class _CorporateMerchantPanelScreenState
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      C_PROFILE_Panel(),
-                                                ));
+                                                    builder: (context) =>
+                                                        CorporateProfileSettingsScreen(
+                                                            snapshot
+                                                                .corporateMainRepository,
+                                                            widget
+                                                                .loginModel)));
                                           },
                                         ),
                                         Divider(
@@ -629,9 +632,10 @@ class _CorporateMerchantPanelScreenState
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      C_Notification_Panel(),
-                                                ));
+                                                    builder: (context) =>
+                                                        CorporateNotificationsScreen(
+                                                            snapshot
+                                                                .corporateMainRepository)));
                                           },
                                         ),
                                       ]),

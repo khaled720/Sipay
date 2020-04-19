@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/providers/send_to_corporate_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,9 @@ import 'money_transfer_otp.dart';
 class SendMoneyToCorporateScreen extends StatefulWidget {
   final BaseMainRepository baseMainRepository;
   final List wallets;
-  SendMoneyToCorporateScreen(this.baseMainRepository, this.wallets);
+  final UserTypes userType;
+  SendMoneyToCorporateScreen(
+      this.baseMainRepository, this.wallets, this.userType);
   @override
   _SendMoneyToCorporateScreenState createState() =>
       _SendMoneyToCorporateScreenState();
@@ -48,7 +51,8 @@ class _SendMoneyToCorporateScreenState
             widget.wallets,
             TextEditingController(),
             TextEditingController(),
-            TextEditingController()),
+            TextEditingController(),
+            widget.userType),
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,

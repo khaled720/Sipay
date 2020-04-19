@@ -113,7 +113,7 @@ class APIEndPoints {
   static final String kApiNotificationSettingsEndPoint =
       '$kBaseIndividualAPIEndPoint/setting/notification';
 
-  //Security settings
+  //Individual Security settings
   static final String kApiEmailChangeSettingsEndPoint =
       '$kBaseIndividualAPIEndPoint/setting/changeemail';
   static final String kApiPasswordChangeSettingsEndPoint =
@@ -204,4 +204,18 @@ class APIEndPoints {
   //Corporate Transactions list
   static final String kApiCorporateTransactionListEndPoint =
       '$kBaseCorporateAPIEndPoint/transaction';
+
+  //Corporate Profile Settings
+  static final String kApiCorporateUploadImageEndPoint =
+      '$kBaseCorporateAPIEndPoint/profile/image';
+  static final String kApiCorporateChangePasswordEndPoint =
+      '$kBaseCorporateAPIEndPoint/profile/password';
+  static final String kApiProfileSettingsEndPoint =
+      '$kBaseCorporateAPIEndPoint/profile/info';
+
+  //Corporate Notifications
+  static final String kApiCorporateNotificationsEndPoint =
+      '$kBaseCorporateAPIEndPoint/notifications';
+  static final String kApiCorporateReadNotificationsEndPoint =
+      '$kBaseCorporateAPIEndPoint/notifications/read';
 }

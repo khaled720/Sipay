@@ -1,45 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
-import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
+import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
+import 'package:fluttersipay/corporate/withdrawal/json_models/corporate_withdrawal_bank_model.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
-import 'package:fluttersipay/utils/constants.dart';
 
-import '../../base_main_repo.dart';
+import '../../../../base_main_repo.dart';
 
-class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
-  List<WithdrawalBankModel> _bankList;
-  List<DropdownMenuItem<WithdrawalBankModel>> _banksDropDown;
-  List<DropdownMenuItem<WithdrawalBankModel>> _savedAccountBanks;
+class CreateCorporateBankWithdrawProvider
+    extends TransactionsScreenBaseProvider {
+  MerchantMainRepository _merchantMainRepository;
+  List<CorporateWithdrawalBankModel> _bankList;
+  List<DropdownMenuItem<CorporateWithdrawalBankModel>> _banksDropDown;
   List<String> _currenciesDropDown = ['TRY', 'USD', 'EUR'];
   List<String> _currencyDropDown = ['TRY'];
   List _commissionsList;
-  WithdrawalBankModel _selectedBankDropDownValue;
+  CorporateWithdrawalBankModel _selectedBankDropDownValue;
   String _selectedCurrencyDropDownValue = 'TRY';
   String _withdrawalErrorText;
-  WithdrawalBankModel _savedAccountSelectedDropdownValue;
-  WithdrawalBankModel _currentSelectedBank;
+  CorporateWithdrawalBankModel _currentSelectedBank;
   TextEditingController _amountController;
   TextEditingController _accountHolderController;
-  TextEditingController _ibanController;
   TextEditingController _feeController;
   TextEditingController _swiftController;
   TextEditingController _netAccountController;
   bool _showSwiftCode;
-  bool _savedAccount = false;
-  bool _checkbox = false;
   int _userType = 0;
 
-  WithdrawalBankModel get selectedBankDropDownValue =>
+  CorporateWithdrawalBankModel get selectedBankDropDownValue =>
       _selectedBankDropDownValue;
 
   String get selectedCurrencyDropDownValue => _selectedCurrencyDropDownValue;
 
   String get withdrawalErrorText => _withdrawalErrorText;
-
-  WithdrawalBankModel get savedAccountSelectedDropdownValue =>
-      _savedAccountSelectedDropdownValue;
 
   List<String> get currencyDropDown => _currencyDropDown;
 
@@ -47,15 +40,11 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
 
   bool get showSwiftCode => _showSwiftCode;
 
-  bool get checkbox => _checkbox;
-
   TextEditingController get amountController => _amountController;
 
   TextEditingController get feeController => _feeController;
 
   TextEditingController get accountHolderController => _accountHolderController;
-
-  TextEditingController get ibanController => _ibanController;
 
   TextEditingController get netAccountController => _netAccountController;
 
@@ -68,34 +57,23 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
 
   get banksDropdown => _banksDropDown;
 
-  get savedBanksDropdown => _savedAccountBanks;
-
-  CreateBankWithdrawProvider(
+  CreateCorporateBankWithdrawProvider(
       BaseMainRepository repo,
       List wallets,
       this._amountController,
       this._accountHolderController,
-      this._ibanController,
       this._netAccountController,
       this._feeController,
       this._swiftController)
       : super(repo, wallets) {
+    _merchantMainRepository = repo;
     availableBanksList();
     _amountController.addListener(_calculateNetAndTransactionFee);
   }
 
-  set selectedDropDownValue(WithdrawalBankModel value) {
+  set selectedDropDownValue(CorporateWithdrawalBankModel value) {
     _selectedBankDropDownValue = value;
     _currentSelectedBank = value;
-    notifyListeners();
-  }
-
-  void setSavedBankAccountDropdownValue(WithdrawalBankModel value) {
-    _savedAccountSelectedDropdownValue = value;
-    if (value.name != 'No accounts found') {
-      _savedAccount = true;
-      _currentSelectedBank = value;
-    }
     notifyListeners();
   }
 
@@ -108,11 +86,6 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
     notifyListeners();
   }
 
-  void setCheckBox(bool check) {
-    this._checkbox = check;
-    notifyListeners();
-  }
-
   _setWithdrawalErrorText(String text) {
     _withdrawalErrorText = text;
     notifyListeners();
@@ -121,21 +94,13 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
   void availableBanksList() async {
     MainApiModel userBankList = await this.mainRepo.getWithdrawForm();
     if (userBankList.statusCode == 100) {
-      List bankMaps = userBankList.data['bankList'];
+      List bankMaps = userBankList.data['saved_accounts'];
       _bankList = List();
       for (Map bank in bankMaps)
-        _bankList.add(WithdrawalBankModel.fromMap(bank, false));
+        _bankList.add(CorporateWithdrawalBankModel.fromMap(bank));
       _banksDropDown =
-          AppUtils.mapWithdrawalBankListToDropdownMenuItems(_bankList);
+          AppUtils.mapCorporateWithdrawalBankListToDropdownMenuItems(_bankList);
       selectedDropDownValue = _bankList[0];
-      List savedBanks = userBankList.data['userSavedBankList'];
-      if (savedBanks.isEmpty) savedBanks = [WithdrawalBankModel.empty()];
-      List savedBanksMappedList = List();
-      for (Map bank in savedBanks)
-        savedBanksMappedList.add(WithdrawalBankModel.fromMap(bank, true));
-      _savedAccountBanks = AppUtils.mapWithdrawalBankListToDropdownMenuItems(
-          savedBanksMappedList);
-      _savedAccountSelectedDropdownValue = savedBanksMappedList[0];
       _commissionsList = userBankList.data['commissions'];
       if (_commissionsList != null) {
         if (_commissionsList.isNotEmpty)
@@ -175,43 +140,56 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
   }
 
   void createWithdrawal(Function onSuccess, Function onFailure) async {
-    _setWithdrawalErrorText(null);
-    if (_amountController.text.trim().isNotEmpty &&
-        _netAccountController.text.trim().isNotEmpty &&
-        ibanController.text.trim().isNotEmpty &&
-        _accountHolderController.text.trim().isNotEmpty) {
-      String swiftCode = _swiftController.text.trim();
-      if (_selectedCurrencyDropDownValue != 'TRY') {
-        if (_swiftController.text.trim().isEmpty) {
-          _setWithdrawalErrorText(
-              'One of the fields is empty. Please try again.');
-          return;
-        }
-      }
-      IndividualMainRepository repo = mainRepo;
-      setShowLoad(true);
-      MainApiModel bankWithdrawalModel = await repo.withdrawCreate(
-          swiftCode,
-          _currentSelectedBank.id,
-          _accountHolderController.text.trim(),
-          _ibanController.text.trim(),
-          _amountController.text.trim(),
-          AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
-          _currentSelectedBank.name,
-          _checkbox ? '1' : '0',
-          _savedAccount ? '1' : '0',
-          _userType);
-      setShowLoad(false);
-      if (bankWithdrawalModel.statusCode == 100 ||
-          bankWithdrawalModel.statusCode == 4) {
-        onSuccess(null, bankWithdrawalModel, repo, UserTypes.Individual);
-      } else {
-        onFailure(bankWithdrawalModel.description);
-        _setWithdrawalErrorText(bankWithdrawalModel.description);
-      }
-    } else {
-      Future.delayed(Duration(seconds: 1));
-      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
-    }
+    double amount = double.parse(_amountController.text.trim());
+    double decimal = (amount - amount.toInt()) * 100;
+    int deci = decimal.round();
+    await _merchantMainRepository.corporateWithdrawAdd(
+        selectedBankDropDownValue.id,
+        selectedBankDropDownValue.staticBankID,
+        selectedBankDropDownValue.accountHolderName,
+        AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
+        selectedBankDropDownValue.bankName,
+        amount.toInt().toString(),
+        deci.toString(),
+        null,
+        _swiftController.text.trim() ?? '');
+//    _setWithdrawalErrorText(null);
+//    if (_amountController.text.trim().isNotEmpty &&
+//        _netAccountController.text.trim().isNotEmpty &&
+//        ''.isNotEmpty &&
+//        _accountHolderController.text.trim().isNotEmpty) {
+//      String swiftCode = _swiftController.text.trim();
+//      if (_selectedCurrencyDropDownValue != 'TRY') {
+//        if (_swiftController.text.trim().isEmpty) {
+//          _setWithdrawalErrorText(
+//              'One of the fields is empty. Please try again.');
+//          return;
+//        }
+//      }
+//      IndividualMainRepository repo = mainRepo;
+//      setShowLoad(true);
+//      MainApiModel bankWithdrawalModel;
+////      MainApiModel bankWithdrawalModel = await repo.withdrawCreate(
+////          swiftCode,
+////          _currentSelectedBank.id,
+////          _accountHolderController.text.trim(),
+////          '',
+////          _amountController.text.trim(),
+////          AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
+////          _currentSelectedBank.bankName,
+////          _checkbox ? '1' : '0'_savedAccount ? '1' : '0',
+////          _userType);
+//      setShowLoad(false);
+//      if (bankWithdrawalModel.statusCode == 100 ||
+//          bankWithdrawalModel.statusCode == 4) {
+//        onSuccess(null, bankWithdrawalModel, repo, UserTypes.Individual);
+//      } else {
+//        onFailure(bankWithdrawalModel.description);
+//        _setWithdrawalErrorText(bankWithdrawalModel.description);
+//      }
+//    } else {
+//      Future.delayed(Duration(seconds: 1));
+//      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
+//    }
   }
 }

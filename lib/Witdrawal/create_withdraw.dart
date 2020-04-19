@@ -203,7 +203,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      users.tobank,
+                                      users.tobank ?? '',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
@@ -213,7 +213,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(10),
                                     ),
                                     Text(
-                                      users.select,
+                                      users.select ?? '',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 15),
                                     ),
@@ -222,7 +222,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(30),
                                     ),
                                     Text(
-                                      users.withdrawField[0],
+                                      users.withdrawField[0] ?? '',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 12),
                                     ),
