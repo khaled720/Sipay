@@ -274,7 +274,11 @@ class _SendMoneyToCorporateScreenState
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
-                                        Icon(FontAwesomeIcons.userCheck,
+                                        Icon(
+                                            snapshot.receiverData ==
+                                                    'Non SiPay User'
+                                                ? FontAwesomeIcons.userSlash
+                                                : FontAwesomeIcons.userCheck,
                                             size: 15.0,
                                             color: snapshot.receiverData ==
                                                     'Non SiPay User'
@@ -518,7 +522,7 @@ class _SendMoneyToCorporateScreenState
                                     child: FlatButton(
                                       onPressed: () {
                                         snapshot.moneyTransfer((phoneNumber,
-                                            otpModel, mainRepo, userType) {
+                                            otpModel, mainRepo, userType, b2b) {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -526,7 +530,8 @@ class _SendMoneyToCorporateScreenState
                                                           phoneNumber,
                                                           otpModel,
                                                           userType,
-                                                          mainRepo)));
+                                                          mainRepo,
+                                                          b2b)));
                                         }, (description) {
                                           Flushbar(
                                             title: "Failure",

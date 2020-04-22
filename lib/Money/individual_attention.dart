@@ -10,7 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class IndividualAttentionScreen extends StatefulWidget {
   final MainApiModel otpModel;
   final UserTypes userType;
-  IndividualAttentionScreen(this.userType, this.otpModel);
+  final bool isB2B;
+  IndividualAttentionScreen(this.userType, this.otpModel, this.isB2B);
   @override
   _IndividualAttentionScreenState createState() =>
       _IndividualAttentionScreenState();
@@ -118,7 +119,8 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Reciever GSM: ',
+                      child: Text(
+                          widget.isB2B ? 'Receiver ID' : 'Reciever GSM: ',
                           style:
                               TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
@@ -128,7 +130,10 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
                         alignment: Alignment.bottomRight,
                         child: Text(
                           widget.otpModel != null
-                              ? widget.otpModel.data['inputs']['receiver_phone']
+                              ? widget.isB2B
+                                  ? widget.otpModel.data['b2b']['receiver_id']
+                                  : widget.otpModel.data['inputs']
+                                      ['receiver_phone']
                               : '',
                           style: TextStyle(color: Colors.black87, fontSize: 16),
                         ),
@@ -149,31 +154,31 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
                 SizedBox(
                   height: ScreenUtil.getInstance().setHeight(50),
                 ),
-                Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 30,
-                    ),
-                    Expanded(
-                      child: Text('Expiry Date: ',
-                          style:
-                              TextStyle(color: Colors.black45, fontSize: 17)),
-                    ),
-                    Expanded(
-                      child: Container(
-                          child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          '',
-                          style: TextStyle(color: Colors.black87, fontSize: 16),
-                        ),
-                      )),
-                    ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                  ],
-                ),
+//                Row(
+//                  children: <Widget>[
+//                    SizedBox(
+//                      width: 30,
+//                    ),
+//                    Expanded(
+//                      child: Text('Expiry Date: ',
+//                          style:
+//                              TextStyle(color: Colors.black45, fontSize: 17)),
+//                    ),
+//                    Expanded(
+//                      child: Container(
+//                          child: Align(
+//                        alignment: Alignment.bottomRight,
+//                        child: Text(
+//                          '',
+//                          style: TextStyle(color: Colors.black87, fontSize: 16),
+//                        ),
+//                      )),
+//                    ),
+//                    SizedBox(
+//                      width: 30,
+//                    ),
+//                  ],
+//                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -224,7 +229,9 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => TransferSuccessScreen(
-                                      widget.userType, widget.otpModel),
+                                      widget.userType,
+                                      widget.otpModel,
+                                      widget.isB2B),
                                 ));
                           },
                           color: Colors.blue,

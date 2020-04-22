@@ -39,67 +39,52 @@ class MerchantMainRepository extends BaseMainRepository {
 
   //Corporate B2B Payment
   Future<MainApiModel> corporateB2BPayment(
+      int id,
+      String name,
       int receiverMerchantID,
       String receiverMerchantName,
-      String roundedAmount,
-      String centAmount,
+      String amount,
       int currencyID,
       String description) async {
-//    Map<String, String> values = {
-//      'action': 'send-otp-for-b2b',
-//      'merchant_id': merchantID.toString(),
-//      'merchant_name': merchantName,
-//      'receiver_merchant_id': receiverMerchantID.toString(),
-//      'receiver_merchant_name': receiverMerchantName,
-//      'rounded_amount': roundedAmount,
-//      'cent_amount': centAmount,
-//      'currency_id': currencyID.toString(),
-//      'description': description
-//    };
-    print('merchant id is $merchantID');
     Map<String, String> values = {
       'action': 'send-otp-for-b2b',
-      'merchant_id': merchantID.toString(),
-      'merchant_name': 'Sipay Test merchant',
-      'receiver_merchant_id': '61159',
-      'receiver_merchant_name': 'Test Merchant',
-      'rounded_amount': roundedAmount,
-      'cent_amount': centAmount,
+      'merchant_id': id.toString(),
+      'merchant_name': name,
+      'receiver_merchant_id': receiverMerchantID.toString(),
+      'receiver_merchant_name': receiverMerchantName,
+      'amount': amount,
       'currency_id': currencyID.toString(),
       'description': description
     };
-
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
-    debugPrint('b2b merchant corporate payment result: $result',
-        wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Corporate B2B payment confirm OTP
   Future<MainApiModel> confirmCorporateOTPB2BPayment(
+      int id,
+      String name,
       int receiverMerchantID,
       String receiverMerchantName,
-      String roundedAmount,
-      String centAmount,
+      String amount,
       int currencyID,
       String description,
       String b2bOTP) async {
     Map<String, String> values = {
       'action': 'confirm-otp',
-      'merchant_id': merchantID.toString(),
-      'merchant_name': merchantName,
+      'merchant_id': id.toString(),
+      'merchant_name': name,
       'receiver_merchant_id': receiverMerchantID.toString(),
       'receiver_merchant_name': receiverMerchantName,
-      'rounded_amount': roundedAmount,
-      'cent_amount': centAmount,
+      'amount': amount,
       'currency_id': currencyID.toString(),
       'description': description,
       'b2b_otp': b2bOTP
     };
+
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
-    debugPrint('b2b merchant payment otp confirm: $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -107,24 +92,22 @@ class MerchantMainRepository extends BaseMainRepository {
   Future<MainApiModel> getAllMerchantsB2BPayment() async {
     String result = await NetworkHelper.makeGetRequest(
         APIEndPoints.kAPICorporateGetAllMerchantsEndPoint, bearerToken);
-    debugPrint('get all b2b merchant b2b result: $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Corporate get all merchants B2B payment
   Future<MainApiModel> getB2BMerchantReceiverInfo(
       String receiverMerchantID) async {
-    Map<String, String> values = {
-      'action': 'check-receiver-merchant',
-      'receiver_merchant_id': receiverMerchantID,
-    };
-    final newUri = Uri.parse(APIEndPoints.kAPICorporateB2BPaymentEndPoint)
-        .replace(queryParameters: values);
-    String result =
-        await NetworkHelper.makeGetRequestJsonHeaders(newUri, bearerToken);
-    debugPrint('b2b merchant receiver info result: $result', wrapWidth: 1024);
-    // return MainApiModel.mapJsonToModel(result);
-    return null;
+    String result = await NetworkHelper.makeGetRequest(
+        '${APIEndPoints.kAPICorporateB2BPaymentReceiverEndPoint}/$receiverMerchantID',
+        bearerToken);
+    return MainApiModel.mapJsonToModel(result);
+  }
+
+  Future<MainApiModel> b2bForm() async {
+    String result = await NetworkHelper.makeGetRequest(
+        APIEndPoints.kAPICorporateB2BPaymentFormEndPoint, bearerToken);
+    return MainApiModel.mapJsonToModel(result);
   }
 
   Future<MainApiModel> resendCorporateOTPB2BPayment(
@@ -149,7 +132,6 @@ class MerchantMainRepository extends BaseMainRepository {
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateB2BPaymentEndPoint, values, bearerToken);
-    debugPrint('b2b otp resend result: $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

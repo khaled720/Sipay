@@ -9,15 +9,17 @@ import 'base_money_transfer_provider.dart';
 class SendMoneyToIndividualProvider extends BaseMoneyTransferProvider {
   String _receiverName;
   bool _phoneLoading;
+  final UserTypes _userType;
 
   SendMoneyToIndividualProvider(
       BaseMainRepository repo,
       List wallets,
       TextEditingController receiverController,
       TextEditingController amountController,
-      TextEditingController descriptionController)
+      TextEditingController descriptionController,
+      this._userType)
       : super(repo, wallets, receiverController, amountController,
-            descriptionController) {
+            descriptionController, _userType) {
     _phoneLoading = false;
   }
 

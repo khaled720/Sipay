@@ -11,7 +11,10 @@ import 'package:intl/intl.dart';
 class TransferSuccessScreen extends StatefulWidget {
   final MainApiModel otpModel;
   final UserTypes userType;
-  TransferSuccessScreen(this.userType, this.otpModel);
+  final bool isB2B;
+
+  TransferSuccessScreen(this.userType, this.otpModel, this.isB2B);
+
   @override
   _TransferSuccessScreenState createState() => _TransferSuccessScreenState();
 }
@@ -22,16 +25,19 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
   String currency;
   String date;
   String data;
+
   @override
   void initState() {
     super.initState();
     otpModelData = widget.otpModel.data['inputs'];
+    if (widget.isB2B) otpModelData = widget.otpModel.data['b2b'];
     currency =
         AppUtils.mapCurrencyIDToText(int.parse(otpModelData['currency_id']));
     amount = '${otpModelData['amount']} $currency';
     final df = DateFormat('dd.MM.yyyy hh:mm');
     date = df.format(DateTime.now());
     data = otpModelData['receiver_phone'];
+    if (widget.isB2B) data = otpModelData['receiver_id'].toString();
 //    if (widget.userType == UserTypes.Individual) {
 //      data = otpModelData['receiver_phone'];
 //    } else {
@@ -174,7 +180,8 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Reciever GSM NO: ',
+                      child: Text(
+                          widget.isB2B ? 'Receiver ID: ' : 'Reciever GSM NO: ',
 //                          widget.userType == UserTypes.Individual
 //                              ? 'Reciever GSM NO: '
 //                              : 'Reciever Merchant ID: ',

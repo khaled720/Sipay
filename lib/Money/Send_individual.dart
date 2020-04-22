@@ -46,7 +46,8 @@ class _SendMoneyToIndividualScreenState
             widget.wallets,
             TextEditingController(),
             TextEditingController(),
-            TextEditingController()),
+            TextEditingController(),
+            UserTypes.Individual),
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -504,7 +505,8 @@ class _SendMoneyToIndividualScreenState
                                                         phoneNumber,
                                                         otpModel,
                                                         userType,
-                                                        mainRepo)));
+                                                        mainRepo,
+                                                        false)));
                                       }, (description) {
                                         Flushbar(
                                           title: "Failure",

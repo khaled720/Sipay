@@ -21,7 +21,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
       TextEditingController descriptionController,
       this._userType)
       : super(repo, wallets, receiverController, amountController,
-            descriptionController) {
+            descriptionController, _userType) {
     _phoneLoading = false;
   }
 
@@ -49,46 +49,56 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
           MerchantMainRepository merchantRepo = mainRepo;
           moneyReceiverInfo =
               await merchantRepo.getB2BMerchantReceiverInfo(value);
+          if (moneyReceiverInfo.statusCode == 100) {
+            receiverData = moneyReceiverInfo.data['receiver_merchant']['name'];
+            _receiverPhone = moneyReceiverInfo.data['receiver_merchant']['id'];
+          } else
+            receiverData = 'Non SiPay User';
         } else {
           moneyReceiverInfo =
               await mainRepo.moneyTransferReceiverInfo(value, null);
+          if (moneyReceiverInfo.statusCode == 100) {
+            receiverData = moneyReceiverInfo.data['receiver_info']['name'];
+            _receiverPhone = moneyReceiverInfo.data['receiver_info']['phone'];
+          } else
+            receiverData = 'Non SiPay User';
         }
         phoneLoading = false;
-        if (moneyReceiverInfo.statusCode == 100) {
-          receiverData = moneyReceiverInfo.data['receiver_info']['name'];
-          _receiverPhone = moneyReceiverInfo.data['receiver_info']['phone'];
-        } else
-          receiverData = 'Non SiPay User';
       }
     }
   }
 
   void moneyTransfer(Function onSendToOTP, Function onFailure) async {
-    MainApiModel sendToMerchantModel;
-    if (_userType == UserTypes.Corporate) {
-      if (receiverController.text.trim().isNotEmpty &&
-          amountController.text.trim().isNotEmpty) {
-        double amount = double.parse(amountController.text.trim());
-        if (amount > 0.0) {
-          if (receiverData != null) {
-            if (receiverData != 'Non SiPay User') {
-              if (_receiverPhone != null) {
-                showLoad = true;
-                MainApiModel sendToMerchantModel;
-                if (_userType == UserTypes.Corporate) {
-                  MerchantMainRepository merchantRepo = mainRepo;
-                  double amount = double.parse(amountController.text.trim());
-                  double decimal = (amount - amount.toInt()) * 100;
-                  int deci = decimal.round();
-                  sendToMerchantModel = await merchantRepo.corporateB2BPayment(
-                      123456,
-                      '',
-                      amount.round().toString(),
-                      deci.toString(),
-                      AppUtils.mapCurrencyTextToID(
-                          selectedCurrencyDropDownValue),
-                      descriptionController.text.trim() ?? '');
+    if (receiverController.text.trim().isNotEmpty &&
+        amountController.text.trim().isNotEmpty) {
+      double amount = double.parse(amountController.text.trim());
+      if (amount > 0.0) {
+        if (receiverData != null && moneyTransferForm != null) {
+          if (receiverData != 'Non SiPay User') {
+            if (_receiverPhone != null) {
+              showLoad = true;
+              MainApiModel sendToMerchantModel;
+              if (_userType == UserTypes.Corporate) {
+                MerchantMainRepository merchantRepo = mainRepo;
+                sendToMerchantModel = await merchantRepo.corporateB2BPayment(
+                    moneyTransferForm['user_merchant']['id'],
+                    moneyTransferForm['user_merchant']['name'],
+                    _receiverPhone,
+                    receiverData,
+                    amountController.text.trim(),
+                    AppUtils.mapCurrencyTextToID(selectedCurrencyDropDownValue),
+                    descriptionController.text.trim() ?? '');
+                if (sendToMerchantModel != null) {
+                  sendToMerchantModel.statusCode == 100
+                      ? onSendToOTP(
+                          sendToMerchantModel.data['user']['phone'],
+                          sendToMerchantModel,
+                          mainRepo,
+                          UserTypes.Corporate,
+                          true)
+                      : onFailure(sendToMerchantModel.description);
                 }
+              } else {
                 sendToMerchantModel =
                     await mainRepo.createMoneySendToMerchantValidate(
                         receiverData,
@@ -97,21 +107,22 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
                         AppUtils.mapCurrencyTextToID(
                             selectedCurrencyDropDownValue),
                         descriptionController.text.trim() ?? '');
-                showLoad = false;
                 if (sendToMerchantModel != null) {
                   sendToMerchantModel.statusCode == 100
                       ? onSendToOTP(
                           sendToMerchantModel.data['inputs']['sender_phone'],
                           sendToMerchantModel,
                           mainRepo,
-                          UserTypes.Corporate)
+                          UserTypes.Corporate,
+                          false)
                       : onFailure(sendToMerchantModel.description);
                 }
               }
+              showLoad = false;
             }
-          } else
-            onReceiverPhoneSubmitted(receiverController.text.trim());
-        }
+          }
+        } else
+          onReceiverPhoneSubmitted(receiverController.text.trim());
       }
     }
   }

@@ -15,9 +15,10 @@ class MoneyTransferOTPScreen extends StatefulWidget {
   final otpModel;
   final BaseMainRepository mainRepository;
   final UserTypes userType;
+  final bool isB2B;
 
-  MoneyTransferOTPScreen(
-      this.phoneNumber, this.otpModel, this.userType, this.mainRepository);
+  MoneyTransferOTPScreen(this.phoneNumber, this.otpModel, this.userType,
+      this.mainRepository, this.isB2B);
 
   @override
   _MoneyTransferOTPScreenState createState() => _MoneyTransferOTPScreenState();
@@ -69,7 +70,8 @@ class _MoneyTransferOTPScreenState extends State<MoneyTransferOTPScreen> {
               widget.mainRepository,
               widget.otpModel,
               TextEditingController(),
-              CountdownTimer(Duration(seconds: 22), Duration(seconds: 1))),
+              CountdownTimer(Duration(seconds: 22), Duration(seconds: 1)),
+              widget.isB2B),
           child: SingleChildScrollView(
             child: Consumer<MoneyTransferOTPProvider>(
                 builder: (context, snapshot, _) {
@@ -84,9 +86,9 @@ class _MoneyTransferOTPScreenState extends State<MoneyTransferOTPScreen> {
                   )..show(context);
                 },
                 onSuccess: (model) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          IndividualAttentionScreen(widget.userType, model)));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => IndividualAttentionScreen(
+                          widget.userType, model, widget.isB2B)));
                 },
                 errorText: snapshot.otpErrorText,
                 showLoad: snapshot.showLoad,

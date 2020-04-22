@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
+import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
+import 'package:fluttersipay/utils/constants.dart';
 
 import '../../base_main_repo.dart';
 
@@ -17,6 +19,7 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
   TextEditingController _receiverController;
   TextEditingController _amountController;
   TextEditingController _descriptionController;
+  final UserTypes _userType;
   bool _showLoad;
 
   WithdrawalBankModel get selectedBankDropDownValue =>
@@ -47,12 +50,13 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
   get savedBanksDropdown => _savedAccountBanks;
 
   BaseMoneyTransferProvider(
-    BaseMainRepository repo,
-    List wallets,
-    this._receiverController,
-    this._amountController,
-    this._descriptionController,
-  ) : super(repo, wallets) {
+      BaseMainRepository repo,
+      List wallets,
+      this._receiverController,
+      this._amountController,
+      this._descriptionController,
+      this._userType)
+      : super(repo, wallets) {
     getMoneyTransferForm();
   }
 
@@ -77,8 +81,12 @@ class BaseMoneyTransferProvider extends TransactionsScreenBaseProvider {
   }
 
   getMoneyTransferForm() async {
-    MainApiModel moneyTransferFormModel =
-        await this.mainRepo.moneyTransferForm();
+    MainApiModel moneyTransferFormModel;
+    if (_userType == UserTypes.Corporate) {
+      MerchantMainRepository merchantRepo = mainRepo;
+      moneyTransferFormModel = await merchantRepo.b2bForm();
+    } else
+      moneyTransferFormModel = await this.mainRepo.moneyTransferForm();
     if (moneyTransferFormModel.statusCode == 100) {
       moneyTransferForm = moneyTransferFormModel.data;
       notifyListeners();

@@ -138,7 +138,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      TransferSuccessScreen(null, null),
+                                      TransferSuccessScreen(null, null, null),
                                 ));
                           },
                           color: Colors.blue,

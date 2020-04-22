@@ -136,8 +136,12 @@ class APIEndPoints {
       '$kBaseIndividualAPIEndPoint/changepassword';
 
   //Corporate B2B
+  static final String kAPICorporateB2BPaymentFormEndPoint =
+      '$kBaseCorporateAPIEndPoint/b2bpayment';
   static final String kAPICorporateB2BPaymentEndPoint =
       '$kBaseCorporateAPIEndPoint/b2bpayment/add';
+  static final String kAPICorporateB2BPaymentReceiverEndPoint =
+      '$kBaseCorporateAPIEndPoint/b2bpayment/receiver';
   static final String kAPICorporateGetAllMerchantsEndPoint =
       '$kBaseCorporateAPIEndPoint/b2bpayment/getallmerchant';
 
