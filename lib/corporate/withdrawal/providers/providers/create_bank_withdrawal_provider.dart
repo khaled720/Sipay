@@ -4,6 +4,7 @@ import 'package:fluttersipay/corporate/withdrawal/json_models/corporate_withdraw
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 
 import '../../../../base_main_repo.dart';
 
@@ -25,6 +26,7 @@ class CreateCorporateBankWithdrawProvider
   TextEditingController _swiftController;
   TextEditingController _netAccountController;
   bool _showSwiftCode;
+  var _currentMerchantData;
   int _userType = 0;
 
   CorporateWithdrawalBankModel get selectedBankDropDownValue =>
@@ -95,6 +97,7 @@ class CreateCorporateBankWithdrawProvider
     MainApiModel userBankList = await this.mainRepo.getWithdrawForm();
     if (userBankList.statusCode == 100) {
       List bankMaps = userBankList.data['saved_accounts'];
+      _currentMerchantData = userBankList.data['user_merchant'];
       _bankList = List();
       for (Map bank in bankMaps)
         _bankList.add(CorporateWithdrawalBankModel.fromMap(bank));
@@ -140,56 +143,41 @@ class CreateCorporateBankWithdrawProvider
   }
 
   void createWithdrawal(Function onSuccess, Function onFailure) async {
-    double amount = double.parse(_amountController.text.trim());
-    double decimal = (amount - amount.toInt()) * 100;
-    int deci = decimal.round();
-    await _merchantMainRepository.corporateWithdrawAdd(
-        selectedBankDropDownValue.id,
-        selectedBankDropDownValue.staticBankID,
-        selectedBankDropDownValue.accountHolderName,
-        AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
-        selectedBankDropDownValue.bankName,
-        amount.toInt().toString(),
-        deci.toString(),
-        null,
-        _swiftController.text.trim() ?? '');
-//    _setWithdrawalErrorText(null);
-//    if (_amountController.text.trim().isNotEmpty &&
-//        _netAccountController.text.trim().isNotEmpty &&
-//        ''.isNotEmpty &&
-//        _accountHolderController.text.trim().isNotEmpty) {
-//      String swiftCode = _swiftController.text.trim();
-//      if (_selectedCurrencyDropDownValue != 'TRY') {
-//        if (_swiftController.text.trim().isEmpty) {
-//          _setWithdrawalErrorText(
-//              'One of the fields is empty. Please try again.');
-//          return;
-//        }
-//      }
-//      IndividualMainRepository repo = mainRepo;
-//      setShowLoad(true);
-//      MainApiModel bankWithdrawalModel;
-////      MainApiModel bankWithdrawalModel = await repo.withdrawCreate(
-////          swiftCode,
-////          _currentSelectedBank.id,
-////          _accountHolderController.text.trim(),
-////          '',
-////          _amountController.text.trim(),
-////          AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
-////          _currentSelectedBank.bankName,
-////          _checkbox ? '1' : '0'_savedAccount ? '1' : '0',
-////          _userType);
-//      setShowLoad(false);
-//      if (bankWithdrawalModel.statusCode == 100 ||
-//          bankWithdrawalModel.statusCode == 4) {
-//        onSuccess(null, bankWithdrawalModel, repo, UserTypes.Individual);
-//      } else {
-//        onFailure(bankWithdrawalModel.description);
-//        _setWithdrawalErrorText(bankWithdrawalModel.description);
-//      }
-//    } else {
-//      Future.delayed(Duration(seconds: 1));
-//      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
-//    }
+    _setWithdrawalErrorText(null);
+    if (_amountController.text.trim().isNotEmpty &&
+        _currentMerchantData != null) {
+      if (_selectedCurrencyDropDownValue != 'TRY') {
+        if (_swiftController.text.trim().isEmpty) {
+          _setWithdrawalErrorText(
+              'One of the fields is empty. Please try again.');
+          return;
+        }
+      }
+      setShowLoad(true);
+      MainApiModel merchantWithdrawalModel =
+          await _merchantMainRepository.corporateWithdrawAdd(
+              selectedBankDropDownValue.staticBankID,
+              selectedBankDropDownValue.accountHolderName,
+              AppUtils.mapCurrencyTextToID(_selectedCurrencyDropDownValue),
+              selectedBankDropDownValue.bankName,
+              _amountController.text.trim(),
+              selectedBankDropDownValue.iban,
+              _swiftController.text.trim() ?? '',
+              _currentMerchantData['id'],
+              _currentMerchantData['name'],
+              _currentMerchantData['user_type']);
+      setShowLoad(false);
+      if (merchantWithdrawalModel != null) {
+        ;
+        if (merchantWithdrawalModel.statusCode == 100) {
+          onSuccess(merchantWithdrawalModel.data['user']['phone'],
+              merchantWithdrawalModel, mainRepo, UserTypes.Corporate);
+        } else
+          _setWithdrawalErrorText(merchantWithdrawalModel.description);
+      }
+    } else {
+      Future.delayed(Duration(seconds: 1));
+      _setWithdrawalErrorText('One of the fields is empty. Please try again.');
+    }
   }
 }

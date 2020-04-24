@@ -118,8 +118,6 @@ class TransactionsHistoryProvider with ChangeNotifier {
     else
       dateRange = AppUtils.getDateRangeBetweenTwoDates(startDate, endDate);
     _load(true);
-    print(
-        'state $selectedTransactionState, type $selectedTransactionType, currency $_selectedCurrency, daterage $dateRange');
     MainApiModel userLastTransactionActivity =
         await _baseRepo.searchIndividualTransactionsList(
             searchKey ?? '',
@@ -143,7 +141,5 @@ class TransactionsHistoryProvider with ChangeNotifier {
       _searchType = selectedTransactionType;
       _initalTransactionsList = false;
     }
-
-    print('$_userTransactionsList');
   }
 }

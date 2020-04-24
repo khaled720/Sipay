@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -93,7 +92,6 @@ class BaseMainRepository {
             ? APIEndPoints.kApiIndividualBaseWithdrawEndPoint
             : APIEndPoints.kApiCorporateBaseWithdrawEndPoint,
         bearerToken);
-    debugPrint('withdraw form result is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -720,7 +718,6 @@ class BaseMainRepository {
       'password': password,
       'confirm_password': confirmPassword
     };
-    print('current user type is $userType');
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiPasswordChangeSettingsEndPoint, values, bearerToken);
     return MainApiModel.mapJsonToModel(result);

@@ -216,76 +216,64 @@ class MerchantMainRepository extends BaseMainRepository {
 
   //Corporate withdraw create/add/send otp
   Future<MainApiModel> corporateWithdrawAdd(
-    int bankID,
     int bankStaticId,
     String accountHolderName,
     int currencyID,
     String bankName,
-    String amountRound,
-    String amountCents,
-    int platformID,
+    String amount,
+    String platformID,
     String swiftCode,
+    int merchantID,
+    String name,
+    int userType,
   ) async {
     Map<String, String> values = {
-      'bank_id': bankID.toString(),
+      'action': 'send-withdrawal-otp',
       'bank_name': bankName,
       'bank_static_id': bankStaticId.toString(),
       'account_holder_name': accountHolderName,
-      'platform_id': platformID ?? '767676767676',
+      'platform_id': platformID,
       'swift_code': swiftCode ?? '',
       'currency_id': currencyID.toString(),
-      'amount_round': amountRound,
-      'amount_cents': amountCents,
-      '': ''
+      'amount': amount,
+      'merchant_id': merchantID.toString(),
+      'name': name,
+      'user_type': userType.toString()
     };
-//    Map<String, String> values = {
-//      'bank_id': '5',
-//      'bank_name': 'Turkeye Cumhur Bank',
-//      'account_holder_name': 'Test',
-//      'bank_static_id': '1',
-//      'platform_id': '767676767676',
-//      'swift_code': '23',
-//      'currency_id': '1',
-//      'amount_round': '10',
-//      'amount_cents': '0',
-//    };
 
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiCorporateCreateWithdrawEndPoint, values, bearerToken);
-    debugPrint('withdraw create response is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
-  Future<MainApiModel> corporateConfirmWithdrawOTP(
-    int bankID,
+  Future<MainApiModel> corporateWithdrawConfirm(
     int bankStaticId,
     String accountHolderName,
-    String ibanNo,
-    String amount,
     int currencyID,
     String bankName,
-    String amountRound,
-    String amountCents,
-    int platformID,
+    String amount,
+    String platformID,
     String swiftCode,
-    String withdrawOTPCode,
+    int merchantID,
+    String name,
+    int userType,
+    String otp,
   ) async {
     Map<String, String> values = {
-      'bank_id': bankID.toString(),
+      'action': 'confirm-otp',
       'bank_name': bankName,
       'bank_static_id': bankStaticId.toString(),
       'account_holder_name': accountHolderName,
-      'platform_id': platformID.toString() ?? '767676767676',
-      'swift_code': swiftCode,
+      'platform_id': platformID,
+      'swift_code': swiftCode ?? '',
       'currency_id': currencyID.toString(),
-      'amount_round': amountRound,
-      'amount_cents': amountCents,
-      'withdraw_otp': withdrawOTPCode,
+      'amount': amount,
+      'merchant_id': merchantID.toString(),
+      'name': name,
+      'user_type': userType.toString(),
+      'withdraw_otp': otp
     };
-//    "key": "",
-//    "value": "",
-//    "type": "text",
-//    "disabled": true
+
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiCorporateCreateWithdrawEndPoint, values, bearerToken);
     return MainApiModel.mapJsonToModel(result);

@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:date_field/date_field.dart';
-import 'package:fluttersipay/corporate/payment/multitime_success.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/payment/multitime_success.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 TextEditingController _SMSController = TextEditingController();
 
@@ -26,10 +25,7 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
   bool _remember = false;
 
   var _try_value = "TRY";
-  List<String> _listtryData = [
-    "TRY",
-    "TRYS"
-  ];
+  List<String> _listtryData = ["TRY", "TRYS"];
 
   DateTime startdate;
   String _time = "";
@@ -77,8 +73,8 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
     ]);
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
     ScreenUtil.instance =
-    ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-      ..init(context);
+        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
+          ..init(context);
     return new FutureBuilder(
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/Withdrawl/8.6Withdraw_request.json'),
@@ -133,7 +129,8 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                           padding: EdgeInsets.only(left: 30, right: 30),
                           child: Text(
                             'CREATE MULTI TIME LINK',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(
@@ -146,24 +143,32 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                             children: <Widget>[
                               Text(
                                 "Create payment link that works multiple times until it reaches it's limit",
-                                style: TextStyle(color: Colors.black54, fontSize: 16),
+                                style: TextStyle(
+                                    color: Colors.black54, fontSize: 16),
                               ),
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(100),
                               ),
                               Text(
                                 'AMOUNT',
-                                style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
+                                style: TextStyle(
+                                    color: check_state
+                                        ? Colors.black26
+                                        : Colors.red,
+                                    fontSize: 12),
                               ),
                               Container(
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child:TextFormField(
-                                        style: TextStyle(color: check_state ? Colors.black : Colors.red),
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                            color: check_state
+                                                ? Colors.black
+                                                : Colors.red),
                                         keyboardType: TextInputType.number,
-                                        onChanged: (text){
-                                          if(text.length > 0 && !check_state){
+                                        onChanged: (text) {
+                                          if (text.length > 0 && !check_state) {
                                             setState(() {
                                               check_state = true;
                                             });
@@ -172,24 +177,27 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                         decoration: InputDecoration(
                                           enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: Colors.black26, width: 0.5)),
+                                                  color: Colors.black26,
+                                                  width: 0.5)),
                                           focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
-                                                  color: Colors.black26, width: 0.5)),
-                                          prefixIcon: check_state? const Icon(
-                                            Icons.map,
-                                            size: 16,
-                                            color: Colors.black26,
-                                          ): const Icon(
-                                            Icons.cancel,
-                                            size: 16,
-                                            color: Colors.red,
-                                          ),
+                                                  color: Colors.black26,
+                                                  width: 0.5)),
+                                          prefixIcon: check_state
+                                              ? const Icon(
+                                                  Icons.map,
+                                                  size: 16,
+                                                  color: Colors.black26,
+                                                )
+                                              : const Icon(
+                                                  Icons.cancel,
+                                                  size: 16,
+                                                  color: Colors.red,
+                                                ),
                                         ),
                                         obscureText: false,
                                       ),
                                     ),
-
                                     SizedBox(
                                       width: 20,
                                     ),
@@ -205,17 +213,25 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<String>(
                                           icon: Icon(
-                                            Icons.keyboard_arrow_down,size: 16, color: Colors.black26,
+                                            Icons.keyboard_arrow_down,
+                                            size: 16,
+                                            color: Colors.black26,
                                           ),
-                                          items:_listtryData.map<DropdownMenuItem<String>>((String value){
+                                          items: _listtryData
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: <Widget>[
-                                                  SizedBox(width: 10,),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
                                                   Expanded(
-                                                    child:  Text(
+                                                    child: Text(
                                                       value,
                                                     ),
                                                   )
@@ -263,7 +279,8 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                 children: <Widget>[
                                   Expanded(
                                     child: Padding(
-                                      padding: EdgeInsets.only(right: 5, left: 5),
+                                      padding:
+                                          EdgeInsets.only(right: 5, left: 5),
                                       child: Container(
                                         decoration: new BoxDecoration(
                                           border: Border(
@@ -282,38 +299,50 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
 //                                                    borderRadius: BorderRadius.circular(5.0)),
 //                                                elevation: 4.0,
                                                 onPressed: () {
-                                                  DatePicker.showTimePicker(context,
+                                                  DatePicker.showTimePicker(
+                                                      context,
                                                       theme: DatePickerTheme(
                                                         containerHeight: 210.0,
                                                       ),
-                                                      showTitleActions: true, onConfirm: (time) {
-                                                        print('confirm $time');
-                                                        _time = '${time.hour} : ${time.minute} : ${time.second}';
-                                                        setState(() {});
-                                                      }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                                      showTitleActions: true,
+                                                      onConfirm: (time) {
+                                                    _time =
+                                                        '${time.hour} : ${time.minute} : ${time.second}';
+                                                    setState(() {});
+                                                  },
+                                                      currentTime:
+                                                          DateTime.now(),
+                                                      locale: LocaleType.en);
                                                   setState(() {});
                                                 },
                                                 child: Container(
                                                   alignment: Alignment.center,
                                                   height: 50.0,
                                                   child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: <Widget>[
                                                       Row(
                                                         children: <Widget>[
                                                           Container(
                                                             child: Row(
-                                                              children: <Widget>[
+                                                              children: <
+                                                                  Widget>[
                                                                 Icon(
-                                                                  Icons.access_time,
+                                                                  Icons
+                                                                      .access_time,
                                                                   size: 16,
-                                                                  color: Colors.black26,
+                                                                  color: Colors
+                                                                      .black26,
                                                                 ),
                                                                 Text(
                                                                   " $_time",
                                                                   style: TextStyle(
-                                                                      color: Colors.black87,
-                                                                      fontSize: 16),
+                                                                      color: Colors
+                                                                          .black87,
+                                                                      fontSize:
+                                                                          16),
                                                                 ),
                                                               ],
                                                             ),
@@ -321,7 +350,8 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                                         ],
                                                       ),
                                                       Icon(
-                                                        Icons.keyboard_arrow_down,
+                                                        Icons
+                                                            .keyboard_arrow_down,
                                                         size: 16,
                                                         color: Colors.black26,
                                                       ),
@@ -338,7 +368,8 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                        padding: EdgeInsets.only(right: 5, left: 5),
+                                        padding:
+                                            EdgeInsets.only(right: 5, left: 5),
                                         child: Container(
                                           decoration: new BoxDecoration(
                                             border: Border(
@@ -362,16 +393,20 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                                 child: Text(
                                                   startdate == null
                                                       ? ''
-                                                      : startdate.day.toString() +
-                                                      '.' +
-                                                      startdate.month.toString() +
-                                                      '.' +
-                                                      startdate.year.toString(),
+                                                      : startdate.day
+                                                              .toString() +
+                                                          '.' +
+                                                          startdate.month
+                                                              .toString() +
+                                                          '.' +
+                                                          startdate.year
+                                                              .toString(),
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
                                               IconButton(
-                                                  alignment: Alignment.centerRight,
+                                                  alignment:
+                                                      Alignment.centerRight,
                                                   icon: Icon(
                                                     Icons.keyboard_arrow_down,
                                                     size: 16,
@@ -392,7 +427,11 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                               ),
                               Text(
                                 'EXPLANATION',
-                                style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 11),
+                                style: TextStyle(
+                                    color: check_state
+                                        ? Colors.black26
+                                        : Colors.red,
+                                    fontSize: 11),
                               ),
                               SizedBox(
                                 height: 20,
@@ -404,11 +443,11 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                 decoration: InputDecoration(
 //                                  hintStyle: CustomTextStyle.formField(context),
                                   enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.black26, width: 0.5)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black26, width: 0.5)),
                                   focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.black26, width: 0.5)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black26, width: 0.5)),
                                   prefixIcon: const Icon(
                                     Icons.check,
                                     color: Colors.black26,
@@ -422,7 +461,11 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                               ),
                               Text(
                                 'EXPLANATION',
-                                style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 11),
+                                style: TextStyle(
+                                    color: check_state
+                                        ? Colors.black26
+                                        : Colors.red,
+                                    fontSize: 11),
                               ),
                               SizedBox(
                                 height: 30,
@@ -444,7 +487,11 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                   Expanded(
                                     child: Text(
                                       'Please enter an explanation.',
-                                      style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 18),
+                                      style: TextStyle(
+                                          color: check_state
+                                              ? Colors.black26
+                                              : Colors.red,
+                                          fontSize: 18),
                                     ),
                                   ),
                                 ],
@@ -479,11 +526,13 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                         Container(
                           padding: EdgeInsets.only(left: 30.0, right: 30.0),
                           child: FlatButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context)=> Multitime_Success(),
-                              ));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Multitime_Success(),
+                                  ));
                             },
                             color: Colors.blue,
                             disabledColor: Colors.blue,
@@ -495,7 +544,11 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
                                     width: 95,
                                   ),
                                   SizedBox(
-                                    child: Icon(FontAwesomeIcons.link, color: Colors.white, size: 15,),
+                                    child: Icon(
+                                      FontAwesomeIcons.link,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
                                     width: 30,
                                   ),
                                   SizedBox(
@@ -532,5 +585,3 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
         });
   }
 }
-
-

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/corporate/deposit/json_models/c_bank_list_model.dart';
+import 'package:fluttersipay/corporate/deposit/json_models/c_deposit_success.dart';
+import 'package:fluttersipay/corporate/utils/c_app_utils.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
-import 'package:fluttersipay/corporate/utils/c_app_utils.dart';
-import 'package:fluttersipay/corporate/deposit/json_models/c_deposit_success.dart';
-
-
 
 class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
   List<CorporateBankModel> _bankList;
@@ -24,7 +22,6 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
 
   CorporateBankModel get selectedDropDownValue => _selectedBankDropDownValue;
 
-
   String get selectedCurrencyDropDownValue => _selectedCurrencyDropDownValue;
 
   String get depositErrorText => _depositErrorText;
@@ -36,7 +33,6 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
   TextEditingController get ibanController => _ibanController;
 
   TextEditingController get pnrController => _pnrController;
-
 
   set selectedCurrencyDropdownValue(String currency) {
     _selectedCurrencyDropDownValue = currency;
@@ -71,17 +67,11 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
     notifyListeners();
   }
 
-
-
   void createDeposit(Function onSuccess) async {
     _setDepositErrorText(null);
     if (_amountController.text.trim().isNotEmpty &&
         _pnrController.text.trim().isNotEmpty &&
         ibanController.text.trim().isNotEmpty) {
-      print(
-          'values are ${_amountController.text}currency id${_selectedCurrencyDropDownValue}');
-      print(
-          'pnr ${_pnrController.text} id ${_selectedBankDropDownValue.id} iban ${_ibanController.text}');
       setShowLoad(true);
       MainApiModel bankDepositModel = await mainRepo.depositCreate(
           amountController.text.trim(),
@@ -100,11 +90,12 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
           message = 'Your deposit request is now pending for review';
         }
         C_DepositSuccessModel depositSuccessModel = C_DepositSuccessModel(
-            status,
-            message,
-            depositInputs['iban_no'],
-            depositInputs['amount'],);
-            onSuccess(depositSuccessModel);
+          status,
+          message,
+          depositInputs['iban_no'],
+          depositInputs['amount'],
+        );
+        onSuccess(depositSuccessModel);
       } else
         _setDepositErrorText(bankDepositModel.description);
     } else

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -56,7 +55,6 @@ class IndividualMainRepository extends BaseMainRepository {
     };
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualCreateWithdrawEndPoint, values, bearerToken);
-    debugPrint('withdraw create is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

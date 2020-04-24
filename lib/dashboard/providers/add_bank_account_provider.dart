@@ -86,7 +86,6 @@ class AddBankAccountProvider with ChangeNotifier {
   }
 
   bankAccountForm() async {
-    print('bank model is $_bankModel');
     if (_bankModel != null) {
       _accountNameTextController.text = _bankModel['account_no'];
       _accountHolderNameController.text = _bankModel['account_holder_name'];

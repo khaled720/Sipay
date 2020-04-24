@@ -90,7 +90,6 @@ class NotificationSettingsProvider with ChangeNotifier {
         userSavedNotificationSettings.data['checked_sms_list'];
     List checkedEmail =
         userSavedNotificationSettings.data['checked_email_list'];
-    print('checked email is $checkedEmail');
     _uncheckedSMSList = userSavedNotificationSettings.data['hidden_sms_list'];
     _uncheckedEmailList =
         userSavedNotificationSettings.data['hidden_email_list'];
