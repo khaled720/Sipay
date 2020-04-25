@@ -353,13 +353,13 @@ class MerchantMainRepository extends BaseMainRepository {
       String currency,
       String transactionState,
       String searchKey,
-      int transactionID,
-      int invoiceID,
-      int paymentMethodID,
+      String transactionID,
+      String invoiceID,
+      String paymentMethodID,
       String amount,
       String transactionType,
       String allTransaction,
-      int pageLimit,
+      String pageLimit,
       String fromDate,
       String toDate,
       String dateRange) async {
@@ -378,8 +378,10 @@ class MerchantMainRepository extends BaseMainRepository {
       'to_date': toDate,
       'daterange': dateRange,
     };
-    String result = await NetworkHelper.makePostRequest(
-        APIEndPoints.kApiCorporateRefundRequestEndPoint, values, bearerToken);
+    final newUri = Uri.parse(APIEndPoints.kApiCorporateRefundRequestEndPoint)
+        .replace(queryParameters: values);
+    String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
+    debugPrint('all transactions is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 

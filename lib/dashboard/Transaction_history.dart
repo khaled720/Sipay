@@ -15,8 +15,9 @@ import 'merchant_panel.dart';
 class TransactionHistoryScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
   final List userWallets;
+  final UserTypes userType;
 
-  TransactionHistoryScreen(this.baseRepo, this.userWallets);
+  TransactionHistoryScreen(this.baseRepo, this.userWallets, this.userType);
 
   @override
   _TransactionHistoryScreenState createState() =>
@@ -85,7 +86,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
     return ChangeNotifierProvider(
-        create: (context) => TransactionsHistoryProvider(widget.baseRepo),
+        create: (context) =>
+            TransactionsHistoryProvider(widget.baseRepo, widget.userType),
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,

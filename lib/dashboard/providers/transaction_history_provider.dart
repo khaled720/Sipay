@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -12,6 +13,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
   var startDate;
   var endDate;
   String _selectedCurrency;
+  UserTypes _userType;
   String searchKey;
   String selectedTransactionType;
   String _searchType;
@@ -26,7 +28,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
     return List();
   }
 
-  TransactionsHistoryProvider(this._baseRepo) {
+  TransactionsHistoryProvider(this._baseRepo, this._userType) {
     _initalTransactionsList = true;
     _selectedCurrency = 'CURRENCY';
     getDashboardDataFromApi();
@@ -103,8 +105,18 @@ class TransactionsHistoryProvider with ChangeNotifier {
   }
 
   void _getUserActivityList() async {
-    MainApiModel userLastTransactionActivity =
-        await _baseRepo.individualTransactionsListActivity('\'', '');
+    MainApiModel userLastTransactionActivity;
+    switch (_userType) {
+      case UserTypes.Individual:
+        userLastTransactionActivity =
+            await _baseRepo.individualTransactionsListActivity('\'', '');
+        break;
+      case UserTypes.Corporate:
+        MerchantMainRepository merchantMainRepository = _baseRepo;
+        await merchantMainRepository.allMerchantRefundRequests(
+            '', '', '', '', '', '', '', '', '', '10', '', '', '');
+        break;
+    }
     if (userLastTransactionActivity.statusCode == 100)
       _userTransactionsList =
           userLastTransactionActivity.data['transactions']['data'];

@@ -16,6 +16,7 @@ import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -306,7 +307,8 @@ class _CorporateMerchantPanelScreenState
                                                   TransactionHistoryScreen(
                                                       snapshot
                                                           .baseMainRepository,
-                                                      snapshot.userWallets)));
+                                                      snapshot.userWallets,
+                                                      UserTypes.Corporate)));
                                     },
                                   ),
                                   Divider(

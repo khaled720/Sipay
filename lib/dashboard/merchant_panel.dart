@@ -20,6 +20,7 @@ import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -302,7 +303,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                   TransactionHistoryScreen(
                                                       snapshot
                                                           .individualMainRepository,
-                                                      snapshot.userWallets)));
+                                                      snapshot.userWallets,
+                                                      UserTypes.Individual)));
                                     },
                                   ),
                                   Divider(
