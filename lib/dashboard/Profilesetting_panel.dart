@@ -13,8 +13,6 @@ import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'merchant_panel.dart';
-
 class ProfileSettingsScreen extends StatefulWidget {
   final BaseMainRepository repo;
   final MainApiModel userLoginInfo;
@@ -303,7 +301,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       padding: EdgeInsets.only(left: 30.0, right: 30.0),
                     ),
                   ),
-                  Dashboardbottom(context, null, null),
+                  //  Dashboardbottom(context, null, null, null),
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   )

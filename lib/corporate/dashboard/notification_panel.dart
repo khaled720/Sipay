@@ -7,7 +7,6 @@ import 'package:fluttersipay/corporate/dashboard/providers/corporate_notificatio
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'merchant.dart';
 import 'notification_settings.dart';
 
 class CorporateNotificationsScreen extends StatefulWidget {
@@ -180,7 +179,6 @@ class _CorporateNotificationsScreenState
                       ],
                     ),
                   ),
-                  Dashboardbottom(context, null),
                 ],
               );
             })));

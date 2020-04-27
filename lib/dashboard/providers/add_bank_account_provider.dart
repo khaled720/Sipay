@@ -156,8 +156,6 @@ class AddBankAccountProvider with ChangeNotifier {
 
   editBankAccount(Function onSuccess, Function onFailure) async {
     this._addBankErrorText = null;
-    print(
-        '_selected id is ${_selectedBankDropDownValue.id.toString()}, bank model id is ${_bankModel['id']}');
     notifyListeners();
     if (_accountNameTextController.text.trim().isNotEmpty &&
         _ibanController.text.trim().isNotEmpty &&

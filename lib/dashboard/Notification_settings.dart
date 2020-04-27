@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
-import 'merchant_panel.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
@@ -348,7 +347,7 @@ class _NotificationSettingsScreenState
                       ],
                     ),
                   ),
-                  Dashboardbottom(context, null, null),
+                  //Dashboardbottom(context, null, null, null),
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   )

@@ -166,7 +166,7 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
                 ],
               ),
             ),
-            Dashboardbottom(context, null, null),
+            Dashboardbottom(context, null, null, null),
           ],
         ));
   }

@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
+import 'package:fluttersipay/base_main_repo.dart';
 
 abstract class BaseDetailsProvider with ChangeNotifier {
-  final IndividualMainRepository individualMainRepository;
+  final BaseMainRepository baseMainRepository;
   final String id;
   final String transactionType;
   var userTransactionDetailsList;
   bool _transactionNotFound;
 
-  BaseDetailsProvider(
-      this.individualMainRepository, this.id, this.transactionType) {
+  BaseDetailsProvider(this.baseMainRepository, this.id, this.transactionType) {
     _transactionNotFound = false;
     getDashboardDataFromApi();
   }

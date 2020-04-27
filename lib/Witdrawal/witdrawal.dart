@@ -7,6 +7,7 @@ import 'package:fluttersipay/Witdrawal/json_models/withdrawal_main_ui_model.dart
 import 'package:fluttersipay/Witdrawal/providers/withdrawal_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -271,8 +272,13 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                               ],
                             ),
                           ),
-                          getCustomNavigator(context, users.footerTab, 2,
-                              widget.mainRepo, widget.userWallets),
+                          getCustomNavigator(
+                              context,
+                              users.footerTab,
+                              2,
+                              widget.mainRepo,
+                              widget.userWallets,
+                              UserTypes.Individual),
                         ],
                       );
                     }));

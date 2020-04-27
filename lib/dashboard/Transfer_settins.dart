@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
-import 'merchant_panel.dart';
 
 class TransferSettingsScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
@@ -242,7 +241,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                       ),
                     ),
                   ),
-                  Dashboardbottom(context, null, null),
+                  //Dashboardbottom(context, null, null, UserTypes.Individual),
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   )

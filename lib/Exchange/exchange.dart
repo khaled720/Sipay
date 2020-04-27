@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Exchange/providers/exchange_provider.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:fluttersipay/loading_widget.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,8 @@ import 'exchange_rate.dart';
 class ExchangePanelScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
   final List wallets;
-  ExchangePanelScreen(this.baseRepo, this.wallets);
+  final UserTypes userType;
+  ExchangePanelScreen(this.baseRepo, this.wallets, this.userType);
   @override
   _ExchangePanelScreenState createState() => _ExchangePanelScreenState();
 }
@@ -521,7 +523,8 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                       ["Deposit", "Money Transfer", "Withdraw", "Exchange"],
                       3,
                       widget.baseRepo,
-                      widget.wallets),
+                      widget.wallets,
+                      widget.userType),
                   LoadingWidget(isVisible: snapshot.showLoad ?? false)
                 ],
               );

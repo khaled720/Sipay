@@ -11,7 +11,6 @@ import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
 import 'package:fluttersipay/dashboard/Transaction_history.dart';
-import 'package:fluttersipay/dashboard/security.dart';
 import 'package:fluttersipay/deposit/deposit_panel.dart';
 import 'package:fluttersipay/login_screens/login_main.dart';
 import 'package:fluttersipay/src/custom_clipper.dart';
@@ -21,7 +20,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../main_api_data_model.dart';
-import '../limits/limits_panel.dart';
 import 'Profilesetting_panel.dart';
 import 'agreements.dart';
 import 'installment.dart';
@@ -339,7 +337,8 @@ class _CorporateMerchantPanelScreenState
                                               DepositPanelScreen(
                                                   snapshot
                                                       .corporateMainRepository,
-                                                  snapshot.userWallets)));
+                                                  snapshot.userWallets,
+                                                  UserTypes.Corporate)));
                                     },
                                   ),
                                   Divider(
@@ -373,7 +372,8 @@ class _CorporateMerchantPanelScreenState
                                                 ExchangePanelScreen(
                                                     snapshot
                                                         .corporateMainRepository,
-                                                    snapshot.userWallets),
+                                                    snapshot.userWallets,
+                                                    UserTypes.Corporate),
                                           ));
                                     },
                                   ),
@@ -381,67 +381,67 @@ class _CorporateMerchantPanelScreenState
                                     color: Colors.black12,
                                     height: 1.0,
                                   ),
-                                  ListTile(
-                                    title: Container(
-                                        child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.map,
-                                            color: Colors.blue,
-                                            size: 20,
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text('Security'),
-                                        ],
-                                      ),
-                                    )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SecurityScreen(snapshot
-                                                    .baseMainRepository),
-                                          ));
-                                    },
-                                  ),
-                                  Divider(
-                                    color: Colors.black12,
-                                    height: 1.0,
-                                  ),
-                                  ListTile(
-                                    title: Container(
-                                        child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(
-                                            FontAwesomeIcons.indent,
-                                            color: Colors.blue,
-                                            size: 20,
-                                          ),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(users.menuList.mobile),
-                                        ],
-                                      ),
-                                    )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                limits_Panel(),
-                                          ));
-                                    },
-                                  ),
+//                                  ListTile(
+//                                    title: Container(
+//                                        child: Align(
+//                                      alignment: Alignment.centerLeft,
+//                                      child: Row(
+//                                        children: <Widget>[
+//                                          Icon(
+//                                            Icons.map,
+//                                            color: Colors.blue,
+//                                            size: 20,
+//                                          ),
+//                                          SizedBox(
+//                                            width: 20,
+//                                          ),
+//                                          Text('Security'),
+//                                        ],
+//                                      ),
+//                                    )),
+//                                    onTap: () {
+//                                      Navigator.pop(context);
+//                                      Navigator.push(
+//                                          context,
+//                                          MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                SecurityScreen(snapshot
+//                                                    .baseMainRepository),
+//                                          ));
+//                                    },
+//                                  ),
+//                                  Divider(
+//                                    color: Colors.black12,
+//                                    height: 1.0,
+//                                  ),
+//                                  ListTile(
+//                                    title: Container(
+//                                        child: Align(
+//                                      alignment: Alignment.centerLeft,
+//                                      child: Row(
+//                                        children: <Widget>[
+//                                          Icon(
+//                                            FontAwesomeIcons.indent,
+//                                            color: Colors.blue,
+//                                            size: 20,
+//                                          ),
+//                                          SizedBox(
+//                                            width: 20,
+//                                          ),
+//                                          Text(users.menuList.mobile),
+//                                        ],
+//                                      ),
+//                                    )),
+//                                    onTap: () {
+//                                      Navigator.pop(context);
+//                                      Navigator.push(
+//                                          context,
+//                                          MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                limits_Panel(),
+//                                          ));
+//                                    },
+//                                  ),
                                   Divider(
                                     color: Colors.black12,
                                     height: 1.0,
@@ -1279,38 +1279,38 @@ Widget Dashboardbottom(BuildContext context, MerchantPanelProvider snapshot) {
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Colors.blue,
-              child: FlatButton(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.creditCard,
-                      color: Colors.white,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Mobile POS',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => limits_Panel(),
-                      ));
-                },
-              ),
-            ),
-          ),
+//          Expanded(
+//            flex: 1,
+//            child: Container(
+//              color: Colors.blue,
+//              child: FlatButton(
+//                child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: <Widget>[
+//                    Icon(
+//                      FontAwesomeIcons.creditCard,
+//                      color: Colors.white,
+//                      size: 15,
+//                    ),
+//                    SizedBox(
+//                      height: 5,
+//                    ),
+//                    Text(
+//                      'Mobile POS',
+//                      style: TextStyle(color: Colors.white, fontSize: 12),
+//                    ),
+//                  ],
+//                ),
+//                onPressed: () {
+//                  Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                        builder: (context) => limits_Panel(),
+//                      ));
+//                },
+//              ),
+//            ),
+//          ),
         ],
       ),
       height: 60,

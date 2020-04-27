@@ -300,151 +300,166 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 5, left: 5),
-                                      child: TextFormField(
-                                        style: TextStyle(color: Colors.black),
-                                        onChanged: (key) {
-                                          snapshot.searchKey = key;
-                                        },
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black45,
-                                                  width: 1.0)),
-                                          prefixIcon: const Icon(
-                                            FontAwesomeIcons.search,
-                                            size: 16,
-                                            color: Colors.black45,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 5, left: 5),
-                                      child: Container(
-                                        decoration: new BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton<String>(
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 16,
-                                            ),
-                                            items: _listStatusData
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    SizedBox(width: 10),
-                                                    Expanded(
-                                                      child: Text(
-                                                        value,
-                                                        style: TextStyle(
+                              widget.userType == UserTypes.Individual
+                                  ? Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 5, left: 5),
+                                            child: TextFormField(
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                              onChanged: (key) {
+                                                snapshot.searchKey = key;
+                                              },
+                                              decoration: InputDecoration(
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                        borderSide: BorderSide(
                                                             color:
-                                                                Colors.black45),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _statusValue = value;
-                                                snapshot.selectedTransactionState =
-                                                    value;
-                                              });
-                                            },
-                                            value: _statusValue,
-                                            isExpanded: true,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    flex: 1,
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 5, left: 5),
-                                      child: Container(
-                                        decoration: new BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton<String>(
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 16,
-                                            ),
-                                            items: _listTypeData
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    SizedBox(width: 10),
-                                                    Expanded(
-                                                      child: Text(
-                                                        value,
-                                                        style: TextStyle(
+                                                                Colors.black45,
+                                                            width: 1.0)),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                        borderSide: BorderSide(
                                                             color:
-                                                                Colors.black45),
-                                                      ),
-                                                    )
-                                                  ],
+                                                                Colors.black45,
+                                                            width: 1.0)),
+                                                prefixIcon: const Icon(
+                                                  FontAwesomeIcons.search,
+                                                  size: 16,
+                                                  color: Colors.black45,
                                                 ),
-                                              );
-                                            }).toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _typeValue = value;
-                                              });
-                                              snapshot.selectedTransactionType =
-                                                  value;
-                                            },
-                                            value: _typeValue,
-                                            isExpanded: true,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 5, left: 5),
+                                            child: Container(
+                                              decoration: new BoxDecoration(
+                                                border: Border(
+                                                  bottom: BorderSide(
+                                                    color: Colors.black54,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton<String>(
+                                                  icon: Icon(
+                                                    Icons.keyboard_arrow_down,
+                                                    size: 16,
+                                                  ),
+                                                  items: _listStatusData.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          SizedBox(width: 10),
+                                                          Expanded(
+                                                            child: Text(
+                                                              value,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _statusValue = value;
+                                                      snapshot.selectedTransactionState =
+                                                          value;
+                                                    });
+                                                  },
+                                                  value: _statusValue,
+                                                  isExpanded: true,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          flex: 1,
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 5, left: 5),
+                                            child: Container(
+                                              decoration: new BoxDecoration(
+                                                border: Border(
+                                                  bottom: BorderSide(
+                                                    color: Colors.black54,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton<String>(
+                                                  icon: Icon(
+                                                    Icons.keyboard_arrow_down,
+                                                    size: 16,
+                                                  ),
+                                                  items: _listTypeData.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          SizedBox(width: 10),
+                                                          Expanded(
+                                                            child: Text(
+                                                              value,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      _typeValue = value;
+                                                    });
+                                                    snapshot.selectedTransactionType =
+                                                        value;
+                                                  },
+                                                  value: _typeValue,
+                                                  isExpanded: true,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          flex: 1,
+                                        ),
+                                      ],
+                                    )
+                                  : SizedBox(
+                                      width: 0.0,
                                     ),
-                                    flex: 1,
-                                  ),
-                                ],
-                              ),
                               SizedBox(
                                 height: 20,
                               ),
@@ -547,7 +562,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     ),
                   );
                 }),
-                Dashboardbottom(context, widget.baseRepo, widget.userWallets),
+                Dashboardbottom(context, widget.baseRepo, widget.userWallets,
+                    widget.userType),
                 Consumer<TransactionsHistoryProvider>(
                     builder: (context, snapshot, _) {
                   return LoadingWidget(isVisible: snapshot.showLoad ?? false);
@@ -569,8 +585,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  TransactionDetailsScreen(widget.baseRepo, id, title),
+              builder: (context) => TransactionDetailsScreen(
+                  widget.baseRepo, id, title, widget.userType),
             ));
       },
       child: Column(

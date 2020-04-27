@@ -189,13 +189,13 @@ class APIEndPoints {
   static final String kApiCorporateStoreDPLEndPoint =
       '$kBaseCorporateAPIEndPoint/storedpl';
 
-  //Corporate Refund Requests/Transaction
-  static final String kApiCorporateRefundRequestEndPoint =
-      '$kBaseCorporateAPIEndPoint/transaction';
-  static final String kApiCorporateRefundsTransactionDetailsEndPoint =
+  //Corporate Transaction List
+  static final String kApiCorporateTransactionListEndPoint =
+      '$kBaseCorporateAPIEndPoint/transaction/list';
+  static final String kApiCorporateTransactionDetailsEndPoint =
       '$kBaseCorporateAPIEndPoint/transaction/details';
-  static final String kApiCorporateRefundRequestEditEndPoint =
-      '$kBaseCorporateAPIEndPoint/transaction/edit';
+  static final String kApiCorporateActivityListEditEndPoint =
+      '$kBaseCorporateAPIEndPoint/activity/list';
 
   //Corporate Wallet
   static final String kApiCorporateWalletEndPoint =
@@ -204,10 +204,6 @@ class APIEndPoints {
   //Corporate dashboard
   static final String kApiCorporateDashboardEndPoint =
       '$kBaseCorporateAPIEndPoint/dashboard';
-
-  //Corporate Transactions list
-  static final String kApiCorporateTransactionListEndPoint =
-      '$kBaseCorporateAPIEndPoint/transaction';
 
   //Corporate Profile Settings
   static final String kApiCorporateUploadImageEndPoint =

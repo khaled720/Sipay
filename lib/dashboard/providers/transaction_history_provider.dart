@@ -54,27 +54,39 @@ class TransactionsHistoryProvider with ChangeNotifier {
       case true:
         switch (data) {
           case TransactionData.Title:
-            return AppUtils.getTransactionableType(
-                _userTransactionsList[index]['transactionable_type']);
+            return _userType == UserTypes.Individual
+                ? AppUtils.getTransactionableType(
+                    _userTransactionsList[index]['transactionable_type'])
+                : 'Payment by ' +
+                    AppUtils.mapMerchantPaymentTypeToText(
+                        _userTransactionsList[index]['payment_type_id']);
             break;
           case TransactionData.ID:
-            return 'Transaction ID: #${_userTransactionsList[index]['transactionable_id']}';
+            return 'Transaction ID: #${_userType == UserTypes.Individual ? _userTransactionsList[index]['transactionable_id'] : _userTransactionsList[index]['id']}';
             break;
           case TransactionData.Value:
-            return '${_userTransactionsList[index]['money_flow']} ${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';
+            return _userType == UserTypes.Individual
+                ? '${_userTransactionsList[index]['money_flow']} ${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}'
+                : '${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';
             break;
           case TransactionData.Date:
             return _userTransactionsList[index]['created_at'];
             break;
           case TransactionData.Type:
-            return '${AppUtils.mapMoneyFlowToColorType(_userTransactionsList[index]['money_flow'])}';
+            return _userType == UserTypes.Individual
+                ? '${AppUtils.mapMoneyFlowToColorType(_userTransactionsList[index]['money_flow'])}'
+                : '';
             break;
         }
         break;
       case false:
         switch (data) {
           case TransactionData.Title:
-            return _searchType;
+            return _userType == UserTypes.Individual
+                ? _searchType
+                : 'Payment by ' +
+                    AppUtils.mapMerchantPaymentTypeToText(
+                        _userTransactionsList[index]['payment_type_id']);
             break;
           case TransactionData.ID:
             return 'Transaction ID: #${_userTransactionsList[index]['id']}';
@@ -110,16 +122,22 @@ class TransactionsHistoryProvider with ChangeNotifier {
       case UserTypes.Individual:
         userLastTransactionActivity =
             await _baseRepo.individualTransactionsListActivity('\'', '');
+        if (userLastTransactionActivity.statusCode == 100)
+          _userTransactionsList =
+              userLastTransactionActivity.data['transactions']['data'];
         break;
       case UserTypes.Corporate:
         MerchantMainRepository merchantMainRepository = _baseRepo;
-        await merchantMainRepository.allMerchantRefundRequests(
-            '', '', '', '', '', '', '', '', '', '10', '', '', '');
+        userLastTransactionActivity =
+            await merchantMainRepository.corporateTransactionsList(
+          '',
+          '',
+        );
+        if (userLastTransactionActivity.statusCode == 100)
+          _userTransactionsList =
+              userLastTransactionActivity.data['transactions'];
         break;
     }
-    if (userLastTransactionActivity.statusCode == 100)
-      _userTransactionsList =
-          userLastTransactionActivity.data['transactions']['data'];
     notifyListeners();
   }
 
@@ -129,27 +147,43 @@ class TransactionsHistoryProvider with ChangeNotifier {
       dateRange = '';
     else
       dateRange = AppUtils.getDateRangeBetweenTwoDates(startDate, endDate);
+    MainApiModel userLastTransactionActivity;
     _load(true);
-    MainApiModel userLastTransactionActivity =
-        await _baseRepo.searchIndividualTransactionsList(
-            searchKey ?? '',
-            selectedTransactionState == 'STATES' ||
-                    selectedTransactionState == null
-                ? ''
-                : AppUtils.mapTransactionStateToIndex(selectedTransactionState)
-                    .toString(),
-            _selectedCurrency == 'CURRENCY' || _selectedCurrency == null
-                ? ''
-                : _selectedCurrency.toLowerCase(),
-            selectedTransactionType == 'TYPES' ||
-                    selectedTransactionType == null
-                ? ''
-                : selectedTransactionType.toLowerCase(),
-            dateRange);
+    if (_userType == UserTypes.Individual) {
+      userLastTransactionActivity =
+          await _baseRepo.searchIndividualTransactionsList(
+              searchKey ?? '',
+              selectedTransactionState == 'STATES' ||
+                      selectedTransactionState == null
+                  ? ''
+                  : AppUtils.mapTransactionStateToIndex(
+                          selectedTransactionState)
+                      .toString(),
+              _selectedCurrency == 'CURRENCY' || _selectedCurrency == null
+                  ? ''
+                  : _selectedCurrency.toLowerCase(),
+              selectedTransactionType == 'TYPES' ||
+                      selectedTransactionType == null
+                  ? ''
+                  : selectedTransactionType.toLowerCase(),
+              dateRange);
+    } else {
+      MerchantMainRepository merchantMainRepository = _baseRepo;
+      userLastTransactionActivity =
+          await merchantMainRepository.corporateTransactionsList(
+              _selectedCurrency == 'CURRENCY' || _selectedCurrency == null
+                  ? ''
+                  : AppUtils.mapCurrencyTextToID(_selectedCurrency).toString(),
+              dateRange);
+    }
+
     _load(false);
     if (userLastTransactionActivity.statusCode == 100) {
-      _userTransactionsList =
-          userLastTransactionActivity.data['transactions']['data'];
+      _userTransactionsList = _userType == UserTypes.Individual
+          ? _userTransactionsList =
+              userLastTransactionActivity.data['transactions']['data']
+          : _userTransactionsList =
+              userLastTransactionActivity.data['transactions'];
       _searchType = selectedTransactionType;
       _initalTransactionsList = false;
     }

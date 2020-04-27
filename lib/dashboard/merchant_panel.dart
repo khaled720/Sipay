@@ -11,6 +11,8 @@ import 'package:fluttersipay/Money/Requset_money.dart';
 import 'package:fluttersipay/Money/Send_money.dart';
 import 'package:fluttersipay/Witdrawal/witdrawal.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/corporate/money/money_panel.dart';
+import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
 import 'package:fluttersipay/dashboard/json_models/merchant_panel_ui_model.dart';
 import 'package:fluttersipay/dashboard/providers/individual_panel_dashboard_provider.dart';
 import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
@@ -110,12 +112,13 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                               color: Colors.white,
                             ),
                             onPressed: () {
-//                Navigator.push(context,
-//                    MaterialPageRoute(
-//                      builder: (context)=> Notification_Panel(),
-//                    ));
-                              // do something
-                              snapshot.getDashboardDataFromApi();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NotificationSettingsScreen(
+                                            snapshot.baseMainRepository),
+                                  ));
                             },
                           );
                         })
@@ -337,7 +340,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                   DepositPanelScreen(
                                                       snapshot
                                                           .individualMainRepository,
-                                                      snapshot.userWallets)));
+                                                      snapshot.userWallets,
+                                                      UserTypes.Individual)));
                                       snapshot.getDashboardDataFromApi();
                                     },
                                   ),
@@ -408,7 +412,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                 ExchangePanelScreen(
                                                     snapshot
                                                         .individualMainRepository,
-                                                    snapshot.userWallets),
+                                                    snapshot.userWallets,
+                                                    UserTypes.Individual),
                                           ));
                                       snapshot.getDashboardDataFromApi();
                                     },
@@ -1138,7 +1143,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                           return Dashboardbottom(
                               context,
                               snapshot.baseMainRepository,
-                              snapshot.userWallets);
+                              snapshot.userWallets,
+                              UserTypes.Individual);
                         }),
                       ],
                     ));
@@ -1330,8 +1336,8 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
   }
 }
 
-Widget Dashboardbottom(
-    BuildContext context, BaseMainRepository baseRepo, var wallets) {
+Widget Dashboardbottom(BuildContext context, BaseMainRepository baseRepo,
+    var wallets, UserTypes userType) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: SizedBox(
@@ -1365,7 +1371,7 @@ Widget Dashboardbottom(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          DepositPanelScreen(baseRepo, wallets)));
+                          DepositPanelScreen(baseRepo, wallets, userType)));
                 },
               ),
             ),
@@ -1397,9 +1403,9 @@ Widget Dashboardbottom(
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            MoneyTransferSendScreen(baseRepo, wallets),
-                      ));
+                          builder: (context) => userType == UserTypes.Individual
+                              ? MoneyTransferSendScreen(baseRepo, wallets)
+                              : MoneyPanelScreen(baseRepo, wallets)));
                 },
               ),
             ),
@@ -1427,12 +1433,20 @@ Widget Dashboardbottom(
                   ],
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context2) =>
-                            UserWithdrawalPanelScreen(baseRepo, wallets),
-                      ));
+                  userType == UserTypes.Individual
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                UserWithdrawalPanelScreen(baseRepo, wallets),
+                          ))
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                CreateCorporateWithdrawalsPanelScreen(
+                                    baseRepo, wallets),
+                          ));
                 },
               ),
             ),
@@ -1463,8 +1477,8 @@ Widget Dashboardbottom(
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ExchangePanelScreen(baseRepo, wallets),
+                        builder: (context) => ExchangePanelScreen(
+                            baseRepo, wallets, UserTypes.Individual),
                       ));
                 },
               ),

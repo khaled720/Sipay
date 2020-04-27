@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
-import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/dashboard/providers/security_settings_provider.dart';
 import 'package:fluttersipay/dashboard/security_otp_screen.dart';
 import 'package:fluttersipay/loading_widget.dart';
@@ -324,7 +323,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   ),
-                  Dashboardbottom(context, null, null)
+                  // Dashboardbottom(context, null, null, UserTypes.Individual)
                 ],
               );
             })));

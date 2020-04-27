@@ -129,13 +129,16 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
           AppUtils.mapWithdrawalBankListToDropdownMenuItems(_bankList);
       selectedDropDownValue = _bankList[0];
       List savedBanks = userBankList.data['userSavedBankList'];
-      if (savedBanks.isEmpty) savedBanks = [WithdrawalBankModel.empty()];
-      List savedBanksMappedList = List();
-      for (Map bank in savedBanks)
-        savedBanksMappedList.add(WithdrawalBankModel.fromMap(bank, true));
-      _savedAccountBanks = AppUtils.mapWithdrawalBankListToDropdownMenuItems(
-          savedBanksMappedList);
-      _savedAccountSelectedDropdownValue = savedBanksMappedList[0];
+      if (savedBanks.isEmpty)
+        savedBanks = [WithdrawalBankModel.empty()];
+      else {
+        List savedBanksMappedList = List();
+        for (Map bank in savedBanks)
+          savedBanksMappedList.add(WithdrawalBankModel.fromMap(bank, true));
+        _savedAccountBanks = AppUtils.mapWithdrawalBankListToDropdownMenuItems(
+            savedBanksMappedList);
+        _savedAccountSelectedDropdownValue = savedBanksMappedList[0];
+      }
       _commissionsList = userBankList.data['commissions'];
       if (_commissionsList != null) {
         if (_commissionsList.isNotEmpty)

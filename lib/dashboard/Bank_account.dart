@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 
 import 'add_new_account.dart';
 import 'edit_bank_accounts.dart';
-import 'merchant_panel.dart';
 
 class BankAccountScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
@@ -131,7 +130,7 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
                       ],
                     ),
                   ),
-                  Dashboardbottom(context, null, null),
+                  //Dashboardbottom(context, null, null, UserTypes.Individual),
                 ],
               );
             })));

@@ -277,8 +277,13 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                       ],
                     ),
                   ),
-                  getCustomNavigator(context, _list_footer, 1,
-                      widget.baseMainRepository, widget.wallets),
+                  getCustomNavigator(
+                      context,
+                      _list_footer,
+                      1,
+                      widget.baseMainRepository,
+                      widget.wallets,
+                      UserTypes.Individual),
                 ],
               );
             })));

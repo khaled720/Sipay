@@ -9,8 +9,6 @@ import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'merchant.dart';
-
 class CorporateProfileSettingsScreen extends StatefulWidget {
   final MerchantMainRepository corporateRepo;
   final userModel;
@@ -306,7 +304,6 @@ class _CorporateProfileSettingsScreenState
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   ),
-                  Dashboardbottom(context, null),
                 ],
               );
             })));

@@ -29,6 +29,21 @@ class AppUtils {
     return '';
   }
 
+  static String mapMerchantPaymentTypeToText(int paymentTypes) {
+    switch (paymentTypes) {
+      case 1:
+        return 'Credit Card';
+        break;
+      case 2:
+        return 'Mobile';
+        break;
+      case 3:
+        return 'Wallet';
+        break;
+    }
+    return '';
+  }
+
   static String mapTransactionTypeToMoneyFlowSign(int transactionTypeID) {
     switch (transactionTypeID) {
       case 1:

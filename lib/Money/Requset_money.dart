@@ -488,7 +488,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                     ),
                   ),
                   getCustomNavigator(context, _list_footer, 1, widget.baseRepo,
-                      widget.wallets),
+                      widget.wallets, UserTypes.Individual),
                   LoadingWidget(
                     isVisible: snapshot.showLoad ?? false,
                   )

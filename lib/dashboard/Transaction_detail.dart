@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/providers/transactions_details_provider.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,8 @@ class TransactionDetailsScreen extends StatefulWidget {
   final String id;
   final String type;
   final BaseMainRepository baseRepo;
-  TransactionDetailsScreen(this.baseRepo, this.id, this.type);
+  final UserTypes userType;
+  TransactionDetailsScreen(this.baseRepo, this.id, this.type, this.userType);
   @override
   _TransactionDetailsScreenState createState() =>
       _TransactionDetailsScreenState();
@@ -30,7 +32,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           ..init(context);
     return ChangeNotifierProvider(
         create: (context) => TransactionsDetailsProvider(
-            widget.baseRepo, widget.id, widget.type),
+            widget.baseRepo, widget.id, widget.type, widget.userType),
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,

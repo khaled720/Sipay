@@ -349,46 +349,22 @@ class MerchantMainRepository extends BaseMainRepository {
   }
 
   //All merchant refund request transactions
-  Future<MainApiModel> allMerchantRefundRequests(
-      String currency,
-      String transactionState,
-      String searchKey,
-      String transactionID,
-      String invoiceID,
-      String paymentMethodID,
-      String amount,
-      String transactionType,
-      String allTransaction,
-      String pageLimit,
-      String fromDate,
-      String toDate,
-      String dateRange) async {
+  Future<MainApiModel> corporateTransactionsList(
+      String currency, String dateRange) async {
     Map<String, String> values = {
-      'transactionState': transactionState, //''
-      'currency': currency.toString(), //''
-      'search_key': searchKey, //''
-      'transid': transactionID.toString(), //''
-      'invoiceid': invoiceID.toString(), //''
-      'amount': amount, //''
-      'paymentmethodid': paymentMethodID.toString(), //''
-      'transactiontype': transactionType,
-      'allTransaction': allTransaction,
-      'page_limit': pageLimit.toString(),
-      'from_date': fromDate,
-      'to_date': toDate,
+      'currency': currency,
       'daterange': dateRange,
     };
-    final newUri = Uri.parse(APIEndPoints.kApiCorporateRefundRequestEndPoint)
+    final newUri = Uri.parse(APIEndPoints.kApiCorporateTransactionListEndPoint)
         .replace(queryParameters: values);
     String result = await NetworkHelper.makeGetRequest(newUri, bearerToken);
-    debugPrint('all transactions is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 
   //Transaction details (Merchant refund requests)
-  Future<MainApiModel> refundsTransactionDetails(int transactionID) async {
+  Future<MainApiModel> corporateTransactionDetails(int transactionID) async {
     String result = await NetworkHelper.makeGetRequest(
-        '${APIEndPoints.kApiCorporateRefundsTransactionDetailsEndPoint}/$transactionID',
+        '${APIEndPoints.kApiCorporateTransactionDetailsEndPoint}/$transactionID',
         bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
@@ -396,7 +372,7 @@ class MerchantMainRepository extends BaseMainRepository {
   //Refund request edit
   Future<MainApiModel> refundRequestEdit(int transactionID) async {
     String result = await NetworkHelper.makeGetRequest(
-        APIEndPoints.kApiCorporateRefundRequestEditEndPoint, bearerToken);
+        APIEndPoints.kApiCorporateActivityListEditEndPoint, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -453,7 +429,6 @@ class MerchantMainRepository extends BaseMainRepository {
     String result = await NetworkHelper.makeGetRequest(
         '${APIEndPoints.kApiCorporateReadNotificationsEndPoint}/$notificationID',
         bearerToken);
-    debugPrint('notification read is $result', wrapWidth: 1024);
     return MainApiModel.mapJsonToModel(result);
   }
 }

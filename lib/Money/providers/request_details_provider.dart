@@ -5,10 +5,9 @@ import '../../main_api_data_model.dart';
 import '../../transaction_details_model.dart';
 
 class MoneyTransferRequestDetailsProvider extends BaseDetailsProvider {
+  IndividualMainRepository individualMainRepository;
   MoneyTransferRequestDetailsProvider(
-      IndividualMainRepository individualMainRepository,
-      String id,
-      String transactionType)
+      this.individualMainRepository, String id, String transactionType)
       : super(individualMainRepository, id, transactionType);
 
   @override
@@ -19,7 +18,7 @@ class MoneyTransferRequestDetailsProvider extends BaseDetailsProvider {
     if (userLastMoneyRequestActivity.statusCode == 100) {
       Map transactionDetails = userLastMoneyRequestActivity.data;
       userTransactionDetailsList = transactionDetailsMap(
-          transactionDetails, transactionType.toLowerCase());
+          values: transactionDetails, type: transactionType.toLowerCase());
     } else
       setTransactionNotFound(true);
     notifyListeners();

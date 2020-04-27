@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'merchant_panel.dart';
@@ -164,7 +165,7 @@ class _NotificationPanel extends State<NotificationPanel> {
                 ],
               ),
             ),
-            Dashboardbottom(context, null, null),
+            Dashboardbottom(context, null, null, UserTypes.Individual),
           ],
         ));
   }

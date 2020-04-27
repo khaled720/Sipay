@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/bottom_navigator.dart';
+import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/deposit/json_models/main_deposit_ui_model.dart';
 import 'package:fluttersipay/deposit/providers/deposit_panel_provider.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,9 @@ List<String> _listViewData;
 
 class DepositPanelScreen extends StatefulWidget {
   final BaseMainRepository mainRepo;
+  final UserTypes userType;
   final List userWallets;
-  DepositPanelScreen(this.mainRepo, this.userWallets);
+  DepositPanelScreen(this.mainRepo, this.userWallets, this.userType);
   @override
   _DepositPanelScreenState createState() => _DepositPanelScreenState();
 }
@@ -268,8 +270,8 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                               ],
                             ),
                           ),
-                          getCustomNavigator(context, users.footerTab, 0,
-                              widget.mainRepo, widget.userWallets),
+                          Dashboardbottom(context, widget.mainRepo,
+                              widget.userWallets, widget.userType),
                         ],
                       );
                     }));

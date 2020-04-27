@@ -21,7 +21,6 @@ class _MoneyTransferRequestDetailsScreenState
     extends State<MoneyTransferRequestDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    print('id is ${widget.id} type is ${widget.type}');
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

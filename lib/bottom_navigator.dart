@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/Money/Send_money.dart';
+import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'Exchange/exchange.dart';
 import 'Witdrawal/witdrawal.dart';
+import 'corporate/money/money_panel.dart';
+import 'corporate/withdrawal/create_withdrawal.dart';
 import 'deposit/deposit_panel.dart';
 
-Widget getCustomNavigator(
-    BuildContext context, List<String> menu, int select, repo, wallets) {
+Widget getCustomNavigator(BuildContext context, List<String> menu, int select,
+    repo, wallets, UserTypes userType) {
   List<bool> selection = [false, false, false, false];
   selection[select] = true;
   return Align(
@@ -45,7 +48,8 @@ Widget getCustomNavigator(
                   if (select == 0) return;
                   Navigator.pop(context);
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => DepositPanelScreen(repo, wallets)));
+                      builder: (context) =>
+                          DepositPanelScreen(repo, wallets, userType)));
                 },
               ),
             ),
@@ -81,9 +85,9 @@ Widget getCustomNavigator(
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            MoneyTransferSendScreen(repo, wallets),
-                      ));
+                          builder: (context) => userType == UserTypes.Individual
+                              ? MoneyTransferSendScreen(repo, wallets)
+                              : MoneyPanelScreen(repo, wallets)));
                 },
               ),
             ),
@@ -114,13 +118,21 @@ Widget getCustomNavigator(
                 ),
                 onPressed: () {
                   if (select == 2) return;
-                  //Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            UserWithdrawalPanelScreen(repo, wallets),
-                      ));
+                  Navigator.pop(context);
+                  userType == UserTypes.Individual
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                UserWithdrawalPanelScreen(repo, wallets),
+                          ))
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                CreateCorporateWithdrawalsPanelScreen(
+                                    repo, wallets),
+                          ));
                 },
               ),
             ),
@@ -156,7 +168,7 @@ Widget getCustomNavigator(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            ExchangePanelScreen(repo, wallets),
+                            ExchangePanelScreen(repo, wallets, userType),
                       ));
                 },
               ),
