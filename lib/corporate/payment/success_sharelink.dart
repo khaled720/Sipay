@@ -344,7 +344,7 @@ class _Success_Sharelink_panel extends State<Success_Sharelink_panel> {
                             onPressed: (){
                               Navigator.pop(context);
                               Navigator.push(context, MaterialPageRoute(
-                                builder: (context)=> Dpl_History(),
+                                builder: (context)=> Dpl_History_Panel(),
                               ));
                             },
                             color: Colors.blue,

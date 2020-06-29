@@ -9,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 
+import 'onetime_success.dart';
+
 Widget Success_Multishare() {
   return Success_Multishare_panel();
 }
@@ -348,7 +350,7 @@ class _Success_Multishare_panel extends State<Success_Multishare_panel> {
                             onPressed: (){
                               Navigator.pop(context);
                               Navigator.push(context, MaterialPageRoute(
-//                                builder: (context)=> Onetime_Success(),
+                               builder: (context)=> Onetime_Success(Map()),
                               ));
                             },
                             color: Colors.blue,

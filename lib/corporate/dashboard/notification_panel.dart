@@ -208,6 +208,7 @@ Widget notificationListBuilder(
                     ),
                   ),
                   IconButton(
+                    onPressed: (){},
                     alignment: Alignment.centerRight,
                     icon: const Icon(
                       FontAwesomeIcons.trash,

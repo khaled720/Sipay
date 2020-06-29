@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fluttersipay/corporate/global_data.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,17 +14,17 @@ import 'package:gradient_text/gradient_text.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../main_api_data_model.dart';
 import 'json_models/sms_verification_ui_model.dart';
 import 'package:fluttersipay/corporate/datas.dart';
+ 
 
 class SMSVerificationScreen extends StatefulWidget {
   final MainApiModel loginModel;
   final NavigationToSMSTypes navigationToSMSType;
   final UserTypes userType;
-
-  SMSVerificationScreen(
+   SMSVerificationScreen(
       this.loginModel, this.navigationToSMSType, this.userType);
 
   @override
@@ -32,8 +32,17 @@ class SMSVerificationScreen extends StatefulWidget {
 }
 
 class SMSVerificationScreenState extends State<SMSVerificationScreen> {
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -278,9 +287,25 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                 child: FlatButton(
                                   onPressed: () {
                                     snapshot.verifyLoginSMS(widget.userType,
-                                        (userData, token) {
+                                        (userData, token) async {
                                       datas.loginModel = userData;
                                       datas.tokens = token;
+
+                                      print("TOKEN IS= Bearer "+token.toString());
+                        
+                        
+                        ////////////////////////////
+                        ///
+                        
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString("token", token).then((value){
+
+                        global.setUserToken();
+
+
+                        }
+                        );
+
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) => widget

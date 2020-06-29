@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../money/success.dart';
 import 'credit_details.dart';
 import 'customer_signature.dart';
 
@@ -156,7 +157,7 @@ class _Nfc_Panel extends State<Nfc_Panel> {
                               Navigator.pop(context);
                               Navigator.push(context,
                                   MaterialPageRoute(
-//                                    builder: (context) => Transfer_success(),
+                                  builder: (context) => Transfer_success(),
                                   ));
                             },
                             color: Colors.blue,

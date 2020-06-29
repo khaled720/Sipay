@@ -5,10 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/payment/dpl_details.dart';
 import 'package:fluttersipay/corporate/payment/dql_passivedetail.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttersipay/corporate/global_data.dart' as global;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-Widget Dpl_History() {
-  return  Dpl_History_Panel();
-}
 
 class Dpl_History_Panel extends StatefulWidget {
   Dpl_History_Panel({Key key}) : super(key: key);
@@ -18,52 +18,113 @@ class Dpl_History_Panel extends StatefulWidget {
 
 class _Dpl_History_Panel extends State<Dpl_History_Panel> {
 
-  var _active_data = [
-    {
-      "title": "#334 - One Time Link",
-      "value": "102,00 TL",
-      "created": "CREATED",
-      "expiry": "EXPIRY",
-      "created_date": "11.09.2019 - 12:00",
-      "expiry_date": "12.09.2019 - 13:48",
-    },
-    {
-      "title": "#334 - One Time Link",
-      "value": "102,00 TL",
-      "created": "CREATED",
-      "expiry": "EXPIRY",
-      "times": "TIMES USED",
-      "created_date": "11.09.2019 - 12:00",
-      "expiry_date": "12.09.2019 - 13:48",
-      "times_used": "14/29"
-    }
-  ];
-  var _passive_data = [
-    {
-      "title": "#334 - One Time Link",
-      "value": "102,00 TL",
-      "created": "CREATED",
-      "expiry": "EXPIRY",
-      "created_date": "11.09.2019 - 12:00",
-      "expiry_date": "12.09.2019 - 13:48",
-    },
-    {
-      "title": "#334 - One Time Link",
-      "value": "102,00 TL",
-      "created": "CREATED",
-      "expiry": "EXPIRY",
-      "times": "TIMES USED",
-      "created_date": "11.09.2019 - 12:00",
-      "expiry_date": "12.09.2019 - 13:48",
-      "times_used": "14/29"
-    }
-  ];
+
+GlobalKey<ScaffoldState> _key=new GlobalKey<ScaffoldState>();
+List activeList=new List();
+List passiveList=new List();
+bool activeload=false;
+bool passiveload=false;
+
+getActiveHistory()async{
+Map active={};
+
+setState(() {
+  activeload=true;
+});
+await http.get(
+  global.activeApi ,headers:{
+"Accept":"application/json",	
+"Content-Type":"application/json",
+"Authorization":global.userToken
+}).then((res){
+
+String body=res.body.toString();
+ active=json.decode(body);
+setState(() {
+activeList= active['data']['dpldata']['data'];
+//xx.add(active['data']['dpldata']['data']);
+    activeload=false;
+});
+
+
+
+
+
+
+});
+
+
+}
+
+
+getPassiveHistory()async{
+
+
+
+
+Map passive={};
+
+setState(() {
+ passiveload=true;
+});
+
+await http.get(
+  global.passiveApi ,headers:{
+"Accept":"application/json",	
+"Content-Type":"application/json",
+"Authorization":global.userToken
+}).then((res){
+
+String body=res.body.toString();
+ passive=json.decode(body);
+setState(() {
+passiveList= passive['data']['dpldata']['data'];
+
+
+  passiveload=false;
+
+});
+
+
+});
+
+
+
+
+print("###############3Pasive###########"+passive.toString());
+
+
+
+}
+
+
+
+
+@override
+void initState() { 
+  super.initState();
+  getActiveHistory();
+  getPassiveHistory();
+}
+
+
+
+
+
+
+
+
 
 
   bool incoming_state =true;
   int _index = 0;
   @override
   Widget build(BuildContext context) {
+//getActiveHistory();
+
+    print("############Active History############# = "+
+    activeList.runtimeType.toString()+"  "+this.activeList.toString());
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -72,7 +133,7 @@ class _Dpl_History_Panel extends State<Dpl_History_Panel> {
     ScreenUtil.instance =
     ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
       ..init(context);
-    return Scaffold(
+    return Scaffold(key: _key,
         appBar: AppBar(
           centerTitle: true,
           title: Text("DPL HISTORY"),
@@ -139,7 +200,7 @@ class _Dpl_History_Panel extends State<Dpl_History_Panel> {
                                         style: BorderStyle.none,
                                       ),
                                       child: new Text(
-                                        'ACTIVE LINKS',
+                                        'ACTIVE',
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: incoming_state
@@ -170,7 +231,7 @@ class _Dpl_History_Panel extends State<Dpl_History_Panel> {
                                       style: BorderStyle.none,
                                     ),
                                     child: new Text(
-                                      'PASSIVE LINKS',
+                                      'PASSIVE',
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: incoming_state
@@ -192,25 +253,288 @@ class _Dpl_History_Panel extends State<Dpl_History_Panel> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                child: new ListView.builder(
+      
+          activeload==true||passiveload==true?      
+            Container(
+              
+              height: MediaQuery.of(context).size.height/1.5,
+              
+              child: Center(child: CircularProgressIndicator())):        Container(
+                child:incoming_state?
+                
+                
+            activeList.length==0?Container(
+              
+              height: MediaQuery.of(context).size.height/1.5,
+              
+              child: Center(child: Text("No Data To Display")))
+             :   ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: incoming_state?_active_data.length : _passive_data.length,
+                  itemCount: activeList.length,
                   primary: true,
                   itemBuilder: (BuildContext content, int index){
-                    return in_out_list(
-                        title: incoming_state ? _active_data[index]["title"] : _passive_data[index]['title'],
-                        value:incoming_state ? _active_data[index]["value"] : _passive_data[index]['value'],
-                        created: incoming_state ? _active_data[index]["created"] : _passive_data[index]['created'],
-                        created_dates: incoming_state ? _active_data[index]["created_date"] : _passive_data[index]['created_date'],
-                        expiry: incoming_state ? _active_data[index]["expiry"] : _passive_data[index]['expiry'],
-                        expiry_dates: incoming_state ? _active_data[index]["expiry_date"] : _passive_data[index]['expiry_date'],
-                        times: incoming_state ? _active_data[index]["times"] : _passive_data[index]['times'],
-                        times_used: incoming_state ? _active_data[index]["times_used"] : _passive_data[index]['times_used'],
-                    );
-                  },
+                  
+                  String text=activeList[index]["type"]==1?"One Time Link":"Multi Time Link";
+              String title="#"+activeList[index]["id"].toString()+"-"+text;
+          return      GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) => Dpl_detail_Panel(map:activeList[index]) ,
+            ));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.0, right: 10.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14
+                                ),
+                              ),
+                            ),
+                            Text(
+                           activeList[index]['is_amount_set_by_user']==1? "Set by User"
+                                     :
+                           activeList[index]['amount'].toString() +" "+activeList[index]["currencies"]['code'].toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                               ,   fontSize: 13
+                              ),
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                  "CREATED"
+                              ),
+                            ),
+                            Text(
+                           activeList[index]['created_at'].toString(),
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                  "EXPIRY"
+                              ),
+                            ),
+                            Text(
+                          activeList[index]["type"]==1?activeList[index]['expire_date'].toString():
+    
+    activeList[index]["expire_date"].toString().replaceFirst("00:", activeList[index]["expire_time"].toString()+":"),
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    padding: EdgeInsets.only(right: 10),
+                  ),
+                ),
+
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: InkWell(
+
+                          onTap: ()async{
+await Clipboard.setData(new ClipboardData(text:"https://provisioning.sipay.com.tr/dplLink/"+  activeList[index]['token'].toString()));
+
+
+_key.currentState.showSnackBar(SnackBar(
+  duration: Duration(seconds: 2),
+          content: Text("DPL Link Copied")
+));
+
+
+                          },
+                                                  child: Icon(
+                            FontAwesomeIcons.solidCopy,
+                            color: Colors.grey,
+                            size: 18,
+                          ),
+                        ),
+                        width: 35,
+                      ),
+                      Container(
+                        child: Icon(
+                          FontAwesomeIcons.trashAlt,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                        width: 35,
+                      ),
+                    ],
+                  ),
+                  width: 70,
+                )
+          
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            color: Colors.black45,
+            height: 1.0,
+          )
+        ],
+      ),
+    );
+               
+               
+               
+                }
+                )
+                
+                :
+                //Passive
+           passiveList.length==0?Container(
+              
+              height: MediaQuery.of(context).size.height/1.5,
+              
+              child: Center(child: Text("No Data To Display")))
+             :  ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: passiveList.length,
+                  primary: true,
+                  itemBuilder: (BuildContext content, int index){
+                  
+                  String text=passiveList[index]["type"]==1?"One Time Link":"Multi Time Link";
+              String title="#"+passiveList[index]["id"].toString()+"-"+text;
+
+
+          return      GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) => Dpl_Passivedetal_Panel(map:passiveList[index]),
+            ));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10.0, right: 8.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Padding(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                title,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14
+                                ),
+                              ),
+                            ),
+                            Text(
+                            passiveList[index]['is_amount_set_by_user']==1? "Set by User"
+                                     :
+                           passiveList[index]['amount'].toString() +" "+passiveList[index]["currencies"]['code'].toString(),
+                           style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                              ,    fontSize: 13
+                              ),
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                  "CREATED"
+                              ),
+                            ),
+                            Text(
+                           passiveList[index]['created_at'].toString(),
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                  "EXPIRY"
+                              ),
+                            ),
+                            Text(
+                          passiveList[index]['type']==1?passiveList[index]['expire_date']: passiveList[index]["expire_date"].toString().replaceFirst("00:", passiveList[index]["expire_time"].toString()+":"),
+                                
+                              textAlign: TextAlign.right,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    padding: EdgeInsets.only(right: 10),
+                  ),
+                ),
+      
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            color: Colors.black45,
+            height: 1.0,
+          )
+        ],
+      ),
+    );
+               
+               
+               
+                }
                 ),
               ),
             ],
@@ -226,122 +550,4 @@ class _Dpl_History_Panel extends State<Dpl_History_Panel> {
     });
   }
 
-  Widget in_out_list({String title, String value, String created, String created_dates,String expiry, String expiry_dates,String times, String times_used,}) {
-    return new GestureDetector(
-      onTap: (){
-        Navigator.push(context,
-            MaterialPageRoute(
-              builder: (context) => incoming_state? Dpl_detail() : Dpl_Passivedetal(),
-            ));
-      },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                title,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16
-                                ),
-                              ),
-                            ),
-                            Text(
-                              value,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold
-                              ),
-                              textAlign: TextAlign.right,
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                  created
-                              ),
-                            ),
-                            Text(
-                              created_dates,
-                              textAlign: TextAlign.right,
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                  expiry
-                              ),
-                            ),
-                            Text(
-                              expiry_dates,
-                              textAlign: TextAlign.right,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    padding: EdgeInsets.only(right: 10),
-                  ),
-                ),
-                incoming_state?
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: Icon(
-                          Icons.content_copy,
-                          color: Colors.black,
-                          size: 18,
-                        ),
-                        width: 35,
-                      ),
-                      Container(
-                        child: Icon(
-                          FontAwesomeIcons.trash,
-                          color: Colors.red,
-                          size: 18,
-                        ),
-                        width: 35,
-                      ),
-                    ],
-                  ),
-                  width: 70,
-                )
-                :
-                Container()
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Divider(
-            color: Colors.black45,
-            height: 1.0,
-          )
-        ],
-      ),
-    );
-  }
 }

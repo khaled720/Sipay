@@ -2,46 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/payment/sms_multishare.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
 
-Widget Dpl_detail() {
-  return Dpl_detail_Panel();
-}
+import 'email_multishare.dart';
+
+
 
 class Dpl_detail_Panel extends StatefulWidget {
-  Dpl_detail_Panel({Key key}) : super(key: key);
+  dynamic map;
+  Dpl_detail_Panel({this.map});
   @override
   _Dpl_detail_Panel createState() => _Dpl_detail_Panel();
 }
-
+GlobalKey<ScaffoldState> _key=new GlobalKey<ScaffoldState>();
 class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
 
-  var _data_detail = [
-    {
-      "title": "Type",
-      "value": "Multi Time",
-    },{
-      "title": "Status",
-      "value": "Active",
-    },{
-      "title": "Created",
-      "value": "14.08.2019 - 14:23",
-    },{
-      "title": "Expiry",
-      "value": "16.08.2019 - 23:59",
-    },{
-      "title": "Amount",
-      "value": "Set by user",
-    },{
-      "title": "Maximum number of use",
-      "value": "29",
-    },{
-      "title": "Times used",
-      "value": "3",
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +32,7 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
     ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
       ..init(context);
     return Scaffold(
+      key: _key,
         appBar: AppBar(
           centerTitle: true,
           title: Text("DPL DETAILS"),
@@ -95,7 +74,7 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  '#334 TIME LINK',
+                  '#'+widget.map['id'].toString()+' TIME LINK',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -110,25 +89,26 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 8,
               ),
-              Container(
-                child: new ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: _data_detail.length,
-                  primary: true,
-                  itemBuilder: (BuildContext content, int index){
-                    return detail_list(
-                        title: _data_detail[index]["title"],
-                        value: _data_detail[index]["value"]
-                    );
-                  },
-                ),
+              Container(//height: 200,
+                child: Column(
+children: <Widget>[
+detail_list(title:"Type",value:widget.map['type']==1?"One Time":"Multi Time" ),
+detail_list(title:"Status",value:widget.map['status'].toString() ),
+detail_list(title:"Created",value:widget.map['created_at'] ),
+detail_list(title:"Expiry",value:widget.map['type']==1?widget.map['expire_date']: widget.map["expire_date"].toString().replaceFirst("00:", widget.map["expire_time"].toString()+":") ),
+detail_list(title:"Amount",value:widget.map['is_amount_set_by_user']==1? "Set by User":widget.map['amount'].toString(),
+                                      ),
+detail_list(title:"Maximum Number of uses",value:widget.map['max_number_of_uses'].toString()),
+detail_list(title:"Times used",value:widget.map['number_of_uses'].toString() ),
+
+]
+                )
+              
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Container(
                 child: Row(
@@ -143,10 +123,30 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                               size: 20,
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => Email_Sharelink(),
-                              ));
+
+                              if(widget.map['type']==1){
+
+                                
+  Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Email_Sharelink(dpl:widget.map),
+                                          ));
+                              }else{
+
+
+                                  Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Email_Multishare(dpl:widget.map),
+                                          ));
+                              }
+
+
+
+
+
+
+                             // Navigator.pop(context);
+                          ///    Navigator.push(context, MaterialPageRoute(
+                        //        builder: (context) => Email_Sharelink(),
+                              //));
                             },
                           ),
                           Text(
@@ -167,10 +167,24 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                               size: 20,
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
+
+
+                                if(widget.map['type']==1){
+
+
+                                Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Sms_Sharelink(dpl:widget.map,),
+                                          ));
+
+                                }else{ Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => Sms_Multishare(dpl:widget.map),
+                                          ));}
+                               
+
+                        /*       Navigator.pop(context);
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) => Sms_Sharelink(),
-                              ));
+                              )); */
                             },
                           ),
                           Text(
@@ -209,7 +223,21 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                               color: Colors.blue,
                               size: 20,
                             ),
-                            onPressed: () {},
+                            onPressed: ()async {
+
+ await Clipboard.setData(new ClipboardData(text:"https://provisioning.sipay.com.tr/dplLink/"+widget.map["token"].toString()));
+
+
+_key.currentState.showSnackBar(SnackBar(
+  duration: Duration(seconds: 2),
+          content: Text("DPL Link Copied")
+));
+
+
+
+
+
+                            },
                           ),
                           Text(
                             'COPY',
@@ -224,14 +252,18 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                         children: <Widget>[
                           IconButton(
                             icon: const Icon(
-                              FontAwesomeIcons.link,
+                              Icons.cancel,
                               color: Colors.blue,
                               size: 20,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+
+Navigator.pop(context);
+
+                            },
                           ),
                           Text(
-                            'dpl history',
+                            'cancel',
                             style: TextStyle(
                                 fontSize: 10, color: Colors.black45),
                           ),
@@ -241,17 +273,17 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                   ],
                 ),
               ),
-              SizedBox(
+          /*     SizedBox(
                 height: ScreenUtil.getInstance().setHeight(60),
               ),
               Container(
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: FlatButton(
                   onPressed: (){
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(
+                  //  Navigator.pop(context);
+                //    Navigator.push(context, MaterialPageRoute(
 //                      builder: (context)=> Dpl_History(),
-                    ));
+              //      ));
                   },
                   color: Colors.blue,
                   disabledColor: Colors.blue,
@@ -283,10 +315,10 @@ class _Dpl_detail_Panel extends State<Dpl_detail_Panel> {
                   ),
                 ),
                 width: ScreenUtil.getInstance().setWidth(750),
-              ),
+              ),*/
               SizedBox(
-                height: 40,
-              )
+                height: 20,
+              ) 
             ],
           ),
         ));

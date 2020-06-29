@@ -28,7 +28,7 @@ class _Payment_Link extends State<Payment_Link> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('DERECT PAYMENT LINK'),
+          title: Text('DERECT PAYMENT LINK',style: TextStyle(fontSize: 15),),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -61,7 +61,7 @@ class _Payment_Link extends State<Payment_Link> {
           children: <Widget>[
             SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
@@ -74,7 +74,7 @@ class _Payment_Link extends State<Payment_Link> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Align(
                           child: Text(
@@ -87,7 +87,7 @@ class _Payment_Link extends State<Payment_Link> {
                           alignment: Alignment.centerLeft,
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Align(
                           child: Text(
@@ -100,7 +100,7 @@ class _Payment_Link extends State<Payment_Link> {
                           alignment: Alignment.centerLeft,
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                       ],
                     ),
@@ -119,10 +119,10 @@ class _Payment_Link extends State<Payment_Link> {
                       padding: EdgeInsets.all(15.0),
                       child: Container(
                         child: Row(
+mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              width: 100,
-                            ),
+                        
                             SizedBox(
                               child: Icon(FontAwesomeIcons.link, color: Colors.white, size: 15,),
                               width: 30,
@@ -146,7 +146,7 @@ class _Payment_Link extends State<Payment_Link> {
                     width: ScreenUtil.getInstance().setWidth(750),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Divider(
                     color: Colors.black26,
@@ -155,13 +155,14 @@ class _Payment_Link extends State<Payment_Link> {
                   Padding(
                     padding: EdgeInsets.only(left: 25.0, right: 25.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Align(
+                          
                           child: Text(
                             'MULTI TIME',
                             style: TextStyle(
@@ -172,7 +173,7 @@ class _Payment_Link extends State<Payment_Link> {
                           alignment: Alignment.centerLeft,
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Align(
                           child: Text(
@@ -204,10 +205,9 @@ class _Payment_Link extends State<Payment_Link> {
                       padding: EdgeInsets.all(15.0),
                       child: Container(
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              width: 100,
-                            ),
+                         
                             SizedBox(
                               child: Icon(FontAwesomeIcons.list, color: Colors.white, size: 15,),
                               width: 30,
@@ -231,7 +231,7 @@ class _Payment_Link extends State<Payment_Link> {
                     width: ScreenUtil.getInstance().setWidth(750),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Divider(
                     color: Colors.black26,
@@ -244,7 +244,7 @@ class _Payment_Link extends State<Payment_Link> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Align(
                           child: Text(
@@ -257,7 +257,7 @@ class _Payment_Link extends State<Payment_Link> {
                           alignment: Alignment.centerLeft,
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Align(
                           child: Text(
@@ -270,7 +270,7 @@ class _Payment_Link extends State<Payment_Link> {
                           alignment: Alignment.centerLeft,
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                       ],
                     ),
@@ -281,7 +281,7 @@ class _Payment_Link extends State<Payment_Link> {
                       onPressed: (){
                         Navigator.pop(context);
                         Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=> Dpl_History(),
+                          builder: (context)=> Dpl_History_Panel(),
                         ));
                       },
                       color: Colors.blue,
@@ -289,10 +289,9 @@ class _Payment_Link extends State<Payment_Link> {
                       padding: EdgeInsets.all(15.0),
                       child: Container(
                         child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              width: 100,
-                            ),
+        
                             SizedBox(
                               child: Icon(Icons.settings_backup_restore, color: Colors.white, size: 17,),
                               width: 30,
@@ -316,13 +315,13 @@ class _Payment_Link extends State<Payment_Link> {
                     width: ScreenUtil.getInstance().setWidth(750),
                   ),
                   SizedBox(
-                    height: 35,
+                    height: 5,
                   ),
                   Divider(
                     color: Colors.black26,
                     height: 1.0,
                   ),
-                  Align(
+                /*   Align(
                     alignment: Alignment.center,
                     child: FlatButton(
                       onPressed: (){
@@ -339,7 +338,7 @@ class _Payment_Link extends State<Payment_Link> {
                       ),
                     ),
                   ),
-                ],
+                */ ],
               ),
             ),
           ],

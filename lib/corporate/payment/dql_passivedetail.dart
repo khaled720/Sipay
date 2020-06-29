@@ -6,36 +6,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
 
-Widget Dpl_Passivedetal() {
-  return Dpl_Passivedetal_Panel();
-}
+import 'dpl_history.dart';
+
 
 class Dpl_Passivedetal_Panel extends StatefulWidget {
-  Dpl_Passivedetal_Panel({Key key}) : super(key: key);
+  dynamic map;
+  Dpl_Passivedetal_Panel({this.map});
   @override
   _Dpl_Passivedetal_Panel createState() => _Dpl_Passivedetal_Panel();
 }
 
 class _Dpl_Passivedetal_Panel extends State<Dpl_Passivedetal_Panel> {
 
-  var _data_detail = [
-    {
-      "title": "Type",
-      "value": "Multi Time",
-    },{
-      "title": "Status",
-      "value": "Active",
-    },{
-      "title": "Created",
-      "value": "14.08.2019 - 14:23",
-    },{
-      "title": "Expiry",
-      "value": "16.08.2019 - 23:59",
-    },{
-      "title": "Amount",
-      "value": "Set by user",
-    }
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -106,31 +88,31 @@ class _Dpl_Passivedetal_Panel extends State<Dpl_Passivedetal_Panel> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                child: new ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: _data_detail.length,
-                  primary: true,
-                  itemBuilder: (BuildContext content, int index){
-                    return detail_list(
-                        title: _data_detail[index]["title"],
-                        value: _data_detail[index]["value"]
-                    );
-                  },
-                ),
+             Container(
+                child: Column(
+children: <Widget>[
+detail_list(title:"Type",value:widget.map['type']==1?"One Time":"Multi Time" ),
+detail_list(title:"Status",value:widget.map['status'].toString() ),
+detail_list(title:"Created",value:widget.map['created_at'].toString() ),
+detail_list(title:"Expiry",value:widget.map['type']==1?widget.map['expire_date']: widget.map["expire_date"].toString().replaceFirst("00:", widget.map["expire_time"].toString()+":") ),
+detail_list(title:"Amount",value:widget.map['is_amount_set_by_user']==1? "Set by User":widget.map['amount'].toString(),),
+detail_list(title:"Maximum Number of uses",value:widget.map['max_number_of_uses'].toString()),
+detail_list(title:"Times used",value:widget.map['number_of_uses'].toString() ),
+
+]
+                )
+              
               ),
               SizedBox(
                 height: 80,
               ),
-              Container(
+        /*       Container(
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: FlatButton(
                   onPressed: (){
                     Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(
-//                      builder: (context)=> Dpl_History(),
+                      builder: (context)=> Dpl_History(),
                     ));
                   },
                   color: Colors.blue,
@@ -163,7 +145,7 @@ class _Dpl_Passivedetal_Panel extends State<Dpl_Passivedetal_Panel> {
                   ),
                 ),
                 width: ScreenUtil.getInstance().setWidth(750),
-              ),
+              ), */
             ],
           ),
         ));

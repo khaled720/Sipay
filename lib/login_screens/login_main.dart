@@ -170,6 +170,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                             ),
                             Container(
                               child: Row(
+                            //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Expanded(
                                     child: Row(

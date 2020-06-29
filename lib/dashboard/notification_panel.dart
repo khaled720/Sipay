@@ -187,6 +187,7 @@ class _NotificationPanel extends State<NotificationPanel> {
                     ),
                     Expanded(
                       child: IconButton(
+                          onPressed: (){},
                         alignment: Alignment.centerRight,
                         icon: const Icon(
                           FontAwesomeIcons.trash,

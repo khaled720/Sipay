@@ -247,10 +247,10 @@ class _Payment_Link extends State<Payment_Link> {
                     padding: EdgeInsets.only(left: 30.0, right: 30.0),
                     child: FlatButton(
                       onPressed: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(
+                  //      Navigator.push(context,
+                    //        MaterialPageRoute(
 //                              builder: (context) => C_Merchant_panel(),
-                            ));
+                      //      ));
                       },
                       color: Colors.blue,
                       disabledColor: Colors.blue,
