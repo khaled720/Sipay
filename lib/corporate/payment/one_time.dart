@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/onetime_success.dart';
-import 'package:fluttersipay/corporate/global_data.dart' as global;
-
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import 'package:fluttersipay/corporate/global_data.dart';
 Widget One_Time() {
   return One_Time_panel();
 }
@@ -103,9 +103,9 @@ if(val==null)
 
 getCurrencies(){
 
-var response= http.get(global.createApi,headers:{
+var response= http.get(global.APIEndPoints.createApi,headers:{
 
-  "Authorization":global.userToken
+  "Authorization":userToken
 ,
 "Accept":"application/json"
 ,
@@ -640,9 +640,7 @@ description=val;
                               child: FlatButton(
                                 onPressed: () async {
                               
-                              
-   print(global.userToken);
-                           
+                   
                   if(mount.text!= "" && des.text!=""){
 
 
@@ -660,9 +658,9 @@ setState(() {
 
 
  http.post(
-  global.createApi ,headers:{
+  global.APIEndPoints.createApi ,headers:{
 
-  "Authorization":global.userToken
+  "Authorization":userToken
 },body:{	
   "amount":this.amount.toString(),
 	"currency":currency.toString(),

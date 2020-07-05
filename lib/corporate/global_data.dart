@@ -18,18 +18,6 @@ userToken="Bearer "+prefs.getString("token");
 }
 
 
-final  createApi="https://app.sipay.com.tr/merchant/api/dpl/create";
-
-
-final smsApi="https://app.sipay.com.tr/merchant/api/dpl/sendsms";
-
-
-
-
-final emailApi="https://app.sipay.com.tr/merchant/api/dpl/sendemail";
-
-final passiveApi="https://app.sipay.com.tr/merchant/api/dpl/list/passive";
-final activeApi="https://app.sipay.com.tr/merchant/api/dpl/list/active";
 
 
 

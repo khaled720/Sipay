@@ -295,7 +295,7 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                         
                         
                         ////////////////////////////
-                        ///
+                             ///
                         
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setString("token", token).then((value){

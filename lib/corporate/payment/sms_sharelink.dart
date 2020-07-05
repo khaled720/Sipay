@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/payment/success_sharelink.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:fluttersipay/corporate/global_data.dart' as global;
+import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 class Sms_Sharelink extends StatefulWidget {
 
   Sms_Sharelink({this.dpl});
@@ -262,10 +263,10 @@ TextEditingController _phoneController = TextEditingController();
 phone= int.parse(_phoneController.value.text);
 
 http.post(
-  global.smsApi ,headers:{
+  global.APIEndPoints.smsApi ,headers:{
 "Accept":"application/json",	
 
-  "Authorization":global.userToken
+  "Authorization":userToken
 },body: {	
   "dpl_id":widget.dpl["id"].toString(),
 	"payment_link_type":"1",

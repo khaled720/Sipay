@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/payment/sms_multishare.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
@@ -225,7 +226,7 @@ detail_list(title:"Times used",value:widget.map['number_of_uses'].toString() ),
                             ),
                             onPressed: ()async {
 
- await Clipboard.setData(new ClipboardData(text:"https://provisioning.sipay.com.tr/dplLink/"+widget.map["token"].toString()));
+ await Clipboard.setData(new ClipboardData(text:APIEndPoints.dplLink+widget.map["token"].toString()));
 
 
 _key.currentState.showSnackBar(SnackBar(

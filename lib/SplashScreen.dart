@@ -11,21 +11,30 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  var _visible = true;
-
-  AnimationController animationController;
   Animation<double> animation;
+  AnimationController animationController;
+  Animatable<Color> back_title = TweenSequence<Color>([
+    TweenSequenceItem(
+      weight: 1,
+      tween: ColorTween(
+        begin: Colors.black,
+        end: Colors.white,
+      ),
+    ),
+  ]);
 
-  startTime() async {
-    var _duration = new Duration(seconds: 5);
-    return new Timer(_duration, navigationPage);
-  }
+  Animatable<Color> background = TweenSequence<Color>([
+    TweenSequenceItem(
+      weight: 1,
+      tween: ColorTween(
+        begin: Colors.white,
+        end: Colors.blue,
+      ),
+    ),
+  ]);
 
-  void navigationPage() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context)=> MyLoginPage(),
-    ));
-  }
+
+  var _visible = true;
 
   @override
   dispose() {
@@ -51,24 +60,18 @@ class SplashScreenState extends State<SplashScreen>
     });
     startTime();
   }
-  Animatable<Color> background = TweenSequence<Color>([
-    TweenSequenceItem(
-      weight: 1,
-      tween: ColorTween(
-        begin: Colors.white,
-        end: Colors.blue,
-      ),
-    ),
-  ]);
-  Animatable<Color> back_title = TweenSequence<Color>([
-    TweenSequenceItem(
-      weight: 1,
-      tween: ColorTween(
-        begin: Colors.black,
-        end: Colors.white,
-      ),
-    ),
-  ]);
+
+  startTime() async {
+    var _duration = new Duration(seconds: 5);
+    return new Timer(_duration, navigationPage);
+  }
+
+  void navigationPage() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context)=> MyLoginPage(),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(

@@ -1,7 +1,29 @@
+
+
 class APIEndPoints {
+
+//Changing this Varible will impact in all endpoints 
+   static String server="app";
+
+
+
   //Individual
   static final String kBaseIndividualAPIEndPoint =
-      'https://provisioning.sipay.com.tr/api';
+      'https://$server.sipay.com.tr/api';
+  
+// coroprate 
+       static final String kBaseCorporateAPIEndPoint =
+      'https://$server.sipay.com.tr/merchant/api';
+
+
+
+static final String dplLink="https://$server.sipay.com.tr/dplLink/";
+static final  createApi="$kBaseCorporateAPIEndPoint/dpl/create";
+static final smsApi="$kBaseCorporateAPIEndPoint/dpl/sendsms";
+static final emailApi="$kBaseCorporateAPIEndPoint/dpl/sendemail";
+static final passiveApi="$kBaseCorporateAPIEndPoint/dpl/list/passive";
+static final activeApi="$kBaseCorporateAPIEndPoint/dpl/list/active";
+
   static final String kAPIIndividualLoginEndPoint =
       '$kBaseIndividualAPIEndPoint/individualLogin';
   static final String kAPIIndividualLogoutEndPoint =
@@ -122,8 +144,7 @@ class APIEndPoints {
   //Corporate
 
   //Corporate login
-  static final String kBaseCorporateAPIEndPoint =
-      'https://provisioning.sipay.com.tr/merchant/api';
+ 
   static final String kAPICorporateLoginEndPoint =
       '$kBaseCorporateAPIEndPoint/corporatelogin';
   static final String kAPICorporateLogoutEndPoint =

@@ -875,7 +875,7 @@ class _CorporateMerchantPanelScreenState
                                 ),
                               ),
                             ),
-                            new Transform.translate(
+                            /*  new Transform.translate(
                               offset: Offset(0.0, 130.0),
                               child: Container(
                                 child: Padding(
@@ -912,10 +912,10 @@ class _CorporateMerchantPanelScreenState
                                 ),
                                 height: _media.height / 4.0,
                               ),
-                            ),
+                            ),  */
                             new Transform.translate(
                                 offset:
-                                    Offset(0.0, 130.0 + _media.height / 4.0),
+                                    Offset(0.0, 130.0 + _media.height /25.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
@@ -967,7 +967,7 @@ class _CorporateMerchantPanelScreenState
                                               },
                                             ),
                                           ),
-                                          height: _media.height * 0.5 - 160,
+                                          height: _media.height * 0.5 - 50,
                                         ),
                                       );
                                     })

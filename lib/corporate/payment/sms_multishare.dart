@@ -5,8 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/success_sharelink.dart';
-import 'package:fluttersipay/corporate/global_data.dart' as global;
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
+import 'package:fluttersipay/corporate/global_data.dart';
 TextEditingController _phoneController = TextEditingController();
 
 class Sms_Multishare extends StatefulWidget {
@@ -360,10 +361,10 @@ for(int i=0;i<numbers.length;i++){
 
 
 http.post(
-  global.smsApi ,headers:{
+  global.APIEndPoints.smsApi ,headers:{
 "Accept":"application/json",	
 
-  "Authorization":global.userToken
+  "Authorization":userToken
 },body:{
 
   "dpl_id":widget.dpl["id"].toString(),

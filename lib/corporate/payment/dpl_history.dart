@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/payment/dpl_details.dart';
 import 'package:fluttersipay/corporate/payment/dql_passivedetail.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fluttersipay/corporate/global_data.dart' as global;
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -32,10 +33,10 @@ setState(() {
   activeload=true;
 });
 await http.get(
-  global.activeApi ,headers:{
+  global.APIEndPoints.activeApi ,headers:{
 "Accept":"application/json",	
 "Content-Type":"application/json",
-"Authorization":global.userToken
+"Authorization":userToken
 }).then((res){
 
 String body=res.body.toString();
@@ -69,10 +70,10 @@ setState(() {
 });
 
 await http.get(
-  global.passiveApi ,headers:{
+  global.APIEndPoints.passiveApi ,headers:{
 "Accept":"application/json",	
 "Content-Type":"application/json",
-"Authorization":global.userToken
+"Authorization":userToken
 }).then((res){
 
 String body=res.body.toString();
@@ -368,7 +369,7 @@ void initState() {
                         child: InkWell(
 
                           onTap: ()async{
-await Clipboard.setData(new ClipboardData(text:"https://provisioning.sipay.com.tr/dplLink/"+  activeList[index]['token'].toString()));
+await Clipboard.setData(new ClipboardData(text:global.APIEndPoints.dplLink+  activeList[index]['token'].toString()));
 
 
 _key.currentState.showSnackBar(SnackBar(

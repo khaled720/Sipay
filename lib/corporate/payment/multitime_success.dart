@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/sms_multishare.dart';
 import 'package:fluttersipay/corporate/payment/email_multishare.dart';
@@ -303,7 +304,7 @@ widget.dpl['amount'].toString(),
                                           size: 20,
                                         ),
                                         onPressed: ()async {
- await Clipboard.setData(new ClipboardData(text:"https://provisioning.sipay.com.tr/dplLink/"+widget.dpl["token"].toString()));
+ await Clipboard.setData(new ClipboardData(text:APIEndPoints.dplLink+widget.dpl["token"].toString()));
 
 
 

@@ -7,9 +7,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/payment/multitime_success.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fluttersipay/corporate/global_data.dart' as global;
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
-
+import 'package:fluttersipay/corporate/global_data.dart';
 TextEditingController _SMSController = TextEditingController();
 
 Widget Multi_Time() {
@@ -125,7 +125,7 @@ if(val==null)
 
   getCurrencies() {
     var response = http
-        .get(global.createApi, headers: {"Authorization": global.userToken});
+        .get(global.APIEndPoints.createApi, headers: {"Authorization": userToken});
 
     response.then((value) {
       Map<String, dynamic> body = json.decode(value.body.toString());
@@ -641,8 +641,8 @@ if(val==null)
                                       load = true;
                                     });
 
-                                    http.post(global.createApi, headers: {
-                                      "Authorization": global.userToken
+                                    http.post(global.APIEndPoints.createApi, headers: {
+                                      "Authorization": userToken
                                     }, body: {
                                       "amount": this.amount.toString(),
                                       "currency": currency.toString(),
