@@ -1,17 +1,17 @@
 import 'dart:convert';
-
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Witdrawal/withdrawal_otp.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/withdrawal/json_models/withdraw_request_ui_model.dart';
 import 'package:fluttersipay/corporate/withdrawal/providers/providers/create_bank_withdrawal_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../../base_main_repo.dart';
 import 'json_models/corporate_withdrawal_bank_model.dart';
 
@@ -34,7 +34,10 @@ class _CreateCorporateWithdrawalsPanelScreenState
   var _try_value_4 = null;
   var _savedaccount = null;
   var _bank_value = null;
+TextEditingController iban= new TextEditingController();
 
+
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -102,6 +105,14 @@ class _CreateCorporateWithdrawalsPanelScreenState
                         ),
                         onPressed: () {
                           // do something
+                                      
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                         },
                       )
                     ],
@@ -235,7 +246,12 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                             onChanged: (bank) {
                                               snapshot.selectedDropDownValue =
                                                   bank;
-                                            },
+                                        setState(() {
+                                        snapshot.accountHolderController.text=bank.accountHolderName;
+                                          iban.text=bank.iban;
+                                           
+                                        });
+                                           },
                                             value: snapshot
                                                 .selectedBankDropDownValue,
                                             isExpanded: true,
@@ -262,6 +278,9 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                             children: <Widget>[
                                               Expanded(
                                                 child: TextFormField(
+                                                   inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                   keyboardType:
@@ -286,7 +305,7 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                                                     width:
                                                                         0.5)),
                                                     prefixIcon: const Icon(
-                                                      Icons.map,
+                                                   FontAwesomeIcons.moneyBillWaveAlt,
                                                       size: 16,
                                                       color: Colors.black26,
                                                     ),
@@ -329,7 +348,9 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: <Widget>[
-                                                          Icon(Icons.map),
+                                                          Icon(FontAwesomeIcons.moneyBillWaveAlt
+                                                         , color: Colors.grey,
+                                                          ),
                                                           SizedBox(width: 10),
                                                           Expanded(
                                                             child: Text(
@@ -353,6 +374,83 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                               ),
                                             ],
                                           ),
+                                        ),
+
+
+
+      Text(
+                                          'IBAN',
+                                          style: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 12),
+                                        ),
+                                        
+                                        TextFormField(
+                                          enabled: false,
+                                          style: TextStyle(color: Colors.black),
+                                          controller: iban,
+                                          decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black45,
+                                                    width: 1.0)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black45,
+                                                    width: 1.0)),
+                                            prefixIcon: const Icon(
+                                              FontAwesomeIcons.hashtag,
+                                              size: 16,
+                                              color: Colors.black45,
+                                            ),
+                                          ),
+                                          
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Please enter IBAN';
+                                            }
+                                            return null;
+                                          },
+                                          obscureText: false,
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        
+      Text(
+                                          'ACCOUNT HOLDER',
+                                          style: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 12),
+                                        ),
+                                        
+                                        TextFormField(
+                                          enabled: false,
+                                          style: TextStyle(color: Colors.black),
+                                          controller: snapshot.accountHolderController,
+                                          decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black45,
+                                                    width: 1.0)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black45,
+                                                    width: 1.0)),
+                                            prefixIcon: const Icon(
+                                              FontAwesomeIcons.hashtag,
+                                              size: 16,
+                                              color: Colors.black45,
+                                            ),
+                                          ),
+                                          
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                       //       return 'Please enter IBAN';
+                                            }
+                                            return null;
+                                          },
+                                          obscureText: false,
                                         ),
                                         SizedBox(
                                           height: 10,
@@ -520,7 +618,7 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                           ],
                                         ),
                                         Text(
-                                          users.withdrawField[7],
+                                       "NEW AMOUNT", //  users.withdrawField[7],
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -676,10 +774,12 @@ class _CreateCorporateWithdrawalsPanelScreenState
                                                             otpModel,
                                                             userType,
                                                             mainRepo)));
-                                          }, (description) {
+                                          }, (msg) async {
+                                                var translation = await translator.GoogleTranslator().translate(msg, to: 'en');
+   
                                             Flushbar(
                                               title: "Failure",
-                                              message: description,
+                                              message: translation,
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           });

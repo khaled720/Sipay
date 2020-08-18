@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/payment_method/mobilepos_failed.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'sendreceipt_success.dart';
@@ -50,6 +51,14 @@ class _Send_Receipt extends State<Send_Receipt> {
                 color: Colors.white,
               ),
               onPressed: () {
+                            
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                 // do something
               },
             )

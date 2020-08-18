@@ -9,7 +9,7 @@ List transactionDetailsMap({var values, String type}) {
   List result = List();
   var id = {
     'title': 'Transaction ID',
-    'value': AppUtils.replaceNullItemsToEmptyValues('#${typeMap['id']}')
+    'value':type //AppUtils.replaceNullItemsToEmptyValues('#${typeMap['id']}')
   };
   result.add(id);
   var orderID = {

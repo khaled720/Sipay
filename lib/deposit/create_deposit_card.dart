@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:flushbar/flushbar.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import 'package:http/http.dart' as http;
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,18 +19,122 @@ TextEditingController _EXPIRY_ontroller = TextEditingController();
 TextEditingController _CVV_ontroller = TextEditingController();
 TextEditingController _AMOUNT_ontroller = TextEditingController();
 
-Widget Create_Card() {
-  return Card_panel();
+Widget Create_Card(accList) {
+
+  return Card_panel(accList: accList,);
 }
 
 class Card_panel extends StatefulWidget {
-  Card_panel({Key key}) : super(key: key);
+  var accList;
+  Card_panel({this.accList});
   @override
   _Card_panel createState() => _Card_panel();
 }
 
 class _Card_panel extends State<Card_panel> {
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //getCurrencies();
+  }
+
+
   final _formKey = GlobalKey<FormState>();
+
+
+String cnt="TRY";
+  List currencyList =new List();
+int currency =1;
+
+      Widget DropDown(List data)
+      {
+        if(data!=null)
+        {
+          return DropdownButtonFormField(
+            onSaved: (val){
+if(val!=null){
+
+
+currency=int.parse(val.toString());
+
+
+}else{
+
+currency=1;
+
+
+}
+
+            },/* 
+            validator: (val){
+
+
+if(val==null)
+
+            }, */
+            items: data.map((item) {
+              return new DropdownMenuItem(
+                child: new Text(
+                  item['code'],
+                  style: TextStyle(fontSize: 14.0),
+                ),
+                value: item['id'].toString(),
+              );
+            }).toList(),
+            hint: Text(
+              "TRY",
+              style: TextStyle(
+                color: Colors.black45,
+              ),),
+            onChanged: (newVal) {
+              setState(() {
+              currency = int.parse(newVal);
+            //    customerid = newVal;
+              print('customrid:' + newVal.toString());
+              });
+            },
+        //    value: _mySelection,
+          );
+      }
+      else{
+        return new Center(
+         child: CircularProgressIndicator(),
+        );
+        }
+      }
+
+    
+
+
+getCurrencies(){
+
+var response= http.get(global.APIEndPoints.createApi,headers:{
+
+  "Authorization":   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQ5ZTAwNjYwMWZjZTFhMGQzMmU1NzI5Y2ZkODVkMGEyNmVjZDE5NDNkZWVmOGJkNmI0MTFlMmU2MGIyYmFhNzlhOThjMTdmZWRkNWQ5OTExIn0.eyJhdWQiOiIxNSIsImp0aSI6ImQ5ZTAwNjYwMWZjZTFhMGQzMmU1NzI5Y2ZkODVkMGEyNmVjZDE5NDNkZWVmOGJkNmI0MTFlMmU2MGIyYmFhNzlhOThjMTdmZWRkNWQ5OTExIiwiaWF0IjoxNTk0NDE4NTU2LCJuYmYiOjE1OTQ0MTg1NTYsImV4cCI6MTYyNTk1NDU1Niwic3ViIjoiMzEiLCJzY29wZXMiOltdfQ.qQIcbsPDF9erdTZTIGIx7MY_6ET2e23woF5n1YaKB_Fedc7WgO5nFLcBQ45ZnJ5GUj4R7zKkiNLbXPFHqbFVgSaYrcRhcfUx4dac-01uFhFfO2P6iI_lU6wvf8JvC_2dMgKCApiEVpcEAcBM_JwCqUfQdVnjuvfGRNpi-RKDMsVdBU9iR5_gkiccbnw6qIM-kgN2ZaJwa7mHTXef2RzWpYLpaPnw2kAhXq5q2VrFMUU2qTFc0D7Ux2fxnGQoyWeEXb6rWWn16EPnzBMb_VFxNgQWgIKSSRK18QX44En2X7F8Bl_xEQmA0CeAq_z6KUNpvf3tPlbnUiKjFVB29KO_4NX_Y8BYxS-C0ZFjg51teXFGjg43__a2-MukV5oPzFM5nP26vOpLDR6NNiD9n__uAFgSdLCWEbrkddmqjlpZ3WrFbRMxjq_sT1TUv9evtgXli7a29fL584fByuUPsUHXpMv-90CXav4wABezvLo1Zc-Pttx5d-mT8Dq4iERj21Jc4k5viO3GR-Y4_4g6R_KP8KYF7vGauNCtpZAzsizoyoui8Ze0AL7Vr"      //userToken
+,
+"Accept":"application/json"
+,
+"Content-Type":"application/json"
+      });
+
+response.then((value){
+
+ Map<String,dynamic> body= json.decode(value.body.toString());
+  setState(() {
+      currencyList = body["data"]["currencies"];
+   
+  });
+    
+
+
+
+});
+
+
+}
+
+
 
   var _try_value;
   @override
@@ -76,6 +185,14 @@ class _Card_panel extends State<Card_panel> {
                     ),
                     onPressed: () {
                       // do something
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                     },
                   )
                 ],
@@ -211,7 +328,7 @@ class _Card_panel extends State<Card_panel> {
                                         borderSide: BorderSide(
                                             color: Colors.black45, width: 1.0)),
                                     prefixIcon: const Icon(
-                                      Icons.book,
+                                   FontAwesomeIcons.wallet,
                                       size: 16,
                                       color: Colors.black45,
                                     ),
@@ -276,6 +393,7 @@ class _Card_panel extends State<Card_panel> {
                                           style: TextStyle(color: Colors.black),
                                           controller: _EXPIRY_ontroller,
                                           decoration: InputDecoration(
+                                            hintText: "EXPIRY",
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.black45,
@@ -308,6 +426,7 @@ class _Card_panel extends State<Card_panel> {
                                           keyboardType: TextInputType.number,
                                           controller: _CVV_ontroller,
                                           decoration: InputDecoration(
+                                            hintText: "CVV",
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.black45,
@@ -349,7 +468,9 @@ class _Card_panel extends State<Card_panel> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
                                       Expanded(
-                                        child: TextFormField(
+                                        child: TextFormField( inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],keyboardType: TextInputType.number,
                                           style: TextStyle(color: Colors.black),
                                           controller: _AMOUNT_ontroller,
                                           decoration: InputDecoration(
@@ -362,7 +483,7 @@ class _Card_panel extends State<Card_panel> {
                                                     color: Colors.black45,
                                                     width: 1.0)),
                                             prefixIcon: const Icon(
-                                              Icons.map,
+                                            FontAwesomeIcons.moneyBillWaveAlt,
                                               size: 16,
                                               color: Colors.black45,
                                             ),
@@ -381,51 +502,47 @@ class _Card_panel extends State<Card_panel> {
                                       ),
                                       Container(
                                         decoration: new BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0,
-                                            ),
-                                          ),
+                                       
                                         ),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton<String>(
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              size: 16,
+                                       child:DropdownButton<String>(
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                size: 16,
+                                              ),
+                                              items:["TRY","USD","EUR"]
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      SizedBox(width: 10),
+                                                      Expanded(
+                                                        child: Text(
+                                                          value,
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black45),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: (value) {
+                                      setState(() {
+                                           cnt=value;
+                                        
+                                      });
+                                              },
+                                              value: cnt,
+                                              isExpanded: true,
                                             ),
-                                            items: users.trys
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    SizedBox(width: 10),
-                                                    Expanded(
-                                                      child: Text(
-                                                        value,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black45),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _try_value = value;
-                                              });
-                                            },
-                                            value: _try_value,
-                                            isExpanded: true,
-                                          ),
-                                        ),
                                         width: 100,
                                       ),
                                     ],
@@ -437,12 +554,54 @@ class _Card_panel extends State<Card_panel> {
                                 Container(
                                   child: FlatButton(
                                     onPressed: () {
-                                      Navigator.push(
+                                
+                     if(this._formKey.currentState.validate()){
+
+
+
+
+
+
+                           int i=0;
+                              for(var k in widget.accList)if(k==cnt)i=1;
+
+                              if(i!=1){
+      Flushbar(
+    icon: Icon(Icons.warning,color: Colors.red,size: 25,),
+                  margin: EdgeInsets.all(8),
+                  borderRadius: 15,
+                  message:  "You are allowed to deposit by Credit Card using "+widget.accList.toString()+" only",
+                  duration:  Duration(seconds: 5),              
+                )..show(context);
+
+
+                              }else{
+
+Flushbar(
+    icon: Icon(Icons.check_circle,color: Colors.amber,size: 25,),
+                  margin: EdgeInsets.all(8),
+                  borderRadius: 15,
+                  message:  "Success",
+                  duration:  Duration(seconds: 5),              
+                )..show(context);
+
+
+
+                              }
+                           
+                                 
+                                
+                                /*       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 DepositSuccessScreen(null),
-                                          ));
+                                          ));  
+*/
+
+
+                     }
+
                                     },
                                     color: Colors.blue,
                                     disabledColor: Colors.blue,

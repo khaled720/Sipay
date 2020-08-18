@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/providers/send_to_corporate_provider.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../base_main_repo.dart';
 import 'money_transfer_otp.dart';
 
@@ -56,7 +57,7 @@ class _SendMoneyToCorporateScreenState
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("Money Transfer"),
+            title: Text("Money  Transfer"),
             flexibleSpace: Image(
               image: AssetImage('assets/appbar_bg.png'),
               height: 100,
@@ -84,6 +85,14 @@ class _SendMoneyToCorporateScreenState
                   size: 16,
                 ),
                 onPressed: () {
+                              
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                   // do something
                 },
               )
@@ -183,7 +192,7 @@ class _SendMoneyToCorporateScreenState
                               height: ScreenUtil.getInstance().setHeight(50),
                             ),
                             Text(
-                              'WALLET TYPE',
+                              'CHOOSE WALLET TYPE',
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 12),
                             ),
@@ -202,7 +211,7 @@ class _SendMoneyToCorporateScreenState
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.creditCard,
+                                        FontAwesomeIcons.wallet,
                                         color: Colors.grey,
                                         size: 15,
                                       ),
@@ -244,6 +253,9 @@ class _SendMoneyToCorporateScreenState
                                     controller: snapshot.receiverController,
                                     onFieldSubmitted: (value) {
                                       snapshot.onReceiverPhoneSubmitted(value);
+                                    },validator: (val){
+if(val=="")return "Please enter Merchant Id";
+
                                     },
                                     decoration: InputDecoration(
                                       hintText: 'Enter Merchant ID',
@@ -355,6 +367,9 @@ class _SendMoneyToCorporateScreenState
                                       children: <Widget>[
                                         Expanded(
                                           child: TextFormField(
+                                             inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                             style: TextStyle(
                                                 color: check_state
                                                     ? Colors.black
@@ -383,7 +398,7 @@ class _SendMoneyToCorporateScreenState
                                                           width: 1.0)),
                                               prefixIcon: check_state
                                                   ? const Icon(
-                                                      Icons.map,
+                                                  FontAwesomeIcons.moneyBillWaveAlt,
                                                       size: 16,
                                                       color: Colors.black45,
                                                     )
@@ -488,7 +503,7 @@ class _SendMoneyToCorporateScreenState
                                   ),
                                   TextFormField(
                                     style: TextStyle(color: Colors.black),
-                                    keyboardType: TextInputType.phone,
+                                    keyboardType: TextInputType.text,
                                     controller: snapshot.descriptionController,
                                     decoration: InputDecoration(
                                       hintText: "Enter Description",
@@ -501,7 +516,7 @@ class _SendMoneyToCorporateScreenState
                                               color: Colors.black45,
                                               width: 1.0)),
                                       prefixIcon: const Icon(
-                                        FontAwesomeIcons.rocketchat,
+                                        FontAwesomeIcons.solidCommentDots,
                                         color: Colors.black45,
                                         size: 16,
                                       ),
@@ -521,8 +536,15 @@ class _SendMoneyToCorporateScreenState
                                   Container(
                                     child: FlatButton(
                                       onPressed: () {
-                                        snapshot.moneyTransfer((phoneNumber,
+if(_formKey.currentState.validate()){
+
+
+
+  snapshot.moneyTransfer((phoneNumber,
                                             otpModel, mainRepo, userType, b2b) {
+                                              
+
+
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -531,14 +553,35 @@ class _SendMoneyToCorporateScreenState
                                                           otpModel,
                                                           userType,
                                                           mainRepo,
-                                                          b2b)));
-                                        }, (description) {
-                                          Flushbar(
+                                                          b2b)
+                                                          )
+                                                          );
+                                  
+                                  
+                                  print(phoneNumber.toString()+"//"+ otpModel.toString()+"//"+userType.toString()+mainRepo.toString()+ b2b.toString());
+
+                                        }, 
+                                        
+                                        (description) {
+                                          
+
+    translator.GoogleTranslator().translate(
+       description.toString(), to: 'en',from: 'tr').then((k) {
+
+
+   Flushbar(
                                             title: "Failure",
-                                            message: description,
-                                            duration: Duration(seconds: 3),
+                                            message: k,
                                           )..show(context);
-                                        });
+
+       });
+                                          print("++>>>> "+description.toString());
+                                       
+                                        }
+                                        );
+                                      
+
+}
                                       },
                                       color: Colors.blue,
                                       disabledColor: Colors.blue,

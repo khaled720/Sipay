@@ -9,7 +9,7 @@ import 'package:fluttersipay/otp/otp_base_screen.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
-
+import 'package:translator/translator.dart' as translator;
 class WithdrawalOTPScreen extends StatefulWidget {
   final phoneNumber;
   final otpModel;
@@ -69,17 +69,20 @@ class _WithdrawalOTPScreenState extends State<WithdrawalOTPScreen> {
               widget.mainRepository,
               widget.otpModel,
               TextEditingController(),
-              CountdownTimer(Duration(seconds: 22), Duration(seconds: 1))),
+              CountdownTimer(Duration(seconds: 180), Duration(seconds: 1))),
           child: SingleChildScrollView(
             child: Consumer<WithdrawalOTPProvider>(
                 builder: (context, snapshot, _) {
               return OTPBaseScreen(
                 resendOTP: snapshot.resendOTP,
                 verifyOTP: snapshot.verifyOTP,
-                onFailure: (description) {
+                onFailure: (description) async{
+
+                var txt=await   translator.GoogleTranslator().translate(
+       description.toString(), to: 'en');
                   Flushbar(
                     title: "Failure",
-                    message: description,
+                    message: txt,
                     duration: Duration(seconds: 3),
                   )..show(context);
                 },

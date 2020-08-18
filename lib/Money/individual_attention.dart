@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/success.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,7 +32,7 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Money Transfer"),
+        title: Text("Money  Transfer"),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 120,
@@ -56,6 +57,14 @@ class _IndividualAttentionScreenState extends State<IndividualAttentionScreen> {
             ),
             onPressed: () {
               // do something
+                          
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
             },
           )
         ],

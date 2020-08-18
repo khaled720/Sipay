@@ -9,11 +9,12 @@ class NetworkHelper {
     if (file == null) return '';
     String base64Image =
         'data:image/png;base64,' + base64Encode(file.readAsBytesSync());
-    //String fileName = file.path.split("/").last;
+    String fileName = file.path.split("/").last;
     // make POST Request
     Response response;
     String body = "";
     try {
+      print("@# "+bearerToken);
       var request = {
         'Content-type': 'application/x-www-form-urlencoded',
         HttpHeaders.authorizationHeader: 'Bearer $bearerToken'
@@ -22,11 +23,16 @@ class NetworkHelper {
           await post(endPoint, body: {'image': base64Image}, headers: request);
       int statusCode = response
           .statusCode; // this API passes back the id of the new item added to the body
-      if (statusCode == 200) {
+      if (statusCode == 200) { print("##@@###"+statusCode.toString());
         body = response.body;
       }
     } // request
-    catch (e) {}
+    catch (e) {
+
+print("E = "+e.toString() );
+
+    }
+    print("ssssssss "+body);
     // check the status code for the result
     return body;
   }

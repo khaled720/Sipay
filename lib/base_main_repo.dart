@@ -313,6 +313,8 @@ class BaseMainRepository {
         APIEndPoints.kApiIndividualSendMoneyToUserOrMerchantCreateEndPoint,
         values,
         bearerToken);
+
+        print("_=_"+result.toString());
     return MainApiModel.mapJsonToModel(result);
   }
 

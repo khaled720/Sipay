@@ -5,6 +5,7 @@ import 'package:fluttersipay/corporate/deposit/json_models/c_deposit_success.dar
 import 'package:fluttersipay/corporate/utils/c_app_utils.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
+import 'package:translator/translator.dart' as translator;
 
 class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
   List<CorporateBankModel> _bankList;
@@ -96,8 +97,12 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
           depositInputs['amount'],
         );
         onSuccess(depositSuccessModel);
-      } else
-        _setDepositErrorText(bankDepositModel.description);
+      } else{
+           var translation = await translator.GoogleTranslator().translate(bankDepositModel.description, to: 'en');
+   
+       
+        _setDepositErrorText(translation);
+      } 
     } else
       _setDepositErrorText('One of the fields is empty. Please try again.');
   }

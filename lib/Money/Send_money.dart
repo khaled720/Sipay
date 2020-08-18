@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/Send_corp.dart';
 import 'package:fluttersipay/Money/providers/money_transfer_send_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,7 @@ class MoneyTransferSendScreen extends StatefulWidget {
 
 class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
   var _value = "INDIVIDUAL";
-  List<String> _listViewData = ["INDIVIDUAL", "CORP"];
+  List<String> _listViewData = ["INDIVIDUAL", "MERCHANT"];
   List<String> _list_footer = [
     "Deposit",
     "Money Transfer",
@@ -72,6 +73,14 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                   ),
                   onPressed: () {
                     // do something
+                                
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                   },
                 )
               ],
@@ -114,7 +123,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       snapshot.getAvailableWalletAmount(0) +
-                                          '৳',
+                                          '₺',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
                                     ),
@@ -172,7 +181,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
                               Text(
-                                'WALLET TYPE',
+                                'CHOOSE WALLET TYPE',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -191,7 +200,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Icon(
-                                          FontAwesomeIcons.creditCard,
+                                          FontAwesomeIcons.wallet,
                                           color: Colors.grey,
                                           size: 15,
                                         ),
@@ -227,7 +236,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
-                              Align(
+                    /*           Align(
                                 alignment: Alignment.center,
                                 child: FlatButton(
                                   onPressed: () {
@@ -240,20 +249,22 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
+                              ), */
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(10),
                               ),
                               Container(
                                 child: FlatButton(
                                   onPressed: () {
-                                    Navigator.push(
+                               
+                                   sendMoney();
+                                /*     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               MoneyRequestsListScreen(
                                                   widget.baseMainRepository),
-                                        ));
+                                        )); */
                                   },
                                   color: Colors.blue,
                                   disabledColor: Colors.blue,

@@ -5,11 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Exchange/providers/exchange_provider.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
+
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import '../base_main_repo.dart';
 import 'exchange_rate.dart';
 
@@ -35,7 +36,7 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
-    return ChangeNotifierProvider(
+    return  ChangeNotifierProvider(
         create: (context) => ExchangeProvider(widget.baseRepo, widget.wallets,
             TextEditingController(), TextEditingController()),
         child: Scaffold(
@@ -66,11 +67,22 @@ class _ExchangePanelScreenState extends State<ExchangePanelScreen> {
                   ),
                   onPressed: () {
                     // do something
+                                
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                   },
                 )
               ],
             ),
-            body: Consumer<ExchangeProvider>(builder: (context, snapshot, _) {
+            body: 1==1? 
+            Container(child:Center(child:Text("Sorry,Exchange is under Maintenance")))
+            :
+            Consumer<ExchangeProvider>(builder: (context, snapshot, _) {
               return Stack(
                 children: <Widget>[
                   SingleChildScrollView(

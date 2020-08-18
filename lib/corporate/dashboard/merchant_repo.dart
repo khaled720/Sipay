@@ -5,7 +5,7 @@ import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
-
+import 'package:fluttersipay/corporate/global_data.dart' as global;
 import '../../main_api_data_model.dart';
 
 class MerchantMainRepository extends BaseMainRepository {
@@ -382,7 +382,7 @@ class MerchantMainRepository extends BaseMainRepository {
     String result = await NetworkHelper.uploadBase64Image(
         APIEndPoints.kApiCorporateUploadImageEndPoint,
         base64Image,
-        bearerToken);
+       bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }
 

@@ -108,6 +108,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
                             selectedCurrencyDropDownValue),
                         descriptionController.text.trim() ?? '');
                 if (sendToMerchantModel != null) {
+                  print("######## "+sendToMerchantModel.statusCode.toString());
                   sendToMerchantModel.statusCode == 100
                       ? onSendToOTP(
                           sendToMerchantModel.data['inputs']['sender_phone'],
@@ -115,7 +116,7 @@ class SendMoneyToCorporateProvider extends BaseMoneyTransferProvider {
                           mainRepo,
                           UserTypes.Corporate,
                           false)
-                      : onFailure(sendToMerchantModel.description);
+                      : onFailure(sendToMerchantModel.description+"*/---");
                 }
               }
               showLoad = false;

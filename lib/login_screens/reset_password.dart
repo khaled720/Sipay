@@ -7,6 +7,7 @@ import 'package:fluttersipay/login_screens/providers/reset_password_provider.dar
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:provider/provider.dart';
+import 'package:translator/translator.dart' as translator;
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -125,12 +126,15 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 15, right: 15),
                             child: FlatButton(
-                              onPressed: () {
-                                snapshot.resetPassword((msg) {
+                              onPressed: (){
+                                snapshot.resetPassword((msg) async{
+        var translation = await translator.GoogleTranslator().translate(msg, to: 'pl');
+   
+                                  print(msg);
                                   Navigator.of(context).pop();
                                   Flushbar(
                                       title: "Successful",
-                                      message: msg,
+                                      message:translation,
                                       duration: Duration(seconds: 5))
                                     ..show(context);
                                 }, () {});

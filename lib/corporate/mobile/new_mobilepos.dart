@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'continue_newpos.dart';
 
@@ -63,6 +64,14 @@ class _New_Mobilepos extends State<New_Mobilepos> {
                     ),
                     onPressed: () {
                       // do something
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                     },
                   )
                 ],

@@ -3,13 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'merchant_panel.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import '../dashboard/Support/support_tickets.dart';
 TextEditingController _message_controller = new TextEditingController();
+/*
 
+http.post(
+global.APIEndPoints.kApiSupportCreateConversationEndPoint+"/${mylist[index]['ticket_id']}"
+,headers: {
+
+"Authorization":userToken,
+"Accept":"application/json"
+
+
+
+}
+
+).then((value) => print(value.body.toString()))
+;
+*/
 Widget Live_Support() {
-  return Live_Support_Panel();
+  return support_tickets();
 }
 
 class Live_Support_Panel extends StatefulWidget {
@@ -21,27 +38,7 @@ class Live_Support_Panel extends StatefulWidget {
 class _Live_Support_Panel extends State<Live_Support_Panel> {
   var message_data = [
     {
-      "data": "Hello Ozan,\n How may I help?",
-      "time": "4",
-    },
-    {
-      "data": "Hello Ozan,\n How may I help?",
-      "time": "4",
-    },
-    {
-      "data": "Hello Ozan,\n How may I help?",
-      "time": "4",
-    },
-    {
-      "data": "Hello Ozan,\n How may I help?",
-      "time": "4",
-    },
-    {
-      "data": "Hello Ozan,\n How may I help?",
-      "time": "4",
-    },
-    {
-      "data": "Hello Ozan,\n How may I help?",
+      "data": "Hello Khaled,\n How may I help?",
       "time": "4",
     },
     {
@@ -50,8 +47,22 @@ class _Live_Support_Panel extends State<Live_Support_Panel> {
     }
   ];
   @override
+  void initState() {
+    // TODO: implement initState
+    
+  }
+  @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
+
+
+                                 Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                         support_tickets()
+                                      ));
+                                
+/*     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
@@ -60,6 +71,36 @@ class _Live_Support_Panel extends State<Live_Support_Panel> {
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
     return Scaffold(
+
+/* 
+floatingActionButton:FloatingActionButton(
+onPressed: (){
+
+
+http.get(global.APIEndPoints.kApiSupportListEndPoint,
+
+headers: {
+
+"Authorization":userToken,
+"Content-Type":"application/json",
+"Accept":"application/json"
+
+
+}
+
+).then((res){
+
+
+print("Response of support List : "+res.body.toString());
+
+});
+
+
+},
+
+child: Icon(Icons.add,size: 30,),
+) ,
+ */
         appBar: AppBar(
           centerTitle: true,
           title: Text("LIVE SUPPORT"),
@@ -245,7 +286,7 @@ class _Live_Support_Panel extends State<Live_Support_Panel> {
             )
           ],
         ));
-  }
+ */  }
 
   Widget message_list({String data, String time, int num}) {
     return new Container(

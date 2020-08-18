@@ -13,5 +13,17 @@ class Main extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
-  }
-}
+  }}
+
+
+
+
+
+
+
+
+
+/*
+rajibcuetcse@gmail.com
+Nop@ss1234
+ */

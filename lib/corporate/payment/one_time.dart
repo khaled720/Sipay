@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/onetime_success.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 Widget One_Time() {
   return One_Time_panel();
 }
@@ -22,7 +24,7 @@ class One_Time_panel extends StatefulWidget {
 class _One_Time_panel extends State<One_Time_panel> {
   TextEditingController mount = TextEditingController();
   TextEditingController des = TextEditingController();
-
+ TextEditingController product = TextEditingController();
   bool check_state = true;
   bool _remember = false;
 double amount;
@@ -190,6 +192,14 @@ response.then((value){
                         ),
                         onPressed: () {
                           // do something
+                                      
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                         },
                       )
                     ],
@@ -291,7 +301,7 @@ amount=double.parse(val.toString());
   
                                                 prefixIcon: check_state? const Icon(
   
-                                                  Icons.monetization_on,
+                                        FontAwesomeIcons.moneyBillWaveAlt ,//         Icons.monetization_on,
   
                                                   size: 16,
   
@@ -407,6 +417,12 @@ amount=double.parse(val.toString());
   
                                     ),
   
+
+
+
+
+
+
                                     Row(
   
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -456,6 +472,26 @@ amount=0;
                                     ),
   
                                     SizedBox(
+  
+                                      height: 15,
+  
+                                    ),
+  
+Text("PRODUCT NAME",
+           style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
+  
+)
+,TextFormField(
+
+controller: product,
+
+  decoration: InputDecoration(
+contentPadding: EdgeInsets.all(2)
+
+
+  ),
+)
+,          SizedBox(
   
                                       height: 15,
   
@@ -641,7 +677,7 @@ description=val;
                                 onPressed: () async {
                               
                    
-                  if(mount.text!= "" && des.text!=""){
+                  if(mount.text!= "" && des.text!="" &&product.text!=""){
 
 
 
@@ -667,6 +703,7 @@ setState(() {
 	"payment_link_type":1.toString(),
 	"description": this.description.toString(),
   "is_amount_set_by_user":_remember?"1":"0",
+  "name_of_product":product.text
   }
 ,
  
@@ -674,7 +711,7 @@ setState(() {
   (res)
   {
 
-
+print("create dpl res= "+res.body.toString());
 
 
 if(res.statusCode==200){

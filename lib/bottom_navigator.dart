@@ -28,7 +28,7 @@ Widget getCustomNavigator(BuildContext context, List<String> menu, int select,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      Icons.map,
+            FontAwesomeIcons.moneyBillWaveAlt,
                       color: selection[0] ? Colors.blue : Colors.white,
                       size: 15,
                     ),

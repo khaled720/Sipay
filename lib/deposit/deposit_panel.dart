@@ -1,15 +1,19 @@
 import 'dart:convert';
 
+import 'package:flushbar/flushbar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/deposit/json_models/main_deposit_ui_model.dart';
 import 'package:fluttersipay/deposit/providers/deposit_panel_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import './create_deposit_card.dart';
 
 import '../base_main_repo.dart';
 import 'create_deposit_transfer.dart';
@@ -79,6 +83,14 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                           ),
                           onPressed: () {
                             // do something
+                                      
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                           },
                         )
                       ],
@@ -125,7 +137,7 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                             child: Text(
                                               snapshot.getAvailableWalletAmount(
                                                       0) +
-                                                  '৳',
+                                                  '₺',
                                               style: TextStyle(
                                                   color: Colors.black54,
                                                   fontSize: 16),
@@ -210,7 +222,7 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: <Widget>[
-                                                Icon(Icons.note),
+                                                Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
                                                 SizedBox(width: 10),
                                                 Expanded(
                                                   child: Text(
@@ -225,6 +237,11 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                           setState(() {
                                             _value = value;
                                           });
+
+
+                 createDeposit(snapshot.mainRepo,
+                                                snapshot.userWallets);  
+
                                         },
                                         value: _value,
                                         isExpanded: true,
@@ -248,10 +265,11 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                       ),
                                       Align(
                                         alignment: Alignment.center,
-                                        child: FlatButton(
+                                       /*  child: FlatButton(
                                           onPressed: () {
-                                            createDeposit(snapshot.mainRepo,
-                                                snapshot.userWallets);
+
+                 createDeposit(snapshot.mainRepo,
+                                                snapshot.userWallets);  
                                           },
                                           child: Text(
                                             users.howto,
@@ -259,7 +277,7 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                                 color: Colors.blue,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                        ),
+                                        ), */
                                       ),
                                       SizedBox(
                                         height: 60,
@@ -282,7 +300,11 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
             }));
   }
 
-  void createDeposit(repo, wallets) {
+   createDeposit(repo, wallets) {
+
+//var list = json.decode(wallets.toString());
+
+
     if (_value == _listViewData[0]) {
       Navigator.push(
           context,
@@ -291,11 +313,41 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                 CreateBankTransferDepositScreen(repo, wallets),
           ));
     } else {
-//      Navigator.push(
-//          context,
-//          MaterialPageRoute(
-//            builder: (context) => Create_Card(),
-//          ));
+
+//print("#4#"+wallets[0]["allow_cc_deposit"].toString());
+
+var acceptedCurrenciesID=[];
+for(int i=0;i<wallets.length;i++){
+if(wallets[i]["allow_cc_deposit"]==1)acceptedCurrenciesID.add(wallets[i]["currency_code"]);
+}
+
+
+if(acceptedCurrenciesID.length!=0){
+
+
+
+      Navigator.push(
+       context,
+          MaterialPageRoute(
+            builder: (context) => Create_Card(acceptedCurrenciesID),
+         )); 
+         
+         }
+         else{
+
+  Flushbar(
+    icon: Icon(Icons.warning,color: Colors.red,size: 25,),
+                  margin: EdgeInsets.all(8),
+                  borderRadius: 15,
+                  message:  "You are not allowed to deposit by Credit Card",
+                  duration:  Duration(seconds: 5),              
+                )..show(context);
+
+
+         }
+
+
+
     }
   }
 }

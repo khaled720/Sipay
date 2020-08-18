@@ -384,13 +384,13 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
-                                      users.inputField[7] ?? '',
+                                /*      child: Text(
+                                      users.inputField[6] ?? '',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
                                       ),
-                                    ),
+                                    ),  */
                                   ),
                                   TextField(
                                     style: TextStyle(color: Colors.black),

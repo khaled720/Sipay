@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,19 +13,21 @@ import 'package:provider/provider.dart';
 import 'SMS_Verification.dart';
 import 'json_models/password_verification_ui_model.dart';
 import 'providers/verify_password_provider.dart';
-
+import 'package:translator/translator.dart';
 class VerifyPasswordScreen extends StatefulWidget {
   final String userPhoneNumber;
-
-  VerifyPasswordScreen(this.userPhoneNumber);
+String pass;
+  VerifyPasswordScreen(this.userPhoneNumber,{this.pass});
 
   @override
   VerifyPasswordScreenState createState() => VerifyPasswordScreenState();
 }
 
 class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
+  
   @override
   Widget build(BuildContext context) {
+    print("User Data from mainlogin "+widget.userPhoneNumber);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -77,7 +79,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
               ),
               body: ChangeNotifierProvider(
                   create: (context) => VerifyPasswordProvider(LoginRepository(),
-                      TextEditingController(), widget.userPhoneNumber),
+                      TextEditingController(text:widget.pass.toString()), widget.userPhoneNumber),
                   child: SingleChildScrollView(
                     child: Consumer<VerifyPasswordProvider>(
                         builder: (context, snapshot, _) {
@@ -154,7 +156,9 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                     hintStyle:
                                         CustomTextStyle.formField(context),
                                     errorMaxLines: 50,
-                                    errorText: snapshot.passwordErrorText,
+                                    errorText: "Incorrect Password !",//snapshot.passwordErrorText,
+             
+
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Colors.black12, width: 1.0)),
@@ -227,16 +231,26 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                               ),
                               Container(
                                 child: FlatButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+
                                     snapshot.verifyPassword((loginData) {
+prefs.setString("pass", snapshot.passwordController.text);
+print("Login data =>> "+loginData.data.toString());
+
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  SMSVerificationScreen(
+                                       SMSVerificationScreen(
                                                       loginData,
                                                       NavigationToSMSTypes
                                                           .Login,
-                                                      UserTypes.Individual)));
+                                                  userType: UserTypes.Individual
+                                                      
+                                                      
+                                                      
+                                                      )));
                                     }, () {});
                                   },
                                   color: Colors.blue,

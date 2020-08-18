@@ -1,3 +1,4 @@
+import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,18 +11,72 @@ import 'package:fluttersipay/login_screens/password_verify.dart';
 import 'package:fluttersipay/login_screens/providers/login_provider.dart';
 import 'package:fluttersipay/login_screens/reset_password.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
 import 'package:provider/provider.dart';
-
+import 'dart:ui' as ui;
+import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:country_provider/country_provider.dart' as pc;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login_registration.dart';
 import 'login_slide.dart';
-
+import 'package:flutter/services.dart';
+import '../login_screens/providers/verify_password_provider.dart';
 class MyLoginPage extends StatefulWidget {
+MyLoginPage([this.remem,this.email,this.pass,this.phone,this.type,this.passCor]);
+
+var remem,email,pass,phone,type,passCor;
+
   @override
   _MyLoginPageState createState() => _MyLoginPageState();
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+
+
+   ola.CountryPicker countryPicker;
+ ola.Country country ;// se
+  String countrycode;
+
+ var local = ui.window.locale.countryCode ;
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+for(var element in ola.countryCodes){
+if(local.toLowerCase()==element["ISO"]){
+  setState(() {
+    
+country = ola.Country.fromJson(element); 
+countrycode=country.dialCode;
+  });
+}
+}
+   countryPicker = ola.CountryPicker(
+     onCountrySelected: (country) {
+      print(country);
+      setState(() {
+        this.country =country as ola.Country ;
+     countrycode=country.dialCode;
+      });
+
+   });
+
+
+  if(widget.remem==null) widget.remem=false;
+
+  }
+
+
+  void resetGame() {
+    if (Navigator.canPop(context)) Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+  
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -33,11 +88,15 @@ class _MyLoginPageState extends State<MyLoginPage> {
     return ChangeNotifierProvider<LoginProvider>(
         create: (context) => LoginProvider(
             LoginRepository(),
-            TextEditingController(),
-            TextEditingController(),
-            TextEditingController()),
+            TextEditingController(text:widget.remem?widget.email:""),
+    TextEditingController(text:widget.remem==true&&widget.type==true?
+    widget.pass:widget.remem==true&&widget.type==false?widget.passCor:""),
+            TextEditingController(text:widget.remem?widget.phone:"")
+            ,widget.remem
+            ),
         child: Scaffold(body: SingleChildScrollView(
           child: Consumer<LoginProvider>(builder: (context, snapshot, _) {
+           // snapshot.initRemem();
             return Stack(
               alignment: Alignment.center,
               children: <Widget>[
@@ -157,12 +216,108 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     ),
                     Container(
                       child: Padding(
-                        padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: Column(
+                        padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+
+             snapshot.customerOrCorporate?               
+  Container(
+          child: Padding(
+            padding: EdgeInsets.only(left: 0.0, right: 10.0),
+            child: !snapshot.showIndividualLoginErrorMessage
+                ? Container(
+                    child: Text(
+                      '',
+                      style: TextStyle(
+                        color: Colors.black38,
+                      ),
+                    ),
+                    height: 0,
+                  )
+                : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'User not found Click here to ',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UserRegistrationScreen()));
+                        },
+                        child: Text(
+                          'register',
+                          style: TextStyle(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+          ),
+        ):Container(),
                             Container(
                               child: snapshot.customerOrCorporate
-                                  ? IndividualWidget(snapshot)
+                                  ? Container(
+                                    
+                          width: double.infinity,
+                                  
+                                  child: Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+               //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: <Widget>[
+
+/////////////////////////////////////////////////////////////////////////////////
+
+        
+GestureDetector(
+      child: Container(
+        margin:EdgeInsets.only(top:20),
+        width: 70,
+        height: 30,
+        child: Row(
+
+          children: <Widget>[
+
+      Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
+     Expanded(child: Text("+"+country.dialCode,
+     style: TextStyle(fontWeight: FontWeight.bold),
+     overflow: TextOverflow.ellipsis,))
+
+          ],
+        ),
+        
+      ),
+      onTap: () {
+        countryPicker.launch(context);
+           if(snapshot.telephoneController.text.contains("+")){
+
+snapshot.telephoneController.text="";                              
+                            }
+      },
+    ),
+
+
+
+
+
+             Expanded(
+              
+      
+               child: IndividualWidget(snapshot)),
+             
+             
+             
+                                       ],
+                                  )
+                                  
+                                  )
                                   : CorporateWidget(snapshot),
                             ),
                             SizedBox(
@@ -178,10 +333,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                           MainAxisAlignment.start,
                                       children: <Widget>[
                                         Checkbox(
-                                            value: snapshot.rememberPassword,
+                                            value:snapshot.rememberPassword,
                                             onChanged: (bool value) {
-                                              snapshot
-                                                  .setRememberPassword(value);
+
+             snapshot.setRememberPassword(value);
                                             }),
                                         Text("Remember Me"),
                                       ],
@@ -226,21 +381,63 @@ class _MyLoginPageState extends State<MyLoginPage> {
                                   ),
                                 ),
                                 color: Colors.blue,
-                                onPressed: () {
-                                  snapshot.login((loginData) {
+                                onPressed: () async{
+if(!snapshot.telephoneController.text.contains("+")){
+if(snapshot.userType!=UserTypes.Corporate){
+
+
+snapshot.telephoneController.text="+"+countrycode+snapshot.telephoneController.text;
+
+}
+
+
+}
+
+
+
+
+//print(snapshot.userType.toString()+"-3-------*");
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+prefs.setBool("remember", snapshot.rememberPassword);
+
+            snapshot.login((loginData) 
+            {
+
+/// login data is phone number indivi
+
+   print(loginData.toString()+"-4--###########*");
+//widget.remem==false?widget.pass="":print("");
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 VerifyPasswordScreen(
-                                                    loginData)));
+                                                    loginData
+                                                    ,
+                                               pass:     widget.pass
+                                                    
+                                                    )
+                                                    
+                                                    
+                                                    )
+                                                    
+                                                    );
                                   }, (loginData) {
+
+print(loginData.toString()+"-2-------*");
+
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 SMSVerificationScreen(
-                                                    loginData,
+                                                 loginData,
                                                     NavigationToSMSTypes.Login,
-                                                    snapshot.userType)));
+                                              userType:snapshot.userType
+                                                    ,
+                                                  passCor:widget.passCor,pass: widget.pass,
+                                                    
+                                                    )));
                                   }, (errorMsg) {
                                     showDialog(
                                         context: context,
@@ -265,7 +462,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       width: ScreenUtil.getInstance().setWidth(750),
                       height: ScreenUtil.getInstance().setHeight(610),
                     ),
-                    Container(
+
+
+
+             /*        Container(
                       padding: EdgeInsets.only(left: 40.0, right: 40.0),
                       child: Text(
                         '%10 OFF SHOPPING IN JUNE!',
@@ -276,12 +476,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       ),
                       width: ScreenUtil.getInstance().setWidth(750),
                       height: ScreenUtil.getInstance().setHeight(80),
-                    ),
-                    Container(
+                    ), */
+             /*        Container(
                       child: LoginPage(),
                       width: ScreenUtil.getInstance().setWidth(750),
                       height: ScreenUtil.getInstance().setHeight(270),
-                    )
+                    ) */
                   ],
                 ),
                 Visibility(
@@ -294,30 +494,5 @@ class _MyLoginPageState extends State<MyLoginPage> {
             );
           }),
         )));
-  }
-
-//  _showDialog(bool customer) {
-//    if (!customer) {
-//      String data = _emailController.text;
-//      if (data.length != 0) {
-//        setState(() {
-//          _checkEmail = false;
-//        });
-//        showDialog(context: context, builder: (_) => ErrorDialog(resetGame));
-//      }
-//    } else {
-//      String data = _phoneController.text;
-//      if (data.length != 0) {
-//        setState(() {
-//          _checkPhone = false;
-//        });
-//      } else {
-//        Navigator.pushNamed(context, '/merchant');
-//      }
-//    }
-//  }
-
-  void resetGame() {
-    if (Navigator.canPop(context)) Navigator.pop(context);
   }
 }

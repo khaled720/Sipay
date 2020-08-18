@@ -5,7 +5,8 @@ import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
-
+import 'package:translator/translator.dart' as translator;
+      
 import '../../../../base_main_repo.dart';
 
 class CreateCorporateBankWithdrawProvider
@@ -168,13 +169,20 @@ class CreateCorporateBankWithdrawProvider
               _currentMerchantData['user_type']);
       setShowLoad(false);
       if (merchantWithdrawalModel != null) {
-        ;
+        
         if (merchantWithdrawalModel.statusCode == 100) {
           onSuccess(merchantWithdrawalModel.data['user']['phone'],
               merchantWithdrawalModel, mainRepo, UserTypes.Corporate);
-        } else
-          _setWithdrawalErrorText(merchantWithdrawalModel.description);
-      }
+        } else{
+          
+    var translation = await translator.GoogleTranslator().translate(merchantWithdrawalModel.description, to: 'en');
+   
+          
+          
+          _setWithdrawalErrorText(translation);
+           } 
+           
+               }
     } else {
       Future.delayed(Duration(seconds: 1));
       _setWithdrawalErrorText('One of the fields is empty. Please try again.');

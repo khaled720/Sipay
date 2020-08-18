@@ -18,6 +18,7 @@ import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main_api_data_model.dart';
 import 'Profilesetting_panel.dart';
@@ -320,7 +321,7 @@ class _CorporateMerchantPanelScreenState
                                       child: Row(
                                         children: <Widget>[
                                           Icon(
-                                            FontAwesomeIcons.dollarSign,
+                                            FontAwesomeIcons.moneyBillWaveAlt,
                                             color: Colors.blue,
                                             size: 20,
                                           ),
@@ -763,12 +764,42 @@ class _CorporateMerchantPanelScreenState
                                           child: Container(
                                             child: FlatButton(
                                               onPressed: () {
+                                                
+
+var remem=false,email="",pass="",phone="",type=false,passCor="";
+
+ SharedPreferences.getInstance().then((prefs) {
+
+setState(() {
+  remem = prefs.getBool("remember");
+  type = prefs.getBool("type");
+
+});
+
+//individual
+if(remem==true&&type==true){
+
+phone=prefs.getString("phone");
+pass=prefs.getString("pass");
+
+
+
+//coroporate
+}else if(remem==true&&type==false){
+
+
+email=prefs.getString("email");
+passCor=prefs.getString("passCor");
+
+}
+
+ });
                                                 snapshot.logoutMerchant(() {
                                                   Navigator.of(context)
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  MyLoginPage()));
+                         MyLoginPage(remem,email,"",phone,type,passCor)));
                                                   Flushbar(
                                                     title: "Logout Successful!",
                                                     message:

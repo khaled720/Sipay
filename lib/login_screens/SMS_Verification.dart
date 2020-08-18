@@ -15,6 +15,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_timer/simple_timer.dart';
+//import 'package:timer_builder/timer_builder.dart';
+//import 'package:timer_count_down/timer_count_down.dart';
 import '../main_api_data_model.dart';
 import 'json_models/sms_verification_ui_model.dart';
 import 'package:fluttersipay/corporate/datas.dart';
@@ -24,25 +27,42 @@ class SMSVerificationScreen extends StatefulWidget {
   final MainApiModel loginModel;
   final NavigationToSMSTypes navigationToSMSType;
   final UserTypes userType;
+  var passCor,pass;
    SMSVerificationScreen(
-      this.loginModel, this.navigationToSMSType, this.userType);
+      this.loginModel, this.navigationToSMSType,{this.userType,this.passCor,this.pass});
 
   @override
   SMSVerificationScreenState createState() => SMSVerificationScreenState();
 }
 
-class SMSVerificationScreenState extends State<SMSVerificationScreen> {
+class SMSVerificationScreenState extends State<SMSVerificationScreen>
+{
+
+static  TimerStatus timerStatus=TimerStatus.start;
+Widget timer= SimpleTimer(
+          status: timerStatus,
+          duration: Duration(seconds: 00,minutes: 3),
+          backgroundColor: Colors.white,
+          progressIndicatorDirection:TimerProgressIndicatorDirection.clockwise ,
+          progressIndicatorColor: Colors.blue,
+          progressTextStyle: TextStyle(fontSize: 40,fontWeight: FontWeight.w800,color: Colors.blue[700]),
+strokeWidth: 12,
+
+      );
 
 
 
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  
 
-
-
-
+  }
   @override
   Widget build(BuildContext context) {
-
+ 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -55,6 +75,7 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
         future: DefaultAssetBundle.of(context).loadString(
             'assets/json/register/2.3registerSMSverification1.json'),
         builder: (context, snapshot) {
+      
           SMSVerificationModel users;
           var parsedJson;
           if (snapshot.hasData) {
@@ -95,7 +116,7 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                         LoginRepository(),
                         TextEditingController(),
                         CountdownTimer(
-                            Duration(seconds: 22), Duration(seconds: 1))),
+                            Duration(seconds: 180), Duration(seconds: 1))),
                     child: SingleChildScrollView(child: Container(child:
                         Consumer<SMSVerificationProvider>(
                             builder: (context, snapshot, _) {
@@ -169,27 +190,16 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                   children: <Widget>[
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
-                                          .setHeight(100),
+                                          .setHeight(65),
                                     ),
-                                    CircularPercentIndicator(
-                                        radius: ScreenUtil.getInstance()
-                                            .setHeight(160),
-                                        lineWidth: 10.0,
-                                        percent: snapshot != null
-                                            ? snapshot.timerPercent
-                                            : 1.0,
-                                        backgroundColor: Colors.white10,
-                                        center: GradientText(
-                                            snapshot.secondsLeftOtp,
-                                            gradient: otpGradient,
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center),
-                                        linearGradient: otpGradient),
+                           Container(
+
+                            width: 150,
+      child:timer
+  )   ,
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
-                                          .setHeight(60),
+                                          .setHeight(20),
                                     ),
                                     Text(
                                       users.remain,
@@ -200,7 +210,7 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                     ),
                                   ],
                                 ),
-                                height: ScreenUtil.getInstance().setHeight(380),
+                                height: ScreenUtil.getInstance().setHeight(420),
                               ),
                               Padding(
                                 padding:
@@ -228,7 +238,7 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                 ),
                               ),
                               SizedBox(
-                                height: ScreenUtil.getInstance().setHeight(10),
+                                height: ScreenUtil.getInstance().setHeight(5),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(right: 40),
@@ -236,8 +246,28 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                   alignment: Alignment.centerRight,
                                   child: FlatButton(
                                     onPressed: () {
-                                      snapshot.resendLoginVerificationSMS(
+              setState(() {
+    timer= new SimpleTimer(
+          status: timerStatus,
+          duration: Duration(seconds: 00,minutes: 3),
+          backgroundColor: Colors.white,
+          progressIndicatorDirection:TimerProgressIndicatorDirection.clockwise ,
+          progressIndicatorColor: Colors.blue,
+          progressTextStyle: TextStyle(fontSize: 40,fontWeight: FontWeight.w800,color: Colors.blue[700]),
+strokeWidth: 12,
+      );
+  }); 
+
+
+
+
+
+
+
+
+                                        snapshot.resendLoginVerificationSMS(
                                           widget.userType, () {}, () {});
+                  
                                     },
                                     child: Text(
                                       users.resend,
@@ -287,24 +317,34 @@ class SMSVerificationScreenState extends State<SMSVerificationScreen> {
                                 child: FlatButton(
                                   onPressed: () {
                                     snapshot.verifyLoginSMS(widget.userType,
-                                        (userData, token) async {
+                                        (MainApiModel userData, token) async {
                                       datas.loginModel = userData;
                                       datas.tokens = token;
 
-                                      print("TOKEN IS= Bearer "+token.toString());
-                        
-                        
-                        ////////////////////////////
-                             ///
                         
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         prefs.setString("token", token).then((value){
-
                         global.setUserToken();
-
-
                         }
                         );
+
+await prefs.setBool("type", widget.userType == UserTypes.Individual?true:false);
+
+widget.userType==UserTypes.Individual?
+await prefs.setString("phone", userData.data["user"]["phone"].toString()) 
+:
+await prefs.setString("email",userData.data["user"]["email"].toString());
+
+  
+  
+  await prefs.setString("pass",widget.pass??"");
+
+  await prefs.setString("passCor",widget.passCor??"");
+
+print("###type ==>  "+widget.userType.toString());
+print("####data ==>  "+userData.data["user"]["phone"].toString());
+
+
 
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(

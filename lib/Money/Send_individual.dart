@@ -4,19 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/providers/send_to_individual_provider.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../base_main_repo.dart';
 import 'money_transfer_otp.dart';
-
+import 'dart:ui' as ui;
+import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
+import 'package:country_pickers/country_pickers.dart';
+import 'package:country_provider/country_provider.dart';
 class SendMoneyToIndividualScreen extends StatefulWidget {
   final BaseMainRepository baseMainRepository;
   final List wallets;
 
   SendMoneyToIndividualScreen(this.baseMainRepository, this.wallets);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @override
   _SendMoneyToIndividualScreenState createState() =>
@@ -29,6 +46,49 @@ class _SendMoneyToIndividualScreenState
   bool check_states = true;
   List<String> _listBankData = ["INDIVIDUAL"];
   List<String> _listtryData = ["TRY", "USD", 'EUR'];
+
+
+
+
+ ola.CountryPicker countryPicker;
+ ola.Country country ;// se
+  String countrycode;
+
+ var local = ui.window.locale.countryCode ;
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+for(var element in ola.countryCodes){
+if(local.toLowerCase()==element["ISO"]){
+  setState(() {
+    
+country = ola.Country.fromJson(element); 
+
+  });
+}
+}
+   countryPicker = ola.CountryPicker(
+     onCountrySelected: (country) {
+      print(country);
+      setState(() {
+        this.country =country as ola.Country ;
+     countrycode=country.dialCode;
+      });
+
+   });
+
+
+//  if(widget.remem==null) widget.remem=false;
+
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +111,7 @@ class _SendMoneyToIndividualScreenState
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("Money Transfer"),
+            title: Text("Money  Transfer"),
             flexibleSpace: Image(
               image: AssetImage('assets/appbar_bg.png'),
               height: 100,
@@ -80,6 +140,14 @@ class _SendMoneyToIndividualScreenState
                 ),
                 onPressed: () {
                   // do something
+                              
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                 },
               )
             ],
@@ -178,7 +246,7 @@ class _SendMoneyToIndividualScreenState
                               height: ScreenUtil.getInstance().setHeight(50),
                             ),
                             Text(
-                              'WALLET TYPE',
+                              'CHOOSE WALLET TYPE',
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 12),
                             ),
@@ -197,7 +265,7 @@ class _SendMoneyToIndividualScreenState
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.creditCard,
+                                        FontAwesomeIcons.wallet,
                                         color: Colors.grey,
                                         size: 15,
                                       ),
@@ -222,35 +290,91 @@ class _SendMoneyToIndividualScreenState
                                   height:
                                       ScreenUtil.getInstance().setHeight(50),
                                 ),
-                                Text(
+                             /*    Text(
                                   'PHONE NO',
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  style: TextStyle(color: Colors.black),
-                                  keyboardType: TextInputType.phone,
-                                  controller: snapshot.receiverController,
-                                  onFieldSubmitted: (value) {
-                                    snapshot.onReceiverPhoneSubmitted(value);
-                                  },
-                                  inputFormatters: [maskFormatter],
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black45, width: 1.0)),
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black45, width: 1.0)),
-                                    prefixIcon: snapshot.phoneLoading
-                                        ? CupertinoActivityIndicator()
-                                        : Icon(
-                                            Icons.phone,
-                                            size: 16,
-                                            color: Colors.black45,
-                                          ),
+                                ), */
+                                Row(
+                                  children: <Widget>[
+                             
+                             
+                                                            GestureDetector(
+                              
+                                    child: Container(
+                              
+                                      margin:EdgeInsets.only(top:20),
+                              
+                                      width: 70,
+                              
+                                      height: 30,
+                              
+                                      child: Row(
+                              
+                              
+                              
+                                        children: <Widget>[
+                              
+                              
+                              
+                                    Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
+                              
+                                   Expanded(child: Text("+"+country.dialCode,
+                              
+                                   style: TextStyle(fontWeight: FontWeight.bold),
+                              
+                                   overflow: TextOverflow.fade,))
+                              
+                              
+                              
+                                        ],
+                              
+                                      ),
+                              
+                                      
+                              
+                                    ),
+                              
+                                    onTap: () {
+                         
+                                      countryPicker.launch(context);
+                                 if(snapshot.receiverController.text.contains("+")){
+
+snapshot.receiverController.text="";                              
+                            }
+                                    },
+                              
                                   ),
-                                  obscureText: false,
+                                    Expanded(
+                                                                          child: TextFormField(
+                                        
+                                        style: TextStyle(color: Colors.black),
+                                        keyboardType: TextInputType.phone,
+                                        controller: snapshot.receiverController,
+                                        onFieldSubmitted: (value) {
+                                          snapshot.onReceiverPhoneSubmitted("+"+countrycode+value);
+                                        },
+                                  /*       inputFormatters: [maskFormatter], */
+                                        decoration: InputDecoration(
+                                        labelText: "PHONE No",
+                                          enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black45, width: 1.0)),
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black45, width: 1.0)),
+                                /*           prefixIcon: snapshot.phoneLoading
+                                              ? CupertinoActivityIndicator()
+                                              : Icon(
+                                                  Icons.phone,
+                                                  size: 16,
+                                                  color: Colors.black45,
+                                                ), */
+                                        ),
+                                        obscureText: false,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height:
@@ -341,6 +465,9 @@ class _SendMoneyToIndividualScreenState
                                     children: <Widget>[
                                       Expanded(
                                         child: TextFormField(
+                                           inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                           style: TextStyle(
                                               color: check_state
                                                   ? Colors.black
@@ -366,7 +493,7 @@ class _SendMoneyToIndividualScreenState
                                                     width: 1.0)),
                                             prefixIcon: check_state
                                                 ? const Icon(
-                                                    Icons.map,
+                                                    FontAwesomeIcons.moneyBillWaveAlt,
                                                     size: 16,
                                                     color: Colors.black45,
                                                   )
@@ -476,7 +603,7 @@ class _SendMoneyToIndividualScreenState
                                         borderSide: BorderSide(
                                             color: Colors.black45, width: 1.0)),
                                     prefixIcon: const Icon(
-                                      FontAwesomeIcons.rocketchat,
+                                      FontAwesomeIcons.solidCommentDots,
                                       color: Colors.black45,
                                       size: 16,
                                     ),
@@ -496,6 +623,11 @@ class _SendMoneyToIndividualScreenState
                                 Container(
                                   child: FlatButton(
                                     onPressed: () {
+                                      if(!snapshot.receiverController.text.contains("+")){
+ snapshot.receiverController.text="+"+countrycode+ snapshot.receiverController.text;
+ //phoneNumber= snapshot.receiverController.text;
+                                      }
+
                                       snapshot.moneyTransfer((phoneNumber,
                                           otpModel, mainRepo, userType) {
                                         Navigator.of(context).push(
@@ -507,10 +639,13 @@ class _SendMoneyToIndividualScreenState
                                                         userType,
                                                         mainRepo,
                                                         false)));
-                                      }, (description) {
+                                      }, (description) async{
+                           var txt=  await translator.GoogleTranslator().translate(description, to: 'en');
+   
+                                        print("======_"+description.toString());
                                         Flushbar(
                                           title: "Failure",
-                                          message: description,
+                                          message: txt,
                                           duration: Duration(seconds: 3),
                                         )..show(context);
                                       });

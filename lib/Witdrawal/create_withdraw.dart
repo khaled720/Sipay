@@ -9,10 +9,11 @@ import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
 import 'package:fluttersipay/Witdrawal/providers/create_bank_withdrawal_provider.dart';
 import 'package:fluttersipay/Witdrawal/withdrawal_otp.dart';
 import 'package:fluttersipay/corporate/withdrawal/json_models/withdraw_request_ui_model.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../base_main_repo.dart';
 
 int button_set = 0;
@@ -102,6 +103,14 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                           color: Colors.white,
                         ),
                         onPressed: () {
+                                      
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                           // do something
                         },
                       )
@@ -232,6 +241,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                 Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.savedBanksDropdown,
                                             onChanged: (value) {
+                          
+                                              
                                               snapshot
                                                   .setSavedBankAccountDropdownValue(
                                                       value);
@@ -260,6 +271,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                             onChanged: (bank) {
                                               snapshot.selectedDropDownValue =
                                                   bank;
+                                      //          print("aaa"+bank.issuerName);
                                             },
                                             value: snapshot
                                                 .selectedBankDropDownValue,
@@ -290,7 +302,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: <Widget>[
-                                                Icon(Icons.map),
+                                               Icon(FontAwesomeIcons.moneyBillWaveAlt,color: Colors.grey,), 
                                                 SizedBox(width: 10),
                                                 Expanded(
                                                   child: Text(
@@ -456,6 +468,9 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                             children: <Widget>[
                                               Expanded(
                                                 child: TextFormField(
+                                                   inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                   keyboardType:
@@ -480,7 +495,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                                     width:
                                                                         1.0)),
                                                     prefixIcon: const Icon(
-                                                      Icons.map,
+                                                  FontAwesomeIcons.moneyBillWaveAlt,
                                                       size: 16,
                                                       color: Colors.black45,
                                                     ),
@@ -670,7 +685,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           height: 10,
                                         ),
                                         Text(
-                                          users.withdrawField[7],
+                                        "NEW AMOUNT", // users.withdrawField[7],
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -684,6 +699,9 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                             children: <Widget>[
                                               Expanded(
                                                 child: TextFormField(
+                                                   inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                   keyboardType:
@@ -842,10 +860,11 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                             otpModel,
                                                             userType,
                                                             mainRepo)));
-                                          }, (description) {
+                                          }, (description) async {
+         
                                             Flushbar(
                                               title: "Failure",
-                                              message: description,
+                                              message: "Something went worng ,try again later",
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           });

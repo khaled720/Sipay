@@ -8,6 +8,7 @@ class LoginRepository {
 
   //Individual login
   Future<MainApiModel> individualLogin(String phone) async {
+    print("xxxxxxx");
     Map<String, String> values = {'phone': phone};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
@@ -19,6 +20,7 @@ class LoginRepository {
     Map<String, String> values = {'OTP': otp, 'user_id': userID};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualVerifySMSEndPoint, values, null);
+        print("login repo .dart line 23 =>>>>>> "+result);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -32,10 +34,14 @@ class LoginRepository {
 
   //Individual Password login
   Future<MainApiModel> loginVerifiedIndividualWithPassword(
+   
       String phone, String password) async {
+    print("zzzzzzzzz");
     Map<String, String> values = {'phone': phone, 'password': password};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
+print(result.toString());
+
     return MainApiModel.mapJsonToModel(result);
   }
 

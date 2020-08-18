@@ -70,7 +70,7 @@ class _MoneyTransferOTPScreenState extends State<MoneyTransferOTPScreen> {
               widget.mainRepository,
               widget.otpModel,
               TextEditingController(),
-              CountdownTimer(Duration(seconds: 22), Duration(seconds: 1)),
+              CountdownTimer(Duration(seconds: 180), Duration(seconds: 1)),
               widget.isB2B),
           child: SingleChildScrollView(
             child: Consumer<MoneyTransferOTPProvider>(

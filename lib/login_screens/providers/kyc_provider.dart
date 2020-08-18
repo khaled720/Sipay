@@ -58,6 +58,12 @@ class KYCProvider with ChangeNotifier {
   bool get showLoad => _showLoad;
 
   String get kycVerificationErrorMessage => _kycVerificationErrorMessage;
+int x;
+
+
+  KYCProvider.con(
+ this.x
+  );
 
   KYCProvider(
       this._registerData,
@@ -90,6 +96,13 @@ class KYCProvider with ChangeNotifier {
 //          token);
 //    }
 //  }
+
+
+String getToken(){
+
+return this.tokenController.text;
+
+}
 
   verifyKYCUser(Function onSuccess) async {
     if (nameController.text.isNotEmpty &&

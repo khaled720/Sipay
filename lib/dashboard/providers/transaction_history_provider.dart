@@ -50,6 +50,12 @@ class TransactionsHistoryProvider with ChangeNotifier {
   }
 
   dynamic getDataFromTransactionsList(TransactionData data, int index) {
+  double net,k=2.4;
+if(data == TransactionData.Value){
+  net=double.parse(_userTransactionsList[index]['net'].toString());
+print(k.toStringAsFixed(2).toString());
+
+}
     switch (_initalTransactionsList) {
       case true:
         switch (data) {
@@ -67,7 +73,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
           case TransactionData.Value:
             return _userType == UserTypes.Individual
                 ? '${_userTransactionsList[index]['money_flow']} ${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}'
-                : '${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';
+                : '${net.toStringAsFixed(2)} sss ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';
             break;
           case TransactionData.Date:
             return _userTransactionsList[index]['created_at'];
@@ -89,7 +95,7 @@ class TransactionsHistoryProvider with ChangeNotifier {
                         _userTransactionsList[index]['payment_type_id']);
             break;
           case TransactionData.ID:
-            return 'Transaction ID: #${_userTransactionsList[index]['id']}';
+            return '${_userTransactionsList[index]['id']}';
             break;
           case TransactionData.Value:
             return '${_userTransactionsList[index]['net'].toString()} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';

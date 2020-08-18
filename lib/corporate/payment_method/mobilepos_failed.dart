@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'send_receipt.dart';
@@ -67,6 +68,14 @@ class _Mobilepos_Failed_panel extends State<Mobilepos_Failed_panel> {
                     ),
                     onPressed: () {
                       // do something
+                                
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                     },
                   )
                 ],

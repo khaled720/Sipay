@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment_method/payment_method.dart';
 
@@ -69,6 +70,14 @@ class _Continue_Newpos extends State<Continue_Newpos> {
                       color: Colors.white,
                     ),
                     onPressed: () {
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                       // do something
                     },
                   )

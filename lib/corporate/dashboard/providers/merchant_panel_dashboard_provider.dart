@@ -12,6 +12,7 @@ class MerchantPanelProvider extends BaseMainProvider {
 
   MerchantPanelProvider(this._merchantMainRepository, this._merchantDataModel)
       : super(_merchantMainRepository) {
+      print("UserData from provider : "+_merchantDataModel.data.toString());
     _userInfo = _merchantDataModel.data['user'];
     getDashboardDataFromApi();
   }
@@ -39,6 +40,15 @@ class MerchantPanelProvider extends BaseMainProvider {
   }
 
   //User wallet
+
+
+  void setValues(var x,var y){
+
+_merchantMainRepository =x;
+
+_merchantDataModel=y;
+notifyListeners();
+  }
 
   void _getUserWallets() async {
     MainApiModel userWalletModel =

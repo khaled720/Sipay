@@ -7,10 +7,11 @@ import 'package:fluttersipay/Witdrawal/json_models/withdrawal_main_ui_model.dart
 import 'package:fluttersipay/Witdrawal/providers/withdrawal_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/bottom_navigator.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import './withdraw_history.dart';
 import 'create_withdraw.dart';
 
 class UserWithdrawalPanelScreen extends StatefulWidget {
@@ -72,6 +73,14 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                             color: Colors.white,
                           ),
                           onPressed: () {
+                                        
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                             // do something
                           },
                         )
@@ -189,7 +198,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                         height: ScreenUtil.getInstance()
                                             .setHeight(20),
                                       ),
-                                      Align(
+                               /*        Align(
                                         alignment: Alignment.center,
                                         child: FlatButton(
                                           onPressed: () {
@@ -210,7 +219,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
+                                      ), */
                                       SizedBox(
                                         height: ScreenUtil.getInstance()
                                             .setHeight(10),
@@ -218,7 +227,17 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                       Container(
                                         child: FlatButton(
                                           onPressed: () {
-                                            Navigator.push(
+                                                 Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreateWithdrawScreen(
+                                                          snapshot.mainRepo,
+                                                          snapshot.userWallets,
+                                                          0),
+                                                ));
+                                        
+                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
@@ -226,7 +245,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                                           snapshot.mainRepo,
                                                           snapshot.userWallets,
                                                           1),
-                                                ));
+                                                )); 
                                           },
                                           color: Colors.blue,
                                           disabledColor: Colors.blue,
@@ -248,7 +267,29 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                       ),
                                       Container(
                                         child: FlatButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+
+// withdrawal history
+
+
+
+
+
+ Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      withdrawHistorty(
+                                                    widget.mainRepo
+                                                          //snapshot.mainRepo,
+                                                          //snapshot.userWallets,
+                                                          ),
+                                                )); 
+
+
+
+
+                                          },
                                           color: Colors.blue,
                                           disabledColor: Colors.blue,
                                           padding: EdgeInsets.all(15.0),

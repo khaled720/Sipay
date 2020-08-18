@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/utils/constants.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../main_api_data_model.dart';
 
 class LoginProvider with ChangeNotifier {
@@ -13,7 +13,7 @@ class LoginProvider with ChangeNotifier {
   bool _showLoad = false;
   bool _showIndividualLoginErrorMessage = false;
   bool _showCorporateLoginErrorMessage = false;
-  bool _rememberPassword = false;
+  bool _rememberPassword ;
   bool _customerOrCorporate = true;
   String _phoneNumberErrorText;
   String _emailAddressErrorText;
@@ -45,7 +45,7 @@ class LoginProvider with ChangeNotifier {
   bool get customerOrCorporate => _customerOrCorporate;
 
   LoginProvider(this._loginRepo, this._emailController,
-      this._passwordController, this._telephoneController);
+      this._passwordController, this._telephoneController,this._rememberPassword);
 
   void login(Function onSuccess, Function onNotVerified, Function onFailure) {
     _customerOrCorporate
@@ -55,6 +55,7 @@ class LoginProvider with ChangeNotifier {
 
   void _loginIndividual(
       Function onSuccess, Function onNotVerified, Function onFailure) async {
+    
     if (_telephoneController.text != null) {
       if (_telephoneController.text.isNotEmpty) {
         _setIndividualLoginErrorText(false);
@@ -62,6 +63,7 @@ class LoginProvider with ChangeNotifier {
         MainApiModel individualLoginResult =
             await _loginRepo.individualLogin(_telephoneController.text.trim());
         _setShowLoading(false);
+       
         if (individualLoginResult.statusCode == 100) {
           individualLoginResult.data['message'] ==
                   'Enter password to continue login'
@@ -72,6 +74,16 @@ class LoginProvider with ChangeNotifier {
       }
     }
   }
+
+
+initRemem()async{
+
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+this._rememberPassword=prefs.getBool("remember");
+notifyListeners();
+}
+
 
   void _loginCorporate(Function onSuccess, Function onNotVerified,
       Function(String errorMsg) onFailure) async {

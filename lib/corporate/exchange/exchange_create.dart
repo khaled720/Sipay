@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/exchange/exchange_rate.dart';
 
@@ -73,6 +74,14 @@ class _Exchange_panel extends State<Exchange_panel> {
               ),
               onPressed: () {
                 // do something
+                            
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
               },
             )
           ],

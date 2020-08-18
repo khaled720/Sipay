@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../../main_api_data_model.dart';
 
 class VerifyPasswordProvider with ChangeNotifier {
@@ -25,8 +25,15 @@ class VerifyPasswordProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void _setPasswordErrorText(bool isError, String errorMsg) {
-    isError ? _passwordErrorText = errorMsg : _passwordErrorText = null;
+  void _setPasswordErrorText(bool isError, String errorMsg) async{
+
+
+ var x= await translator.GoogleTranslator().translate(errorMsg, from: 'tr', to: 'en');
+
+    isError ? _passwordErrorText = x : _passwordErrorText = null;
+
+
+
     notifyListeners();
   }
 

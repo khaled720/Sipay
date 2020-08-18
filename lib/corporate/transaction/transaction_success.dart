@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget Transaction_Success() {
@@ -63,7 +64,14 @@ class _Transaction_Success_panel extends State<Transaction_Success_panel> {
                       FontAwesomeIcons.commentAlt,
                       color: Colors.white,
                     ),
-                    onPressed: () {
+                    onPressed: () {            
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                       // do something
                     },
                   )

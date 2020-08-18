@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../dashboard/Support/support_tickets.dart';
 import 'merchant.dart';
 
 TextEditingController _message_controller = new TextEditingController();
 
 Widget Live_Support() {
-  return Live_Support_Panel();
+
+return support_tickets();
+//  return Live_Support_Panel();
 }
 
 class Live_Support_Panel extends StatefulWidget {
@@ -62,7 +64,7 @@ class _Live_Support_Panel extends State<Live_Support_Panel> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("LIVE SUPPORT"),
+          title: Text("LIVE SUPPORT merchant"),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,

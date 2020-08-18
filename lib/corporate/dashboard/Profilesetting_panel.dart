@@ -1,3 +1,4 @@
+
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/corporate/dashboard/providers/corporate_profile_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart'as http;
 import 'package:provider/provider.dart';
-
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:async/async.dart';
+import 'package:path/path.dart';
 class CorporateProfileSettingsScreen extends StatefulWidget {
   final MerchantMainRepository corporateRepo;
   final userModel;
@@ -20,6 +29,54 @@ class CorporateProfileSettingsScreen extends StatefulWidget {
 
 class _CorporateProfileSettingsScreenState
     extends State<CorporateProfileSettingsScreen> {
+
+
+Future uploadImage(File file)async{
+    String base64Image =
+        'data:image/png;base64,'+base64Encode(file.readAsBytesSync());
+        var image=base64Encode(file.readAsBytesSync());
+        print("base image = "+image);
+    String fileName = file.path.split("/").last;
+    // make POST Request
+    Response response;
+    String body = "";
+    try {
+  //    print("@# "+userToken);
+      var request = {
+    
+        'Accept':'application/json',
+        /* HttpHeaders.authorizationHeader */"Authorization": '$userToken' ,
+        'Content-Type': 'application/json'
+      };
+      response =
+          await post(
+
+            APIEndPoints.kApiCorporateUploadImageEndPoint,
+           body: {'image':base64Image,
+           
+              //    'Content-type': 'application/form-data'
+           /* image.toString()*/},
+            headers: request
+           
+           ,encoding: Encoding.getByName("form-data")
+           );
+      int statusCode = response
+          .statusCode; // this API passes back the id of the new item added to the body
+      if (statusCode == 200) { print("##@@###"+statusCode.toString());
+        body = response.body;
+      }
+    } // request
+    catch (e) {
+
+print("E = "+e.toString() );
+
+    }
+    print("############ body "+body);
+  
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -33,7 +90,7 @@ class _CorporateProfileSettingsScreenState
     return ChangeNotifierProvider(
         create: (context) => CorporateProfileSettingsProvider(
             widget.corporateRepo,
-            TextEditingController(),
+          TextEditingController(),
             TextEditingController(),
             TextEditingController()),
         child: Scaffold(
@@ -151,8 +208,20 @@ class _CorporateProfileSettingsScreenState
                           ),
                           Container(
                             child: FlatButton(
-                              onPressed: () {
-                                snapshot.pickImageFromLibrary(() {
+                              onPressed: () async{
+                                print("############################");
+                     
+                 //   File image=new 
+                     
+         ImagePicker.pickImage(source: ImageSource.gallery).then((image) =>uploadImage(image) );
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                         /*        snapshot.pickImageFromLibrary(() {
                                   Flushbar(
                                       title: "Successful",
                                       message: 'Image Uploaded!',
@@ -160,12 +229,12 @@ class _CorporateProfileSettingsScreenState
                                     ..show(context);
                                 }, (description) {
                                   Flushbar(
-                                      title: "Error",
-                                      message: description,
+                                      title: "Fail",
+                                      message: "Image was not Uploaded",
                                       duration: Duration(seconds: 3))
                                     ..show(context);
                                 });
-                              },
+                           */    },
                               color: Colors.blue,
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),

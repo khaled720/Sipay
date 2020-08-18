@@ -3,14 +3,10 @@
 class APIEndPoints {
 
 //Changing this Varible will impact in all endpoints 
-   static String server="app";
-
-
-
+   static final String server="provisioning";//"app";
   //Individual
   static final String kBaseIndividualAPIEndPoint =
       'https://$server.sipay.com.tr/api';
-  
 // coroprate 
        static final String kBaseCorporateAPIEndPoint =
       'https://$server.sipay.com.tr/merchant/api';
@@ -141,6 +137,28 @@ static final activeApi="$kBaseCorporateAPIEndPoint/dpl/list/active";
   static final String kApiPasswordChangeSettingsEndPoint =
       '$kBaseIndividualAPIEndPoint/setting/changepassword';
 
+
+///Individual Support
+
+
+static final String kApiTicketCloseEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/close/';
+
+static final String kApiSupportListEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/list';
+static final String kApiSupportFormEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/create';
+static final String kApiSupportCreateConversationEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/create';
+static final String kApiSupportCreateEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/create';
+static final String kApiSupportConvesationEndPoint =
+      '$kBaseIndividualAPIEndPoint/support/conversation';
+
+//static final String kApiSupportConversationEndPoint =
+
+
+
   //Corporate
 
   //Corporate login
@@ -209,6 +227,23 @@ static final activeApi="$kBaseCorporateAPIEndPoint/dpl/list/active";
       '$kBaseCorporateAPIEndPoint/activepassivedpl';
   static final String kApiCorporateStoreDPLEndPoint =
       '$kBaseCorporateAPIEndPoint/storedpl';
+
+//Corporate Support//////////////////////////////////////////////////////////////////
+
+
+static final String kApiTicketCloseEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/close/';
+static final String kApiSupportListEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/list';
+static final String kApiSupportFormEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/create';
+static final String kApiSupportCreateConversationEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/create';
+static final String kApiSupportCreateEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/create';
+static final String kApiSupportConvesationEndpoint =
+      '$kBaseCorporateAPIEndPoint/support/conversation';
+
 
   //Corporate Transaction List
   static final String kApiCorporateTransactionListEndPoint =

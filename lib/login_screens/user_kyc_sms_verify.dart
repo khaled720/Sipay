@@ -13,6 +13,7 @@ import 'package:gradient_text/gradient_text.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
+import 'package:simple_timer/simple_timer.dart';
 
 import 'json_models/sms_user_verification_ui_model.dart';
 
@@ -85,7 +86,7 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
                       LoginRepository(),
                       TextEditingController(),
                       CountdownTimer(
-                          Duration(seconds: 22), Duration(seconds: 1))),
+                          Duration(seconds: 180), Duration(seconds: 1))),
                   child: SingleChildScrollView(
                     child: Padding(
                         padding: EdgeInsets.only(left: 30.0, right: 30.0),
@@ -166,23 +167,33 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
 //                                          height: ScreenUtil.getInstance()
 //                                              .setHeight(150),
 //                                        ),
-                                        CircularPercentIndicator(
-                                            radius: ScreenUtil.getInstance()
-                                                .setHeight(160),
-                                            lineWidth: 10.0,
-                                            percent: snapshot != null
-                                                ? snapshot.timerPercent
-                                                : 1.0,
-                                            backgroundColor: Colors.white10,
-                                            center: GradientText(
-                                                snapshot.secondsLeftOtp,
-                                                gradient: otpGradient,
-                                                style: TextStyle(
-                                                    fontSize: 22,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                textAlign: TextAlign.center),
-                                            linearGradient: otpGradient),
+                               
+
+  
+             Container(width: 150,
+             height: 150,
+               child: SimpleTimer(
+          status: TimerStatus.start,
+          duration: Duration(seconds: 00,minutes: 3),
+          backgroundColor: Colors.white,
+          progressIndicatorDirection:TimerProgressIndicatorDirection.clockwise ,
+          progressIndicatorColor: Colors.blue,
+          progressTextStyle: TextStyle(fontSize: 40,fontWeight: FontWeight.w800,color: Colors.blue[700]),
+strokeWidth: 12,
+
+      ),
+             ),
+
+
+
+
+
+
+
+
+
+
+                               ///////////////////////////////
                                         SizedBox(
                                           height: ScreenUtil.getInstance()
                                               .setHeight(80),

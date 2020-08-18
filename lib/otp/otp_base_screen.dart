@@ -6,12 +6,14 @@ import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:gradient_text/gradient_text.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
+import 'package:simple_timer/simple_timer.dart';
+import 'package:translator/translator.dart' as translator;
 class OTPBaseScreen extends StatelessWidget {
   final showLoad;
   final phoneNumber;
   final double timerPercent;
   final secondsLeft;
+  
   final Function resendOTP;
   final Function verifyOTP;
   final Function onFailure;
@@ -31,9 +33,16 @@ class OTPBaseScreen extends StatelessWidget {
       @required this.errorText,
       @required this.smsController});
 
+
+
+      
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
+  
+
+
+         return Stack(
       alignment: Alignment.center,
       children: <Widget>[
         Column(
@@ -57,6 +66,7 @@ class OTPBaseScreen extends StatelessWidget {
             SizedBox(
               height: ScreenUtil.getInstance().setHeight(30),
             ),
+        
             Visibility(
               visible: phoneNumber != null ?? false,
               child: Container(
@@ -101,9 +111,27 @@ class OTPBaseScreen extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(100),
+                    height: ScreenUtil.getInstance().setHeight(50),
                   ),
-                  CircularPercentIndicator(
+             
+             
+             
+             
+             Container(width: 150,
+             height: 150,
+               child: SimpleTimer(
+          status: TimerStatus.start,
+          duration: Duration(seconds: 00,minutes: 3),
+          backgroundColor: Colors.white,
+          progressIndicatorDirection:TimerProgressIndicatorDirection.clockwise ,
+          progressIndicatorColor: Colors.blue,
+          progressTextStyle: TextStyle(fontSize: 40,fontWeight: FontWeight.w800,color: Colors.blue[700]),
+strokeWidth: 12,
+
+      ),
+             ),
+             
+               /*    CircularPercentIndicator(
                       radius: ScreenUtil.getInstance().setHeight(160),
                       lineWidth: 10.0,
                       percent: timerPercent != null ? timerPercent : 1.0,
@@ -113,10 +141,8 @@ class OTPBaseScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center),
-                      linearGradient: otpGradient),
-                  SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(60),
-                  ),
+                      linearGradient: otpGradient), */
+                
                   Text(
                     'Remaining time to enter your code',
                     style: TextStyle(
@@ -126,7 +152,7 @@ class OTPBaseScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              height: ScreenUtil.getInstance().setHeight(380),
+              height: ScreenUtil.getInstance().setHeight(430),
             ),
             Padding(
               padding: EdgeInsets.only(left: 30.0, right: 30.0),
@@ -136,7 +162,7 @@ class OTPBaseScreen extends StatelessWidget {
                 maxLength: 6,
                 controller: smsController,
                 decoration: InputDecoration(
-                  errorText: errorText,
+                  errorText: errorText,//errorText,
                   hintStyle: CustomTextStyle.formField(context),
                   enabledBorder: UnderlineInputBorder(
                       borderSide:
@@ -152,7 +178,7 @@ class OTPBaseScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: ScreenUtil.getInstance().setHeight(10),
+              height: ScreenUtil.getInstance().setHeight(5),
             ),
             Padding(
               padding: EdgeInsets.only(right: 40),
@@ -201,7 +227,7 @@ class OTPBaseScreen extends StatelessWidget {
               width: ScreenUtil.getInstance().setWidth(660),
             ),
             SizedBox(
-              height: ScreenUtil.getInstance().setHeight(50),
+              height: ScreenUtil.getInstance().setHeight(20),
             ),
             Container(
               child: FlatButton(
@@ -228,5 +254,8 @@ class OTPBaseScreen extends StatelessWidget {
         )
       ],
     );
+    
+
+  
   }
 }

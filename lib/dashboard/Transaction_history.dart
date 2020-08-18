@@ -6,12 +6,16 @@ import 'package:fluttersipay/dashboard/providers/transaction_history_provider.da
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import 'package:http/http.dart' as http;
+import 'package:fluttersipay/corporate/global_data.dart';
 import '../base_main_repo.dart';
 import '../loading_widget.dart';
+import 'package:dio/dio.dart';
 import 'Transaction_detail.dart';
-import 'merchant_panel.dart';
 
+import 'merchant_panel.dart';
+import 'dart:convert';
 class TransactionHistoryScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
   final List userWallets;
@@ -25,6 +29,7 @@ class TransactionHistoryScreen extends StatefulWidget {
 }
 
 class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
+  var amount=1;
   var _tryValue = "CURRENCY";
   List<String> _listTryData = ["CURRENCY", "TRY", "USD", "EUR"];
   var _typeValue = "TYPES";
@@ -38,7 +43,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     'Exchange'
   ];
   var _statusValue = "STATES";
-  List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending'];
+  List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending','Stand By','Refunded','Awaiting','Chargeback Requested','Failed'];
   DateTime endDate;
   DateTime startDate;
 
@@ -262,7 +267,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                           child: DropdownButton<String>(
                                             icon: Icon(
                                               Icons.keyboard_arrow_down,
-                                              size: 16,
+                                              size: 13,
                                             ),
                                             items: _listTryData
                                                 .map<DropdownMenuItem<String>>(
@@ -460,6 +465,78 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                   : SizedBox(
                                       width: 0.0,
                                     ),
+
+Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+children: <Widget>[
+
+
+Container(
+  child:   Row(
+  
+  
+  
+    children: <Widget>[
+
+Radio(
+onChanged: (val){
+setState(() {
+  amount= int.parse(val.toString());
+
+});
+},
+groupValue: amount,
+value: 1,
+
+),
+Text("Min Amount")
+    ],
+  
+  ),
+)
+,
+
+Container(
+  child:   Row(
+  
+  
+  
+    children: <Widget>[
+
+Container(
+  child:   Row(
+  
+  
+  
+    children: <Widget>[
+
+Radio(
+onChanged: (val){
+setState(() {
+  amount= int.parse(val.toString());
+
+});
+},
+groupValue: amount,
+value: 2,
+
+),
+Text("Max Amount")
+    ],
+  
+  ),
+)
+
+
+    ],
+  
+  ),
+)
+,
+
+],
+
+),
+
                               SizedBox(
                                 height: 20,
                               ),
@@ -582,12 +659,68 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     else if (type == "2") _color = Colors.blue;
     return new GestureDetector(
       onTap: () {
-        Navigator.push(
+
+Dio().get(
+global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("Transaction ID:", "")
+.replaceAll("#", "").trim().toString()+"?transactionType=${title.toLowerCase()}"
+,options: Options(
+ headers: {
+"Authorization":userToken,
+"Accept":"application/json",
+"Content-Type":"application/json",
+  }
+)
+
+).then((val){
+
+
+print(val.data);
+
+Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => TransactionDetailsScreen(
-                  widget.baseRepo, id, title, widget.userType),
-            ));
+                  body:val.data),
+            )); 
+
+}
+
+
+);
+
+
+/* http.get(global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("#","").toString()+"?transactionType=Deposit"
+
+,
+headers: {
+"Authorization":userToken,
+"Accept":"application/json",
+"Content-Type":"application/json",
+},
+
+).then((val){
+
+var body=json.decode(val.body);
+print(body.toString());
+/* 
+Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TransactionDetailsScreen(
+                  widget.baseRepo, id, title, widget.userType,body:body),
+            ));  */
+
+})
+
+
+; */
+        
+         
+
+
+print(id+" yy "+title);
+
+
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+//الويلكم اللى ف اندفيدولا
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +25,7 @@ import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Bank_account.dart';
 import 'Help_panel.dart';
@@ -46,8 +47,16 @@ class MerchantPanelScreen extends StatefulWidget {
 
 class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
   String _language_value = 'gb';
-
-  @override
+String capitalize(String s) {
+ // Rajib Dev
+ s=s[0].toUpperCase() + s.substring(1);
+//rajib Dev
+var sec=s.indexOf(" ");
+var k=s.substring(0,sec);
+s=s[sec+1].toUpperCase() + s.substring(sec+2);
+ 
+return k+" "+s;
+}   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -321,7 +330,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       child: Row(
                                         children: <Widget>[
                                           Icon(
-                                            Icons.map,
+                                       FontAwesomeIcons.moneyBillWaveAlt,
                                             color: Colors.blue,
                                             size: 20,
                                           ),
@@ -791,13 +800,23 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                       ),
                                     )),
                                     onTap: () {
+
+
                                       Navigator.pop(context);
+                                      
+                                    //////////////////////////////////////////
+                                    //////////////////////////////////////////
+                                    ////////////////////////////////////////////
+                                    
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 Live_Support(),
                                           ));
+                                    
+                                    
+                                    
                                     },
                                   ),
                                   Divider(
@@ -926,12 +945,48 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                           child: Container(
                                             child: FlatButton(
                                               onPressed: () {
+
+
+var remem=false,email="",pass="",phone="",type,passCor="";
+
+ SharedPreferences.getInstance().then((prefs) {
+
+setState(() {
+  remem = prefs.getBool("remember");
+  type = prefs.getBool("type");
+
+});
+
+//individual
+if(remem==true&&type==true){
+
+phone=prefs.getString("phone");
+pass=prefs.getString("pass");
+
+
+
+//coroporate
+}else if(remem==true&&type==false){
+
+
+email=prefs.getString("email");
+passCor=prefs.getString("passCor");
+
+}
+
+ });
+
+print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
+
                                                 snapshot.logoutUser(() {
                                                   Navigator.of(context)
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  MyLoginPage()));
+                  MyLoginPage(remem,email,pass,phone,type),));
+
+
+
                                                   Flushbar(
                                                     title: "Logout Successful!",
                                                     message:
@@ -976,6 +1031,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                         ),
                       );
                     }),
+                    backgroundColor: Colors.white,
                     body: Stack(
                       children: <Widget>[
                         Container(
@@ -1001,7 +1057,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         child:
                                             new Container(color: Colors.blue),
                                       ),
-                                      new Transform.translate(
+                                       new Transform.translate(
                                         offset: Offset(0.0, 50.0),
                                         child: Container(
                                           child: Padding(
@@ -1032,13 +1088,13 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                               )),
                                           height: 130,
                                         ),
-                                      ),
+                                      ), 
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            new Transform.translate(
+                         /*     new Transform.translate(
                               offset: Offset(0.0, 130.0),
                               child: Container(
                                 child: Padding(
@@ -1071,14 +1127,14 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                           _getSlideS(users),
                                           _getSlideS(users),
                                         ],
-                                      )),
+                                      )), 
                                 ),
                                 height: _media.height / 4.0,
                               ),
-                            ),
+                            ),  */
                             new Transform.translate(
                                 offset:
-                                    Offset(0.0, 130.0 + _media.height / 4.0),
+                                    Offset(0.0, 130.0 + _media.height / 24.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
@@ -1100,6 +1156,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                         )),
                                     Consumer<IndividualPanelProvider>(
                                         builder: (context, snapshot, _) {
+                             //             print("     "+snapshot.getTransactionsListActivity()[0].toString());
                                       return SingleChildScrollView(
                                         child: Container(
                                           child: RefreshIndicator(
@@ -1121,16 +1178,16 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
                                                                     index][
                                                                 'transactionable_type']),
                                                     value:
-                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()} ${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
                                                     description:
-                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
+                                                        this.capitalize(snapshot.userLastTransactionsActivity[index]['entity_name'].toString()),///(#${snapshot.userLastTransactionsActivity[index]['id']})
                                                     dates: snapshot
                                                             .userLastTransactionsActivity[
                                                         index]['created_at']);
                                               },
                                             ),
                                           ),
-                                          height: _media.height * 0.5 - 160,
+                                          height: _media.height * 0.5 - 45,
                                         ),
                                       );
                                     })
@@ -1155,7 +1212,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
             }));
   }
 
-  Widget _getSlide(users, index) {
+   Widget _getSlide(users, index) {
     return Consumer<IndividualPanelProvider>(builder: (context, snapshot, _) {
       return Padding(
         padding: EdgeInsets.only(left: 30.0, right: 30.0),
@@ -1270,7 +1327,7 @@ class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
         ],
       ),
     );
-  }
+  } 
 
   Widget lastActivityList(
       {String title, String value, String description, String dates}) {
@@ -1352,7 +1409,7 @@ Widget Dashboardbottom(BuildContext context, BaseMainRepository baseRepo,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
-                      Icons.map,
+              FontAwesomeIcons.moneyBillWaveAlt,
                       color: Colors.white,
                       size: 15,
                     ),
@@ -1368,10 +1425,21 @@ Widget Dashboardbottom(BuildContext context, BaseMainRepository baseRepo,
                     ),
                   ],
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                onPressed: ()async {
+baseRepo.depositForm().then((x){
+
+
+print("111111111111111111=>"+x.data.toString());
+print("222222222222222222=>"+"/////"+wallets.toString());
+print("33333333333333333=>"+userType.toString());
+  
+
+
+});
+//print("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+                Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          DepositPanelScreen(baseRepo, wallets, userType)));
+                          DepositPanelScreen(baseRepo, wallets, userType))); 
                 },
               ),
             ),

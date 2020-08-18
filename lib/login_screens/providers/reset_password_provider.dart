@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/utils/validator.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../../main_api_data_model.dart';
 
 class ResetPasswordProvider with ChangeNotifier {
@@ -49,10 +49,20 @@ class ResetPasswordProvider with ChangeNotifier {
         _setShowLoading(true);
         MainApiModel resetPasswordResult = await _loginRepo
             .resetIndividualPassword(_emailController.text.trim());
+             print(resetPasswordResult.description.toString());
         _setShowLoading(false);
-        resetPasswordResult.statusCode == 100
+
+
+       translator.GoogleTranslator().translate(
+         resetPasswordResult.description.toString(), to: 'en',from: 'tr')
+      .then((s){resetPasswordResult.description=s;
+      resetPasswordResult.statusCode == 100
             ? onSuccess(resetPasswordResult.description)
             : _setEmailErrorText(true, resetPasswordResult.description);
+      }
+      ); 
+        
+ 
       }
     }
   }

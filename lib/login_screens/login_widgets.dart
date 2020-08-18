@@ -1,10 +1,14 @@
+import 'package:country_pickers/country_picker_dropdown.dart';
+import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/login_screens/login_registration.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
-
+import 'dart:ui' as ui;
 class NoAccountWidget extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,6 +37,8 @@ class NoAccountWidget extends StatelessWidget {
 }
 
 class IndividualWidget extends StatelessWidget {
+
+
   final loginProvider;
 
   IndividualWidget(this.loginProvider);
@@ -40,14 +46,15 @@ class IndividualWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         SizedBox(
           height: ScreenUtil.getInstance().setHeight(30),
         ),
         Container(
           child: Padding(
-            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+            padding: EdgeInsets.only(left: 0.0, right: 10.0),
             child: !loginProvider.showIndividualLoginErrorMessage
                 ? Container(
                     child: Text(
@@ -59,14 +66,15 @@ class IndividualWidget extends StatelessWidget {
                     height: 0,
                   )
                 : Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'User not found Click here to ',
+                        '',
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
-                      GestureDetector(
+          /*             GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context,
@@ -80,52 +88,90 @@ class IndividualWidget extends StatelessWidget {
                             color: Colors.blue,
                           ),
                         ),
-                      )
+                      ) */
                     ],
                   ),
           ),
         ),
         Container(
+       width: 500,
           child: Padding(
             padding: EdgeInsets.only(),
-            child: TextField(
-              style: TextStyle(
-                  color: !loginProvider.showIndividualLoginErrorMessage
-                      ? Colors.black
-                      : Colors.red),
-              controller: loginProvider.telephoneController,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: 'Phone Number',
-                hintStyle: CustomTextStyle.formField(context),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: !loginProvider.showIndividualLoginErrorMessage
-                            ? Colors.black38
-                            : Colors.red,
-                        width: 1.0)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: !loginProvider.showIndividualLoginErrorMessage
-                            ? Colors.black38
-                            : Colors.red,
-                        width: 1.0)),
-                prefixIcon: !loginProvider.showIndividualLoginErrorMessage
-                    ? const Icon(
-                        Icons.phone,
-                        color: Colors.black38,
-                      )
-                    : const Icon(
-                        Icons.cancel,
-                        color: Colors.red,
-                      ),
+
+
+            child:  TextField(
+            
+                style: TextStyle(
+            
+                    color: !loginProvider.showIndividualLoginErrorMessage
+            
+                        ? Colors.black
+            
+                        : Colors.red),
+            
+                controller: loginProvider.telephoneController,
+            
+                keyboardType: TextInputType.phone,
+            
+                decoration: InputDecoration(
+            
+                  hintText: 'Phone Number',
+            
+                  hintStyle: CustomTextStyle.formField(context),
+            
+                  enabledBorder: UnderlineInputBorder(
+            
+                      borderSide: BorderSide(
+            
+                          color: !loginProvider.showIndividualLoginErrorMessage
+            
+            ? Colors.black38
+            
+            : Colors.red,
+            
+                          width: 1.0)),
+            
+                  focusedBorder: UnderlineInputBorder(
+            
+                      borderSide: BorderSide(
+            
+                          color: !loginProvider.showIndividualLoginErrorMessage
+            
+            ? Colors.black38
+            
+            : Colors.red,
+            
+                          width: 1.0)),
+            
+                /*   prefixIcon: !loginProvider.showIndividualLoginErrorMessage
+            
+                      ? const Icon(
+            
+                          Icons.phone,
+            
+                          color: Colors.black38,
+            
+                        )
+            
+                      : const Icon(
+            
+                          Icons.cancel,
+            
+                          color: Colors.red,
+            
+                        ), */
+            
+                ),
+            
+             /*    inputFormatters: [maskFormatter], */
+            
+                obscureText: false,
+            
               ),
-              inputFormatters: [maskFormatter],
-              obscureText: false,
-            ),
-          ),
         ),
-      ],
+          )
+          
+            ],
     );
   }
 }

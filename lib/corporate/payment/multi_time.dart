@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/payment/multitime_success.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
@@ -53,6 +54,7 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
       startdate = order;
     });
   }
+TextEditingController product;
 
   Future<DateTime> getDate() {
     // Imagine that this function is
@@ -156,97 +158,190 @@ if(val==null)
             if (snapshot.hasData) {
               parsedJson = json.decode(snapshot.data.toString());
 //            users = request_json.fromJson(parsedJson);
-              return Scaffold(
-                appBar: AppBar(
-                  centerTitle: true,
-                  title: Text("MULTI TIME LINK"),
-                  flexibleSpace: Image(
-                    image: AssetImage('assets/appbar_bg.png'),
-                    height: 100,
-                    fit: BoxFit.fitWidth,
-                  ),
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                  ),
-                  actions: <Widget>[
-                    IconButton(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      icon: Icon(
-                        FontAwesomeIcons.commentAlt,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        // do something
-                      },
-                    )
-                  ],
-                ),
-                body: Stack(
-                  children: <Widget>[
-                    SingleChildScrollView(
-                      child: Form(
-                        key: _key,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: ScreenUtil.getInstance().setHeight(50),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30, right: 30),
-                              child: Text(
-                                'CREATE MULTI TIME LINK',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
+             
+                            return Scaffold(
+                              appBar: AppBar(
+                                centerTitle: true,
+                                title: Text("MULTI TIME LINK"),
+                                flexibleSpace: Image(
+                                  image: AssetImage('assets/appbar_bg.png'),
+                                  height: 100,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                                leading: Builder(
+                                  builder: (BuildContext context) {
+                                    return IconButton(
+                                      icon: const Icon(Icons.arrow_back_ios),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
+                                ),
+                                actions: <Widget>[
+                                  IconButton(
+                                    padding: const EdgeInsets.only(right: 20.0),
+                                    icon: Icon(
+                                      FontAwesomeIcons.commentAlt,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      // do something
+                                                  
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Live_Support(),
+                                                        ));
+                                                  
+                                    },
+                                  )
+                                ],
                               ),
-                            ),
-                            SizedBox(
-                              height: ScreenUtil.getInstance().setHeight(50),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              body: Stack(
                                 children: <Widget>[
-                                  Text(
-                                    "Create payment link that works multiple times until it reaches it's limit",
-                                    style: TextStyle(
-                                        color: Colors.black54, fontSize: 16),
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        ScreenUtil.getInstance().setHeight(100),
-                                  ),
-                                  Text(
-                                    'AMOUNT',
-                                    style: TextStyle(
-                                        color: check_state
-                                            ? Colors.black26
-                                            : Colors.red,
-                                        fontSize: 12),
-                                  ),
-                                  Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: TextFormField(
-                                            enabled: !_remember,
-                                            controller: mount,
-                                            onSaved: (val) {
-                                              if (val == "") {
-                                                amount = -1;
-                                              } else {
-                                                amount = double.parse(
-                                                    val.toString());
-                                              }
-                                            },
+                                  SingleChildScrollView(
+                                    child: Form(
+                                      key: _key,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance().setHeight(50),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 30, right: 30),
+                                            child: Text(
+                                              'CREATE MULTI TIME LINK',
+                                              style: TextStyle(
+                                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance().setHeight(50),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  "Create payment link that works multiple times until it reaches it's limit",
+                                                  style: TextStyle(
+                                                      color: Colors.black54, fontSize: 16),
+                                                ),
+                                                SizedBox(
+                                                  height:
+                                                      ScreenUtil.getInstance().setHeight(100),
+                                                ),
+                                                Text(
+                                                  'AMOUNT',
+                                                  style: TextStyle(
+                                                      color: check_state
+                                                          ? Colors.black26
+                                                          : Colors.red,
+                                                      fontSize: 12),
+                                                ),
+                                                Container(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        child: TextFormField(
+                                                          enabled: !_remember,
+                                                          controller: mount,
+                                                          onSaved: (val) {
+                                                            if (val == "") {
+                                                              amount = -1;
+                                                            } else {
+                                                              amount = double.parse(
+                                                                  val.toString());
+                                                            }
+                                                          },
+                                                          style: TextStyle(
+                                                              color: check_state
+                                                                  ? Colors.black
+                                                                  : Colors.red),
+                                                          keyboardType: TextInputType.number,
+                                                          decoration: InputDecoration(
+                                                            enabledBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black26,
+                                                                        width: 0.5)),
+                                                            focusedBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black26,
+                                                                        width: 0.5)),
+                                                            prefixIcon: check_state
+                                                                ? const Icon(
+                                                                  FontAwesomeIcons.moneyBillWaveAlt,
+                                                                    size: 16,
+                                                                    color: Colors.black26,
+                                                                  )
+                                                                : const Icon(
+                                                                    Icons.cancel,
+                                                                    size: 16,
+                                                                    color: Colors.red,
+                                                                  ),
+                                                          ),
+                                                          obscureText: false,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Container(
+                                                        decoration: new BoxDecoration(
+                                                          border: Border(
+                                                            bottom: BorderSide(
+                                                              color: Colors.black26,
+                                                              width: 0.5,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        child: DropDown(currencyList),
+                                                        width: 100,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Checkbox(
+                                                      value: _remember,
+                                                      onChanged: (bool value) {
+                                                        if (value) {
+                                                          setState(() {
+                                                            mount.text = "0";
+                                                            amount = 0;
+                                                            _remember = value;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            _remember = value;
+                                                          });
+                                                        }
+                                                      },
+                                                    ),
+                                                    Expanded(
+                                                      child: Text("Set by user"),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text("PRODUCT NAME",style: TextStyle(color: Colors.grey),),
+                                                TextFormField(
+                                                    //      enabled: !_remember,
+                                                          controller: product,
+                                          
                                             style: TextStyle(
                                                 color: check_state
                                                     ? Colors.black
@@ -263,9 +358,9 @@ if(val==null)
                                                       borderSide: BorderSide(
                                                           color: Colors.black26,
                                                           width: 0.5)),
-                                              prefixIcon: check_state
+                                         /*      prefixIcon: check_state
                                                   ? const Icon(
-                                                      Icons.monetization_on,
+                                                      FontAwesomeIcons.moneyBillWaveAlt,
                                                       size: 16,
                                                       color: Colors.black26,
                                                     )
@@ -273,59 +368,13 @@ if(val==null)
                                                       Icons.cancel,
                                                       size: 16,
                                                       color: Colors.red,
-                                                    ),
+                                                    ), */
                                             ),
                                             obscureText: false,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Container(
-                                          decoration: new BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: Colors.black26,
-                                                width: 0.5,
-                                              ),
-                                            ),
-                                          ),
-                                          child: DropDown(currencyList),
-                                          width: 100,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Checkbox(
-                                        value: _remember,
-                                        onChanged: (bool value) {
-                                          if (value) {
-                                            setState(() {
-                                              mount.text = "0";
-                                              amount = 0;
-                                              _remember = value;
-                                            });
-                                          } else {
-                                            setState(() {
-                                              _remember = value;
-                                            });
-                                          }
-                                        },
-                                      ),
-                                      Expanded(
-                                        child: Text("Set by user"),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+            SizedBox(
+                                                  height: 10,
+                                                ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -634,6 +683,7 @@ if(val==null)
                                   //      print("Pressed ### Multi Time..$_time....$amount....$startdate......explain=.$explain...$maxUse");
                                   if (this._time != null &&
                                       this.amount != -1 &&
+                                      product.text=="" &&
                                       this.startdate != null &&
                                       this.explain != null &&
                                       this.maxUse != -1) {
@@ -647,6 +697,7 @@ if(val==null)
                                       "amount": this.amount.toString(),
                                       "currency": currency.toString(),
                                       "payment_link_type": "2",
+                                      "name_of_product":product.text,
                                       "expire_date": this.startdate.toString(),
                                       "max_number_of_uses": this.maxUse.toString(),
                                       "description": this.explain,
@@ -655,7 +706,7 @@ if(val==null)
                                     }).then((res) {
                                       if (res.statusCode == 200) {
                                         print(res.body.toString() +
-                                            "__===____+++");
+                                            "__===__RESPONSE __+++");
 
                                         Map dpl = json.decode(res.body.toString());
 

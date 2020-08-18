@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
@@ -67,6 +68,14 @@ class _Success_Sharelink_panel extends State<Success_Sharelink_panel> {
                     ),
                     onPressed: () {
                       // do something
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                     },
                   )
                 ],

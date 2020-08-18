@@ -37,7 +37,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("MONEY TRANSFER"),
+              title: Text("MONEY  TRANSFER"),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -180,7 +180,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Icon(
-                                          FontAwesomeIcons.creditCard,
+                                          FontAwesomeIcons.wallet,
                                           color: Colors.grey,
                                           size: 15,
                                         ),
@@ -198,6 +198,9 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                   setState(() {
                                     _value = value;
                                   });
+
+
+                                  sendMoney();
                                 },
                                 value: _value,
                                 isExpanded: true,
@@ -205,7 +208,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                               SizedBox(
                                 height: ScreenUtil.getInstance().setHeight(100),
                               ),
-                              Align(
+                     /*          Align(
                                 alignment: Alignment.center,
                                 child: FlatButton(
                                   onPressed: () {
@@ -218,7 +221,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
+                              ), */
                             ],
                           ),
                         )

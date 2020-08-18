@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget Sendreceipt_Success() {
@@ -64,6 +65,14 @@ class _Sendreceipt_Success_panel extends State<Sendreceipt_Success_panel> {
                       color: Colors.white,
                     ),
                     onPressed: () {
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                       // do something
                     },
                   )

@@ -119,7 +119,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       snapshot.getAvailableWalletAmount(0) +
-                                          '৳',
+                                          '₺',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
                                     ),
@@ -297,7 +297,9 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                     child: Row(
                                       children: <Widget>[
                                         Expanded(
-                                          child: TextFormField(
+                                          child: TextFormField( inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                             keyboardType: TextInputType.number,
                                             controller:
                                                 snapshot.amountController,

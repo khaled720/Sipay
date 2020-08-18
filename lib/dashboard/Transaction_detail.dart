@@ -1,42 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttersipay/base_main_repo.dart';
-import 'package:fluttersipay/dashboard/providers/transactions_details_provider.dart';
-import 'package:fluttersipay/utils/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class TransactionDetailsScreen extends StatefulWidget {
-  final String id;
-  final String type;
-  final BaseMainRepository baseRepo;
-  final UserTypes userType;
-  TransactionDetailsScreen(this.baseRepo, this.id, this.type, this.userType);
+  var body;
+  TransactionDetailsScreen({this.body});
+
   @override
-  _TransactionDetailsScreenState createState() =>
-      _TransactionDetailsScreenState();
+  _TransactionDetailsScreenState createState() => _TransactionDetailsScreenState();
 }
 
 class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
+
+  String type;
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
-          ..init(context);
-    return ChangeNotifierProvider(
-        create: (context) => TransactionsDetailsProvider(
-            widget.baseRepo, widget.id, widget.type, widget.userType),
-        child: Scaffold(
-            appBar: AppBar(
+  
+  type=widget.body["data"]["searchdata"]["transaction_type"].toString().trim();
+  
+    return Scaffold(
+       
+
+
+  appBar: AppBar(
               centerTitle: true,
-              title: Text("TRANSATION DETAILS"),
+              title: Text('TRANSACTION DETAILS'),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -52,137 +39,443 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   );
                 },
               ),
-              actions: <Widget>[
-                IconButton(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  icon: Icon(
-                    FontAwesomeIcons.commentAlt,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    // do something
-                  },
-                )
-              ],
-            ),
-            body: Consumer<TransactionsDetailsProvider>(
-                builder: (context, snapshot, _) {
-              return Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          child: new ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount:
-                                snapshot.userTransactionsDetailsList().length,
-                            primary: true,
-                            itemBuilder: (BuildContext content, int index) {
-                              return detailsList(
-                                  title: snapshot
-                                          .userTransactionsDetailsList()[index]
-                                      ["title"],
-                                  value: snapshot
-                                          .userTransactionsDetailsList()[index]
-                                      ["value"]);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Visibility(
-                          visible: !snapshot.transactionNotFound ?? true,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                            child: Container(
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                color: Colors.blue,
-                                disabledColor: Colors.blue,
-                                padding: EdgeInsets.all(15.0),
-                                child: Text(
-                                  "BACK",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              width: ScreenUtil.getInstance().setWidth(690),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                      ],
+        /*       actions: <Widget>[
+                Consumer<TransactionsHistoryProvider>(
+                    builder: (context, snapshot, _) {
+                  return IconButton(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    icon: Icon(
+                      FontAwesomeIcons.search,
+                      color: Colors.white,
                     ),
-                  ),
-                  Consumer<TransactionsDetailsProvider>(
-                      builder: (context, snapshot, _) {
-                    return Visibility(
-                        visible: snapshot.transactionNotFound ?? false,
-                        child: Center(
-                          child: Text(
-                            'Transaction not found.',
-                            style: TextStyle(fontSize: 20.0),
-                          ),
-                        ));
-                  })
-                ],
-              );
-            })));
+                    onPressed: () {
+                      snapshot.searchUserTransactionList();
+                    },
+                  );
+                })
+              ], */
+            ),
+
+
+
+
+body: Container(
+  height: MediaQuery.of(context).size.height-50,
+  child:   Column(
+  
+    children: <Widget>[
+  
+          Expanded(
+  
+                    child: ListView(
+  
+      
+  
+      
+  
+      
+  
+        children: <Widget>[
+  
+      
+  
+      
+    Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Transaction ID",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text("#"+widget.body["data"]["searchdata"]["transactionable_id"],
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,
+          
+          fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Order ID",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text(widget.body["data"][type]["remote_order_id"]??"Not Found",
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,
+          fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Payment ID",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text("#"+widget.body["data"][type]["payment_id"]??"Not Found",
+  
+        style: TextStyle(
+  
+          fontSize: 13,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+  /*     Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Status",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text("#"+widget.body["data"]["searchdata"]["transactionable_id"],
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ), */
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Credit Card No",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text(widget.body["data"][type]["credit_card_no"]??"Not Found",
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Card Holder Bank",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Container(width: 180,
+          child: Text(widget.body["data"][type]["bank_name"]??"Not Found",
+  
+          style: TextStyle(
+  
+            fontSize: 15,
+  
+            color: Colors.black,fontWeight: FontWeight.bold),
+  
+          ),
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Amount",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text(widget.body["data"][type]["net"].toString()+widget.body["data"][type]["currency_symbol"].toString(),
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Date",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Text(widget.body["data"][type]["created_at"]??"Not Found",
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
+  
+      
+  
+    
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+      
+  
+        ],
+  
+      
+  
+      ),
+  
+          ),
+  
+    
+  
+         Container(margin: EdgeInsets.symmetric(vertical: 10),
+  height: 50,
+                              child: FlatButton(
+  
+                                onPressed: () {
+  
+                         Navigator.pop(context);
+  
+                                },
+  
+                                color: Colors.blue,
+  
+                                padding: EdgeInsets.all(0),
+  
+                                child: Text(
+  
+                                  "Back",
+  
+                                  style: TextStyle(
+  
+                                    color: Colors.white,
+  
+                                    fontSize: 16,
+  
+                                  ),
+  
+                                ),
+  
+                              ),
+  
+                              width: ScreenUtil.getInstance().setWidth(690),
+  
+                            ),
+  
+    
+  
+    ],
+  
+  ),
+),
+
+
+
+
+    );
   }
 }
 
-Widget detailsList({String title, String value}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-      SizedBox(
-        height: 15,
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: 15.0, right: 15.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(fontSize: 20),
-            ),
-            Flexible(
-              child: Text(
-                value,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
-      ),
-      SizedBox(
-        height: 15,
-      ),
-      Divider(
-        color: Colors.black45,
-        height: 1.0,
-      )
-    ],
-  );
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            color: Colors.blue,
+                            disabledColor: Colors.blue,
+                            padding: EdgeInsets.all(0),
+                            child: Text(
+                              "BACK",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ), */

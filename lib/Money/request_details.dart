@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/providers/request_details_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -60,6 +61,14 @@ class _MoneyTransferRequestDetailsScreenState
                   ),
                   onPressed: () {
                     // do something
+                                
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                   },
                 )
               ],

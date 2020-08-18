@@ -4,13 +4,15 @@ import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:quiver/async.dart';
-
+import 'package:simple_timer/simple_timer.dart';
 
 class SMSVerificationProvider with ChangeNotifier {
+  
+  //TimerStatus timerStatus;
   MainApiModel _loginModel;
   LoginRepository _loginRepo;
   TextEditingController _smsController;
-  String _secondsLeftToResendOTP = '20';
+  String _secondsLeftToResendOTP = '180';
   double _timerPercent = 1.0;
   CountdownTimer _countdownTimer;
   NavigationToSMSTypes _navType;
@@ -45,11 +47,11 @@ class SMSVerificationProvider with ChangeNotifier {
   _initCountDownTimer() {
     if (_countdownTimer == null) {
       _countdownTimer =
-          CountdownTimer(Duration(seconds: 22), Duration(seconds: 1));
+          CountdownTimer(Duration(seconds: 180), Duration(seconds: 1));
     }
     _countdownTimer.listen((data) {
       _secondsLeftToResendOTP = data.remaining.inSeconds.toString();
-      _timerPercent = data.remaining.inSeconds / 20.round();
+      _timerPercent = data.remaining.inSeconds / 180.round();
       notifyListeners();
     });
   }
@@ -80,7 +82,7 @@ class SMSVerificationProvider with ChangeNotifier {
             _setShowLoading(true);
             MainApiModel verifyIndividualSMS =
                 await _loginRepo.verifyIndividualSMSOTP(
-                    _smsController.text.trim(), userID.toString());
+                    _smsController.text.trim(),userID.toString());
             _setShowLoading(false);
             verifyIndividualSMS.statusCode != 100
                 ? _setOTPErrorText(true, verifyIndividualSMS.description)
@@ -110,6 +112,7 @@ class SMSVerificationProvider with ChangeNotifier {
       switch (userType) {
         case UserTypes.Individual:
           _setShowLoading(true);
+      //    _countdownTimer.
           MainApiModel resendIndividualSMS =
               await _loginRepo.resendIndividualSMSOTP(userID.toString());
           resetCounter++;

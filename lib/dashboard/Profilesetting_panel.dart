@@ -191,16 +191,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             height: 10.0,
                           ),
                           snapshot.countriesList != null
-                              ? CountryPickerDropdown(
-                                  initialValue: 'TR',
-                                  itemBuilder: _buildDropdownItem,
-                                  itemFilter: (c) => snapshot.filterCountry(c),
-                                  sortComparator: (Country a, Country b) =>
-                                      a.isoCode.compareTo(b.isoCode),
-                                  onValuePicked: (Country country) {
-                                    snapshot.selectedCountry = country;
-                                  },
-                                )
+                              ? Container()
                               : SizedBox(
                                   width: 0.0,
                                 ),

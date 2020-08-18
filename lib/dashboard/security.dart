@@ -11,7 +11,8 @@ import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+   import 'package:translator/translator.dart' as translator;
+    
 class SecurityScreen extends StatefulWidget {
   final BaseMainRepository mainRepository;
 
@@ -204,10 +205,12 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                           passwordModel.data['user']['phone'],
                                           passwordModel,
                                           widget.mainRepository)));
-                                }, (description) {
+                                }, (description) async{
+                                   var translation = await translator.GoogleTranslator().translate(description, to: 'en');
+   
                                   Flushbar(
                                     title: "Failure",
-                                    message: description,
+                                    message: translation,
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 });
@@ -291,10 +294,12 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                           emailModel.data['user']['phone'],
                                           emailModel,
                                           widget.mainRepository)));
-                                }, (description) {
+                                }, (msg) async{
+                                   var translation = await translator.GoogleTranslator().translate(msg, to: 'pl');
+   
                                   Flushbar(
                                     title: "Failure",
-                                    message: description,
+                                    message: translation,
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 });

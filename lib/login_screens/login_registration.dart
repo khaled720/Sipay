@@ -1,18 +1,23 @@
 import 'dart:convert';
-
+import 'package:country_pickers/country.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/register_provider.dart';
 import 'package:fluttersipay/login_screens/user_kyc_sms_verify.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
+
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:provider/provider.dart';
-
+import 'package:country_pickers/country_pickers.dart';
 import 'json_models/individual_ui_registration_model.dart';
+import 'dart:ui' as ui;
+import 'package:country_provider/country_provider.dart' as pc;
 
 class UserRegistrationScreen extends StatefulWidget {
   @override
@@ -20,8 +25,55 @@ class UserRegistrationScreen extends StatefulWidget {
 }
 
 class UserRegistrationScreenState extends State<UserRegistrationScreen> {
+  
+  
+  String countrycode;
+  Country s;
+ 
+  String phoneNumber;
+   var local = ui.window.locale.countryCode ;
+
+
+
+
+   ola.CountryPicker countryPicker;
+ ola.Country country ;// se
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+for(var element in ola.countryCodes){
+if(local.toLowerCase()==element["ISO"]){
+  setState(() {
+    
+country = ola.Country.fromJson(element); 
+
+  });
+}
+}
+   countryPicker = ola.CountryPicker(
+     onCountrySelected: (country) {
+      print(country);
+      setState(() {
+        this.country =country as ola.Country ;
+     countrycode=country.dialCode;
+      });
+
+   });
+
+
+
+  }
+
+
+  
   @override
   Widget build(BuildContext context) {
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -67,6 +119,14 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                     ),
                     onPressed: () {
                       // do something
+                                  
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
+                                    
                     },
                   )
                 ],
@@ -150,30 +210,96 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                       height: ScreenUtil.getInstance()
                                           .setHeight(20),
                                     ),
-                                    TextField(
-                                      style: TextStyle(color: Colors.black),
-                                      controller: snapshot.telephoneController,
-                                      keyboardType: TextInputType.phone,
-                                      decoration: InputDecoration(
-                                          hintText: 'Phone Number',
-                                          hintStyle: CustomTextStyle.formField(
-                                              context),
-                                          errorText:
-                                              snapshot.phoneNumberErrorText,
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black38,
-                                                  width: 1.0)),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black38,
-                                                  width: 1.0)),
-                                          prefixIcon: const Icon(
-                                            Icons.phone,
-                                            color: Colors.black38,
-                                          )),
-                                      inputFormatters: [maskFormatter],
-                                    ),
+                         /*   CountryCodePicker(
+         onChanged: print,
+         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+         initialSelection: 'TR',
+       
+         // optional. Shows only country name and flag
+         showCountryOnly: false,
+         // optional. Shows only country name and flag when popup is closed.
+         showOnlyCountryWhenClosed: false,
+         // optional. aligns the flag and the Text left
+         alignLeft: false,
+       ), */
+           
+                       
+Row(
+  children: <Widget>[
+        Container(
+          //color: Colors.grey[200],
+       // height: 50,
+          child: 
+
+
+GestureDetector(
+      child: Container(
+        margin:EdgeInsets.only(top:20),
+        width: 70,
+        height: 30,
+        child: Row(
+
+          children: <Widget>[
+
+      Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
+     Expanded(child: Text("+"+country.dialCode,
+     style: TextStyle(fontWeight: FontWeight.bold),
+     overflow: TextOverflow.ellipsis,))
+
+          ],
+        ),
+        
+      ),
+      onTap: () {
+        countryPicker.launch(context);
+           if(snapshot.telephoneController.text.contains("+")){
+
+snapshot.telephoneController.text="";                              
+                            }
+      },
+    ),
+
+  ),
+ 
+     Expanded(
+            child: TextField(
+                                        style: TextStyle(color: Colors.black),
+                                      //  controller: snapshot.telephoneController,
+                                        onChanged: (val){
+
+                                    phoneNumber=val;
+
+
+                                        },
+                                        
+                                        keyboardType: TextInputType.phone,
+                                        decoration: InputDecoration(
+                             
+                                            hintText: 'Phone Number',
+                                            hintStyle: CustomTextStyle.formField(
+                                                context),
+                                            errorText:
+                                                snapshot.phoneNumberErrorText,
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black38,
+                                                    width: 1.0)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black38,
+                                                    width: 1.0)),
+                                       /*      prefixIcon: const Icon(
+                                              Icons.phone,
+                                              color: Colors.black38,
+                                            ) */
+                                            ),
+                                  //      inputFormatters: [maskFormatter],
+                                      ),
+     ),
+ 
+  ],
+),
+                                
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
                                           .setHeight(30),
@@ -211,6 +337,9 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                     Container(
                                       child: FlatButton(
                                         onPressed: () {
+                                snapshot.telephoneController.text= "+"+countrycode+phoneNumber;
+                                print( snapshot.telephoneController.text);
+                               print(snapshot.telephoneController.text);
                                           snapshot.registerIndividual(
                                               (loginData) {
                                             Navigator.of(context).push(
@@ -224,7 +353,7 @@ class UserRegistrationScreenState extends State<UserRegistrationScreen> {
                                                 message: '$errorMsg',
                                                 duration: Duration(seconds: 5))
                                               ..show(context);
-                                          });
+                                          }); 
                                         },
                                         color: Colors.blue,
                                         disabledColor: Colors.blue,

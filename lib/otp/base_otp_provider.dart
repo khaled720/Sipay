@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/async.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../main_api_data_model.dart';
 
 abstract class BaseOTPVerificationProvider with ChangeNotifier {
   TextEditingController _smsController;
-  String _secondsLeftToResendOTP = '20';
+  String _secondsLeftToResendOTP = '180';
   double _timerPercent = 1.0;
   CountdownTimer _countdownTimer;
   bool _showLoad = false;
@@ -35,7 +35,7 @@ abstract class BaseOTPVerificationProvider with ChangeNotifier {
   _initCountDownTimer() {
     if (_countdownTimer == null) {
       _countdownTimer =
-          CountdownTimer(Duration(seconds: 22), Duration(seconds: 1));
+          CountdownTimer(Duration(seconds: 180), Duration(seconds: 1));
     }
     _countdownTimer.listen((data) {
       _secondsLeftToResendOTP = data.remaining.inSeconds.toString();
@@ -49,8 +49,10 @@ abstract class BaseOTPVerificationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOTPErrorText(bool isError, String errorMsg) {
-    isError ? _otpErrorText = errorMsg : _otpErrorText = null;
+  Future<void> setOTPErrorText(bool isError, String errorMsg) async {
+  var x= await translator.GoogleTranslator().translate(errorMsg, from: 'tr', to: 'en');
+
+    isError ? _otpErrorText = x : _otpErrorText = null;
     notifyListeners();
   }
 

@@ -5,7 +5,7 @@ import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/transactions_screen_base_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
-
+import 'package:translator/translator.dart' as translator;
 import '../../base_main_repo.dart';
 
 class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
@@ -209,8 +209,9 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
           bankWithdrawalModel.statusCode == 4) {
         onSuccess(null, bankWithdrawalModel, repo, UserTypes.Individual);
       } else {
-        onFailure(bankWithdrawalModel.description);
-        _setWithdrawalErrorText(bankWithdrawalModel.description);
+ var txt=  await translator.GoogleTranslator().translate(bankWithdrawalModel.description, to: 'en');
+        onFailure(txt);
+        _setWithdrawalErrorText(txt);
       }
     } else {
       Future.delayed(Duration(seconds: 1));
