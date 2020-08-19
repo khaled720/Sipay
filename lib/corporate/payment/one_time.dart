@@ -137,7 +137,7 @@ response.then((value){
     super.initState();
     getCurrencies();
     currency=1;
-    loading=false;
+  
   
   }
 
@@ -484,7 +484,6 @@ Text("PRODUCT NAME",
 ,TextFormField(
 
 controller: product,
-
   decoration: InputDecoration(
 contentPadding: EdgeInsets.all(2)
 
@@ -677,7 +676,7 @@ description=val;
                                 onPressed: () async {
                               
                    
-                  if(mount.text!= "" && des.text!="" &&product.text!=""){
+                  if(product.text!= "" &&mount.text!= "" && des.text!="" &&product.text!=""){
 
 
 

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/Money/Send_corp.dart';
 import 'package:fluttersipay/Money/providers/send_to_individual_provider.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
@@ -44,7 +45,7 @@ class _SendMoneyToIndividualScreenState
     extends State<SendMoneyToIndividualScreen> {
   bool check_state = true;
   bool check_states = true;
-  List<String> _listBankData = ["INDIVIDUAL"];
+  List<String> _listBankData = ["INDIVIDUAL","MERCHANT"];
   List<String> _listtryData = ["TRY", "USD", 'EUR'];
 
 
@@ -108,7 +109,10 @@ country = ola.Country.fromJson(element);
             TextEditingController(),
             TextEditingController(),
             UserTypes.Individual),
-        child: Scaffold(
+        child: Scaffold(floatingActionButton: FloatingActionButton.extended(
+       // shape: ,
+          label:Text("SEND REQUEST") ,
+          onPressed: (){} ,),
           appBar: AppBar(
             centerTitle: true,
             title: Text("Money  Transfer"),
@@ -238,7 +242,7 @@ country = ola.Country.fromJson(element);
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'SEND MONEY',
+                              'REQUEST MONEY',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -279,7 +283,18 @@ country = ola.Country.fromJson(element);
                                   ),
                                 );
                               }).toList(),
-                              onChanged: (value) {},
+                              onChanged: (value) {
+
+if(value=="MERCHANT"){    Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SendMoneyToCorporateScreen(
+                widget.baseMainRepository,
+                widget.wallets,
+                UserTypes.Individual),
+          ));}
+
+                              },
                               value: 'INDIVIDUAL',
                               isExpanded: true,
                             ),
@@ -295,6 +310,16 @@ country = ola.Country.fromJson(element);
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ), */
+
+
+                                  Text(
+                                  'Sender Phone Number',
+                                  style: TextStyle(
+                                      color: check_state
+                                          ? Colors.black54
+                                          : Colors.red,
+                                      fontSize: 12),
+                                ),
                                 Row(
                                   children: <Widget>[
                              
@@ -356,7 +381,7 @@ snapshot.receiverController.text="";
                                         },
                                   /*       inputFormatters: [maskFormatter], */
                                         decoration: InputDecoration(
-                                        labelText: "PHONE No",
+                                     //   labelText: "",
                                           enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Colors.black45, width: 1.0)),
@@ -654,7 +679,7 @@ snapshot.receiverController.text="";
                                     disabledColor: Colors.blue,
                                     padding: EdgeInsets.all(15.0),
                                     child: Text(
-                                      "SEND",
+                                      "SUBMIT REQUEST",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

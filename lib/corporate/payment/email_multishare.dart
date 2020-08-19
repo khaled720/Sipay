@@ -412,7 +412,7 @@ http.post(
 
   "dpl_id":widget.dpl["id"].toString(),
 	"payment_link_type":"2",
-"email[]":"+"+numbers[i].toString()
+"email[]":numbers[i].toString()
 }
 
 ).then((res){

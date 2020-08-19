@@ -313,7 +313,9 @@ widget.dpl['amount'].toString(),
                                           size: 20,
                                         ),
                                         onPressed: ()async {
- await Clipboard.setData(new ClipboardData(text:APIEndPoints.dplLink+widget.dpl["token"].toString()));
+ 
+   await Clipboard.setData(new ClipboardData(
+   text:APIEndPoints.dplLink+widget.dpl["token"].toString()));
 
 
 

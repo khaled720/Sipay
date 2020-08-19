@@ -384,7 +384,7 @@ snapshot.telephoneController.text="";
                                 onPressed: () async{
 if(!snapshot.telephoneController.text.contains("+")){
 if(snapshot.userType!=UserTypes.Corporate){
-
+isIndividual=true;
 
 snapshot.telephoneController.text="+"+countrycode+snapshot.telephoneController.text;
 

@@ -13,7 +13,7 @@ import '../base_main_repo.dart';
 import '../loading_widget.dart';
 import 'package:dio/dio.dart';
 import 'Transaction_detail.dart';
-
+import './chargeback_history.dart';
 import 'merchant_panel.dart';
 import 'dart:convert';
 class TransactionHistoryScreen extends StatefulWidget {
@@ -95,8 +95,27 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             TransactionsHistoryProvider(widget.baseRepo, widget.userType),
         child: Scaffold(
             appBar: AppBar(
-              centerTitle: true,
-              title: Text('TRANSACTION HISTORY'),
+              centerTitle: false,
+              actions: <Widget>[
+
+         widget.userType==UserTypes.Corporate?   FlatButton(
+
+child: Text("Chargeback"),
+onPressed: (){
+
+
+
+Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => chargeback()
+)); 
+
+},
+
+            ):Container(),
+              ],
+              title: Text('TRANSACTION HISTORY',style: TextStyle(fontSize: 12),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -112,7 +131,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                   );
                 },
               ),
-              actions: <Widget>[
+       /*        actions: <Widget>[
                 Consumer<TransactionsHistoryProvider>(
                     builder: (context, snapshot, _) {
                   return IconButton(
@@ -126,12 +145,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     },
                   );
                 })
-              ],
+              ], */
             ),
             body: Stack(
               children: <Widget>[
                 Consumer<TransactionsHistoryProvider>(
                     builder: (context, snapshot, _) {
+                  
                   return SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,7 +303,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                                     Expanded(
                                                       child: Text(
                                                         value,
-                                                        style: TextStyle(
+                                                        style: TextStyle(fontSize: MediaQuery.of(context).size.width/35,
                                                             color:
                                                                 Colors.black45),
                                                       ),
@@ -346,8 +366,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                                 right: 5, left: 5),
                                             child: Container(
                                               decoration: new BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(
+                                                 border: Border(
+                                              bottom: BorderSide(
                                                     color: Colors.black54,
                                                     width: 1.0,
                                                   ),
@@ -377,6 +397,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                                             child: Text(
                                                               value,
                                                               style: TextStyle(
+                                                                fontSize: MediaQuery.of(context).size.width/35,
                                                                   color: Colors
                                                                       .black45),
                                                             ),
@@ -386,11 +407,21 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                                     );
                                                   }).toList(),
                                                   onChanged: (value) {
+
+
                                                     setState(() {
                                                       _statusValue = value;
                                                       snapshot.selectedTransactionState =
                                                           value;
                                                     });
+                                               
+                                
+
+
+
+                                                            
+                                               
+                                               
                                                   },
                                                   value: _statusValue,
                                                   isExpanded: true,
@@ -436,7 +467,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                                           Expanded(
                                                             child: Text(
                                                               value,
-                                                              style: TextStyle(
+                                                              style: TextStyle(fontSize: MediaQuery.of(context).size.width/35,
                                                                   color: Colors
                                                                       .black45),
                                                             ),
@@ -471,65 +502,37 @@ children: <Widget>[
 
 
 Container(
-  child:   Row(
-  
-  
-  
-    children: <Widget>[
+  width: MediaQuery.of(context).size.width/3,
+  child:     TextFormField(
+ inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],keyboardType: TextInputType.number,
+decoration: InputDecoration(
+suffixIcon: Icon(FontAwesomeIcons.arrowDown,size: 10,),
 
-Radio(
-onChanged: (val){
-setState(() {
-  amount= int.parse(val.toString());
-
-});
-},
-groupValue: amount,
-value: 1,
-
+hintText: "Min Amount",
+hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
 ),
-Text("Min Amount")
-    ],
-  
+
   ),
 )
 ,
 
-Container(
-  child:   Row(
-  
-  
-  
-    children: <Widget>[
+Container(margin: EdgeInsets.only(left: 5),
+width: MediaQuery.of(context).size.width/3,
+  child:   TextFormField(
 
-Container(
-  child:   Row(
-  
-  
-  
-    children: <Widget>[
+ inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],keyboardType: TextInputType.number,
 
-Radio(
-onChanged: (val){
-setState(() {
-  amount= int.parse(val.toString());
-
-});
-},
-groupValue: amount,
-value: 2,
-
+    decoration: InputDecoration(
+suffixIcon: Icon(FontAwesomeIcons.arrowUp,size: 10,),
+hintText: "Max Amount",
+hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
 ),
-Text("Max Amount")
-    ],
-  
   ),
-)
 
-
-    ],
-  
-  ),
 )
 ,
 

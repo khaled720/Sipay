@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import './activity_details.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -989,12 +989,15 @@ passCor=prefs.getString("passCor");
                                                                     index][
                                                                 'transactionable_type']),
                                                     value:
-                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency']}',
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
                                                     description:
-                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}(#${snapshot.userLastTransactionsActivity[index]['id']})',
+                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}',//(#${snapshot.userLastTransactionsActivity[index]['id']})
                                                     dates: snapshot
                                                             .userLastTransactionsActivity[
-                                                        index]['created_at']);
+                                                        index]['created_at']
+                                /*                         ,
+                                                        body:snapshot.userLastTransactionsActivity[index].toString()
+                                                        */ );
                                               },
                                             ),
                                           ),
@@ -1087,19 +1090,22 @@ passCor=prefs.getString("passCor");
                           text: TextSpan(
                               // set the default style for the children TextSpans
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                         
+                                   fontWeight: FontWeight.bold),
                               children: [
                                 TextSpan(
                                   text:
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
+                                               fontSize:    MediaQuery.of(context).size.width/25+snapshot.getAvailableWalletAmount(index).toString().length,
                                       color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                     fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
                                     text: snapshot.getWalletCurrencyCode(index),
-                                    style: TextStyle(color: Colors.white)),
+                                    style: TextStyle(
+                                                 fontSize:    MediaQuery.of(context).size.width/35+snapshot.getAvailableWalletAmount(index).toString().length,
+                                      color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomRight,
                     ),
@@ -1137,65 +1143,83 @@ passCor=prefs.getString("passCor");
   }
 
   Widget LastActivityList(
-      {String title, String value, String description, String dates}) {
-    return new Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: 30.0, right: 30.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  Expanded(
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.right,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+      {String title, String value, String description, String dates,String body}) {
+    return InkWell(
+      onTap: (){
+
+/* 
+
+
+Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => 
+              ActivityDetailsScreen(map: body,)
+));  */
+
+
+
+
+      },
+          child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 30.0, right: 30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      description,
-                      style: TextStyle(fontSize: 12),
+                    Expanded(
+                      child: Text(
+                        value,
+                        textAlign: TextAlign.right,
+                        style:
+                            TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        description,
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      dates,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
+                    Expanded(
+                      child: Text(
+                        dates,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
-        ),
-        Divider(
-          height: 1.0,
-          color: Colors.black12,
-        )
-      ],
+          Divider(
+            height: 1.0,
+            color: Colors.black12,
+          )
+        ],
+      ),
     );
   }
 }

@@ -11,7 +11,7 @@ class APIEndPoints {
        static final String kBaseCorporateAPIEndPoint =
       'https://$server.sipay.com.tr/merchant/api';
 
-
+static final chargebackEndPoint="$kBaseCorporateAPIEndPoint/chargeback/list";
 
 static final String dplLink="https://$server.sipay.com.tr/dplLink/";
 static final  createApi="$kBaseCorporateAPIEndPoint/dpl/create";

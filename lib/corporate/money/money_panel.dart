@@ -18,8 +18,8 @@ class MoneyPanelScreen extends StatefulWidget {
 }
 
 class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
-  var _value = "CORP";
-  List<String> _listViewData = ["CORP"];
+  var _value = "MERCHANT";
+  List<String> _listViewData = ["MERCHANT"];
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +161,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
                               Text(
-                                'WALLET TYPE',
+                                'CHOOSE WALLET TYPE',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),

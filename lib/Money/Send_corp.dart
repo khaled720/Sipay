@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/Money/Send_individual.dart';
 import 'package:fluttersipay/Money/providers/send_to_corporate_provider.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
@@ -33,7 +34,7 @@ class _SendMoneyToCorporateScreenState
 
   int _selectedItemPosition = 0;
   var _bank_value = "MERCHANT";
-  List<String> _listBankData = ["MERCHANT"];
+  List<String> _listBankData = ["MERCHANT","INDIVIDUAL"];
   var _try_value = "TRY";
   List<String> _listtryData = ["TRY", "USD", 'EUR'];
   @override
@@ -184,7 +185,7 @@ class _SendMoneyToCorporateScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'SEND MONEY',
+                              'REQUEST MONEY',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -226,9 +227,26 @@ class _SendMoneyToCorporateScreenState
                                 );
                               }).toList(),
                               onChanged: (value) {
+
+
                                 setState(() {
                                   _bank_value = value;
                                 });
+
+
+if(value=="INDIVIDUAL"){
+   Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SendMoneyToIndividualScreen(
+                widget.baseMainRepository, widget.wallets),
+          ));
+
+
+
+}
+
+                                
                               },
                               value: _bank_value,
                               isExpanded: true,
@@ -587,7 +605,7 @@ if(_formKey.currentState.validate()){
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        "SEND",
+                                        "SUBMIT REQUEST",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

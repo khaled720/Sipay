@@ -40,7 +40,7 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
   bool _remember = false;
   String _time = "";
   var _try_value = "TRY";
-
+var product="";
   @override
   void initState() {
     // TODO: implement initState
@@ -54,7 +54,7 @@ class _Multi_Time_panel extends State<Multi_Time_panel> {
       startdate = order;
     });
   }
-TextEditingController product;
+//TextEditingController product;
 
   Future<DateTime> getDate() {
     // Imagine that this function is
@@ -340,13 +340,13 @@ if(val==null)
                                                 Text("PRODUCT NAME",style: TextStyle(color: Colors.grey),),
                                                 TextFormField(
                                                     //      enabled: !_remember,
-                                                          controller: product,
-                                          
+                                                     
+                                      onSaved: (val){product=val;},
                                             style: TextStyle(
                                                 color: check_state
                                                     ? Colors.black
                                                     : Colors.red),
-                                            keyboardType: TextInputType.number,
+                                            keyboardType: TextInputType.text,
                                             decoration: InputDecoration(
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -683,7 +683,7 @@ if(val==null)
                                   //      print("Pressed ### Multi Time..$_time....$amount....$startdate......explain=.$explain...$maxUse");
                                   if (this._time != null &&
                                       this.amount != -1 &&
-                                      product.text=="" &&
+                                     product!="" &&
                                       this.startdate != null &&
                                       this.explain != null &&
                                       this.maxUse != -1) {
@@ -697,7 +697,7 @@ if(val==null)
                                       "amount": this.amount.toString(),
                                       "currency": currency.toString(),
                                       "payment_link_type": "2",
-                                      "name_of_product":product.text,
+                                      "name_of_product":product,
                                       "expire_date": this.startdate.toString(),
                                       "max_number_of_uses": this.maxUse.toString(),
                                       "description": this.explain,

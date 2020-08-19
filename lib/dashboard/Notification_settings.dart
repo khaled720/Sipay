@@ -232,65 +232,75 @@ class _NotificationSettingsScreenState
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: <Widget>[
-                                        Text(
-                                          snapshot
-                                              .notificationSettingsUI[index],
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
                                         Row(
                                           children: <Widget>[
-                                            Expanded(
-                                              flex: 1,
-                                              child: Text(''),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: <Widget>[
-                                                  Container(
-                                                    child: Checkbox(
-                                                      value: true,
-                                                      onChanged:
-                                                          (bool value) {},
-                                                    ),
-                                                    width: 40,
-                                                  ),
-                                                  Container(
-                                                    child: Checkbox(
-                                                      value: snapshot
-                                                              .checkedSMSList[
-                                                          index],
-                                                      onChanged: (bool value) {
-                                                        snapshot.setSMSCheckBox(
-                                                            index, value);
-                                                      },
-                                                    ),
-                                                    width: 40,
-                                                  ),
-                                                  Container(
-                                                    child: Checkbox(
-                                                      value: snapshot
-                                                              .checkedEmailList[
-                                                          index],
-                                                      onChanged: (bool value) {
-                                                        snapshot
-                                                            .setEmailCheckBox(
-                                                                index, value);
-                                                      },
-                                                    ),
-                                                    width: 40,
-                                                  ),
-                                                ],
+                                            Container(width: MediaQuery.of(context).size.width/2,
+                                              child: Text(
+                                                snapshot
+                                                    .notificationSettingsUI[index],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold),
                                               ),
-                                            )
+                                            ),
+                     
+                          Expanded(
+                               child: Row(
+                                            children: <Widget>[
+                                          /*     Expanded(
+                                                flex: 1,
+                                                child: Text(''),
+                                              ), */
+                                              Expanded(
+                                                flex: 1,
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      child: Checkbox(
+                                                        value: true,
+                                                        onChanged:
+                                                            (bool value) {},
+                                                      ),
+                                                      width: 40,
+                                                    ),
+                                                    Container(
+                                                      child: Checkbox(
+                                                        value: snapshot
+                                                                .checkedSMSList[
+                                                            index],
+                                                        onChanged: (bool value) {
+                                                          snapshot.setSMSCheckBox(
+                                                              index, value);
+                                                        },
+                                                      ),
+                                                      width: 40,
+                                                    ),
+                                                    Container(
+                                                      child: Checkbox(
+                                                        value: snapshot
+                                                                .checkedEmailList[
+                                                            index],
+                                                        onChanged: (bool value) {
+                                                          snapshot
+                                                              .setEmailCheckBox(
+                                                                  index, value);
+                                                        },
+                                                      ),
+                                                      width: 40,
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                             )
                                           ],
-                                        )
+                                        ),
+                                
                                       ],
                                     ),
                                   ),

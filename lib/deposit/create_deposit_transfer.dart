@@ -643,7 +643,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
 
 
 
-                                                        snapshot.createDeposit(
+                                                      snapshot.createDeposit(
                                                             (successModel) {
                                                           Navigator.pushReplacement(
                                                               context,

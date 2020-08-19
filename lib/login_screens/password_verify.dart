@@ -156,7 +156,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                     hintStyle:
                                         CustomTextStyle.formField(context),
                                     errorMaxLines: 50,
-                                    errorText: "Incorrect Password !",//snapshot.passwordErrorText,
+                                    errorText: snapshot.passwordErrorText,
              
 
                                     enabledBorder: UnderlineInputBorder(

@@ -262,14 +262,14 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
-                                    IconButton(
+                                   /*  IconButton(
                                       icon: const Icon(
                                         Icons.email,
                                         color: Colors.blue,
                                         size: 20,
                                       ),
                                       onPressed: () {},
-                                    ),
+                                    ), */
                                     Text(
                                       users.footerTab[0],
                                       style: TextStyle(
@@ -281,14 +281,14 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
-                                    IconButton(
+                         /*            IconButton(
                                       icon: const Icon(
                                         Icons.sms,
                                         color: Colors.blue,
                                         size: 20,
                                       ),
                                       onPressed: () {},
-                                    ),
+                                    ), */
                                     Text(
                                       users.footerTab[1],
                                       style: TextStyle(

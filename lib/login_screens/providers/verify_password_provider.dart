@@ -30,7 +30,7 @@ class VerifyPasswordProvider with ChangeNotifier {
 
  var x= await translator.GoogleTranslator().translate(errorMsg, from: 'tr', to: 'en');
 
-    isError ? _passwordErrorText = x : _passwordErrorText = null;
+    isError ? _passwordErrorText = "Incorrect Password !"/*x*/ : _passwordErrorText = null;
 
 
 
