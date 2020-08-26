@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:animated_dialog/AnimatedDialog.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
@@ -13,11 +15,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'deposit_success.dart';
 
-TextEditingController _name_ontroller = TextEditingController();
-TextEditingController _card_controller = TextEditingController();
-TextEditingController _EXPIRY_ontroller = TextEditingController();
-TextEditingController _CVV_ontroller = TextEditingController();
-TextEditingController _AMOUNT_ontroller = TextEditingController();
 
 Widget Create_Card(accList) {
 
@@ -32,6 +29,17 @@ class Card_panel extends StatefulWidget {
 }
 
 class _Card_panel extends State<Card_panel> {
+
+TextEditingController _name_ontroller = TextEditingController();
+TextEditingController _card_controller = TextEditingController();
+TextEditingController _EXPIRY_ontroller = TextEditingController();
+TextEditingController _CVV_ontroller = TextEditingController();
+TextEditingController _AMOUNT_ontroller = TextEditingController();
+
+
+  String _time=DateTime.now().year.toString()+"/"+DateTime.now().month.toString() ;
+  DateTime date= new DateTime(DateTime.now().year,DateTime.now().month);
+
 @override
   void initState() {
     // TODO: implement initState
@@ -380,43 +388,93 @@ response.then((value){
                                       ScreenUtil.getInstance().setHeight(20),
                                 ),
                                 Text(
-                                  users.abailableBalances[2],
-                                  style: TextStyle(
+                             "EXPIRY"  //   users.abailableBalances[2],
+                                 , style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
+
+
+
                                 Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(right: 10),
-                                        child: TextFormField(
-                                          style: TextStyle(color: Colors.black),
-                                          controller: _EXPIRY_ontroller,
-                                          decoration: InputDecoration(
-                                            hintText: "EXPIRY",
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black45,
-                                                    width: 1.0)),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black45,
-                                                    width: 1.0)),
-                                            prefixIcon: const Icon(
-                                              FontAwesomeIcons.hashtag,
-                                              color: Colors.black45,
-                                              size: 16,
-                                            ),
-                                          ),
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return 'Please enter EXPIRY';
-                                            }
-                                            return null;
-                                          },
-                                          obscureText: false,
-                                        ),
-                                      ),
+                                      child:
+
+                                       RaisedButton(
+//                                                shape: RoundedRectangleBorder(
+//                                                    borderRadius: BorderRadius.circular(5.0)),
+//                                                elevation: 4.0,
+                                                    onPressed: () {
+                                                      DatePicker.showDatePicker(
+                                                      
+                                                          context,
+                                                      
+                                                          theme:
+                                                              DatePickerTheme(
+                                                            containerHeight:
+                                                                210.0,
+                                                          ),
+                                                          showTitleActions:
+                                                              true,
+                                                          onConfirm: (time) {
+                                                _time =
+                                                            '${time.year}/${time.month} ';
+                                                          date = new DateTime(time.year,time.month);
+                                                   
+                                                        setState(() {});
+                                                      },
+                                                          currentTime:
+                                                              DateTime.now(),
+                                                         );
+                                                      setState(() {});
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height: 50.0,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: <Widget>[
+                                                          Row(
+                                                            children: <Widget>[
+                                                              Container(
+                                                                child: Row(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Icon(
+                                                                      Icons
+                                                                          .date_range,
+                                                                      size: 16,
+                                                                      color: Colors
+                                                                          .black26,
+                                                                    ),
+                                                                    Text(
+                                                                      " $_time",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .black87,
+                                                                          fontSize:
+                                                                              16),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down,
+                                                            size: 16,
+                                                            color:
+                                                                Colors.black26,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    color: Colors.white,
+                                                  ),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -551,6 +609,10 @@ response.then((value){
                                 SizedBox(
                                   height: 20,
                                 ),
+
+                                           
+
+
                                 Container(
                                   child: FlatButton(
                                     onPressed: () {
@@ -576,6 +638,89 @@ response.then((value){
 
 
                               }else{
+                          
+
+
+ showDialog(context: context,
+   
+    child: AnimatedDialog(
+
+      width:MediaQuery.of(context).size.width-70, //final width of the dialog
+      height: MediaQuery.of(context).size.width-70, //final height of the dialog
+     // durationTime: Duration(seconds: 1),
+
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      child: Center(
+        child: Container(//width: 200,height: 200,
+          child: Column(
+children: <Widget>[
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Deposit Amount: "+_AMOUNT_ontroller.text+" "+ this.cnt.toString()??"",textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "if the amount is not sent within 24 hours,\n transaction will be canceled",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+SizedBox(height: 20,),
+Row(mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+         child:Text("Confirm",style: TextStyle(color:Colors.white),),
+          color: Colors.indigo,
+          onPressed: (){
+
+  
+
+http.post(
+global.APIEndPoints.kApiIndividualDepositIndividualEndPoint,
+headers: {
+"Authorization":userToken,
+//"content-type":"application/json",
+"Accept":"application/json"
+},
+body: {
+"amount":_AMOUNT_ontroller.text,
+"currency_id":currency.toString(),
+"expiry_month":date.month.toString(),
+"expiry_year":date.year.toString(),
+"name":_name_ontroller.text,
+"card_no":_card_controller.text,
+"cvv":_CVV_ontroller.text,
+"fee":"0"
+
+
+
+
+}
+
+
+
+).then((value) => print(value.body.toString()));
+
+
+
 
 Flushbar(
     icon: Icon(Icons.check_circle,color: Colors.amber,size: 25,),
@@ -584,6 +729,53 @@ Flushbar(
                   message:  "Success",
                   duration:  Duration(seconds: 5),              
                 )..show(context);
+                                               
+                                                        }),
+                                  
+       
+          
+  ],
+)
+],
+
+          )
+        ),
+      ),
+
+
+    )
+  );
+
+       Navigator.pop(context);
+
+/* 
+http.get(
+global.APIEndPoints.kApiIndividualDepositIndividualEndPoint,
+
+headers: {
+"Authorization":userToken,
+"Content-Type":"application/json",
+"Accept":"application/json"
+}
+).then((val)
+
+{
+
+print(val.body);
+ */
+
+
+
+//} 
+//);
+
+
+
+
+
+
+
+
 
 
 

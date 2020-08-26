@@ -248,6 +248,9 @@ if(val==null)
                                                     children: <Widget>[
                                                       Expanded(
                                                         child: TextFormField(
+                                                          inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                                           enabled: !_remember,
                                                           controller: mount,
                                                           onSaved: (val) {

@@ -46,17 +46,26 @@ class MerchantPanelScreen extends StatefulWidget {
 }
 
 class _MerchantPanelScreenState extends State<MerchantPanelScreen> {
+
+String To2double(String val){
+var s=double.parse(val).toStringAsFixed(2);
+  return s; 
+}
+
   String _language_value = 'gb';
 String capitalize(String s) {
- // Rajib Dev
- s=s[0].toUpperCase() + s.substring(1);
-//rajib Dev
-var sec=s.indexOf(" ");
-var k=s.substring(0,sec);
-s=s[sec+1].toUpperCase() + s.substring(sec+2);
- 
-return k+" "+s;
-}   @override
+ var listOfWords= s.split(" ");
+String  inCaps="";//='${listOfWords[0][0].toUpperCase()}${listOfWords[0].substring(1)}';
+for(int i=0;i<listOfWords.length;i++){
+
+inCaps = inCaps+' ${listOfWords[i][0].toUpperCase()}${listOfWords[i].substring(1)}';
+  
+}
+
+return inCaps;
+}   
+
+@override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -947,32 +956,25 @@ return k+" "+s;
                                               onPressed: () {
 
 
-var remem=false,email="",pass="",phone="",type,passCor="";
+var remem=false,email="",pass="",phone="",passCor="";
 
  SharedPreferences.getInstance().then((prefs) {
 
 setState(() {
   remem = prefs.getBool("remember");
-  type = prefs.getBool("type");
-
+ 
 });
 
-//individual
-if(remem==true&&type==true){
+if(remem==true){
 
 phone=prefs.getString("phone");
 pass=prefs.getString("pass");
-
-
-
-//coroporate
-}else if(remem==true&&type==false){
-
-
 email=prefs.getString("email");
 passCor=prefs.getString("passCor");
 
 }
+
+
 
  });
 
@@ -983,7 +985,7 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                  MyLoginPage(remem,email,pass,phone,type),));
+                  MyLoginPage(remem??false,email??"",pass,phone??"",false,passCor??""),));
 
 
 
@@ -1180,7 +1182,7 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                                                     index][
                                                                 'transactionable_type']),
                                                     value:
-                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()} ${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${To2double(snapshot.userLastTransactionsActivity[index]['gross'].toString())} ${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
                                                     description:
                                                         this.capitalize(snapshot.userLastTransactionsActivity[index]['entity_name'].toString()),///(#${snapshot.userLastTransactionsActivity[index]['id']})
                                                     dates: snapshot
@@ -1248,15 +1250,21 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                   fontSize: 16, fontWeight: FontWeight.bold),
                               children: [
                                 TextSpan(
-                                  text: snapshot.getTotalWalletAmount(index),
+                                  text:
+                                   snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 35,
+                                          fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+       
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: snapshot.getWalletCurrencyCode(index),
-                                    style: TextStyle(color: Colors.white)),
+                                    text: snapshot.getWalletCurrencyCode2(index),
+                                    style: TextStyle(
+                                      
+                                              fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+       
+                                      color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomLeft,
                     ),
@@ -1294,14 +1302,14 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                       fontSize:    MediaQuery.of(context).size.width/25+snapshot.getAvailableWalletAmount(index).toString().length,
-                                      fontWeight: FontWeight.bold),
+                 fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+        fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: snapshot.getWalletCurrencyCode(index),
+                                    text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
-                                                 fontSize:    MediaQuery.of(context).size.width/35+snapshot.getAvailableWalletAmount(index).toString().length,
-                                      
+                                    fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                 
                                       color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomRight,
@@ -1345,7 +1353,7 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
 
       onTap: (){
 
-print(title+"  "+body["id"].toString());
+//print(title+"  "+body["id"].toString());
 /* 
  Navigator.push(
             context,
@@ -1374,7 +1382,9 @@ print(title+"  "+body["id"].toString());
                     ),
                     Expanded(
                       child: Text(
-                        value,
+                  //    double.parse(value.replaceAll("+","").
+              value
+              ,
                         textAlign: TextAlign.right,
                         style:
                             TextStyle(fontWeight: FontWeight.bold, fontSize: 15),

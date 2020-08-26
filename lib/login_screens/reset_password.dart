@@ -134,7 +134,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   Navigator.of(context).pop();
                                   Flushbar(
                                       title: "Successful",
-                                      message:translation,
+                                      message:translation.toString(),
                                       duration: Duration(seconds: 5))
                                     ..show(context);
                                 }, () {});

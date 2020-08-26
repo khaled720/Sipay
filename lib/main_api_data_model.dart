@@ -14,8 +14,6 @@ class MainApiModel {
   static MainApiModel mapJsonToModel(String json) {
     var decodedJson = jsonDecode(json);
     var code = decodedJson["statuscode"];
-    
-  ///  print("json => model  CODE : "+code.toString());
     return MainApiModel(code, decodedJson["description"], decodedJson['data']);
   }
 }

@@ -109,10 +109,12 @@ country = ola.Country.fromJson(element);
             TextEditingController(),
             TextEditingController(),
             UserTypes.Individual),
-        child: Scaffold(floatingActionButton: FloatingActionButton.extended(
+        child: Scaffold(
+          
+     /*      floatingActionButton: FloatingActionButton.extended(
        // shape: ,
           label:Text("SEND REQUEST") ,
-          onPressed: (){} ,),
+          onPressed: (){} ,), */
           appBar: AppBar(
             centerTitle: true,
             title: Text("Money  Transfer"),
@@ -670,7 +672,7 @@ snapshot.receiverController.text="";
                                         print("======_"+description.toString());
                                         Flushbar(
                                           title: "Failure",
-                                          message: txt,
+                                          message: txt.toString(),
                                           duration: Duration(seconds: 3),
                                         )..show(context);
                                       });

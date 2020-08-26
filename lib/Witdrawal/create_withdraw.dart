@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:animated_dialog/animated_dialog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +120,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                   ),
                   body: Consumer<CreateBankWithdrawProvider>(
                       builder: (context, snapshot, _) {
+                        snapshot.accountHolderController.text=userName.toString()??"";
                     return Stack(
                       alignment: Alignment.center,
                       children: <Widget>[
@@ -240,9 +243,10 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                             icon:
                                                 Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.savedBanksDropdown,
-                                            onChanged: (value) {
+                                            onChanged: (value)async {
                           
-                                              
+                           var model  =await widget.mainRepo;
+                             
                                               snapshot
                                                   .setSavedBankAccountDropdownValue(
                                                       value);
@@ -265,17 +269,16 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                     ),
                                     snapshot.bankList != null
                                         ? DropdownButton<WithdrawalBankModel>(
-                                            icon:
-                                                Icon(Icons.keyboard_arrow_down),
+                                            icon: Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.banksDropdown,
                                             onChanged: (bank) {
                                               snapshot.selectedDropDownValue =
                                                   bank;
-                                      //          print("aaa"+bank.issuerName);
+                                            ///    print("===>>>>>  "+bank.myiban.toString());
                                             },
-                                            value: snapshot
-                                                .selectedBankDropDownValue,
+                                            value: snapshot.selectedBankDropDownValue,
                                             isExpanded: true,
+                                          
                                           )
                                         : SizedBox(
                                             width: 0.0,
@@ -340,6 +343,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                         ),
                                         new TextFormField(
                                           style: TextStyle(color: Colors.black),
+                                        enabled: false,
                                           controller:
                                               snapshot.accountHolderController,
                                           decoration: InputDecoration(
@@ -479,7 +483,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                       snapshot.amountController,
                                                   decoration: InputDecoration(
                                                     enabledBorder:
-                                                        UnderlineInputBorder(
+                                                     UnderlineInputBorder(
                                                             borderSide:
                                                                 BorderSide(
                                                                     color: Colors
@@ -849,10 +853,66 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                     Container(
                                       child: FlatButton(
                                         onPressed: () {
+
+                                      
+
+
                                           snapshot.createWithdrawal(
                                               (phoneNumber, otpModel, mainRepo,
                                                   userType) {
-                                            Navigator.of(context).push(
+
+   
+ showDialog(context: context,
+   
+    child: AnimatedDialog(
+
+      width:MediaQuery.of(context).size.width-70, //final width of the dialog
+      height: MediaQuery.of(context).size.width-70, //final height of the dialog
+     // durationTime: Duration(seconds: 1),
+
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      child: Center(
+        child: Container(//width: 200,height: 200,
+          child: Column(
+children: <Widget>[
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Amount to be Credit to your bank account: "+snapshot.netAccountController.text+" "+snapshot
+                                            .selectedCurrencyDropDownValue,textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "Amount will be deducted from your Available balance",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+SizedBox(height: 20,),
+Row(mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+          color: Colors.indigo,
+          onPressed: (){
+
+          Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         WithdrawalOTPScreen(
@@ -860,6 +920,31 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                             otpModel,
                                                             userType,
                                                             mainRepo)));
+                                         
+                                          
+
+          }, child:Text("Confirm",style: TextStyle(color:Colors.white),)
+        )
+
+
+
+  ],
+)
+],
+
+          )
+        ),
+      ),
+
+
+    )
+  );
+
+                                  
+                                         
+                                         
+                                         
+                                         
                                           }, (description) async {
          
                                             Flushbar(
@@ -868,6 +953,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           });
+                   
                                         },
                                         color: Colors.blue,
                                         disabledColor: Colors.blue,

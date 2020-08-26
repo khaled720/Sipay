@@ -79,7 +79,7 @@ class IndividualWidget extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
+                                   builder: (context) =>
                                       UserRegistrationScreen()));
                         },
                         child: Text(

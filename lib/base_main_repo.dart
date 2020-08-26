@@ -1,15 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+
+import 'package:flutter/material.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
-
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'main_api_data_model.dart';
 
 class BaseMainRepository {
   String bearerToken;
   UserTypes userType;
+  String username="not set";
 
   BaseMainRepository(this.bearerToken, this.userType);
 
@@ -172,6 +176,7 @@ class BaseMainRepository {
   //Profile update
   Future<MainApiModel> userProfileUpdate(
       String country, String city, String address) async {
+       
     Map<String, String> values = {
       'country': country,
       'city': city,
@@ -181,9 +186,48 @@ class BaseMainRepository {
         APIEndPoints.kApiIndividualUserProfileUpdateEndPoint,
         values,
         bearerToken);
+     //   print("Result of Save profile settings : "+result);
     return MainApiModel.mapJsonToModel(result);
   }
+   userProfileUpdateVersion2(
+      String country, String city, String address) async {
+         print(">>>>>>>>>>>>>>>>>>>>>>>> "+country);
+  Map<String, String> values = {
+     
+    'Accept':"application/json",
+    "Authorization":userToken
+    };
+ /* 
+    int countryId=0;
+var res=await http.get(APIEndPoints.kApiIndividualUserProfileEndPoint,
+headers: values,
 
+); */
+
+/* 
+var bodyMap=json.decode(res.body.toString());
+Map list=bodyMap["data"]["countries"];
+/* print(list); */
+for(var element in list.entries){
+
+  if(element.value.toString().toLowerCase()==country.toLowerCase())countryId=int.parse(element.key.toString());
+} */
+ 
+    var result = await http.post(
+        APIEndPoints.kApiIndividualUserProfileUpdateEndPoint,
+      
+        headers:values,
+
+        body: { 'country':country, //country,
+      'city': city,
+      'address': address,}
+        );
+  
+  
+  
+        print("Result of Save profile settings : "+result.body.toString());
+    return result;
+  }
   //Profile upload base 64 image
   Future<MainApiModel> uploadBase64CorporateImage(File base64Image) async {
     String result = await NetworkHelper.uploadBase64Image(
@@ -595,7 +639,7 @@ class BaseMainRepository {
       'bank_id': bankID.toString(),
       'bank_name': bankName,
       'logo': logo,
-      'static_bank_id': staticBankID.toString(),
+      'static_bank_id': bankID.toString(),
       'currency_id': currencyID.toString(),
       'account_holder_name': accountHolderName, //3
       'account_no': accountNo.toString(),
@@ -603,7 +647,7 @@ class BaseMainRepository {
       'swift_code': swiftCode ?? '', //1
       'status': status.toString(),
     };
-    String result = await NetworkHelper.makePostRequest(
+    String result = await NetworkHelper.makePostRequest2(
         APIEndPoints.kApiBankUpdateEndPoint, values, bearerToken);
     return MainApiModel.mapJsonToModel(result);
   }

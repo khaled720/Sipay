@@ -101,7 +101,7 @@ class Corporate_CreateDepositProvider extends TransactionsScreenBaseProvider {
            var translation = await translator.GoogleTranslator().translate(bankDepositModel.description, to: 'en');
    
        
-        _setDepositErrorText(translation);
+        _setDepositErrorText(translation.toString());
       } 
     } else
       _setDepositErrorText('One of the fields is empty. Please try again.');

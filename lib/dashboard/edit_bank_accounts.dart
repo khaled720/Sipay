@@ -8,6 +8,9 @@ import 'package:fluttersipay/utils/dialog_utils/delete_bank_account_dialog.dart'
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:convert';
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
+import 'package:http/http.dart' as http;
 import '../avaliable_banks_model.dart';
 import '../base_main_repo.dart';
 import '../loading_widget.dart';
@@ -330,7 +333,44 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                       Container(
                         child: FlatButton(
                           onPressed: () {
-                            snapshot.editBankAccount((description) {
+
+/* 
+
+if(
+  snapshot.accountHolderNameController.text!=""
+  &&
+  snapshot.accountNameTextController.text!=""
+  &&
+  snapshot.selectedCurrencyDropDownValue!=""
+  &&
+  snapshot.ibanController.text!=""
+  &&
+  snapshot.selectedActiveDropDownValue!=""
+  )
+{
+  print("A7a");
+
+  
+
+
+
+}else{
+  
+   print("A8a");
+
+   
+  
+  }
+
+
+ */
+
+
+
+
+
+
+                             snapshot.editBankAccount((description) {
                               Navigator.of(context).pop();
                               Flushbar(
                                 title: "Success",
@@ -343,7 +383,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                                 message: description,
                                 duration: Duration(seconds: 3),
                               )..show(context);
-                            });
+                            }); 
                           },
                           color: Colors.blue,
                           disabledColor: Colors.blue,

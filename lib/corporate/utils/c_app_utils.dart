@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttersipay/corporate/deposit/json_models/c_bank_list_model.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class C_AppUtils {
 
@@ -41,10 +42,9 @@ class C_AppUtils {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(
-              Icons.note,
-              size: 16,
-            ),
+            Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+       ,   width: 40,
+          ),
             SizedBox(width: 10),
             Expanded(
               child: Text(

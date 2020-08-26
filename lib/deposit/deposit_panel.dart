@@ -53,7 +53,7 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
               if (snapshot.hasData) {
                 parsedJson = json.decode(snapshot.data.toString());
                 users = DepositMainUIModel.fromJson(parsedJson);
-                if (_value == null) _value = users.method[0];
+              //  if (_value == null) _value = users.method[0];
                 _listViewData = users.method;
                 return Scaffold(
                     appBar: AppBar(
@@ -204,25 +204,34 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                         height: ScreenUtil.getInstance()
                                             .setHeight(50),
                                       ),
-                                      Text(
+                                 /*      Text(
                                         users.choose,
                                         style: TextStyle(
                                             color: Colors.black54,
                                             fontSize: 12),
-                                      ),
-                                      DropdownButton<String>(
+                                      ), */
+                                      DropdownButtonFormField<String>(
+                                   decoration:InputDecoration(
+
+prefixIcon: Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
+hintText: "CHOOSE DEPOSIT METHOD..."
+,hintStyle: TextStyle(fontSize:12),
+                                   ),
+                                 //       hint: Text(users.choose),
                                         icon: Icon(Icons.keyboard_arrow_down),
-                                        items: users.method
+                                        items: ["BANK TRANSFER","CARD"]
+
                                             .map<DropdownMenuItem<String>>(
                                                 (String value) {
                                           return DropdownMenuItem<String>(
+
                                             value: value,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: <Widget>[
-                                                Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
+                                                
                                                 SizedBox(width: 10),
                                                 Expanded(
                                                   child: Text(

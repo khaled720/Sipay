@@ -12,7 +12,11 @@ import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
+import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
+import 'dart:convert';
 class ProfileSettingsScreen extends StatefulWidget {
   final BaseMainRepository repo;
   final MainApiModel userLoginInfo;
@@ -24,6 +28,55 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   ola.CountryPicker countryPicker;
+ ola.Country country ;// se
+
+ var local = ui.window.locale.countryCode ;
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+if(local==null)local='tr';
+
+for(var element in ola.countryCodes){
+if(local.toLowerCase()==element["ISO"]){
+  setState(() {
+    
+country = ola.Country.fromJson(element); 
+//countrycode=country.dialCode;
+  });
+}
+}
+   countryPicker = ola.CountryPicker(
+     onCountrySelected: (country) {
+      print(country);
+      setState(() {
+        this.country =country as ola.Country ;
+
+   //  countrycode=country.dialCode;
+      });
+
+   });
+
+
+//  if(widget.remem==null) widget.remem=false;
+
+  }
+
+
+
+ 
+ 
+ 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -191,7 +244,32 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             height: 10.0,
                           ),
                           snapshot.countriesList != null
-                              ? Container()
+                              ? Container(
+child: GestureDetector(
+      child: Container(
+        margin:EdgeInsets.only(top:20),
+        width: 200,
+        height: 30,
+        child: Row(
+
+          children: <Widget>[
+
+      Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
+     Expanded(child: Text(""+country.name+" ",
+     style: TextStyle(fontWeight: FontWeight.bold),
+     overflow: TextOverflow.ellipsis,))
+
+          ],
+        ),
+        
+      ),
+      onTap: () {
+        countryPicker.launch(context);
+  
+      })
+,
+
+                              )
                               : SizedBox(
                                   width: 0.0,
                                 ),
@@ -269,7 +347,9 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                           'Failed to update your profile. Please try again.',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
-                                });
+                                },
+                                countri:country.name
+                                );
                               },
                               color: Colors.blue,
                               disabledColor: Colors.blue,

@@ -86,6 +86,36 @@ print("E = "+e.toString() );
     return body;
   }
 
+
+  static Future<String> makePostRequest2(
+      var endPoint, dynamic postValues, var bearerToken) async {
+    // make POST Request
+    Response response;
+    String body = "";
+    try {
+      Map<String, String> request = {
+  //      'Content-type': 'application/json',
+      };
+      if (bearerToken != null) {
+        request = {
+       //   'Content-type': 'application/json',
+          'Accept':'application/json',
+          "Authorization": 'Bearer $bearerToken'
+        };
+      }
+      response = await post(endPoint, body: postValues, headers: request);
+      int statusCode = response
+          .statusCode;
+          print("Response edit bank acount: =>> "+response.body);
+           // this API passes back the id of the new item added to the body
+      if (statusCode == 200) {
+        body = response.body;
+      }
+    } // request
+    catch (e) {}
+    // check the status code for the result
+    return body;
+  }
   static Future<String> makeGetRequest(var endPoint, var bearerToken) async {
     // set up Get request arguments
     Response response;

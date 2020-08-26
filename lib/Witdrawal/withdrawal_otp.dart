@@ -82,7 +82,7 @@ class _WithdrawalOTPScreenState extends State<WithdrawalOTPScreen> {
        description.toString(), to: 'en');
                   Flushbar(
                     title: "Failure",
-                    message: txt,
+                    message: txt.toString(),
                     duration: Duration(seconds: 3),
                   )..show(context);
                 },

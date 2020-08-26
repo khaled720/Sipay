@@ -260,7 +260,9 @@ key: _key,
   
                                           Expanded(
   
-                                            child:TextFormField(
+                                            child:TextFormField(inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
   onSaved: (val){
 
 amount=double.parse(val.toString());

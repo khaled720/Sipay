@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_svg/svg.dart';
 import 'package:fluttersipay/Witdrawal/json_models/withdrawal_bank_model.dart';
 import 'package:fluttersipay/avaliable_banks_model.dart';
 import 'package:fluttersipay/corporate/withdrawal/json_models/corporate_withdrawal_bank_model.dart';
 import 'package:fluttersipay/deposit/json_models/bank_list_model.dart';
 import 'package:intl/intl.dart';
-
+import 'package:websafe_svg/websafe_svg.dart';
 class AppUtils {
+
+
   static String getTransactionableType(String type) {
     List splittedString = type.split('\\');
     if (splittedString.length >= 3) {
@@ -159,7 +162,9 @@ class AppUtils {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(Icons.note),
+          Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+       ,   width: 40,
+          ),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -183,8 +188,13 @@ class AppUtils {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(Icons.note),
-            SizedBox(width: 10),
+        //    Icon(Icons.note),
+          Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+       ,   width: 40,
+          ),
+       // SvgPicture.network(bank.logo.toString() )
+        
+            SizedBox(width: 7),
             Expanded(
               child: Text(
                 bank.name ?? '',
@@ -207,7 +217,10 @@ class AppUtils {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(Icons.note),
+          //  Icon(Icons.note),
+                 Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+       ,   width: 40,
+          ),
             SizedBox(width: 20),
             Expanded(
               child: Text(
@@ -231,10 +244,9 @@ class AppUtils {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(
-              Icons.note,
-              size: 16,
-            ),
+              Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+       ,   width: 40,
+          ),
             SizedBox(width: 10),
             Expanded(
               child: Text(

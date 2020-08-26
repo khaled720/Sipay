@@ -174,12 +174,21 @@ class AddBankAccountProvider with ChangeNotifier {
             '',
             _selectedActiveDropDownValue == 'ACTIVE' ? '1' : '0');
         _setShowLoading(false);
+        print("@#@#@ "+addBankModel.data.toString());
         addBankModel.statusCode == 100
             ? onSuccess(addBankModel.description)
             : onFailure(addBankModel.description);
+
+
+
+
+
+            
       } catch (e) {
         _setShowLoading(false);
-        onFailure('Failed to update account. Please try again');
+        onFailure('Failed to update account. Please try again '+e.toString());
+
+        print('Failed to update account. Please try again '+e.toString());
       }
     } else {
       _setShowLoading(true);

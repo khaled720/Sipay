@@ -41,6 +41,7 @@ class SplashScreenState extends State<SplashScreen>
     ),
   ]);
 
+var remem,email="",pass="",phone="",type,passCor="";
 
   var _visible = true;
 
@@ -49,32 +50,6 @@ class SplashScreenState extends State<SplashScreen>
     animationController.dispose();
     super.dispose();
   }
-
-var remem,email="",pass="",phone="",type,passCor="";
-
-fun()async{
-
-
- SharedPreferences.getInstance().then((prefs) {
-
-setState(() {
-  remem = prefs.getBool("remember");
- // type = prefs.getBool("type");
-
-});
-
-//individual
-if(remem==true){
-phone=prefs.getString("phone");
-email=prefs.getString("email");
-pass=prefs.getString("pass");
-pass=prefs.getString("passCor");
-}
-print("!!!!!!!!!!!!!!!!!!!!!!!"+remem.toString());
- });
-
-}
-
 
   @override
   void initState() {
@@ -97,6 +72,29 @@ print("!!!!!!!!!!!!!!!!!!!!!!!"+remem.toString());
 
     fun();
   }
+
+fun()async{
+
+
+ SharedPreferences.getInstance().then((prefs) {
+
+setState(() {
+  remem = prefs.getBool("remember")??false;
+ // type = prefs.getBool("type");
+
+phone=prefs.getString("phone")??"";
+email=prefs.getString("email")??"";
+pass=prefs.getString("pass")??"";
+passCor=prefs.getString("passCor")??"";
+//type=prefs.getString("type")??false;
+
+});
+
+//individual
+
+ });
+
+}
 
   startTime() async {
     var _duration = new Duration(seconds: 8);
@@ -124,16 +122,6 @@ obj =new MerchantPanelProvider( objj, userData);
 
 
 
-here is a list of requirments for sprint 4
--filter transaction Api & transaction list
--chargeback history Api
-- payment method settings and dpl settings Apis
--deposit by credit card Api
--bank account editing Api
-- send email/sms  after withdraw & deposit APIs
-
-
-
 
 
 print(data.toString());
@@ -157,15 +145,21 @@ print(data.toString());
 
 
  */
-if(remem==null)remem=false;pass="";passCor="";phone="";
-if(type==null)type=false;
-print(this.remem.toString()+"--1--"+this.email.toString()+"--2--"+this.pass.toString()+"--3--"+this.phone.toString()+"--4--"+this.type.toString());
-  
+
+print(this.remem.toString()+"--1--  "+this.email.toString()+"  --2--"+
+this.pass.toString()+"  --3--  "+this.phone.toString()
++" --4-- "+this.passCor.toString()
+);
+   
  
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context)=> MyLoginPage(this.remem,this.email,this.pass,
       this.phone,this.type,this.passCor),
-     )); /*
+     )); 
+     
+     
+     
+     /*
          Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context)=> dummy(),
      ));

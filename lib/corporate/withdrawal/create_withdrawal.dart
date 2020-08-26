@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:animated_dialog/AnimatedDialog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -763,10 +764,65 @@ TextEditingController iban= new TextEditingController();
                                     Container(
                                       child: FlatButton(
                                         onPressed: () {
+                                    
+                                    
+                                    
                                           snapshot.createWithdrawal(
                                               (phoneNumber, otpModel, mainRepo,
                                                   userType) {
-                                            Navigator.of(context).push(
+
+
+   
+ showDialog(context: context,
+   
+    child: AnimatedDialog(
+
+      width:MediaQuery.of(context).size.width-70, //final width of the dialog
+      height: MediaQuery.of(context).size.width-70, //final height of the dialog
+     // durationTime: Duration(seconds: 1),
+
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      child: Center(
+        child: Container(//width: 200,height: 200,
+          child: Column(
+children: <Widget>[
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Amount to be Credit to your bank account: "+snapshot.netAccountController.text+" "+snapshot
+                                            .selectedCurrencyDropDownValue,textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "Amount will be deducted from your Available balance",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+SizedBox(height: 20,),
+Row(mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+          color: Colors.indigo,
+          onPressed: (){
+     Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         WithdrawalOTPScreen(
@@ -774,12 +830,35 @@ TextEditingController iban= new TextEditingController();
                                                             otpModel,
                                                             userType,
                                                             mainRepo)));
+                                         
+                                          
+
+          }, child:Text("Confirm",style: TextStyle(color:Colors.white),)
+        )
+
+
+
+  ],
+)
+],
+
+          )
+        ),
+      ),
+
+
+    )
+  );
+
+        
+
+                                       
                                           }, (msg) async {
                                                 var translation = await translator.GoogleTranslator().translate(msg, to: 'en');
    
                                             Flushbar(
                                               title: "Failure",
-                                              message: translation,
+                                              message: translation.toString(),
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           });

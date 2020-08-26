@@ -211,7 +211,7 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
       } else {
  var txt=  await translator.GoogleTranslator().translate(bankWithdrawalModel.description, to: 'en');
         onFailure(txt);
-        _setWithdrawalErrorText(txt);
+        _setWithdrawalErrorText(txt.toString());
       }
     } else {
       Future.delayed(Duration(seconds: 1));

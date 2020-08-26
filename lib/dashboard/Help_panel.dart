@@ -265,6 +265,18 @@ expandList[index]=0;
   }else{
 
 expandList[index]=1;
+
+for(int i=0;i<expandList.length;i++){
+
+if(i!=index){
+setState(() {
+    expandList[i]=0;
+
+});
+}
+
+}
+
   }
 });
 
@@ -273,7 +285,7 @@ print("Tapped");
 },
 
                                       child: Icon(
-                      expandList[index]==0?Icons.add:Icons.minimize,
+                      expandList[index]==0?Icons.add:Icons.minimize,size: 30,
                     ),
                   ),
                 )
@@ -295,7 +307,7 @@ print("Tapped");
 
 
 AnimatedContainer(
-  duration: Duration(seconds: 2),
+  duration: Duration(seconds: 3),curve: Curves.bounceIn,
 //height: expandList[index]==0?0:150,
 //color: Colors.amber,
 child: Card(
@@ -303,7 +315,7 @@ child: Card(
   child:
   expandList[index]==1?Container(
     margin: EdgeInsets.all(5),
-    child: Text(answer,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color: Colors.grey[700]),)):null
+    child: Text(answer,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w300,color: Colors.grey[800]),)):null
 
 ),
 
@@ -356,6 +368,16 @@ expandList2[index]=0;
   }else{
 
 expandList2[index]=1;
+for(int i=0;i<expandList2.length;i++){
+
+if(i!=index){
+setState(() {
+    expandList2[i]=0;
+
+});
+}
+
+}
   }
 });
 

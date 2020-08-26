@@ -45,6 +45,28 @@ class _CorporateMerchantPanelScreenState
     extends State<CorporateMerchantPanelScreen> {
   String _language_value = 'gb';
 
+
+String To2double(String val){
+var s=double.parse(val).toStringAsFixed(2);
+  return s; 
+}
+
+
+
+
+String capitalize(String s) {
+ var listOfWords= s.split(" ");
+String  inCaps="";//='${listOfWords[0][0].toUpperCase()}${listOfWords[0].substring(1)}';
+for(int i=0;i<listOfWords.length;i++){
+
+inCaps = inCaps+' ${listOfWords[i][0].toUpperCase()}${listOfWords[i].substring(1)}';
+  
+}
+
+return inCaps;
+}  
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -766,40 +788,37 @@ class _CorporateMerchantPanelScreenState
                                               onPressed: () {
                                                 
 
-var remem=false,email="",pass="",phone="",type=false,passCor="";
+                                    
+var remem=false,email="",pass="",phone="",passCor="";
 
  SharedPreferences.getInstance().then((prefs) {
 
 setState(() {
   remem = prefs.getBool("remember");
-  type = prefs.getBool("type");
-
+ 
 });
 
-//individual
-if(remem==true&&type==true){
+if(remem==true){
 
 phone=prefs.getString("phone");
 pass=prefs.getString("pass");
-
-
-
-//coroporate
-}else if(remem==true&&type==false){
-
-
 email=prefs.getString("email");
 passCor=prefs.getString("passCor");
 
 }
 
+
+
  });
+
+//print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
+
                                                 snapshot.logoutMerchant(() {
                                                   Navigator.of(context)
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                         MyLoginPage(remem,email,"",phone,type,passCor)));
+                  MyLoginPage(remem??false,email??"",pass,phone??"",false,passCor??""),));
                                                   Flushbar(
                                                     title: "Logout Successful!",
                                                     message:
@@ -989,9 +1008,9 @@ passCor=prefs.getString("passCor");
                                                                     index][
                                                                 'transactionable_type']),
                                                     value:
-                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${snapshot.userLastTransactionsActivity[index]['gross'].toString()}${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
+                                                        '${snapshot.userLastTransactionsActivity[index]['money_flow']} ${To2double(snapshot.userLastTransactionsActivity[index]['gross'].toString())}${snapshot.userLastTransactionsActivity[index]['currency_symbol']}',
                                                     description:
-                                                        '${snapshot.userLastTransactionsActivity[index]['entity_name']}',//(#${snapshot.userLastTransactionsActivity[index]['id']})
+                                                        capitalize(snapshot.userLastTransactionsActivity[index]['entity_name'].toString()),//(#${snapshot.userLastTransactionsActivity[index]['id']})
                                                     dates: snapshot
                                                             .userLastTransactionsActivity[
                                                         index]['created_at']
@@ -1053,13 +1072,19 @@ passCor=prefs.getString("passCor");
                                 TextSpan(
                                   text: snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
+                                              fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+       
                                       color: Colors.white,
-                                      fontSize: 25,
+                             //         fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: snapshot.getWalletCurrencyCode(index),
-                                    style: TextStyle(color: Colors.white)),
+                                    text: snapshot.getWalletCurrencyCode2(index),
+                                    style: TextStyle(
+                                      
+                                                fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+       
+                                      color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomLeft,
                     ),
@@ -1097,14 +1122,14 @@ passCor=prefs.getString("passCor");
                                   text:
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
-                                               fontSize:    MediaQuery.of(context).size.width/25+snapshot.getAvailableWalletAmount(index).toString().length,
+               fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
                                       color: Colors.white,
                                      fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                    text: snapshot.getWalletCurrencyCode(index),
+                                    text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
-                                                 fontSize:    MediaQuery.of(context).size.width/35+snapshot.getAvailableWalletAmount(index).toString().length,
+                                                 fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
                                       color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomRight,
@@ -1114,7 +1139,7 @@ passCor=prefs.getString("passCor");
                 ),
                 height: 100,
               ),
-              flex: 2,
+              flex: 3,
             ),
           ],
         ),
@@ -1180,7 +1205,7 @@ Navigator.push(
                     ),
                     Expanded(
                       child: Text(
-                        value,
+           value,
                         textAlign: TextAlign.right,
                         style:
                             TextStyle(fontWeight: FontWeight.bold, fontSize: 15),

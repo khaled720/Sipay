@@ -25,6 +25,13 @@ String pass;
 
 class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
   
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+     
+  }
   @override
   Widget build(BuildContext context) {
     print("User Data from mainlogin "+widget.userPhoneNumber);
@@ -77,9 +84,11 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                   )
                 ],
               ),
+
+             
               body: ChangeNotifierProvider(
                   create: (context) => VerifyPasswordProvider(LoginRepository(),
-                      TextEditingController(text:widget.pass.toString()), widget.userPhoneNumber),
+        TextEditingController(text:widget.pass??""), widget.userPhoneNumber),
                   child: SingleChildScrollView(
                     child: Consumer<VerifyPasswordProvider>(
                         builder: (context, snapshot, _) {
@@ -237,7 +246,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
 
                                     snapshot.verifyPassword((loginData) {
 prefs.setString("pass", snapshot.passwordController.text);
-print("Login data =>> "+loginData.data.toString());
+print("SUCCESS.........indi pass saved........"+prefs.getString("pass").toString());
 
                                       Navigator.of(context).push(
                                           MaterialPageRoute(

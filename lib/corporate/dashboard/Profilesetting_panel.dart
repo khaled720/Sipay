@@ -3,6 +3,8 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:archive/archive.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/corporate/dashboard/providers/corporate_profile_provider.dart';
@@ -14,8 +16,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart'as http;
 import 'package:provider/provider.dart';
 import 'dart:async';
+import 'dart:io';
+import 'dart:convert' as con;
+import 'dart:ui' as ui;
+import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
 import 'dart:convert';
-import 'dart:io';import 'package:fluttersipay/corporate/global_data.dart';
+import 'dart:io';
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:async/async.dart';
 import 'package:path/path.dart';
 class CorporateProfileSettingsScreen extends StatefulWidget {
@@ -30,14 +37,22 @@ class CorporateProfileSettingsScreen extends StatefulWidget {
 class _CorporateProfileSettingsScreenState
     extends State<CorporateProfileSettingsScreen> {
 
-
 Future uploadImage(File file)async{
+
+
+
+
     String base64Image =
-        'data:image/png;base64,'+base64Encode(file.readAsBytesSync());
-        var image=base64Encode(file.readAsBytesSync());
-        print("base image = "+image);
-    String fileName = file.path.split("/").last;
-    // make POST Request
+  /*   'data:image/png;base64,'+ */
+  base64Encode(file.readAsBytesSync());
+var com=  GZipEncoder().encode(file.readAsBytesSync());
+var copressed= base64.encode(com);
+var comoresed64=base64Url.encode(file.readAsBytesSync());
+print("G ZIP length "+copressed.length.toString() );
+
+ print("no compress length = "+base64Image.toString().length.toString());
+
+
     Response response;
     String body = "";
     try {
@@ -45,14 +60,14 @@ Future uploadImage(File file)async{
       var request = {
     
         'Accept':'application/json',
-        /* HttpHeaders.authorizationHeader */"Authorization": '$userToken' ,
-        'Content-Type': 'application/json'
+       "Authorization": '$userToken' ,
+  
       };
       response =
           await post(
 
             APIEndPoints.kApiCorporateUploadImageEndPoint,
-           body: {'image':base64Image,
+           body: {'image':copressed,
            
               //    'Content-type': 'application/form-data'
            /* image.toString()*/},
@@ -74,6 +89,46 @@ print("E = "+e.toString() );
     print("############ body "+body);
   
 }
+
+
+
+
+
+
+
+
+   ola.CountryPicker countryPicker;
+ ola.Country country ;// se
+
+ var local = ui.window.locale.countryCode ;
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+if(local==null)local='tr';
+
+for(var element in ola.countryCodes){
+if(local.toLowerCase()==element["ISO"]){
+  setState(() {
+    
+country = ola.Country.fromJson(element); 
+//countrycode=country.dialCode;
+  });
+}
+}
+   countryPicker = ola.CountryPicker(
+     onCountrySelected: (country) {
+      print(country);
+      setState(() {
+        this.country =country as ola.Country ;
+    // countrycode=country.dialCode;
+      });
+
+   });
+
+
+  }
 
 
 

@@ -19,7 +19,7 @@ class MoneyPanelScreen extends StatefulWidget {
 
 class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
   var _value = "MERCHANT";
-  List<String> _listViewData = ["MERCHANT"];
+  List<String> _listViewData = ["MERCHANT","INDIVIDUAL"];
 
   @override
   Widget build(BuildContext context) {

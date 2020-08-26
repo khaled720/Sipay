@@ -51,7 +51,8 @@ class IndividualPanelProvider extends BaseMainProvider {
   String getTotalWalletAmount(int index) {
     if (_userWallets != null) {
       if (_userWallets.isNotEmpty && index <= _userWallets.length - 1)
-        return _userWallets[index]['total_amount'].toString();
+     return double.parse( _userWallets[index]['total_amount'].toString()).toStringAsFixed(2);
+      
     }
     return '0.0';
   }
@@ -59,7 +60,8 @@ class IndividualPanelProvider extends BaseMainProvider {
   String getAvailableWalletAmount(int index) {
     if (_userWallets != null) {
       if (_userWallets.isNotEmpty && index <= _userWallets.length - 1)
-        return _userWallets[index]['available_amount'].toString();
+  
+          return double.parse( _userWallets[index]['available_amount'].toString()).toStringAsFixed(2);
     }
     return '0.0';
   }
@@ -71,7 +73,13 @@ class IndividualPanelProvider extends BaseMainProvider {
     }
     return 'TRY';
   }
-
+  String getWalletCurrencyCode2(int index) {
+    if (_userWallets != null) {
+      if (_userWallets.isNotEmpty && index <= _userWallets.length - 1)
+        return _userWallets[index]['currency_symbol'].toString();
+    }
+    return '₺';
+  }
   Future<void> getDashboardDataFromApi() async {
     await _getUserWallets();
     await _getUserActivityList();

@@ -31,11 +31,11 @@ var remem,email,pass,phone,type,passCor;
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  String countrycode;
 
 
    ola.CountryPicker countryPicker;
  ola.Country country ;// se
-  String countrycode;
 
  var local = ui.window.locale.countryCode ;
 
@@ -43,7 +43,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+if(local==null)local='tr';
 
 for(var element in ola.countryCodes){
 if(local.toLowerCase()==element["ISO"]){
@@ -89,8 +89,11 @@ countrycode=country.dialCode;
         create: (context) => LoginProvider(
             LoginRepository(),
             TextEditingController(text:widget.remem?widget.email:""),
-    TextEditingController(text:widget.remem==true&&widget.type==true?
-    widget.pass:widget.remem==true&&widget.type==false?widget.passCor:""),
+    TextEditingController(
+      //PASSWORD
+      text:widget.remem==true?widget.passCor:""
+      
+      ),
             TextEditingController(text:widget.remem?widget.phone:"")
             ,widget.remem
             ),
@@ -279,14 +282,14 @@ countrycode=country.dialCode;
 GestureDetector(
       child: Container(
         margin:EdgeInsets.only(top:20),
-        width: 70,
+        width: 80,
         height: 30,
         child: Row(
 
           children: <Widget>[
 
       Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
-     Expanded(child: Text("+"+country.dialCode,
+     Expanded(child: Text("  +"+country.dialCode+" ",
      style: TextStyle(fontWeight: FontWeight.bold),
      overflow: TextOverflow.ellipsis,))
 
@@ -382,19 +385,12 @@ snapshot.telephoneController.text="";
                                 ),
                                 color: Colors.blue,
                                 onPressed: () async{
+
+if(snapshot.userType!=UserTypes.Corporate){                              
 if(!snapshot.telephoneController.text.contains("+")){
-if(snapshot.userType!=UserTypes.Corporate){
 isIndividual=true;
-
 snapshot.telephoneController.text="+"+countrycode+snapshot.telephoneController.text;
-
-}
-
-
-}
-
-
-
+}}
 
 //print(snapshot.userType.toString()+"-3-------*");
             SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -405,17 +401,21 @@ prefs.setBool("remember", snapshot.rememberPassword);
             snapshot.login((loginData) 
             {
 
-/// login data is phone number indivi
+if(snapshot.rememberPassword==true){
+          prefs.setString("phone", snapshot.telephoneController.text);
+           // prefs.setString("Type", "indi");
 
-   print(loginData.toString()+"-4--###########*");
-//widget.remem==false?widget.pass="":print("");
-                                    Navigator.of(context).push(
+}
+  
+print("SUCCUSS .........individual..................");
+
+  
+                                   Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 VerifyPasswordScreen(
                                                     loginData
-                                                    ,
-                                               pass:     widget.pass
+                                          ,pass: snapshot.rememberPassword?widget.pass:"",
                                                     
                                                     )
                                                     
@@ -424,9 +424,15 @@ prefs.setBool("remember", snapshot.rememberPassword);
                                                     
                                                     );
                                   }, (loginData) {
+print("NOT VERIFIED ........merchant..................");
 
-print(loginData.toString()+"-2-------*");
 
+if(snapshot.rememberPassword==true){
+            prefs.setString("email", snapshot.emailController.text);
+            prefs.setString("passCor", snapshot.passwordController.text);
+              //   prefs.setString("Type", "cor");
+}          
+                
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -434,11 +440,13 @@ print(loginData.toString()+"-2-------*");
                                                  loginData,
                                                     NavigationToSMSTypes.Login,
                                               userType:snapshot.userType
-                                                    ,
+                                              /*       ,
                                                   passCor:widget.passCor,pass: widget.pass,
-                                                    
+                                                  */   
                                                     )));
                                   }, (errorMsg) {
+                                    print("ERROR ...........................");
+
                                     showDialog(
                                         context: context,
                                         child: ErrorDialog(() {

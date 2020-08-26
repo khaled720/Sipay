@@ -168,7 +168,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'SEND MONEY',
+                                'REQUEST MONEY',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
@@ -183,7 +183,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                         ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'RECEIVER PHONE NUMBER',
+                                    'SENDER PHONE NUMBER',
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
@@ -464,7 +464,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        "SEND",
+                                        "SUBMIT REQUEST",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

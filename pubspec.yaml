@@ -48,7 +48,6 @@ dependencies:
   gradient_text: ^1.0.2
   sphere_bottom_navigation_bar: ^1.0.0
   country_icons: ^1.1.1
-  custom_switch_button: any
   date_field: ^0.1.1
   flutter_html: ^0.11.1
   simple_timer: ^1.0.1
@@ -56,10 +55,10 @@ dependencies:
   country_provider: any
   dio: any
   ola_like_country_picker: ^0.1.2
-  #timer_count_down: ^1.0.4
- # timer_builder: ^1.3.0
-  #xc_country_list_pick: ^1.0.9
-  #country_code_picker: ^1.4.0
+  easy_dialog: any
+  websafe_svg: ^1.1.0
+  flutter_native_image: ^0.0.5+2
+  animated_dialog:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,7 +113,7 @@ flutter:
     - assets/money_transfer.png
     - assets/password.png
     - assets/verify_attention.png
-  #  - images/a_dot_ham.jpeg
+    - assets/confirm.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

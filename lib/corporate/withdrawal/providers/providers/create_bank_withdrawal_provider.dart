@@ -179,7 +179,7 @@ class CreateCorporateBankWithdrawProvider
    
           
           
-          _setWithdrawalErrorText(translation.contains("var1")?translation.replaceFirst("var1", "10 TL"):translation);
+          _setWithdrawalErrorText(translation.toString().contains("var1")?translation.toString().replaceFirst("var1", "10 TL"):translation);
            } 
            
                }

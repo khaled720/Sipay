@@ -27,9 +27,9 @@ class SMSVerificationScreen extends StatefulWidget {
   final MainApiModel loginModel;
   final NavigationToSMSTypes navigationToSMSType;
   final UserTypes userType;
-  var passCor,pass;
+
    SMSVerificationScreen(
-      this.loginModel, this.navigationToSMSType,{this.userType,this.passCor,this.pass});
+      this.loginModel, this.navigationToSMSType,{this.userType});
 
   @override
   SMSVerificationScreenState createState() => SMSVerificationScreenState();
@@ -327,23 +327,6 @@ strokeWidth: 12,
                         global.setUserToken();
                         }
                         );
-
-await prefs.setBool("type", widget.userType == UserTypes.Individual?true:false);
-
-widget.userType==UserTypes.Individual?
-await prefs.setString("phone", userData.data["user"]["phone"].toString()) 
-:
-await prefs.setString("email",userData.data["user"]["email"].toString());
-
-  
-  
-  await prefs.setString("pass",widget.pass??"");
-
-  await prefs.setString("passCor",widget.passCor??"");
-
-print("###type ==>  "+widget.userType.toString());
-print("####data ==>  "+userData.data["user"]["phone"].toString());
-
 
 
                                       Navigator.of(context).pushAndRemoveUntil(

@@ -78,21 +78,25 @@ class ProfileSettingsProvider with ChangeNotifier {
     if (uploadImageModel.statusCode == 100) onSuccess();
   }
 
-  saveProfileUpdate(Function onSuccess, Function onFailure) async {
+  saveProfileUpdate(Function onSuccess, Function onFailure,{String countri}) async {
     if (_countriesList != null &&
-        selectedCountry != null &&
+        //selectedCountry != null &&
         _cityController.text.trim().isNotEmpty &&
-        _addressController.text.trim().isNotEmpty) {
-      int index = _countriesList.indexOf(selectedCountry.name) + 1;
-      if (selectedCountry.name == 'Turkey')
-        index = _countriesList.indexOf('Türkiye') + 1;
+        _addressController.text.trim().isNotEmpty)
+         {
+      int index = _countriesList.indexOf(countri) + 1;
+      print(_countriesList.length.toString()+" #########################33333");
+    /*   if (selectedCountry.name == 'Turkey')
+        index = _countriesList.indexOf('Türkiye') + 1; */
       load(true);
-      MainApiModel profileUpdateModel = await baseRepo.userProfileUpdate(
-          index.toString(),
+  var   upated = await baseRepo.userProfileUpdateVersion2(
+        //  index.toString(),
+   
+       index.toString(),
           _cityController.text.trim(),
-          _addressController.text.trim());
+        _addressController.text.trim());
       load(false);
-      profileUpdateModel.statusCode == 100 ? onSuccess() : onFailure();
+      upated.body.toString().contains(":100")? onSuccess() : onFailure();
     }
   }
 }

@@ -210,7 +210,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
    
                                   Flushbar(
                                     title: "Failure",
-                                    message: translation,
+                                    message: translation.toString(),
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 });
@@ -299,7 +299,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
    
                                   Flushbar(
                                     title: "Failure",
-                                    message: translation,
+                                    message: translation.toString(),
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 });

@@ -1,4 +1,7 @@
 //this class handles all the calls to the login API whether it's an individual or corporate.
+import 'dart:convert';
+import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:fluttersipay/utils/network_utils.dart';
@@ -12,6 +15,7 @@ class LoginRepository {
     Map<String, String> values = {'phone': phone};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
+   
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -20,7 +24,7 @@ class LoginRepository {
     Map<String, String> values = {'OTP': otp, 'user_id': userID};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kApiIndividualVerifySMSEndPoint, values, null);
-        print("login repo .dart line 23 =>>>>>> "+result);
+     //   print("login repo .dart line 23 =>>>>>> "+result);
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -40,8 +44,10 @@ class LoginRepository {
     Map<String, String> values = {'phone': phone, 'password': password};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
-print(result.toString());
 
+var map=json.decode(result);
+
+    userName=map["data"]["user"]["name"].toString(); 
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -134,6 +140,10 @@ print(result.toString());
     Map<String, String> values = {'email': email, 'password': password};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPICorporateLoginEndPoint, values, null);
+        print("COR login res=> "+result.toString());
+   var map=json.decode(result);
+
+    userName=map["data"]["user"]["name"].toString();
     return MainApiModel.mapJsonToModel(result);
   }
 

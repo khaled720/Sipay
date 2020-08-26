@@ -52,7 +52,7 @@ abstract class BaseOTPVerificationProvider with ChangeNotifier {
   Future<void> setOTPErrorText(bool isError, String errorMsg) async {
   var x= await translator.GoogleTranslator().translate(errorMsg, from: 'tr', to: 'en');
 
-    isError ? _otpErrorText = x : _otpErrorText = null;
+    isError ? _otpErrorText = x.toString() : _otpErrorText = null;
     notifyListeners();
   }
 

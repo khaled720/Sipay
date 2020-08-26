@@ -3,7 +3,7 @@
 class APIEndPoints {
 
 //Changing this Varible will impact in all endpoints 
-   static final String server="provisioning";//"app";
+   static final String server="provisioning";//"provisioning";//"app";
   //Individual
   static final String kBaseIndividualAPIEndPoint =
       'https://$server.sipay.com.tr/api';
@@ -43,7 +43,15 @@ static final activeApi="$kBaseCorporateAPIEndPoint/dpl/list/active";
   static final String kApiIndividualUserProfileEndPoint =
       '$kBaseIndividualAPIEndPoint/profile';
   static final String kApiIndividualUserProfileUpdateEndPoint =
+ 
       '$kBaseIndividualAPIEndPoint/profile/update';
+ 
+
+ 
+ 
+  /// 'https://app.sipay.com.tr/api/profile/update'
+ 
+ 
   static final String kApiIndividualUserProfileUploadImageEndPoint =
       '$kBaseIndividualAPIEndPoint/profile/image/upload';
 

@@ -55,7 +55,7 @@ class ResetPasswordProvider with ChangeNotifier {
 
        translator.GoogleTranslator().translate(
          resetPasswordResult.description.toString(), to: 'en',from: 'tr')
-      .then((s){resetPasswordResult.description=s;
+      .then((s){resetPasswordResult.description=s.toString();
       resetPasswordResult.statusCode == 100
             ? onSuccess(resetPasswordResult.description)
             : _setEmailErrorText(true, resetPasswordResult.description);

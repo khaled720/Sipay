@@ -616,10 +616,10 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
                                                     TransactionData.Title,
                                                     index) ??
                                             '',
-                                        value: snapshot
+                                        value:  snapshot
                                                 .getDataFromTransactionsList(
                                                     TransactionData.Value,
-                                                    index) ??
+                                                    index)??
                                             '',
                                         id: snapshot.getDataFromTransactionsList(
                                                 TransactionData.ID, index) ??
@@ -677,7 +677,7 @@ global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("
 ).then((val){
 
 
-print(val.data);
+//print(val.data);
 
 Navigator.push(
             context,

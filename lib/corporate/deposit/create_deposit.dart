@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:animated_dialog/AnimatedDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -212,6 +213,12 @@ class _Create_panel extends State<C_Create_deposits> {
                                       onChanged: (CorporateBankModel bank) {
                                         snapshot.selectedDropDownValue =
                                             bank;
+
+                                            setState(() {
+                                        snapshot.ibanController.text=bank.iban;
+                                              
+                                            });
+                                  
                                       },
                                       isExpanded: true,
                                     )
@@ -238,6 +245,9 @@ class _Create_panel extends State<C_Create_deposits> {
                                               children: <Widget>[
                                                 Expanded(
                                                     child: TextFormField(
+                                                      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                       controller: snapshot.amountController,
@@ -473,8 +483,64 @@ class _Create_panel extends State<C_Create_deposits> {
                                             child: FlatButton(
                                               onPressed: () {
                                                 snapshot.createDeposit(
+
                                                         (successModel) {
-                                                      Navigator.pushReplacement(
+
+
+return
+
+ showDialog(context: context,
+   
+    child: AnimatedDialog(
+
+      width:MediaQuery.of(context).size.width-70, //final width of the dialog
+      height: MediaQuery.of(context).size.width-70, //final height of the dialog
+     // durationTime: Duration(seconds: 1),
+
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      child: Center(
+        child: Container(//width: 200,height: 200,
+          child: Column(
+children: <Widget>[
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Deposit Amount: "+snapshot.amountController.text+" "+ snapshot.selectedCurrencyDropDownValue .toString()??"",textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "if the amount is not sent within 24 hours,\n transaction will be canceled",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+SizedBox(height: 20,),
+Row(mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+         child:Text("Confirm",style: TextStyle(color:Colors.white),),
+          color: Colors.indigo,
+          onPressed: (){
+
+  
+                                                           Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
                                                             builder: (context) =>
@@ -482,6 +548,35 @@ class _Create_panel extends State<C_Create_deposits> {
                                                                     successModel
                                                                     ),
                                                           ));
+                                                        }),
+                                         
+       
+          
+  ],
+)
+],
+
+          )
+        ),
+      ),
+
+
+    )
+  );
+
+   
+
+
+
+
+
+
+
+
+
+
+
+                                             
                                                     });
 //                                                      Navigator.pushReplacement(
 //                                                          context,

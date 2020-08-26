@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:animated_dialog/AnimatedDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +32,45 @@ class _CreateBankTransferDepositScreenState
 
 var curency="TRY";
 
+/*
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Amount to be Credit to your bank account :",textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "Amount will be deducted from your Available balance",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+          color: Colors.indigo,
+          onPressed: (){}, child:Text("Confirm",style: TextStyle(color:Colors.white),)
+    
+    
+    
+    ),
+
+
+ */
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -127,7 +167,7 @@ var curency="TRY";
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               SizedBox(
-                                height: ScreenUtil.getInstance().setHeight(50),
+                                height: ScreenUtil.getInstance().setHeight(40),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 30, right: 30),
@@ -553,7 +593,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                   ),
                                                   SizedBox(
                                                     height: ScreenUtil.getInstance()
-                                                        .setHeight(10),
+                                                        .setHeight(5),
                                                   ),
                                                   Text(
                                                     users.hintPNR,
@@ -599,7 +639,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                   ),
                                                   SizedBox(
                                                     height: ScreenUtil.getInstance()
-                                                        .setHeight(30),
+                                                        .setHeight(10),
                                                   ),
                                                   Visibility(
                                                     visible:
@@ -617,7 +657,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                         SizedBox(
                                                           height:
                                                               ScreenUtil.getInstance()
-                                                                  .setHeight(30),
+                                                                  .setHeight(15),
                                                         ),
                                                       ],
                                                     ),
@@ -625,7 +665,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                   
                                                   SizedBox(
                                                     height: ScreenUtil.getInstance()
-                                                        .setHeight(30),
+                                                        .setHeight(0),
                                                   ),
                                         
                                         
@@ -645,6 +685,62 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
 
                                                       snapshot.createDeposit(
                                                             (successModel) {
+
+
+return
+
+
+ showDialog(context: context,
+   
+    child: AnimatedDialog(
+
+      width:MediaQuery.of(context).size.width-70, //final width of the dialog
+      height: MediaQuery.of(context).size.width-70, //final height of the dialog
+     // durationTime: Duration(seconds: 1),
+
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15.0),
+      child: Center(
+        child: Container(//width: 200,height: 200,
+          child: Column(
+children: <Widget>[
+
+
+
+Image.asset("assets/confirm.png",),
+
+
+
+Text(
+        "Deposit Amount: "+snapshot.amountController.text+" "+ this.curency.toString()??"",textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textScaleFactor: 1.2,
+      ),
+
+
+Text(
+        "if the amount is not sent within 24 hours,\n transaction will be canceled",
+        textScaleFactor: 1.1,
+        style: TextStyle(color:Colors.grey),
+        textAlign: TextAlign.center,
+      ),
+SizedBox(height: 20,),
+Row(mainAxisAlignment: MainAxisAlignment.center,
+  children: <Widget>[
+
+FlatButton(
+  
+  shape: Border.all(width: 0.5 ,color:Colors.grey),
+  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+
+) ,
+SizedBox(width: 10,),
+        FlatButton(
+         child:Text("Confirm",style: TextStyle(color:Colors.white),),
+          color: Colors.indigo,
+          onPressed: (){
+
+  
                                                           Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
@@ -652,7 +748,28 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                                     DepositSuccessScreen(
                                                                         successModel),
                                                               ));
-                                                        });
+                                                        }),
+                                         
+       
+          
+  ],
+)
+],
+
+          )
+        ),
+      ),
+
+
+    )
+  );
+
+   
+                                                            });
+
+
+
+
                                                       },
                                                       color: Colors.blue,
                                                       disabledColor: Colors.blue,

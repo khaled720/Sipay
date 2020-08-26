@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart';
 import 'dart:ui' as ui;
 import 'dart:convert';
@@ -23,7 +25,7 @@ var listOfTickets=[];
 var category,category_ID=8;
 TextEditingController title=new TextEditingController();
 TextEditingController desc=new TextEditingController();
-
+File  _image;var isUploading=false;
    Widget DropDown(List data)
       {
         if(data!=null)
@@ -212,7 +214,7 @@ hintText: "Ticket Title"
         
             
         
-                    'Attach File',
+                    isUploading?"Uploading File...":'Attach File',
         
             
         
@@ -240,11 +242,21 @@ hintText: "Ticket Title"
         
             
         
-              onPressed: () {
+              onPressed: ()async {
         
             // NAVIGATE TO ADD TICKET SCREEN
         
             print("Pressd");
+
+
+// ignore: deprecated_member_use
+var image = await ImagePicker.pickImage(source:ImageSource.gallery );
+
+
+setState(() {
+  this._image=image;
+});
+
         
             
         
@@ -323,6 +335,12 @@ hintText: "Go ahead we're listening..."
             
         
               onPressed: () {
+
+
+  String base64Image = base64Encode(_image.readAsBytesSync());
+
+print(base64Image.toString());
+
         
       if(title.value.text.isEmpty||desc.value.text.isEmpty){
 
@@ -351,9 +369,11 @@ body: {
 "message":desc.text
 ,
 "category":category_ID.toString()
+,
+"attachment":base64Image
 
 },
-
+//encoding: Encoding.getByName("form-data")
 
 ).then((val){
 
@@ -361,6 +381,8 @@ var body=json.decode(val.body);
 Timer(Duration(seconds: 3),(){
 Navigator.pop(context);
 });
+
+print("NEW TICKET RESPONSE: "+val.body.toString());
 if(body['statuscode']==100)
 {
 

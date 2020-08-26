@@ -8,9 +8,9 @@ class WithdrawalBankModel {
   var country;
   var logo;
   int status;
-
+var myiban;
   WithdrawalBankModel(this.id, this.name, this.code, this.symbol,
-      this.issuerName, this.address, this.country, this.logo, this.status);
+      this.issuerName, this.address, this.country, this.logo, this.status,{this.myiban});
 
   factory WithdrawalBankModel.empty() {
     return WithdrawalBankModel(
@@ -27,6 +27,9 @@ class WithdrawalBankModel {
         values['address'],
         values['country'],
         values['logo'],
-        values['status']);
+        values['status'],
+        myiban: values['iban']
+        );
+      
   }
 }

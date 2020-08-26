@@ -3,6 +3,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 var isIndividual=false;
+var userName;
 String  userToken;
 
 setUserToken() async {
