@@ -2,6 +2,8 @@ import 'dart:convert';
 import './activity_details.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
+import './dpl_settings.dart';
+import './payment_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -663,7 +665,95 @@ return inCaps;
                                                                 .corporateMainRepository)));
                                           },
                                         ),
+
+
+                                      new ListTile(
+                                          title: Container(
+                                              child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  width: 30,
+                                                ),
+                                                Icon(
+                                              FontAwesomeIcons.link,
+                                                  color: Colors.blue,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(
+                                                  "DPL Settings"),
+                                              ],
+                                            ),
+                                          )),
+                                          onTap: () {
+                            
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                     dplSettings()
+                                                                )
+                                                                );
+                                          },
+                                        ),        
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                    new ListTile(
+                                          title: Container(
+                                              child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  width: 30,
+                                                ),
+                                                Icon(
+                                                  Icons.payment,
+                                                  color: Colors.blue,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Text(
+                                               "Payment Methods"),
+                                              ],
+                                            ),
+                                          )),
+                                          onTap: () {
+                                   
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        paymentSettings(
+                                                          ))
+                                                                
+                                                                ); 
+                                          },
+                                        ),
+                       
+                                  
+                                  
                                       ]),
+                       
+                       
+                       
+                       
+                       
+                       
                                   SizedBox(
                                     height:
                                         ScreenUtil.getInstance().setHeight(50),
@@ -912,9 +1002,9 @@ passCor=prefs.getString("passCor");
                                                           activeSize: 7.0,
                                                         )),
                                                 children: <Widget>[
-                                                  _getSlide(users, 0),
-                                                  _getSlide(users, 1),
-                                                  _getSlide(users, 2),
+                 users.availableBalances[0].toString()[0]!="0"?    _getSlide(users, 0):null,
+               users.availableBalances[1].toString()[0]!="0"?            _getSlide(users, 1):null,
+                users.availableBalances[2].toString()[0]!="0"?       _getSlide(users, 2):null,
                                                 ],
                                               )),
                                           height: 130,
@@ -1014,9 +1104,32 @@ passCor=prefs.getString("passCor");
                                                     dates: snapshot
                                                             .userLastTransactionsActivity[
                                                         index]['created_at']
-                                /*                         ,
-                                                        body:snapshot.userLastTransactionsActivity[index].toString()
-                                                        */ );
+                    ,      
+                          body:{
+
+                               "id":snapshot.userLastTransactionsActivity[index]["id"],
+                               "transactionable_id":snapshot.userLastTransactionsActivity[index]["transactionable_id"]
+                              
+                              , "payment_id":snapshot.userLastTransactionsActivity[index]["payment_id"]
+                             ,
+                               "entity_name":snapshot.userLastTransactionsActivity[index]["entity_name"]
+                        
+                               ,"money_flow":snapshot.userLastTransactionsActivity[index]["money_flow"]
+                               ,"net":snapshot.userLastTransactionsActivity[index]["net"]
+                               ,"currency_symbol":snapshot.userLastTransactionsActivity[index]["currency_symbol"]
+                             ,"created_at":snapshot.userLastTransactionsActivity[index]["created_at"]
+                             ,    "updated_at":snapshot.userLastTransactionsActivity[index]["updated_at"]
+,  "transactionable_type":snapshot.userLastTransactionsActivity[index]["transactionable_type"]
+                              
+
+
+
+
+
+
+
+                                         }     
+                           );
                                               },
                                             ),
                                           ),
@@ -1043,6 +1156,7 @@ passCor=prefs.getString("passCor");
 
   Widget _getSlide(users, index) {
     return Consumer<MerchantPanelProvider>(builder: (context, snapshot, _) {
+  /// print(  snapshot.userWallets.toString());
       return Padding(
         padding: EdgeInsets.only(left: 30.0, right: 30.0),
         child: new Row(
@@ -1072,7 +1186,7 @@ passCor=prefs.getString("passCor");
                                 TextSpan(
                                   text: snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
-                                              fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                              fontSize:    25.0-snapshot.getAvailableWalletAmount(index).toString().length,
        
                                       color: Colors.white,
                              //         fontSize: 25,
@@ -1082,7 +1196,7 @@ passCor=prefs.getString("passCor");
                                     text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
                                       
-                                                fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                                fontSize:    23.0-snapshot.getAvailableWalletAmount(index).toString().length,
        
                                       color: Colors.white)),
                               ])),
@@ -1122,14 +1236,14 @@ passCor=prefs.getString("passCor");
                                   text:
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
-               fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+               fontSize:    25.0-snapshot.getAvailableWalletAmount(index).toString().length,
                                       color: Colors.white,
                                      fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
                                     text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
-                                                 fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                                 fontSize:    23.0-snapshot.getAvailableWalletAmount(index).toString().length,
                                       color: Colors.white)),
                               ])),
                       alignment: Alignment.bottomRight,
@@ -1168,19 +1282,19 @@ passCor=prefs.getString("passCor");
   }
 
   Widget LastActivityList(
-      {String title, String value, String description, String dates,String body}) {
+      {String title, String value, String description, String dates,dynamic body}) {
     return InkWell(
       onTap: (){
 
-/* 
+ 
 
 
 Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => 
-              ActivityDetailsScreen(map: body,)
-));  */
+              ActivityDetailsScreen(body: body,)
+));  
 
 
 

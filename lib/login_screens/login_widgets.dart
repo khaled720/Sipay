@@ -50,7 +50,7 @@ class IndividualWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         SizedBox(
-          height: ScreenUtil.getInstance().setHeight(30),
+          height: ScreenUtil.getInstance().setHeight(0),
         ),
         Container(
           child: Padding(

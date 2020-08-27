@@ -212,10 +212,10 @@ countrycode=country.dialCode;
                         ),
                       ),
                       width: ScreenUtil.getInstance().setWidth(750),
-                      height: ScreenUtil.getInstance().setHeight(80),
+                      height: ScreenUtil.getInstance().setHeight(90),
                     ),
                     SizedBox(
-                      height: ScreenUtil.getInstance().setHeight(10),
+                      height: ScreenUtil.getInstance().setHeight(0),
                     ),
                     Container(
                       child: Padding(
@@ -226,7 +226,7 @@ countrycode=country.dialCode;
              snapshot.customerOrCorporate?               
   Container(
           child: Padding(
-            padding: EdgeInsets.only(left: 0.0, right: 10.0),
+            padding: EdgeInsets.only(top:15,left: 0.0, right: 10.0),
             child: !snapshot.showIndividualLoginErrorMessage
                 ? Container(
                     child: Text(
@@ -281,7 +281,7 @@ countrycode=country.dialCode;
         
 GestureDetector(
       child: Container(
-        margin:EdgeInsets.only(top:20),
+        margin:EdgeInsets.only(top:10),
         width: 80,
         height: 30,
         child: Row(
@@ -408,7 +408,7 @@ if(snapshot.rememberPassword==true){
 }
   
 print("SUCCUSS .........individual..................");
-
+isIndividual=true;
   
                                    Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -425,7 +425,7 @@ print("SUCCUSS .........individual..................");
                                                     );
                                   }, (loginData) {
 print("NOT VERIFIED ........merchant..................");
-
+isIndividual=false;
 
 if(snapshot.rememberPassword==true){
             prefs.setString("email", snapshot.emailController.text);

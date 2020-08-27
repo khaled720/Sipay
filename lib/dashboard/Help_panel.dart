@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'merchant_panel.dart';
 
 TextEditingController _search_controller = new TextEditingController();
@@ -89,7 +89,12 @@ var list=[
                 color: Colors.white,
               ),
               onPressed: () {
-                // do something
+                    Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
               },
             )
           ],
@@ -234,12 +239,12 @@ new ListView.builder(
     return new Column(
       children: <Widget>[
         SizedBox(
-          height: 10,
+          height: 2,
         ),
         Container(
           child: Padding(
             padding: EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 15.0, bottom: 15.0),
+                left: 10.0, right: 10.0, top: 15.0, bottom: 7.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -299,7 +304,7 @@ print("Tapped");
           width: double.infinity,
         ),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
 
 
@@ -307,7 +312,7 @@ print("Tapped");
 
 
 AnimatedContainer(
-  duration: Duration(seconds: 3),curve: Curves.bounceIn,
+  duration: Duration(seconds: 3),curve: Curves.fastLinearToSlowEaseIn,
 //height: expandList[index]==0?0:150,
 //color: Colors.amber,
 child: Card(

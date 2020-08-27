@@ -249,7 +249,7 @@ void _add() {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                    'RECIEVER E-MAIL',
+                                    'RECIEVER E-MAIL *',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black45,
@@ -491,7 +491,7 @@ _key.currentState.showSnackBar(SnackBar(
                                 disabledColor: Colors.blue,
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  'SEND EMAIL',
+                                  'SEND EMAIL ',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

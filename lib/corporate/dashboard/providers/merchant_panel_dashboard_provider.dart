@@ -3,7 +3,7 @@ import 'package:fluttersipay/base_provider.dart';
 import '../../../main_api_data_model.dart';
 import '../merchant_repo.dart';
 
-class MerchantPanelProvider extends BaseMainProvider {
+class MerchantPanelProvider extends BaseMainProvider {static String  photoo;
   MerchantMainRepository _merchantMainRepository;
   MainApiModel _merchantDataModel;
   Map<String, dynamic> _userInfo;
@@ -24,7 +24,7 @@ class MerchantPanelProvider extends BaseMainProvider {
 
   get phoneNumber => getUserInfoValue('phone');
 
-  get userProfileImage => getUserInfoValue('avatar');
+  get userProfileImage => getUserInfoValue('img_path');
 
   get corporateMainRepository => _merchantMainRepository;
 

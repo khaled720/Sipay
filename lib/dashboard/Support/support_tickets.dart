@@ -161,9 +161,12 @@ headers:{
       width: 30,height: 30,
       child: Center(child: CircularProgressIndicator()));
        var responseMap=json.decode(snapshot.data.body);  
-
+ if(responseMap["data"]["ticketdata"].toString()==null)return Container(
+      width: 30,height: 30,
+      child: Center(child:Text("Not Found")));
       var mylist=responseMap["data"]["ticketdata"]["data"];
       print(mylist.toString());
+     
        return    
         
     ListView.builder(

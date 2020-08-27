@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:archive/archive.dart';
-
+import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
+import 'package:dio/dio.dart' as dio ;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/corporate/dashboard/providers/corporate_profile_provider.dart';
@@ -20,7 +22,7 @@ import 'dart:io';
 import 'dart:convert' as con;
 import 'dart:ui' as ui;
 import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
-import 'dart:convert';
+
 import 'dart:io';
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:async/async.dart';
@@ -37,6 +39,64 @@ class CorporateProfileSettingsScreen extends StatefulWidget {
 class _CorporateProfileSettingsScreenState
     extends State<CorporateProfileSettingsScreen> {
 
+
+///////////////////////////////////////////////
+
+upload2Image(File image,context) async {
+  try {
+      ///[1] CREATING INSTANCE
+      var dioRequest = dio.Dio();
+
+      dioRequest.options.baseUrl = 
+            APIEndPoints.kApiCorporateUploadImageEndPoint;
+
+      //[2] ADDING TOKEN
+      dioRequest.options.headers = {
+        'Accept':"application/json",
+        'Authorization': userToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      //[3] ADDING EXTRA INFO
+       var formData = new dio.FormData();
+ 
+      //[4] ADD IMAGE TO UPLOAD
+      var file = await dio.MultipartFile.fromFile(image.path,
+            filename: basename(image.path),
+            contentType: MediaType("image", basename(image.path)));
+
+      formData.files.add(MapEntry('image', file));
+
+      //[5] SEND TO SERVER
+      var response = await dioRequest.post(
+        APIEndPoints.kApiCorporateUploadImageEndPoint,
+        data: formData,
+        options: dio.Options(
+          headers: {       'Accept':"application/json",
+        'Authorization': userToken,}
+        )
+      );
+      final result = json.decode(response.toString())['data'];
+    //  print("<<<<<<<<<<<<><<<<<<<<<<   "+result.toString());
+    
+     Flushbar(
+                                      title: "Successful",
+                                      message: 'Image Uploaded!',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    } catch (err) {
+     // print('ERROR  $err');
+      Flushbar(
+                                      title: "Successful",
+                                      message: 'Image was not Uploaded!',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    }
+}
+
+
+
+/////////////////////////////////////////////////
 Future uploadImage(File file)async{
 
 
@@ -268,10 +328,15 @@ country = ola.Country.fromJson(element);
                      
                  //   File image=new 
                      
-         ImagePicker.pickImage(source: ImageSource.gallery).then((image) =>uploadImage(image) );
+         // ignore: deprecated_member_use
+         ImagePicker.pickImage(source: ImageSource.gallery).then((image){
+           
+           upload2Image(image,context) ;
                      
-                     
-                     
+snapshot.setImagegalary(image);
+
+         }
+         );   
                      
                      
                      

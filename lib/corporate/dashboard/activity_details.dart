@@ -4,29 +4,20 @@ import 'dart:convert';
 
 class ActivityDetailsScreen extends StatefulWidget {
   
-  var map;
+  var body;
  
-  ActivityDetailsScreen({this.map});
+  ActivityDetailsScreen({this.body});
 
   @override
   _ActivityDetailsScreenState createState() => _ActivityDetailsScreenState();
 }
 
 class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
-var body;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
 
-
-      print("#####99####"+widget.map.toString());
-      body=json.decode(widget.map);
-
-  }
-  @override
+ 
+    @override
   Widget build(BuildContext context) {
-
+print(widget.body.toString());
  
     return Scaffold(
        
@@ -103,13 +94,9 @@ body: Container(
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
+      
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text("#"+body["transactionable_id"],
+        trailing: Text("#"+widget.body["transactionable_id"].toString(),
   
         style: TextStyle(
   
@@ -126,6 +113,10 @@ body: Container(
       ),
   
       
+
+
+
+      
   
       Padding(
   
@@ -133,14 +124,53 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Order ID",style: TextStyle(
+        leading: Text("Entity Name",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+       // isThreeLine: true,
+  
+     /*    subtitle: Text("A7a"),
+  
+        title:Text("xcxz"), */
+  
+        trailing: Container(
+          child: Text(widget.body["entity_name"]??"Not Found",
+  
+          style: TextStyle(
+  
+            fontSize: 15,
+  
+            color: Colors.black,fontWeight: FontWeight.bold),
+  
+          ),
+        ),
+  
+        ),
+  
+      ),
+
+
+
+
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Type",style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
 
   
-        trailing: Text(body["transactionable_type"].toString().replaceAll("App\Models\\", "")??"Not Found",
+        trailing: Text(widget.body["transactionable_type"].toString()
+        .replaceAll("App", "").replaceAll("Models", "").replaceAll("\\", "")??"Not Found",
   
         style: TextStyle(
   
@@ -169,13 +199,9 @@ body: Container(
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
+      
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text("#"+body["payment_id"]??"Not Found",
+        trailing: Text("#"+widget.body["payment_id"].toString()??"Not Found",
   
         style: TextStyle(
   
@@ -221,41 +247,6 @@ body: Container(
   
       
   
-      
-  
-      Padding(
-  
-        padding: const EdgeInsets.all(0),
-  
-        child: ListTile(   
-  
-        leading: Text("Entity Name",style: TextStyle(
-  
-          fontSize: 15,
-  
-          color: Colors.grey,fontWeight: FontWeight.bold),),
-  
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Container(width: 180,
-          child: Text(body["entity name"]??"Not Found",
-  
-          style: TextStyle(
-  
-            fontSize: 15,
-  
-            color: Colors.black,fontWeight: FontWeight.bold),
-  
-          ),
-        ),
-  
-        ),
-  
-      ),
   
       
   
@@ -270,14 +261,9 @@ body: Container(
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
+
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text(body["net"].toString()+body["currency_symbol"].toString(),
+        trailing: Text(widget.body["money_flow"]+" "+widget.body["net"].toString()+" "+widget.body["currency_symbol"].toString(),
   
         style: TextStyle(
   
@@ -299,19 +285,13 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Date",style: TextStyle(
+        leading: Text("Created at",style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text(body["created_at"]??"Not Found",
+        trailing: Text(widget.body["created_at"].toString()??"Not Found",
   
         style: TextStyle(
   
@@ -326,6 +306,33 @@ body: Container(
       ),
   
       
+      
+  
+      Padding(
+  
+        padding: const EdgeInsets.all(0),
+  
+        child: ListTile(   
+  
+        leading: Text("Updated at",style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.grey,fontWeight: FontWeight.bold),),
+  
+        trailing: Text(widget.body["updated_at"].toString()??"Not Found",
+  
+        style: TextStyle(
+  
+          fontSize: 15,
+  
+          color: Colors.black,fontWeight: FontWeight.bold),
+  
+        ),
+  
+        ),
+  
+      ),
   
     
   

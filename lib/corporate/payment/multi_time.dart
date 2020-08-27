@@ -236,7 +236,7 @@ if(val==null)
                                                       ScreenUtil.getInstance().setHeight(100),
                                                 ),
                                                 Text(
-                                                  'AMOUNT',
+                                                  'AMOUNT *',
                                                   style: TextStyle(
                                                       color: check_state
                                                           ? Colors.black26
@@ -340,7 +340,7 @@ if(val==null)
                                                 SizedBox(
                                                   height: 10,
                                                 ),
-                                                Text("PRODUCT NAME",style: TextStyle(color: Colors.grey),),
+                                                Text("PRODUCT NAME *",style: TextStyle(color: Colors.grey),),
                                                 TextFormField(
                                                     //      enabled: !_remember,
                                                      
@@ -383,7 +383,7 @@ if(val==null)
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        'Expiry Hour',
+                                        'Expiry Hour *',
                                         style: TextStyle(
                                             color: check_state
                                                 ? Colors.black26
@@ -391,7 +391,7 @@ if(val==null)
                                             fontSize: 12),
                                       ),
                                       Text(
-                                        'Expiry Date',
+                                        'Expiry Date *',
                                         style: TextStyle(
                                             color: check_state
                                                 ? Colors.black26
@@ -567,7 +567,7 @@ if(val==null)
                                     height: 25,
                                   ),
                                   Text(
-                                    'Maximum Number of use',
+                                    'Maximum Number of use *',
                                     style: TextStyle(
                                         color: check_state
                                             ? Colors.black26
@@ -611,7 +611,7 @@ if(val==null)
                                         ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'EXPLANATION',
+                                    'EXPLANATION *',
                                     style: TextStyle(
                                         color: check_state
                                             ? Colors.black26

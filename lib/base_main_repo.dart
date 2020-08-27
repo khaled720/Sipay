@@ -96,6 +96,7 @@ class BaseMainRepository {
             ? APIEndPoints.kApiIndividualBaseWithdrawEndPoint
             : APIEndPoints.kApiCorporateBaseWithdrawEndPoint,
         bearerToken);
+     //   print(result.toString());
     return MainApiModel.mapJsonToModel(result);
   }
 

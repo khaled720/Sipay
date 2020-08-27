@@ -258,8 +258,9 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                         Padding(
                           padding: EdgeInsets.only(left: 20.0, right: 20.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Expanded(
+                              /* Expanded(
                                 child: Column(
                                   children: <Widget>[
                                    /*  IconButton(
@@ -270,11 +271,11 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                                       ),
                                       onPressed: () {},
                                     ), */
-                                    Text(
+                                /*     Text(
                                       users.footerTab[0],
                                       style: TextStyle(
                                           fontSize: 8, color: Colors.black45),
-                                    ),
+                                    ), */
                                   ],
                                 ),
                               ),
@@ -289,14 +290,14 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                                       ),
                                       onPressed: () {},
                                     ), */
-                                    Text(
+                              /*       Text(
                                       users.footerTab[1],
                                       style: TextStyle(
                                           fontSize: 8, color: Colors.black45),
-                                    ),
+                                    ), */
                                   ],
                                 ),
-                              ),
+                              ), */
                               Expanded(
                                 child: Column(
                                   children: <Widget>[

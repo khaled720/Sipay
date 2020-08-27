@@ -3,6 +3,9 @@ import 'package:country_pickers/country_picker_dropdown.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,11 +73,23 @@ country = ola.Country.fromJson(element);
 
 //  if(widget.remem==null) widget.remem=false;
 
+
+
+
+
+
+
   }
 
 
 
- 
+getUser(){
+
+
+
+
+
+} 
  
  
   @override

@@ -187,7 +187,7 @@ TextEditingController _phoneController = TextEditingController();
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                'RECIEVER GSM NUMBER',
+                                'RECIEVER GSM NUMBER *',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black45,

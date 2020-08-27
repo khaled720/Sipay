@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TransactionDetailsScreen extends StatefulWidget {
+class TransactionDetailsCorScreen extends StatefulWidget {
   var body;
-  TransactionDetailsScreen({this.body});
+  TransactionDetailsCorScreen({this.body});
 
   @override
   _TransactionDetailsScreenState createState() => _TransactionDetailsScreenState();
 }
 
-class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
+class _TransactionDetailsScreenState extends State<TransactionDetailsCorScreen> {
 
   String type;
   @override
   Widget build(BuildContext context) {
   
-  type=widget.body["data"]["searchdata"]["transaction_type"].toString().trim();
+  type=widget.body["data"]["data"]["transaction_type"].toString().trim();
   
     return Scaffold(
        
@@ -98,7 +98,7 @@ body: Container(
   
         title:Text("xcxz"), */
   
-        trailing: Text("#"+widget.body["data"]["searchdata"]["transactionable_id"],
+        trailing: Text("#"+widget.body["data"]["transaction"]["transactionable_id"],
   
         style: TextStyle(
   
@@ -134,7 +134,7 @@ body: Container(
   
         title:Text("xcxz"), */
   
-        trailing: Text(widget.body["data"][type]["remote_order_id"]??"Not Found",
+        trailing: Text(widget.body["data"]["transaction"]["remote_order_id"]??"Not Found",
   
         style: TextStyle(
   
@@ -169,7 +169,7 @@ body: Container(
   
         title:Text("xcxz"), */
   
-        trailing: Text("#"+widget.body["data"][type]["payment_id"]??"Not Found",
+        trailing: Text("#"+widget.body["data"]["transaction"]["payment_id"]??"Not Found",
   
         style: TextStyle(
   
@@ -238,7 +238,7 @@ body: Container(
         title:Text("xcxz"), */
   
         trailing: Container(width: 180,alignment: Alignment.centerRight,
-          child: Text(widget.body["data"][type]["credit_card_no"]??"Not Found",
+          child: Text(widget.body["data"]["transaction"]["credit_card_no"]??"Not Found",
   
           style: TextStyle(
   
@@ -274,7 +274,7 @@ body: Container(
         title:Text("xcxz"), */
   
         trailing: Container(width: 180,alignment: Alignment.centerRight,
-          child: Text(widget.body["data"][type]["bank_name"]??"Not Found",
+          child: Text(widget.body["data"]["transaction"]["bank_name"]??"Not Found",
   
           style: TextStyle(
   
@@ -309,7 +309,7 @@ body: Container(
   
         title:Text("xcxz"), */
   
-        trailing: Text(widget.body["data"][type]["net"].toString()+widget.body["data"][type]["currency_symbol"].toString(),
+        trailing: Text(widget.body["data"]["transaction"]["net"].toString()+widget.body["data"]["transaction"]["currency_symbol"].toString(),
   
         style: TextStyle(
   
@@ -343,7 +343,7 @@ body: Container(
   
         title:Text("xcxz"), */
   
-        trailing: Text(widget.body["data"][type]["created_at"]??"Not Found",
+        trailing: Text(widget.body["data"]["transaction"]["created_at"]??"Not Found",
   
         style: TextStyle(
   

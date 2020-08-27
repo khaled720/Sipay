@@ -92,6 +92,7 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
 
   void setSavedBankAccountDropdownValue(WithdrawalBankModel value) {
     _savedAccountSelectedDropdownValue = value;
+    //this._selectedBankDropDownValue=value;
     if (value.name != 'No accounts found') {
       _savedAccount = true;
       _currentSelectedBank = value;

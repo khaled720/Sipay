@@ -257,7 +257,7 @@ void _add() {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                    'RECIEVER GSM NUMBER',
+                                    'RECIEVER GSM NUMBER *',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black45,
@@ -378,7 +378,7 @@ http.post(
 
   "dpl_id":widget.dpl["id"].toString(),
 	"payment_link_type":"2",
-"phone[]":"+"+numbers[i].toString()
+"phone[] ":"+"+numbers[i].toString()
 }
 
 ).then((res){

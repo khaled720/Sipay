@@ -1,10 +1,16 @@
 import 'dart:async';
-
+import 'dart:io';
+import 'package:archive/archive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:fluttersipay/utils/api_endpoints.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart';
 import 'dart:ui' as ui;
 import 'dart:convert';
+import 'package:dio/dio.dart' as dio ;
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
 import 'package:fluttersipay/corporate/global_data.dart';
@@ -104,7 +110,83 @@ if(val==null)
         );
         }
       }
+//////////////////////////////////////////////////////////
+  
+  
+  
+  
+  
+  File image;
+  
+upload2Image(File image,context) async {
+  try {
+      ///[1] CREATING INSTANCE
+      var dioRequest = dio.Dio();
 
+      dioRequest.options.baseUrl = 
+           global.APIEndPoints.kApiSupportFormEndpoint;
+
+      //[2] ADDING TOKEN
+      dioRequest.options.headers = {
+        'Accept':"application/json",
+        'Authorization': userToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+      //[3] ADDING EXTRA INFO
+       var formData = new dio.FormData.fromMap({
+         "title":title.text
+,
+"message":desc.text
+,
+"category":category_ID.toString()
+
+       });
+ 
+      //[4] ADD IMAGE TO UPLOAD
+      var file = await dio.MultipartFile.fromFile(image.path,
+            filename: basename(image.path),
+            contentType: MediaType("attachment", basename(image.path)));
+
+      formData.files.add(MapEntry('attachment', file));
+
+      //[5] SEND TO SERVER
+      var response = await dioRequest.post(
+        APIEndPoints.kApiCorporateUploadImageEndPoint,
+        data: formData,
+        options: dio.Options(
+          headers: {       'Accept':"application/json",
+        'Authorization': userToken,}
+        )
+      );
+      final result = json.decode(response.toString())['data'];
+    //  print("<<<<<<<<<<<<><<<<<<<<<<   "+result.toString());
+    
+     Flushbar(
+                                      title: "Successful",
+                                      message: 'Image Uploaded!',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    } catch (err) {
+     // print('ERROR  $err');
+      Flushbar(
+                                      title: "Successful",
+                                      message: 'Image was not Uploaded!',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    }
+}
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  /////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,13 +322,14 @@ hintText: "Ticket Title"
         
             
         
-              onPressed: () {
+              onPressed: () async{
         
             // NAVIGATE TO ADD TICKET SCREEN
         
-            print("Pressd");
+            print("Pressd2");
         
-            
+                 // ignore: deprecated_member_use
+             image= await   ImagePicker.pickImage(source: ImageSource.gallery);
         
               },
         
@@ -322,7 +405,7 @@ hintText: "Go ahead we're listening..."
         
             
         
-              onPressed: () {
+              onPressed: () async {
         
       if(title.value.text.isEmpty||desc.value.text.isEmpty){
 
@@ -334,6 +417,76 @@ hintText: "Go ahead we're listening..."
                                         )..show(context);
       }else{
 
+
+
+
+
+
+try
+{
+ 
+      var dioRequest = dio.Dio();
+
+      dioRequest.options.baseUrl = 
+           global.APIEndPoints.kApiSupportFormEndpoint;
+ 
+      dioRequest.options.headers = {
+        'Accept':"application/json",
+        'Authorization': userToken,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+
+       var formData = new dio.FormData.fromMap({
+         "title":title.text
+,
+"message":desc.text
+,
+"category":category_ID.toString()
+
+       });
+ 
+      //[4] ADD IMAGE TO UPLOAD
+      var file = await dio.MultipartFile.fromFile(image.path,
+            filename: basename(image.path),
+            contentType: MediaType("attachment", basename(image.path)));
+
+      formData.files.add(MapEntry('attachment', file));
+
+      var response = await dioRequest.post(
+       global.APIEndPoints.kApiSupportFormEndpoint,
+        data: formData,
+        options: dio.Options(
+          headers: {       'Accept':"application/json",
+        'Authorization': userToken,}
+        )
+      );
+      final result = json.decode(response.toString());
+      print("<<<<<<<<<<<<><##<<<<<<<<<   "+result.toString());
+    
+     Flushbar(
+                                      title: "Successful",
+                                      message: 'Your Support Ticket was opened successfully',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    } catch (err) {
+     // print('ERROR  $err');
+      Flushbar(
+                                      title: "Failure",
+                                      message: 'Your Support Ticket was not opened !!',
+                                      duration: Duration(seconds: 3))
+                                    ..show(context);
+    }
+
+
+
+
+
+
+
+
+
+
+/* 
 http.post(
 
 global.APIEndPoints.kApiSupportFormEndpoint
@@ -385,7 +538,7 @@ if(body['statuscode']==100)
 
 
 });
-
+ */
 
 
 

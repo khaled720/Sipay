@@ -122,7 +122,9 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(0) +
+                        
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+
                                           '₺',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -142,7 +144,9 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(1) +
+                               
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2)+
                                           "\$",
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -154,7 +158,9 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    snapshot.getAvailableWalletAmount(2) + '€',
+                   
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2)+ '€',
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 16),
                                   ),

@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:fluttersipay/corporate/global_data.dart';
 import '../base_main_repo.dart';
 import '../loading_widget.dart';
+import './Transaction_detailCor.dart';
 import 'package:dio/dio.dart';
 import 'Transaction_detail.dart';
 import './chargeback_history.dart';
@@ -654,6 +655,7 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
 
   Widget transactionsList(
       {String title, String value, String id, String dates, String type}) {
+        print(id+type);
     var _color;
     if (type == "0")
       _color = Colors.red;
@@ -663,6 +665,8 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
     return new GestureDetector(
       onTap: () {
 
+if(isIndividual){
+
 Dio().get(
 global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("Transaction ID:", "")
 .replaceAll("#", "").trim().toString()+"?transactionType=${title.toLowerCase()}"
@@ -670,21 +674,20 @@ global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("
  headers: {
 "Authorization":userToken,
 "Accept":"application/json",
-"Content-Type":"application/json",
+//"Content-Type":"application/json",
   }
 )
 
 ).then((val){
 
 
-//print(val.data);
 
-Navigator.push(
+ Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => TransactionDetailsScreen(
                   body:val.data),
-            )); 
+            ));  
 
 }
 
@@ -692,36 +695,43 @@ Navigator.push(
 );
 
 
-/* http.get(global.APIEndPoints.kApiIndividualTransactionDetailsEndPoint+"/"+id.replaceAll("#","").toString()+"?transactionType=Deposit"
+        
 
-,
-headers: {
+}else{
+////////////Cor
+Dio().get(
+global.APIEndPoints.kApiCorporateTransactionDetailsEndPoint+"/"+id.replaceAll("Transaction ID:", "")
+.replaceAll("#", "").trim().toString()//+"?transactionType=${title.toLowerCase()}"
+,options: Options(
+ headers: {
 "Authorization":userToken,
 "Accept":"application/json",
-"Content-Type":"application/json",
-},
+//"Content-Type":"application/json",
+  }
+)
 
 ).then((val){
 
-var body=json.decode(val.body);
-print(body.toString());
-/* 
-Navigator.push(
+
+print(val.data);
+ Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TransactionDetailsScreen(
-                  widget.baseRepo, id, title, widget.userType,body:body),
-            ));  */
+              builder: (context) => TransactionDetailsCorScreen(
+                  body:val.data),
+            ));  
 
-})
+}
 
 
-; */
+);
+
+
         
+
+}
+
          
-
-
-print(id+" yy "+title);
 
 
       },

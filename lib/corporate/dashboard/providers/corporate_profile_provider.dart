@@ -66,7 +66,7 @@ class CorporateProfileSettingsProvider with ChangeNotifier {
     if (corporateProfileModel.statusCode == 100) {
       _userName = corporateProfileModel.data['user']['name'];
       _userID = corporateProfileModel.data['user']['id'].toString();
-      _userProfileAvatar = corporateProfileModel.data['user']['avatar'];
+      _userProfileAvatar = corporateProfileModel.data['user']['img_path'];
     }
     notifyListeners();
   }
@@ -78,6 +78,13 @@ class CorporateProfileSettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+setImagegalary(File image)async{
+
+ _imageFromGallery =
+        // ignore: deprecated_member_use
+        image;
+notifyListeners();
+}
   pickImageFromLibrary(Function onSuccess, Function onFailure) async {
     _imageFromGallery =
         await ImagePicker.pickImage(source: ImageSource.gallery);

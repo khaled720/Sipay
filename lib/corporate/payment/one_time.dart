@@ -236,7 +236,7 @@ response.then((value){
                                     height: ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'AMOUNT',
+                                    'AMOUNT *',
                                     style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
                                   ),
 Form(
@@ -479,7 +479,7 @@ amount=0;
   
                                     ),
   
-Text("PRODUCT NAME",
+Text("PRODUCT NAME *",
            style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
   
 )
@@ -500,7 +500,7 @@ contentPadding: EdgeInsets.all(2)
   
                                     Text(
   
-                                      'EXPLANATION',
+                                      'EXPLANATION *',
   
                                       style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
   

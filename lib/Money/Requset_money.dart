@@ -8,7 +8,7 @@ import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import '../base_main_repo.dart';
 import '../bottom_navigator.dart';
 
@@ -76,6 +76,12 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                   ),
                   onPressed: () {
                     // do something
+                          Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                   },
                 )
               ],
@@ -118,7 +124,9 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(0) +
+                                   
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+
                                           '₺',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -138,7 +146,9 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(1) +
+                             
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2)+
                                           "\$",
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -150,7 +160,9 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    snapshot.getAvailableWalletAmount(2) + '€',
+                       
+                                                      
+                            double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2) + '€',
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 16),
                                   ),

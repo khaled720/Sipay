@@ -183,7 +183,7 @@ String email;
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                'RECIEVER E-Mail',
+                                'RECIEVER E-Mail *',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black45,

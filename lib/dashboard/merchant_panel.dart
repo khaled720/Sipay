@@ -1,5 +1,6 @@
 import 'dart:convert';
 import './activity_details.dart';
+import 'package:animated_dialog/AnimatedDialog.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -811,7 +812,6 @@ return inCaps;
                                     onTap: () {
 
 
-                                      Navigator.pop(context);
                                       
                                     //////////////////////////////////////////
                                     //////////////////////////////////////////
@@ -978,7 +978,6 @@ passCor=prefs.getString("passCor");
 
  });
 
-print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
 
                                                 snapshot.logoutUser(() {
                                                   Navigator.of(context)
@@ -1083,9 +1082,9 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                                           activeSize: 7.0,
                                                         )),
                                                 children: <Widget>[
-                                                  _getSlide(users, 0),
-                                                  _getSlide(users, 1),
-                                                  _getSlide(users, 2),
+                                           users.availableBalances[0].toString()[0]!="0"?    _getSlide(users, 0):null,
+               users.availableBalances[1].toString()[0]!="0"?            _getSlide(users, 1):null,
+                users.availableBalances[2].toString()[0]!="0"?       _getSlide(users, 2):null,
                                                 ],
                                               )),
                                           height: 130,
@@ -1189,8 +1188,30 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                                             .userLastTransactionsActivity[
                                                         index]['created_at']
                                                         ,
-                                         body: snapshot.userLastTransactionsActivity[index]["id"]
-                                       
+                                         body: {
+
+                               "id":snapshot.userLastTransactionsActivity[index]["id"],
+                               "transactionable_id":snapshot.userLastTransactionsActivity[index]["transactionable_id"]
+                              
+                              , "payment_id":snapshot.userLastTransactionsActivity[index]["payment_id"]
+                             ,
+                               "entity_name":snapshot.userLastTransactionsActivity[index]["entity_name"]
+                        
+                               ,"money_flow":snapshot.userLastTransactionsActivity[index]["money_flow"]
+                               ,"net":snapshot.userLastTransactionsActivity[index]["net"]
+                               ,"currency_symbol":snapshot.userLastTransactionsActivity[index]["currency_symbol"]
+                             ,"created_at":snapshot.userLastTransactionsActivity[index]["created_at"]
+                             ,    "updated_at":snapshot.userLastTransactionsActivity[index]["updated_at"]
+,  "transactionable_type":snapshot.userLastTransactionsActivity[index]["transactionable_type"]
+                              
+
+
+
+
+
+
+
+                                         }                                      
                                                       
                                                         );
                                               },
@@ -1254,7 +1275,7 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                    snapshot.getTotalWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                                          fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                          fontSize:    25.0-snapshot.getAvailableWalletAmount(index).toString().length,
        
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -1262,7 +1283,7 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                     text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
                                       
-                                              fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                              fontSize:    23.0-snapshot.getAvailableWalletAmount(index).toString().length,
        
                                       color: Colors.white)),
                               ])),
@@ -1302,13 +1323,13 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
                                       snapshot.getAvailableWalletAmount(index),
                                   style: TextStyle(
                                       color: Colors.white,
-                 fontSize:    20.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                 fontSize:    25.0-snapshot.getAvailableWalletAmount(index).toString().length,
         fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
                                     text: snapshot.getWalletCurrencyCode2(index),
                                     style: TextStyle(
-                                    fontSize:    18.0-snapshot.getAvailableWalletAmount(index).toString().length,
+                                    fontSize:    23.0-snapshot.getAvailableWalletAmount(index).toString().length,
                  
                                       color: Colors.white)),
                               ])),
@@ -1353,15 +1374,16 @@ print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
 
       onTap: (){
 
+//print(map2.toString());
 //print(title+"  "+body["id"].toString());
-/* 
- Navigator.push(
+ 
+  Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => 
-              ActivityDetailsScreen(body: body["transactionable_id"].toString(),)
-)); 
- */ 
+              ActivityDetailsScreen(body: body,)
+));  
+  
       },
           child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
