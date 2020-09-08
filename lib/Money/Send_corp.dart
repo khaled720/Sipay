@@ -9,8 +9,9 @@ import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 import '../base_main_repo.dart';
 import 'money_transfer_otp.dart';
 
@@ -33,10 +34,11 @@ class _SendMoneyToCorporateScreenState
   bool check_states = true;
 
   int _selectedItemPosition = 0;
-  var _bank_value = "MERCHANT";
-  List<String> _listBankData = ["MERCHANT","INDIVIDUAL"];
-  var _try_value = "TRY";
-  List<String> _listtryData = ["TRY", "USD", 'EUR'];
+  var _bank_value =  translator.translate("merchanr") ;
+  List<String> _listBankData = [  translator.translate("merchanr")   ,  translator.translate("individual")   ];
+  var _try_value ="TRY"  ;
+  List<String> _listtryData = [  "TRY" 
+  ,"USD","EUR"  ];
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -58,7 +60,7 @@ class _SendMoneyToCorporateScreenState
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("Money  Transfer"),
+            title: Text( translator.translate("moneytrans") ),
             flexibleSpace: Image(
               image: AssetImage('assets/appbar_bg.png'),
               height: 100,
@@ -83,7 +85,7 @@ class _SendMoneyToCorporateScreenState
                 icon: Icon(
                   FontAwesomeIcons.commentAlt,
                   color: Colors.white,
-                  size: 16,
+             //     size: 16,
                 ),
                 onPressed: () {
                               
@@ -114,7 +116,7 @@ class _SendMoneyToCorporateScreenState
                       Padding(
                         padding: EdgeInsets.only(left: 30, right: 30),
                         child: Text(
-                          'AVAILABLE BALANCE',
+                         translator.translate("availableBalance"),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -191,15 +193,16 @@ class _SendMoneyToCorporateScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'REQUEST MONEY',
-                              style: TextStyle(
+                             
+                             translator.translate("moneyReq")
+                             , style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                             SizedBox(
                               height: ScreenUtil.getInstance().setHeight(50),
                             ),
                             Text(
-                              'CHOOSE WALLET TYPE',
+                           translator.translate("chooseWallet"),
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 12),
                             ),
@@ -240,7 +243,7 @@ class _SendMoneyToCorporateScreenState
                                 });
 
 
-if(value=="INDIVIDUAL"){
+if(value==translator.translate("individual")){
    Navigator.push(
           context,
           MaterialPageRoute(
@@ -267,7 +270,7 @@ if(value=="INDIVIDUAL"){
                                         ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'MERCHANT ID',
+                                    translator.translate("merchantID"),
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
@@ -278,11 +281,14 @@ if(value=="INDIVIDUAL"){
                                     onFieldSubmitted: (value) {
                                       snapshot.onReceiverPhoneSubmitted(value);
                                     },validator: (val){
-if(val=="")return "Please enter Merchant Id";
+if(val=="")return 
+                                    
+                                    translator.translate("error")+translator.translate("merchantID").toLowerCase();
 
                                     },
                                     decoration: InputDecoration(
-                                      hintText: 'Enter Merchant ID',
+                                      hintText:
+                                    translator.translate("merchantIDHint"),
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.black45,
@@ -312,12 +318,14 @@ if(val=="")return "Please enter Merchant Id";
                                       children: <Widget>[
                                         Icon(
                                             snapshot.receiverData ==
-                                                    'Non SiPay User'
+                                              
+                                    translator.translate("NonsiUser")
                                                 ? FontAwesomeIcons.userSlash
                                                 : FontAwesomeIcons.userCheck,
                                             size: 15.0,
                                             color: snapshot.receiverData ==
-                                                    'Non SiPay User'
+                                             
+                                    translator.translate("NonsiUser")
                                                 ? Colors.red
                                                 : Colors.blue),
                                         SizedBox(
@@ -327,7 +335,8 @@ if(val=="")return "Please enter Merchant Id";
                                           snapshot.receiverData ?? '',
                                           style: TextStyle(
                                               color: snapshot.receiverData ==
-                                                      'Non SiPay User'
+                                                  
+                                    translator.translate("NonsiUser")
                                                   ? Colors.red
                                                   : Colors.blue),
                                         ),
@@ -379,7 +388,7 @@ if(val=="")return "Please enter Merchant Id";
                                     ),
                                   ),
                                   Text(
-                                    'AMOUNT *',
+                                    translator.translate("amount")+' *',
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
@@ -434,7 +443,7 @@ if(val=="")return "Please enter Merchant Id";
                                             ),
                                             validator: (value) {
                                               if (value.isEmpty) {
-                                                return 'Please enter AMOUNT';
+                                                return   translator.translate("error")+  translator.translate("amount");
                                               }
                                               return null;
                                             },
@@ -508,7 +517,7 @@ if(val=="")return "Please enter Merchant Id";
                                         : Container(
                                             alignment: Alignment.centerRight,
                                             child: Text(
-                                              "Please enter valid amount",
+                                                 translator.translate("error")+translator.translate("valid")+" "+    translator.translate("amount").toLowerCase(),
                                               textAlign: TextAlign.right,
                                               style: TextStyle(
                                                 color: Colors.red,
@@ -521,7 +530,7 @@ if(val=="")return "Please enter Merchant Id";
                                         ScreenUtil.getInstance().setHeight(20),
                                   ),
                                   Text(
-                                    'DESCRIPTION',
+                                    translator.translate("desc"),
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
@@ -530,7 +539,7 @@ if(val=="")return "Please enter Merchant Id";
                                     keyboardType: TextInputType.text,
                                     controller: snapshot.descriptionController,
                                     decoration: InputDecoration(
-                                      hintText: "Enter Description",
+                                      hintText:   translator.translate("descHint"),
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.black45,
@@ -542,12 +551,12 @@ if(val=="")return "Please enter Merchant Id";
                                       prefixIcon: const Icon(
                                         FontAwesomeIcons.solidCommentDots,
                                         color: Colors.black45,
-                                        size: 16,
+                                     //   size: 16,
                                       ),
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Please enter description';
+                                        return   translator.translate("error")+  translator.translate("desc").toLowerCase();
                                       }
                                       return null;
                                     },
@@ -589,12 +598,12 @@ if(_formKey.currentState.validate()){
                                         (description) {
                                           
 
-    translator.GoogleTranslator().translate(
+    translator1.GoogleTranslator().translate(
        description.toString(), to: 'en',from: 'tr').then((k) {
 
 
    Flushbar(
-                                            title: "Failure",
+                                            title: translator.translate("fail"),
                                             message: k.toString(),
                                           )..show(context);
 
@@ -611,7 +620,7 @@ if(_formKey.currentState.validate()){
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        "SUBMIT REQUEST",
+                                       translator.translate("submitReq"),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

@@ -4,10 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/datas.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/deposit/json_models/c_deposit_success.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'create_deposit.dart';
 
 
@@ -32,7 +33,7 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("DEPOSIT"),
+        title: Text(translator.translate("deposit").toUpperCase()),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 120,
@@ -56,6 +57,12 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
               color: Colors.white,
             ),
             onPressed: () {
+                Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
               // do something
             },
           )
@@ -119,7 +126,7 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
                     ),
                     Expanded(
                       child: Text(
-                        'IBAN: ',
+                        translator.translate("iban")+': ',
                         style: TextStyle(color: Colors.black45, fontSize: 17),
                       ),
                     ),
@@ -154,7 +161,7 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Deposit amount',
+                      child: Text(translator.translate("deposit")+" "+translator.translate("amount").toLowerCase(),
                           style:
                               TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
@@ -200,7 +207,7 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
                           color: Colors.white,
                           padding: EdgeInsets.all(15.0),
                           child: Text(
-                            "NEW DEPOSIT",
+                            translator.translate("newdep"),
                             style: TextStyle(
                               color: Colors.black54,
                               fontSize: 16,
@@ -227,7 +234,7 @@ class _Deposit_success_panel extends State<C_Deposit_success> {
                           disabledColor: Colors.blue,
                           padding: EdgeInsets.all(15.0),
                           child: Text(
-                            "DASHBOARD",
+                          translator.translate("dash"),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

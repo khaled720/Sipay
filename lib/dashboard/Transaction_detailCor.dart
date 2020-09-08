@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:convert';
 
+import 'package:localize_and_translate/localize_and_translate.dart';
 class TransactionDetailsCorScreen extends StatefulWidget {
   var body;
   TransactionDetailsCorScreen({this.body});
@@ -10,20 +12,40 @@ class TransactionDetailsCorScreen extends StatefulWidget {
 }
 
 class _TransactionDetailsScreenState extends State<TransactionDetailsCorScreen> {
+List<String> list=translator.currentLanguage=='en'?[
 
-  String type;
+    "Transaction ID",
+    "Order ID",
+    "Payment ID",
+    "Credit Card NO",
+    "Updated st",
+    "bank Name",
+    "date",
+    "BACK"
+    ]:[
+
+   "İşlem ID",
+        "Ödeme ID",
+        "Kredi Kartı Numarası",
+        "Güncelleme Tarihi",
+        "Banka Adı",
+        "Tarih",
+        "Geri"
+    ];
+
+  String type="";
   @override
   Widget build(BuildContext context) {
   
-  type=widget.body["data"]["data"]["transaction_type"].toString().trim();
-  
+ /*  type=widget.body["data"]["data"]["transaction_type"].toString().trim()??"";
+   */
     return Scaffold(
        
 
 
   appBar: AppBar(
               centerTitle: true,
-              title: Text('TRANSACTION DETAILS'),
+              title: Text(translator.translate("transHis")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -86,19 +108,15 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Transaction ID",style: TextStyle(
+        leading: Text(list[0],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
+
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text("#"+widget.body["data"]["transaction"]["transactionable_id"],
+        trailing: Text("#"+widget.body["data"]["transaction"]["id"].toString()??"Not Found",
   
         style: TextStyle(
   
@@ -122,19 +140,15 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Order ID",style: TextStyle(
+        leading: Text(list[1],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
+    
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text(widget.body["data"]["transaction"]["remote_order_id"]??"Not Found",
+        trailing: Text(widget.body["data"]["transaction"]["remote_order_id"].toString()??"Not Found",
   
         style: TextStyle(
   
@@ -157,27 +171,24 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Payment ID",style: TextStyle(
+        leading: Text(list[2],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
   
-     /*    subtitle: Text("A7a"),
+        trailing: Container(width: 160,
+            child: Text("#"+widget.body["data"]["transaction"]["payment_id"].toString()??"Not Found",
+  textAlign: TextAlign.right,
+            style: TextStyle(
   
-        title:Text("xcxz"), */
+              fontSize: 13,
   
-        trailing: Text("#"+widget.body["data"]["transaction"]["payment_id"]??"Not Found",
+              color: Colors.black,fontWeight: FontWeight.bold),
   
-        style: TextStyle(
-  
-          fontSize: 13,
-  
-          color: Colors.black,fontWeight: FontWeight.bold),
-  
-        ),
+            ),
+          ),
   
         ),
   
@@ -196,14 +207,8 @@ body: Container(
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
-  
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Text("#"+widget.body["data"]["searchdata"]["transactionable_id"],
+        
+        trailing: Text("#"+widget.body["data"]["transaction"]["transactionable_id"]..
   
         style: TextStyle(
   
@@ -225,17 +230,13 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Credit Card No",style: TextStyle(
+        leading: Text(list[3],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
+
   
         trailing: Container(width: 180,alignment: Alignment.centerRight,
           child: Text(widget.body["data"]["transaction"]["credit_card_no"]??"Not Found",
@@ -261,20 +262,15 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Card Holder Bank",style: TextStyle(
+        leading: Text("Remote "+list[1],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
   
         trailing: Container(width: 180,alignment: Alignment.centerRight,
-          child: Text(widget.body["data"]["transaction"]["bank_name"]??"Not Found",
+          child: Text(widget.body["data"]["transaction"]["remote_order_id"]??"Not Found",
   
           style: TextStyle(
   
@@ -297,7 +293,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Amount",style: TextStyle(
+        leading: Text(translator.translate("amount"),style: TextStyle(
   
           fontSize: 15,
   
@@ -331,7 +327,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Date",style: TextStyle(
+        leading: Text(list[6],style: TextStyle(
   
           fontSize: 15,
   
@@ -419,7 +415,7 @@ body: Container(
   
                                 child: Text(
   
-                                  "Back",
+                           list[6].toString(),
   
                                   style: TextStyle(
   

@@ -25,6 +25,7 @@ var listOfTickets=[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
          appBar: AppBar(
               centerTitle: true,
               title: Text("SUPPORT TICKETS",style: TextStyle(fontSize: 15),),
@@ -244,7 +245,7 @@ if(mylist[index]['status']=='open'){
   
     fontSize: 15,
   
-  color: Colors.red
+  color:mylist[index]['status']=="closed"? Colors.red:Colors.green
   
     //fontWeight: FontWeight.bold
   

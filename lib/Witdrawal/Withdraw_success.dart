@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 Widget Withdraw_success() {
   return Withdraw_success_panel();
@@ -32,15 +33,15 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/Withdrawl/8.7Withdraw_success.json'),
         builder: (context, snapshot) {
-          With_success_json users;
+   //       With_success_json users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = With_success_json.fromJson(parsedJson);
+     //       users = With_success_json.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(translator.translate("withdraw").toUpperCase()),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -105,7 +106,7 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              users.successful,
+                              translator.translate("successful"),
                               style: TextStyle(
                                   color: Colors.green,
                                   fontSize: 20,
@@ -122,8 +123,8 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                users.your,
-                                style: TextStyle(
+                            translator.translate("withdrawSuccessMsg")
+                 ,               style: TextStyle(
                                     color: Colors.black45, fontSize: 18),
                                 textAlign: TextAlign.center,
                               ),
@@ -145,7 +146,7 @@ class _Withdraw_success_panel extends State<Withdraw_success_panel> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                users.button,
+                             translator.translate("dash"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

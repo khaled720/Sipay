@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,15 +48,19 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
         future: DefaultAssetBundle.of(context).loadString(
             'assets/json/register/2.3registerSMSverification1.json'),
         builder: (context, snapshot) {
-          PasswordSMSVerificationModel users;
-          var parsedJson;
+          //PasswordSMSVerificationModel users;
+        //  var parsedJson;
           if (snapshot.hasData) {
-            parsedJson = json.decode(snapshot.data.toString());
-            users = PasswordSMSVerificationModel.fromJson(parsedJson);
+          //  parsedJson = json.decode(snapshot.data.toString());
+        //    users = PasswordSMSVerificationModel.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text("PASSWORD"),
+                title: Text(
+translator.translate("pass")
+,
+
+                ),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -107,7 +112,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "PASSWORD",
+                              translator.translate("pass"),
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black87,
@@ -124,7 +129,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Enter your password to login.",
+                                    translator.translate("passInfo"),
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black45,
@@ -203,7 +208,7 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                                       ResetPasswordScreen()));
                                         },
                                         child: Text(
-                                          "Forgot Passwword",
+                                            translator.translate("forgetPass"),
                                           style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 15,
@@ -221,8 +226,8 @@ class VerifyPasswordScreenState extends State<VerifyPasswordScreen> {
                                               (route) => route.isFirst);
                                         },
                                         child: Text(
-                                          "              Login With \n Different Account",
-                                          style: TextStyle(
+                                          translator.translate("diffrenAcc")
+                                     ,  style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 15,
                                               height: 1.6),
@@ -266,7 +271,7 @@ print("SUCCESS.........indi pass saved........"+prefs.getString("pass").toString
                                   disabledColor: Colors.blue,
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
-                                    users.button,
+                                       translator.translate("verify"),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,

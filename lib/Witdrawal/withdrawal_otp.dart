@@ -7,9 +7,10 @@ import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/corporate/withdrawal/withdrawal_success.dart';
 import 'package:fluttersipay/otp/otp_base_screen.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 class WithdrawalOTPScreen extends StatefulWidget {
   final phoneNumber;
   final otpModel;
@@ -37,7 +38,7 @@ class _WithdrawalOTPScreenState extends State<WithdrawalOTPScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('OTP VERIFICATION'),
+        title: Text(translator.translate("otp")),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 100,
@@ -78,10 +79,10 @@ class _WithdrawalOTPScreenState extends State<WithdrawalOTPScreen> {
                 verifyOTP: snapshot.verifyOTP,
                 onFailure: (description) async{
 
-                var txt=await   translator.GoogleTranslator().translate(
+                var txt=await   translator1.GoogleTranslator().translate(
        description.toString(), to: 'en');
                   Flushbar(
-                    title: "Failure",
+                    title: translator.translate("fail"),
                     message: txt.toString(),
                     duration: Duration(seconds: 3),
                   )..show(context);

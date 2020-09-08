@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart';
 import 'dart:ui' as ui;
 import 'package:flushbar/flushbar.dart';
@@ -37,7 +38,9 @@ global.APIEndPoints.kApiSupportConvesationEndpoint+"/${widget.ticket['ticket_id'
     return Scaffold(
          appBar: AppBar(
               centerTitle: true,
-              title: Text("SUPPORT",style: TextStyle(fontSize: 15),),
+              title: Text(    
+                 translator.translate("support").toUpperCase()
+              ,style: TextStyle(fontSize: 15),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -113,7 +116,7 @@ Row(
 crossAxisAlignment: CrossAxisAlignment.end,
    children: <Widget>[
 
-   Text("Created on:",
+   Text(     translator.translate("created"),
     
     style: TextStyle(
     
@@ -229,7 +232,7 @@ controller: message,
   decoration: InputDecoration(
 prefixIcon: Icon(FontAwesomeIcons.comment),
 
-hintText: "Type your message here..."
+hintText:      translator.translate("msgHint"),
 
 
 ),
@@ -252,7 +255,7 @@ SizedBox(height: 0,),
       
             child: Text(
 
-                  'SEND',
+                    translator.translate("sendMsg"),
    
                   style: TextStyle(
                   color: Colors.white,
@@ -353,7 +356,7 @@ message.text="";
       
           
       
-                  'CLOSE TICKET',
+                     translator.translate("closeTic"),
       
           
       
@@ -395,7 +398,7 @@ global.APIEndPoints.kApiTicketCloseEndpoint+"${widget.ticket['id']}"
 }, ).then((value) {
      Flushbar(
                                   
-                                    message: "This Ticket has been Closed",
+                                    message:      translator.translate("closedTic"),
                                     duration: Duration(seconds: 2),
                                   )..show(context);
 Timer(Duration(seconds:2),(){

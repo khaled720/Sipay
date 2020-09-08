@@ -9,6 +9,7 @@ import 'package:fluttersipay/corporate/payment/success_sharelink.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
 import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 TextEditingController _phoneController = TextEditingController();
 
 class Email_Sharelink extends StatefulWidget {
@@ -51,7 +52,7 @@ String email;
               return new Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text('SHARE LINK'),
+                  title: Text(translator.translate("sharelink")),
                   flexibleSpace: Image(
                     image: AssetImage('assets/appbar_bg.png'),
                     height: 100,

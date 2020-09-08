@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import 'merchant_panel.dart';
 
@@ -64,7 +66,7 @@ class _NotificationPanel extends State<NotificationPanel> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('NOTIFICATIONS'),
+          title: Text(translator.translate("noti")),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -88,6 +90,12 @@ class _NotificationPanel extends State<NotificationPanel> {
                 color: Colors.white,
               ),
               onPressed: () {
+                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                 // do something
               },
             )
@@ -108,7 +116,7 @@ class _NotificationPanel extends State<NotificationPanel> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          'ALL NOTIFICATIONS',
+                          'translator.translate("allnoti")',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,

@@ -1,7 +1,8 @@
 {
   "header": "DEPOSIT",
   "abailable": "AVAILABLE BALANCE",
-  "abailable_balances": [
+  "abailable_balances":
+  [
     "292,20",
     "88,00",
     "774,80"

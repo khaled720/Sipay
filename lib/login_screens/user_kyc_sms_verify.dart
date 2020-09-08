@@ -10,6 +10,7 @@ import 'package:fluttersipay/login_screens/providers/sms_verification_provider.d
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:gradient_text/gradient_text.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
@@ -42,20 +43,39 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
         future: DefaultAssetBundle.of(context).loadString(
             'assets/json/register/2.3registerSMSverification2.json'),
         builder: (context, snapshot) {
-          SMSVerifyModel users;
+      
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = SMSVerifyModel.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(
+                  
+translator.translate("smsverify")
+
+                ),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
                   fit: BoxFit.fitWidth,
                 ),
+
+
+                /*
+                
+                "header": "SMS VERIFICATION",
+	"enter": "Enter the SMS verification code you received on your phone.",
+	"your": "Your phone number",
+	"remain": "Remaining time to enter your code",
+	"resend": "Resend the code",
+	"byclick": "By clicking the Verify button, you are deemed to have read and accepted the",
+	"user": "User Privacy",
+	"state": "Statement",
+	"and": "and the",
+	"privacy": "Privacy Policy",
+	"button": "VERIFY"
+                 */
                 leading: Builder(
                   builder: (BuildContext context) {
                     return IconButton(
@@ -104,7 +124,8 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'SMS VERIFICATION',
+                              
+translator.translate("smsverify"),
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -118,7 +139,8 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
                                   ),
                                   Container(
                                     child: Text(
-                                      users.byclick,
+                                  
+translator.translate("hint"),
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black45,
@@ -140,15 +162,18 @@ class SMSUserVerificationScreenState extends State<SMSUserVerificationScreen> {
                                             ),
                                             children: [
                                           TextSpan(
-                                              text: users.privacy,
+                                              text:
+translator.translate("Userprivacy"),
                                               style: TextStyle(
                                                   color: Colors.blue)),
                                           TextSpan(
-                                              text: ' & ',
+                                              text: 
+translator.translate("and"),
                                               style: TextStyle(
                                                   color: Colors.black45)),
                                           TextSpan(
-                                              text: users.privacys,
+                                              text: 
+translator.translate("PPplicy"),
                                               style: TextStyle(
                                                   color: Colors.blue)),
                                         ])),
@@ -199,8 +224,9 @@ strokeWidth: 12,
                                               .setHeight(80),
                                         ),
                                         Text(
-                                          users.remain,
-                                          style: TextStyle(
+                                       
+translator.translate("remainingTime")
+                                       ,   style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black45,
                                           ),
@@ -249,7 +275,7 @@ strokeWidth: 12,
                                                             () {});
                                                   },
                                                   child: Text(
-                                                    users.resend,
+                                                  translator.translate("resend"),
                                                     style: TextStyle(
                                                       color: Colors.blue,
                                                       fontSize: 14,
@@ -261,7 +287,7 @@ strokeWidth: 12,
                                             Align(
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                users.already,
+                                                "",
                                                 style: TextStyle(
                                                   color: Colors.black45,
                                                   fontSize: 14,
@@ -279,7 +305,7 @@ strokeWidth: 12,
                                                     (route) => route.isFirst);
                                               },
                                               child: Text(
-                                                users.login,
+                                               translator.translate("login"),
                                                 style: TextStyle(
                                                   color: Colors.blue,
                                                   fontSize: 14,
@@ -313,7 +339,7 @@ strokeWidth: 12,
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        users.button,
+                                       translator.translate("verify"),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

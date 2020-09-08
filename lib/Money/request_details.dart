@@ -6,6 +6,7 @@ import 'package:fluttersipay/Money/providers/request_details_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 class MoneyTransferRequestDetailsScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _MoneyTransferRequestDetailsScreenState
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("MONEY REQUEST"),
+              title: Text( translator.translate("monReq")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -120,7 +121,7 @@ class _MoneyTransferRequestDetailsScreenState
                                 disabledColor: Colors.blue,
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  "BACK",
+                                 translator.translate("transactionsList")[7],
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -143,7 +144,7 @@ class _MoneyTransferRequestDetailsScreenState
                         visible: snapshot.transactionNotFound ?? false,
                         child: Center(
                           child: Text(
-                            'Transaction not found.',
+                      translator.translate("notfoundTr"),
                             style: TextStyle(fontSize: 20.0),
                           ),
                         ));

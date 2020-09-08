@@ -76,7 +76,7 @@ if(data == TransactionData.Value){
          /**${_userTransactionsList[index]['money_flow'].toString()??""} */       : ' ${net} ${AppUtils.mapCurrencyIDToCurrencySign(_userTransactionsList[index]['currency_id'])}';
             break;
           case TransactionData.Date:
-            return _userTransactionsList[index]['created_at'];
+            return _userTransactionsList[index]['created_at'].toString().substring(0,16);
             break;
           case TransactionData.Type:
             return _userType == UserTypes.Individual

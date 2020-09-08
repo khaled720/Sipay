@@ -5,9 +5,10 @@ import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:gradient_text/gradient_text.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:simple_timer/simple_timer.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 class OTPBaseScreen extends StatelessWidget {
   final showLoad;
   final phoneNumber;
@@ -55,8 +56,9 @@ class OTPBaseScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Enter the SMS verification code you received on your phone.',
-                  style: TextStyle(
+                      translator.translate("verifiyInfo"),
+                      
+                    style: TextStyle(
                     fontSize: 16,
                     color: Colors.black45,
                   ),
@@ -86,7 +88,7 @@ class OTPBaseScreen extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            'Your phone number',
+                              translator.translate("urPhone"),
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black45,
@@ -144,7 +146,7 @@ strokeWidth: 12,
                       linearGradient: otpGradient), */
                 
                   Text(
-                    'Remaining time to enter your code',
+                           translator.translate("resend"),
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black45,
@@ -189,7 +191,7 @@ strokeWidth: 12,
                     resendOTP(onSuccess, onFailure);
                   },
                   child: Text(
-                    'Resend the code',
+                  translator.translate("resend"),
                     style: TextStyle(
                       color: Colors.blue,
                       fontSize: 16,
@@ -203,28 +205,30 @@ strokeWidth: 12,
             ),
             Container(
               child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      // set the default style for the children TextSpans
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                      children: [
-                        TextSpan(
-                            text:
-                                'By clicking the Verify button, you are deemed to have read and accepted the',
-                            style: TextStyle(color: Colors.black45)),
-                        TextSpan(
-                            text: 'User Privacy',
-                            style: TextStyle(color: Colors.blue)),
-                        TextSpan(
-                            text: 'and the',
-                            style: TextStyle(color: Colors.black45)),
-                        TextSpan(
-                            text: 'Privacy Policy',
-                            style: TextStyle(color: Colors.blue)),
-                      ])),
-              width: ScreenUtil.getInstance().setWidth(660),
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                        // set the default style for the children TextSpans
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                              text: translator.translate("hint"),//users.byclicks,
+                                              style: TextStyle(
+                                                  color: Colors.black45)),
+                                          TextSpan(
+                                              text:        translator.translate("Userprivacy"),
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                          TextSpan(
+                                              text:  " "+translator.translate("and")+" " ,
+                                              style: TextStyle(
+                                                  color: Colors.black45)),
+                                          TextSpan(
+                                              text:   translator.translate("PPplicy"),
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ])),              width: ScreenUtil.getInstance().setWidth(660),
             ),
             SizedBox(
               height: ScreenUtil.getInstance().setHeight(20),
@@ -238,7 +242,7 @@ strokeWidth: 12,
                 disabledColor: Colors.blue,
                 padding: EdgeInsets.all(15.0),
                 child: Text(
-                  'VERIFY',
+                    translator.translate("verify"),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

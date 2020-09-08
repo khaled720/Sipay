@@ -11,6 +11,7 @@ import 'package:fluttersipay/login_screens/providers/sms_verification_provider.d
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:gradient_text/gradient_text.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
@@ -71,20 +72,12 @@ strokeWidth: 12,
     ScreenUtil.instance =
         ScreenUtil(width: 750, height: 1304, allowFontScaling: true)
           ..init(context);
-    return FutureBuilder<Object>(
-        future: DefaultAssetBundle.of(context).loadString(
-            'assets/json/register/2.3registerSMSverification1.json'),
-        builder: (context, snapshot) {
+    return
       
-          SMSVerificationModel users;
-          var parsedJson;
-          if (snapshot.hasData) {
-            parsedJson = json.decode(snapshot.data.toString());
-            users = SMSVerificationModel.fromJson(parsedJson);
-            return Scaffold(
+          Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text(users != null ? users.header : ''),
+                  title: Text(translator.translate("smsverify")),
                   flexibleSpace: Image(
                     image: AssetImage('assets/appbar_bg.png'),
                     height: 100,
@@ -134,7 +127,7 @@ strokeWidth: 12,
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    users.enter,
+                      translator.translate("verifiyInfo"),
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black45,
@@ -165,7 +158,7 @@ strokeWidth: 12,
                                       children: <Widget>[
                                         Expanded(
                                           child: Text(
-                                            users.your,
+                                        translator.translate("urPhone"),
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.black45,
@@ -202,7 +195,7 @@ strokeWidth: 12,
                                           .setHeight(20),
                                     ),
                                     Text(
-                                      users.remain,
+                                    translator.translate("remainingTime"),
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black45,
@@ -270,7 +263,7 @@ strokeWidth: 12,
                   
                                     },
                                     child: Text(
-                                      users.resend,
+                              translator.translate("resend"),
                                       style: TextStyle(
                                         color: Colors.blue,
                                         fontSize: 16,
@@ -292,19 +285,19 @@ strokeWidth: 12,
                                         ),
                                         children: [
                                           TextSpan(
-                                              text: users.byclicks,
+                                              text: translator.translate("hint"),//users.byclicks,
                                               style: TextStyle(
                                                   color: Colors.black45)),
                                           TextSpan(
-                                              text: users.user,
+                                              text:translator.translate("Userprivacy"),
                                               style: TextStyle(
                                                   color: Colors.blue)),
                                           TextSpan(
-                                              text: users.and,
+                                              text:translator.translate("and"),
                                               style: TextStyle(
                                                   color: Colors.black45)),
                                           TextSpan(
-                                              text: users.privacy,
+                                              text: translator.translate("PPplicy"),
                                               style: TextStyle(
                                                   color: Colors.blue)),
                                         ])),
@@ -345,7 +338,7 @@ strokeWidth: 12,
                                   disabledColor: Colors.blue,
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
-                                    users.button,
+                                    translator.translate("verify"),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -361,11 +354,13 @@ strokeWidth: 12,
                           )
                         ],
                       );
-                    })))));
-          } else if (snapshot.hasError) {
-            return Text("Incorrect Code !");//${snapshot.error}
-          }
-          return CircularProgressIndicator();
-        });
+                            }
+                            )
+                            )
+                            )
+                            )
+                    );
+      
+         
   }
 }

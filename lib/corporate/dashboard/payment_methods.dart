@@ -1,9 +1,10 @@
 
 import"package:flutter/material.dart";
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
+//owner khaled
 
 class paymentSettings extends StatefulWidget {
   @override
@@ -41,6 +42,12 @@ class _paymentSettingsState extends State<paymentSettings> {
                 color: Colors.white,
               ),
               onPressed: () {
+                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                 // do something
               },
             )

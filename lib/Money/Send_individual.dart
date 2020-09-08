@@ -9,8 +9,9 @@ import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 import '../base_main_repo.dart';
 import 'money_transfer_otp.dart';
 import 'dart:ui' as ui;
@@ -45,8 +46,9 @@ class _SendMoneyToIndividualScreenState
     extends State<SendMoneyToIndividualScreen> {
   bool check_state = true;
   bool check_states = true;
-  List<String> _listBankData = ["INDIVIDUAL","MERCHANT"];
-  List<String> _listtryData = ["TRY", "USD", 'EUR'];
+  List<String> _listBankData = [ translator.translate("individual") ,    translator.translate("merchanr")    ];
+  List<String> _listtryData =[  "TRY" 
+  ,"USD","EUR"  ];
 
 
 
@@ -117,7 +119,7 @@ country = ola.Country.fromJson(element);
           onPressed: (){} ,), */
           appBar: AppBar(
             centerTitle: true,
-            title: Text("Money  Transfer"),
+            title: Text(translator.translate("moneytrans")),
             flexibleSpace: Image(
               image: AssetImage('assets/appbar_bg.png'),
               height: 100,
@@ -142,7 +144,7 @@ country = ola.Country.fromJson(element);
                 icon: Icon(
                   FontAwesomeIcons.commentAlt,
                   color: Colors.white,
-                  size: 16,
+       //           size: 16,
                 ),
                 onPressed: () {
                   // do something
@@ -173,7 +175,7 @@ country = ola.Country.fromJson(element);
                       Padding(
                         padding: EdgeInsets.only(left: 30, right: 30),
                         child: Text(
-                          'AVAILABLE BALANCE',
+                  translator.translate("availableBalance"),
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -250,7 +252,8 @@ country = ola.Country.fromJson(element);
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'REQUEST MONEY',
+                                  translator.translate("moneyReq")
+                          ,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -258,7 +261,7 @@ country = ola.Country.fromJson(element);
                               height: ScreenUtil.getInstance().setHeight(50),
                             ),
                             Text(
-                              'CHOOSE WALLET TYPE',
+                              translator.translate("chooseWallet"),
                               style: TextStyle(
                                   color: Colors.black54, fontSize: 12),
                             ),
@@ -293,7 +296,7 @@ country = ola.Country.fromJson(element);
                               }).toList(),
                               onChanged: (value) {
 
-if(value=="MERCHANT"){    Navigator.push(
+if(value==  translator.translate("merchanr")){    Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => SendMoneyToCorporateScreen(
@@ -303,7 +306,7 @@ if(value=="MERCHANT"){    Navigator.push(
           ));}
 
                               },
-                              value: 'INDIVIDUAL',
+                              value:  translator.translate("individual"),
                               isExpanded: true,
                             ),
                             Column(
@@ -321,7 +324,7 @@ if(value=="MERCHANT"){    Navigator.push(
 
 
                                   Text(
-                                  'Sender Phone Number',
+                              translator.translate("sender"),
                                   style: TextStyle(
                                       color: check_state
                                           ? Colors.black54
@@ -420,12 +423,12 @@ snapshot.receiverController.text="";
                                     children: <Widget>[
                                       Icon(
                                           snapshot.receiverData ==
-                                                  'Non SiPay User'
+                                                  translator.translate("NonsiUser")
                                               ? FontAwesomeIcons.userTimes
                                               : FontAwesomeIcons.userCheck,
                                           size: 15.0,
                                           color: snapshot.receiverData ==
-                                                  'Non SiPay User'
+                                            translator.translate("NonsiUser")
                                               ? Colors.red
                                               : Colors.blue),
                                       SizedBox(
@@ -435,7 +438,7 @@ snapshot.receiverController.text="";
                                         snapshot.receiverData ?? '',
                                         style: TextStyle(
                                             color: snapshot.receiverData ==
-                                                    'Non SiPay User'
+                                                translator.translate("NonsiUser")
                                                 ? Colors.red
                                                 : Colors.blue),
                                       ),
@@ -486,7 +489,7 @@ snapshot.receiverController.text="";
                                   ),
                                 ),
                                 Text(
-                                  'AMOUNT',
+                                  translator.translate("amount"),
                                   style: TextStyle(
                                       color: check_state
                                           ? Colors.black54
@@ -606,7 +609,7 @@ snapshot.receiverController.text="";
                                       : Container(
                                           alignment: Alignment.centerRight,
                                           child: Text(
-                                            "Please enter valid amount",
+                                        translator.translate("error")+translator.translate("valid")+" "+    translator.translate("amount").toLowerCase(),
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               color: Colors.red,
@@ -619,7 +622,7 @@ snapshot.receiverController.text="";
                                       ScreenUtil.getInstance().setHeight(20),
                                 ),
                                 Text(
-                                  'DESCRIPTION',
+                                    translator.translate("desc"),
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -628,7 +631,7 @@ snapshot.receiverController.text="";
                                   keyboardType: TextInputType.text,
                                   controller: snapshot.descriptionController,
                                   decoration: InputDecoration(
-                                    hintText: "Enter Description",
+                                    hintText:   translator.translate("descHint"),
                                     enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Colors.black45, width: 1.0)),
@@ -638,12 +641,12 @@ snapshot.receiverController.text="";
                                     prefixIcon: const Icon(
                                       FontAwesomeIcons.solidCommentDots,
                                       color: Colors.black45,
-                                      size: 16,
+                                    //  size: 16,
                                     ),
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Please enter DESCRIPTION';
+                                      return   translator.translate("error")+  translator.translate("desc").toLowerCase();
                                     }
                                     return null;
                                   },
@@ -667,13 +670,13 @@ snapshot.receiverController.text="";
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     MoneyTransferOTPScreen(
-                                                        phoneNumber,
+                                                        snapshot.receiverController.text, //phoneNumber,
                                                         otpModel,
                                                         userType,
                                                         mainRepo,
                                                         false)));
                                       }, (description) async{
-                           var txt=  await translator.GoogleTranslator().translate(description, to: 'en');
+                           var txt=  await translator1.GoogleTranslator().translate(description, to: 'en');
    
                                         print("======_"+description.toString());
                                         Flushbar(
@@ -687,7 +690,7 @@ snapshot.receiverController.text="";
                                     disabledColor: Colors.blue,
                                     padding: EdgeInsets.all(15.0),
                                     child: Text(
-                                      "SUBMIT REQUEST",
+                                        translator.translate("moneyReq"),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

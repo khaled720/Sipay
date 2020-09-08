@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:localize_and_translate/localize_and_translate.dart';
+
 import './activity_details.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,16 +47,13 @@ class CorporateMerchantPanelScreen extends StatefulWidget {
 
 class _CorporateMerchantPanelScreenState
     extends State<CorporateMerchantPanelScreen> {
-  String _language_value = 'gb';
+  String _language_value = 'en';
 
 
 String To2double(String val){
 var s=double.parse(val).toStringAsFixed(2);
   return s; 
 }
-
-
-
 
 String capitalize(String s) {
  var listOfWords= s.split(" ");
@@ -98,14 +97,13 @@ return inCaps;
         child: FutureBuilder(
             future: loadJson(),
             builder: (context, snapshot) {
-              CorporateMerchantPanelModel users;
               FooterModel footers;
               var parsedJson;
               var footerJson;
               if (snapshot.hasData) {
                 parsedJson = json.decode(snapshot.data['merchant'].toString());
                 footerJson = json.decode(snapshot.data['footer'].toString());
-                users = CorporateMerchantPanelModel.fromJson(parsedJson);
+             //   users = CorporateMerchantPanelModel.fromJson(parsedJson);
                 footers = FooterModel.fromJson(footerJson);
 
                 return Scaffold(
@@ -179,7 +177,7 @@ return inCaps;
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          users.menuList.menu,
+                                      translator.translate("menu"),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,
@@ -291,7 +289,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.dashboard),
+                                          Text(translator.translate("dash")),
                                         ],
                                       ),
                                     )),
@@ -317,7 +315,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.transactions),
+                                          Text(translator.translate("tranaaction")),
                                         ],
                                       ),
                                     )),
@@ -352,7 +350,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.deposit),
+                                          Text(translator.translate("deposit")),
                                         ],
                                       ),
                                     )),
@@ -384,7 +382,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.exchange),
+                                          Text(translator.translate("exchange")),
                                         ],
                                       ),
                                     )),
@@ -485,7 +483,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.installment),
+                                          Text(translator.translate("installRate")),
                                         ],
                                       ),
                                     )),
@@ -517,7 +515,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.agreements),
+                                          Text(translator.translate("agreement")),
                                         ],
                                       ),
                                     )),
@@ -549,7 +547,7 @@ return inCaps;
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          Text(users.menuList.support),
+                                          Text(translator.translate("support")),
                                         ],
                                       ),
                                     )),
@@ -581,7 +579,7 @@ return inCaps;
                                             SizedBox(
                                               width: 20,
                                             ),
-                                            Text(users.menuList.settings[0]),
+                                            Text(translator.translate("setting")),
                                           ],
                                         ),
                                       )),
@@ -611,7 +609,8 @@ return inCaps;
                                                   width: 20,
                                                 ),
                                                 Text(
-                                                    users.menuList.settings[1]),
+                                                    translator.translate("profile")
+                                                    ),
                                               ],
                                             ),
                                           )),
@@ -650,7 +649,8 @@ return inCaps;
                                                   width: 20,
                                                 ),
                                                 Text(
-                                                    users.menuList.settings[2]),
+                                                    translator.translate("Noti")
+                                                    ),
                                               ],
                                             ),
                                           )),
@@ -666,7 +666,7 @@ return inCaps;
                                           },
                                         ),
 
-
+/* DPL AND PAYMENT SETTING
                                       new ListTile(
                                           title: Container(
                                               child: Align(
@@ -745,7 +745,7 @@ return inCaps;
                                           },
                                         ),
                        
-                                  
+ */                                  
                                   
                                       ]),
                        
@@ -774,13 +774,13 @@ return inCaps;
                                                 ),
                                               ),
                                               child:
-                                                  DropdownButtonHideUnderline(
+                                                 DropdownButtonHideUnderline(
                                                 child: DropdownButton(
                                                   icon: Icon(Icons
                                                       .keyboard_arrow_down),
                                                   items: [
                                                     DropdownMenuItem(
-                                                      value: 'gb',
+                                                      value: 'en',
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -798,15 +798,14 @@ return inCaps;
                                                           SizedBox(width: 10),
                                                           Expanded(
                                                             child: Text(
-                                                              users.menuList
-                                                                  .language[0],
+                                                            "ENGLISH",
                                                             ),
                                                           )
                                                         ],
                                                       ),
                                                     ),
                                                     DropdownMenuItem(
-                                                      value: 'ru',
+                                                      value: 'tr',
                                                       child: Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -824,41 +823,19 @@ return inCaps;
                                                           SizedBox(width: 10),
                                                           Expanded(
                                                             child: Text(
-                                                              users.menuList
-                                                                  .language[1],
+                                                            "Turkish",
                                                             ),
                                                           )
                                                         ],
                                                       ),
                                                     ),
-                                                    DropdownMenuItem(
-                                                      value: 'tr',
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: <Widget>[
-                                                          SizedBox(width: 10),
-                                                          SizedBox(
-                                                            child: Image.asset(
-                                                              'icons/flags/png/tr.png',
-                                                              package:
-                                                                  'country_icons',
-                                                              width: 20,
-                                                            ),
-                                                          ),
-                                                          SizedBox(width: 10),
-                                                          Expanded(
-                                                            child: Text(
-                                                              users.menuList
-                                                                  .language[2],
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
+                                                  
                                                   ],
                                                   onChanged: (value) {
+print(value.toString());
+                                                    if(value=="tr")translator.setNewLanguage(context, newLanguage: "tr", restart: true);
+                                                    if(value=="en")translator.setNewLanguage(context, newLanguage: "en", restart: true);
+                                                   
                                                     setState(() {
                                                       _language_value = value;
                                                     });
@@ -910,17 +887,17 @@ passCor=prefs.getString("passCor");
                                                               builder: (context) =>
                   MyLoginPage(remem??false,email??"",pass,phone??"",false,passCor??""),));
                                                   Flushbar(
-                                                    title: "Logout Successful!",
+                                                    title: translator.translate("success"),
                                                     message:
-                                                        "Logged out successfully.",
+                                                      translator.translate("logoutMsg"),
                                                     duration:
                                                         Duration(seconds: 3),
                                                   )..show(context);
                                                 }, () {
                                                   Flushbar(
-                                                    title: "Logout Failure!",
+                                                    title:translator.translate("fail"),
                                                     message:
-                                                        "Failed to logout. Please try again.",
+                                                  translator.translate("failedlogout"),
                                                     duration:
                                                         Duration(seconds: 3),
                                                   )..show(context);
@@ -930,7 +907,7 @@ passCor=prefs.getString("passCor");
                                               disabledColor: Colors.blue,
                                               padding: EdgeInsets.all(16.0),
                                               child: Text(
-                                                users.menuList.logout,
+                                            translator.translate("logout"),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
@@ -1002,9 +979,10 @@ passCor=prefs.getString("passCor");
                                                           activeSize: 7.0,
                                                         )),
                                                 children: <Widget>[
-                 users.availableBalances[0].toString()[0]!="0"?    _getSlide(users, 0):null,
-               users.availableBalances[1].toString()[0]!="0"?            _getSlide(users, 1):null,
-                users.availableBalances[2].toString()[0]!="0"?       _getSlide(users, 2):null,
+         //i should remove users and use snapshot instead
+             /*     users.availableBalances[0].toString()[0]!="0"?  */   _getSlide(null, 0),
+             /*   users.availableBalances[1].toString()[0]!="0"?   */          _getSlide(null, 1),
+           /*      users.availableBalances[2].toString()[0]!="0"? */       _getSlide(null, 2),
                                                 ],
                                               )),
                                           height: 130,
@@ -1068,7 +1046,7 @@ passCor=prefs.getString("passCor");
                                         child: Container(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            users.last,
+                                         translator.translate("lastActivity"),
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17,

@@ -7,6 +7,7 @@ import 'package:fluttersipay/Money/providers/money_transfer_otp_provider.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/otp/otp_base_screen.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 
@@ -38,7 +39,7 @@ class _MoneyTransferOTPScreenState extends State<MoneyTransferOTPScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('OTP VERIFICATION'),
+        title: Text(translator.translate("otp")),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 100,
@@ -80,7 +81,7 @@ class _MoneyTransferOTPScreenState extends State<MoneyTransferOTPScreen> {
                 verifyOTP: snapshot.verifyOTP,
                 onFailure: (description) {
                   Flushbar(
-                    title: "Failure",
+                    title: translator.translate("fail"),
                     message: description,
                     duration: Duration(seconds: 3),
                   )..show(context);

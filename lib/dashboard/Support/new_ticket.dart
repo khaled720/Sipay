@@ -55,16 +55,17 @@ if(val==null)
 
             }, */
             items: data.map((item) {
+              category=item;
               return new DropdownMenuItem(
                 child: new Text(
                   item,
                   style: TextStyle(fontSize: 14.0),
                 ),
-                value: item.toString(),
+                value: category.toString(),
               );
             }).toList(),
             hint: Text(
-              "Please Select ",
+              "Please Select.... ",
               style: TextStyle(
                 color: Colors.black45,
               ),),
@@ -387,11 +388,14 @@ print("## 2");
        });
  print("## 3");
       //[4] ADD IMAGE TO UPLOAD
-      var file = await dio.MultipartFile.fromFile(image.path,
+ if(image!=null){
+     var file = await dio.MultipartFile.fromFile(image.path,
             filename: basename(image.path),
             contentType: MediaType("attachment", basename(image.path)));
 
       formData.files.add(MapEntry('attachment', file));
+
+ }
 
       var response = await dioRequest.post(
        global.APIEndPoints.kApiSupportFormEndPoint,
@@ -402,13 +406,21 @@ print("## 2");
         )
       );
       final result = json.decode(response.toString());
-      print("<<<<<<<<<<<<><##<<<<<<<<<   "+result.toString());
+   //   print("<<<<<<<<<<<<><##<<<<<<<<<   "+result.toString());
     
      Flushbar(
                                       title: "Successful",
                                       message: 'Your Support Ticket was opened successfully',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
+desc.text="";title.text="";
+setState(() {
+  category=null;
+image=null;category_ID=null;
+});
+
+
+
     } catch (err) {
      print('ERROR  $err');
       Flushbar(

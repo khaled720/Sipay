@@ -10,6 +10,7 @@ import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/kyc_provider.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../main_api_data_model.dart';
@@ -48,7 +49,11 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
             return new Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(
+                  translator.translate("userVer")
+                  
+
+                ),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -105,7 +110,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                         ScreenUtil.getInstance().setHeight(40),
                                   ),
                                   Text(
-                                    users.alert,
+                               translator.translate("dgitalwallet"),
                                     style: TextStyle(
                                       color: Colors.black45,
                                     ),
@@ -117,7 +122,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[0]}*',
+                                 translator.translate("name"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -155,7 +160,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[1]}*',
+translator.translate("surname"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -193,7 +198,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[2]}*',
+                                   translator.translate("tck"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -232,7 +237,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[3]}*',
+                             translator.translate("email"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -268,7 +273,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[4]}*',
+                                     translator.translate("pass"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -306,7 +311,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[5]}*',
+                                    translator.translate("ConPass"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -345,7 +350,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      '${users.inputField[6]}*',
+                              translator.translate("dob"),
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.black45,
@@ -454,7 +459,7 @@ class KYCUserVerificationScreenState extends State<KYCUserVerificationScreen> {
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        users.button,
+                                       translator.translate("verify"),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

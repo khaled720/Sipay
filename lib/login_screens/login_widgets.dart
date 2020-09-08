@@ -6,6 +6,10 @@ import 'package:fluttersipay/login_screens/login_registration.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'dart:ui' as ui;
+
+import 'package:flutter/services.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
+
 class NoAccountWidget extends StatelessWidget {
 
 
@@ -14,7 +18,7 @@ class NoAccountWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(child: Text('Dont have an account?')),
+        Container(child: Text(translator.translate("haveAccount"))),
         Container(
           child: FlatButton(
             onPressed: () {
@@ -24,7 +28,7 @@ class NoAccountWidget extends StatelessWidget {
                       builder: (context) => UserRegistrationScreen()));
             },
             child: Text(
-              'Register Here',
+           translator.translate("registerHere"),
               style: TextStyle(
                 color: Colors.blue,
               ),
@@ -100,7 +104,9 @@ class IndividualWidget extends StatelessWidget {
 
 
             child:  TextField(
-            
+               inputFormatters: [
+        LengthLimitingTextInputFormatter(14),
+      ],
                 style: TextStyle(
             
                     color: !loginProvider.showIndividualLoginErrorMessage
@@ -114,8 +120,9 @@ class IndividualWidget extends StatelessWidget {
                 keyboardType: TextInputType.phone,
             
                 decoration: InputDecoration(
-            
-                  hintText: 'Phone Number',
+          
+                  hintText:       translator.translate("phoneNo")
+                                      ,
             
                   hintStyle: CustomTextStyle.formField(context),
             
@@ -203,7 +210,7 @@ class CorporateWidget extends StatelessWidget {
                     height: 0,
                   )
                 : Text(
-                    'The information you entered does not match our records.',
+                  translator.translate("infouEntred"),
                     style: TextStyle(
                       color: Colors.red,
                     ),
@@ -217,7 +224,7 @@ class CorporateWidget extends StatelessWidget {
               controller: loginProvider.emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: 'Your email address',
+                hintText: translator.translate("urEmail"),
                 errorText:
                     loginProvider.showCorporateLoginErrorMessage ? '' : null,
                 hintStyle: CustomTextStyle.formField(context),
@@ -256,7 +263,7 @@ class CorporateWidget extends StatelessWidget {
               style: TextStyle(color: Colors.black38),
               controller: loginProvider.passwordController,
               decoration: InputDecoration(
-                hintText: 'Your password',
+                hintText: translator.translate("urPass"),
                 hintStyle: CustomTextStyle.formField(context),
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black38, width: 1.0)),

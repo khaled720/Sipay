@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'dart:convert';
 class TransactionDetailsScreen extends StatefulWidget {
   var body;
   TransactionDetailsScreen({this.body});
@@ -10,6 +11,30 @@ class TransactionDetailsScreen extends StatefulWidget {
 }
 
 class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
+
+List<String> list=translator.currentLanguage=='en'?[
+
+    "Transaction ID",
+    "Order ID",
+    "Payment ID",
+    "Credit Card NO",
+    "Updated st",
+    "bank Name",
+    "date",
+    "BACK"
+    ]:[
+
+   "İşlem ID",
+        "Ödeme ID",
+        "Kredi Kartı Numarası",
+        "Güncelleme Tarihi",
+        "Banka Adı",
+        "Tarih",
+        "Geri"
+    ];
+
+
+
 
   String type;
   @override
@@ -23,7 +48,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
   appBar: AppBar(
               centerTitle: true,
-              title: Text('TRANSACTION DETAILS'),
+              title: Text(translator.translate("transHis")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -60,9 +85,9 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
 
 body: Container(
-  height: MediaQuery.of(context).size.height-50,
+  height: MediaQuery.of(context).size.height-40,
   child:   Column(
-  
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
   
           Expanded(
@@ -86,17 +111,13 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Transaction ID",style: TextStyle(
+        leading: Text(list[0],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
+   
   
         trailing: Text("#"+widget.body["data"]["searchdata"]["transactionable_id"],
   
@@ -122,17 +143,13 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Order ID",style: TextStyle(
+        leading: Text(list[1],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
   
         trailing: Text(widget.body["data"][type]["remote_order_id"]??"Not Found",
   
@@ -157,17 +174,12 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Payment ID",style: TextStyle(
+        leading: Text(list[2],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
-  
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
   
         trailing: Text("#"+widget.body["data"][type]["payment_id"]??"Not Found",
   
@@ -225,7 +237,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Credit Card No",style: TextStyle(
+        leading: Text(list[3],style: TextStyle(
   
           fontSize: 15,
   
@@ -254,6 +266,7 @@ body: Container(
       ),
   
       
+      
   
       Padding(
   
@@ -261,20 +274,17 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Card Holder Bank",style: TextStyle(
+        leading: Text(list[5],style: TextStyle(
   
           fontSize: 15,
   
           color: Colors.grey,fontWeight: FontWeight.bold),),
   
-       // isThreeLine: true,
   
-     /*    subtitle: Text("A7a"),
-  
-        title:Text("xcxz"), */
-  
-        trailing: Container(width: 180,alignment: Alignment.centerRight,
-          child: Text(widget.body["data"][type]["bank_name"]??"Not Found",
+        trailing: Container(
+          
+          width: 190,alignment: Alignment.centerRight,
+          child: Text(widget.body["data"][type]["bank_name"].toString(),
   
           style: TextStyle(
   
@@ -288,7 +298,6 @@ body: Container(
         ),
   
       ),
-  
       
   
       Padding(
@@ -297,7 +306,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Amount",style: TextStyle(
+        leading: Text(translator.translate("amount"),style: TextStyle(
   
           fontSize: 15,
   
@@ -331,7 +340,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Date",style: TextStyle(
+        leading: Text(list[6],style: TextStyle(
   
           fontSize: 15,
   
@@ -419,7 +428,7 @@ body: Container(
   
                                 child: Text(
   
-                                  "Back",
+                                list[7],
   
                                   style: TextStyle(
   

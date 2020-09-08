@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'create_deposit.dart';
 import 'package:fluttersipay/corporate/deposit/providers/corporate_deposit_panel_provider.dart';
 import 'package:fluttersipay/corporate/deposit/json_models/c_bank_list_model.dart';
@@ -50,13 +51,13 @@ class _Depostpanel extends State<C_Depost_Panel> {
             var parsedJson;
             if (snapshot.hasData) {
               parsedJson = json.decode(snapshot.data.toString());
-              users = depositpanel_json.fromJson(parsedJson);
+            //  users = depositpanel_json.fromJson(parsedJson);
               if( _value == null) _value = users.method[0];
-              _listViewData = ['CHOOSE BANK'];
+              _listViewData = [translator.translate("chobnk")];
               return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    title: Text(users.header),
+                    title: Text(translator.translate("deposit").toUpperCase()),
                     flexibleSpace: Image(
                       image: AssetImage('assets/appbar_bg.png'),
                       height: 100,
@@ -80,6 +81,12 @@ class _Depostpanel extends State<C_Depost_Panel> {
                           color: Colors.white,
                         ),
                         onPressed: () {
+                            Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                           // do something
                         },
                       )
@@ -99,7 +106,7 @@ class _Depostpanel extends State<C_Depost_Panel> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 30, right: 30),
                                   child: Text(
-                                    users.abailable,
+                                translator.translate("availableBalance"),
                                     style: TextStyle(
                                         fontSize: 16, fontWeight: FontWeight.bold),
                                   ),
@@ -178,7 +185,7 @@ class _Depostpanel extends State<C_Depost_Panel> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        users.deposit,
+                                       translator.translate("deposit").toUpperCase(),
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -188,7 +195,7 @@ class _Depostpanel extends State<C_Depost_Panel> {
                                         ScreenUtil.getInstance().setHeight(50),
                                       ),
                                       Text(
-                                        'BANK',
+                                       translator.translate("bank"),
                                         style: TextStyle(
                                             color: Colors.black26, fontSize: 12),
                                       ),
@@ -218,7 +225,7 @@ class _Depostpanel extends State<C_Depost_Panel> {
                                         height:
                                         ScreenUtil.getInstance().setHeight(100),
                                       ),
-                                      Align(
+                                /*       Align(
                                         alignment: Alignment.center,
                                         child: FlatButton(
                                           onPressed: () {
@@ -235,7 +242,7 @@ class _Depostpanel extends State<C_Depost_Panel> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
+                                      ), */
                                       SizedBox(
                                         height: 60,
                                       ),

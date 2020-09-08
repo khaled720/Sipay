@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'merchant_panel.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'dart:convert';
 TextEditingController _search_controller = new TextEditingController();
 
 Widget Help_detail() {
@@ -19,8 +20,12 @@ class Help_detail_Panel extends StatefulWidget {
 }
 
 class _Help_detail_Panel extends State<Help_detail_Panel> {
-  
-  List<String> help_list = [
+
+  List<dynamic> x;
+
+ List<dynamic> xx;
+
+  List<dynamic> help_list ;/* [
     "What is SiPay?",//1
     "Is it paid to use SiPay?",
     "How do I use it?",//2
@@ -31,26 +36,32 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
     "How do I deposit money to my wallet with my credit card?",
     "What should I do if money is not transferred to my account?",
     "Can someone send money to my wallet?"
-  ];
+  ]; */
 var expandList=[0,0,0,0,0,0,0,0,0,0];
 var help_list2=[],list2=[],expandList2=[];
-var list=[
+var list;/* =[
 "The easy, fast and secure way of payment, SiPay, is Turkey's youngest new generation of digital wallets with permission to operate as it receives Electronic Money Institution Licence in July 2019 from the Banking Regulation and Supervision Agency.",
 "Our users do not pay any membership fees to benefit from our services.",
 "To use SiPay, you only need to enter the one-time password that sends to your mobile phone. Create your special wallet account, enjoy easy and secure shopping.",
 "As a digital wallet owner, you can shop from all of our merchants, send money to any person, ask other users to transfer money to your wallet, convert your money in your SiPay wallet account to foreign currency, or even withdraw money from the bank account that you&#39;ve defined. ",
 "If you're a Standard Account user, you can't deposit money, but you can keep 750,00 TRY sent to you from another user in your wallet.If you are a Verified Account user, you can deposit 50.000 TRY, if you have a Contracted Account you can deposit 250.000 TRY.",
 "You can deposit money to your SiPay wallet with your credit card or by bank transfer 24/7.",
-"Log into your SiPay account and enter the amount you&#39;d like to deposit on the Deposit page, select Bank Transfer as your payment method. Select the SiPay account to which you want to send money from the drop-down menu and press Send.",
+"Log into your SiPay account and enter the amount you'd like to deposit on the Deposit page, select Bank Transfer as your payment method. Select the SiPay account to which you want to send money from the drop-down menu and press Send.",
 "After logging into your SiPay wallet account, enter the amount you&#39;d like to deposit on the Deposit page and select Credit Card as your payment method. In the menu that opens, enter your card information completely and accurately. Press send. Once you enter your security password, your balance will be added to your account instantly",
 "When making a transfer, make sure you meet all the criteria we have specified, especially check if you have entered your PNR code correctly. If you are sure of all of us, please call us at 0212 706 11 12."
 ,"All users with a verified SiPay account can send money to your wallet."
 
-];
+]; */
 @override
   void initState() {
     // TODO: implement initState
-    
+/* 
+   x= translator.translate("helpQuestionList") as List;
+   xx= translator.translate("helpAnswersList") as List; */
+ 
+    help_list=[];//x
+
+    list=[];//xx
   }
   @override
   Widget build(BuildContext context) {
@@ -65,7 +76,7 @@ var list=[
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("HELP"),
+          title: Text(translator.translate("help")),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -116,14 +127,14 @@ var list=[
                             height: 20,
                           ),
                           Text(
-                            "F.A.Q",
+                            translator.translate("faq"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Text("Describe Your issue"),
+                          Text(    translator.translate("helpInfo")),
                           SizedBox(
                             height: 20,
                           ),
@@ -142,9 +153,11 @@ var list=[
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          TextField(
-                            style: TextStyle(color: Colors.black),
-                            controller: _search_controller,
+                          Padding(
+                            padding: const EdgeInsets.only(bottom:10.0),
+                            child: TextField(
+                              style: TextStyle(color: Colors.black),
+                              controller: _search_controller,
                         onSubmitted: (txt){
 if(txt.isNotEmpty){
 
@@ -169,31 +182,32 @@ expandList2.add(0);
 
                         },
                         
-                                                    keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
-                                borderSide: BorderSide(color: Colors.white),
+                                                      keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0)),
+                                  borderSide: BorderSide(color: Colors.white),
+                                ),
+                                border: InputBorder.none,
+                                prefixIcon: const Icon(
+                                  FontAwesomeIcons.search,
+                                  color: Colors.black26,
+                                  size: 16,
+                                ),
+                                hintText:     translator.translate("helpHint"),
+                                hintStyle:
+                                    TextStyle(color: Colors.black26, height: 1.3),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0)),
-                                borderSide: BorderSide(color: Colors.white),
-                              ),
-                              border: InputBorder.none,
-                              prefixIcon: const Icon(
-                                FontAwesomeIcons.search,
-                                color: Colors.black26,
-                                size: 16,
-                              ),
-                              hintText: "can I put money in my wallet?",
-                              hintStyle:
-                                  TextStyle(color: Colors.black26, height: 1.3),
+                              obscureText: false,
                             ),
-                            obscureText: false,
                           ),
                   _search_controller.value.text.isEmpty?   Container(
                             child: new ListView.builder(

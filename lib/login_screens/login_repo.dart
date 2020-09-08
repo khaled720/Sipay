@@ -47,7 +47,7 @@ class LoginRepository {
 
 var map=json.decode(result);
 
-    userName=map["data"]["user"]["name"].toString(); 
+   // userName=map["data"]["user"]["name"].toString()??"not found"; 
     return MainApiModel.mapJsonToModel(result);
   }
 

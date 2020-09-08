@@ -11,6 +11,7 @@ import 'package:fluttersipay/deposit/json_models/bank_transfer_deposit_model.dar
 import 'package:fluttersipay/deposit/providers/bank_transfer_deposit_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
@@ -30,47 +31,16 @@ class CreateBankTransferDepositScreen extends StatefulWidget {
 class _CreateBankTransferDepositScreenState
     extends State<CreateBankTransferDepositScreen> {
 
-var curency="TRY";
+var curency;
 
-/*
-
-
-
-Image.asset("assets/confirm.png",),
-
-
-
-Text(
-        "Amount to be Credit to your bank account :",textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold),
-        textScaleFactor: 1.2,
-      ),
-
-
-Text(
-        "Amount will be deducted from your Available balance",
-        textScaleFactor: 1.1,
-        style: TextStyle(color:Colors.grey),
-        textAlign: TextAlign.center,
-      ),
-
-FlatButton(
-  
-  shape: Border.all(width: 0.5 ,color:Colors.grey),
-  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
-
-) ,
-SizedBox(width: 10,),
-        FlatButton(
-          color: Colors.indigo,
-          onPressed: (){}, child:Text("Confirm",style: TextStyle(color:Colors.white),)
-    
-    
-    
-    ),
-
-
- */
+ List<String> curencies=["TRY","USD","EUR"];
+ 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    curency=curencies[0].toString();
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -95,17 +65,21 @@ SizedBox(width: 10,),
             builder: (context, snapshot) {
 
 
-              BankTransferModel users;
               var parsedJson;
               if (snapshot.hasData) {
 
 
-                parsedJson = json.decode(snapshot.data.toString());
-                users = BankTransferModel.fromJson(parsedJson);
                 return Scaffold(
+
+/* 
+floatingActionButton: FloatingActionButton(
+  onPressed: (){    
+  }
+   ), */
+
                   appBar: AppBar(
                     centerTitle: true,
-                    title: Text(users.header),
+                    title: Text(translator.translate("deposit")),
                     flexibleSpace: Image(
                       image: AssetImage('assets/appbar_bg.png'),
                       height: 100,
@@ -130,7 +104,7 @@ SizedBox(width: 10,),
                         icon: Icon(
                           FontAwesomeIcons.commentAlt,
                           color: Colors.white,
-                          size: 16,
+                    //      size: 16,
                         ),
                         onPressed: () {
                           // do something
@@ -172,7 +146,7 @@ SizedBox(width: 10,),
                               Padding(
                                 padding: EdgeInsets.only(left: 30, right: 30),
                                 child: Text(
-                                  users.abailable,
+                             translator.translate("availableBalance"),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -196,9 +170,8 @@ SizedBox(width: 10,),
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            snapshot.getAvailableWalletAmount(
-                                                    0) +
-                                                '₺',
+                                   double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+ '₺',
+                            
                                             style: TextStyle(
                                                 color: Colors.black54,
                                                 fontSize: 16),
@@ -218,8 +191,7 @@ SizedBox(width: 10,),
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            snapshot.getAvailableWalletAmount(
-                                                    1) +
+                                            double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2) +
                                                 "\$",
                                             style: TextStyle(
                                                 color: Colors.black54,
@@ -232,7 +204,7 @@ SizedBox(width: 10,),
                                       child: Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                          snapshot.getAvailableWalletAmount(2) +
+                                      double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2) +
                                               '€',
                                           style: TextStyle(
                                               color: Colors.black54,
@@ -257,7 +229,7 @@ SizedBox(width: 10,),
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              users.description,
+                                      translator.translate("bankTrans")+" "+ translator.translate("deposit").toUpperCase(),
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 16),
@@ -267,7 +239,7 @@ SizedBox(width: 10,),
                                                   .setHeight(30),
                                             ),
                                             Text(
-                                              users.youcan,
+                                          translator.translate("youcan"),
                                               style: TextStyle(
                                                   color: Colors.black54, fontSize: 16),
                                             ),
@@ -277,7 +249,7 @@ SizedBox(width: 10,),
                                             ),
                                          //   Column(children:<Widget>[])
                                             Text(
-                                              users.hintBank,
+                                                  translator.translate("bank"),
                                               style: TextStyle(
                                                   color: Colors.black54, fontSize: 12),
                                             ),
@@ -324,7 +296,7 @@ setState(() {
                                                         .setHeight(10),
                                                   ),
                                                   Text(
-                                                    users.hintAmount,
+                                                            translator.translate("amount").toUpperCase(),
                                                     style: TextStyle(
                                                         color: Colors.black54,
                                                         fontSize: 12),
@@ -375,7 +347,7 @@ setState(() {
                                                           ),
                                                           validator: (value) {
                                                             if (value.isEmpty) {
-                                                              return 'Please enter AMOUNT';
+                                                              return          translator.translate("error")+         translator.translate("amount");
                                                             }
                                                             return null;
                                                           },
@@ -420,7 +392,7 @@ height:ScreenUtil.getInstance().setWidth(100) ,
 curency=value;
 int z=1;
 
-if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
+if(curency==curencies[0])z=1; else if(curency==curencies[1])z=2; else if(curency==curencies[2])z=3;
                  snapshot.selectedDropDownValue.currencyID=z;
               });               
 
@@ -510,7 +482,7 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                  
                                                  //Register
                    /*                        TextFormField(
-                                                   // initialValue: "A7a",
+                                        
                                                     style:
                                                         TextStyle(color: Colors.black),
                                                     controller:snapshot.receiverController,
@@ -550,92 +522,148 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                                         .setHeight(10),
                                                   ),
                                                   Text(
-                                                    users.hintIban,
+         translator.translate("iban"),
                                                     style: TextStyle(
                                                         color: Colors.black54,
                                                         fontSize: 12),
                                                   ),
-                                                  TextFormField(
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Expanded( 
+                                                
+                                                        child: TextFormField(
                                           enabled: false,
-                                                    style:
-                                                        TextStyle(color: Colors.black),
-                                                    controller: snapshot.ibanController,
-                                                    decoration: InputDecoration(
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors.black45,
-                                                                  width: 1.0)),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors.black45,
-                                                                  width: 1.0)),
-                                                      prefixIcon: const Icon(
-                                                        FontAwesomeIcons.hashtag,
-                                                        color: Colors.black45,
-                                                        size: 16,
+                                                          style:
+                                                              TextStyle(color: Colors.black),
+                                                          controller: snapshot.ibanController,
+                                                          decoration: InputDecoration(
+                                                            enabledBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black45,
+                                                                        width: 1.0)),
+                                                            focusedBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black45,
+                                                                        width: 1.0)),
+                                                            prefixIcon: const Icon(
+                                                              FontAwesomeIcons.hashtag,
+                                                              color: Colors.black45,
+                                                              size: 16,
+                                                            ),
+                                                
+                                                          ),
+                                                          validator: (value) {
+                                                            if (value.isEmpty) {
+                                                              return          translator.translate("error")+translator.translate("iban");
+                                                            }
+                                                            return null;
+                                                          },
+                                                          obscureText: false,
+                                                        ),
                                                       ),
-                                                      suffixIcon: IconButton(
+              
+               IconButton(
                                                           icon: Icon(
+                                                          
                                                             Icons.collections_bookmark,
+                                                          color: Colors.blue,
                                                             size: 16,
                                                           ),
-                                                          onPressed: () {}),
-                                                    ),
-                                                    validator: (value) {
-                                                      if (value.isEmpty) {
-                                                        return 'Please enter IBAN';
-                                                      }
-                                                      return null;
-                                                    },
-                                                    obscureText: false,
+                                                          onPressed: () async{
+
+ 
+   await Clipboard.setData(new ClipboardData(
+   text:snapshot.ibanController.text));
+
+
+
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+  duration: Duration(seconds: 3),
+            content: Text("Copied to Clipboard")
+));
+
+                                                          }),
+              
+                                                    ],
                                                   ),
                                                   SizedBox(
                                                     height: ScreenUtil.getInstance()
                                                         .setHeight(5),
                                                   ),
                                                   Text(
-                                                    users.hintPNR,
+                                                     translator.translate("pnr"),
                                                     style: TextStyle(
                                                         color: Colors.black54,
                                                         fontSize: 12),
                                                   ),
-                                                  TextFormField(
-                                                    enabled: false,
-                                                    style:
-                                                        TextStyle(color: Colors.black),
-                                                    controller: snapshot.pnrController,
-                                                    decoration: InputDecoration(
-                                                      enabledBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors.black45,
-                                                                  width: 1.0)),
-                                                      focusedBorder:
-                                                          UnderlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors.black45,
-                                                                  width: 1.0)),
-                                                      prefixIcon: const Icon(
-                                                        FontAwesomeIcons.hashtag,
-                                                        color: Colors.black45,
-                                                        size: 16,
-                                                      ),
-                                                      suffixIcon: IconButton(
-                                                          icon: Icon(
-                                                            Icons.collections_bookmark,
-                                                            size: 16,
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                                                                          child: TextFormField(
+                                                          enabled: false,
+                                                          style:
+                                                              TextStyle(color: Colors.black),
+                                                          controller: snapshot.pnrController,
+                                                          decoration: InputDecoration(
+                                                            enabledBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black45,
+                                                                        width: 1.0)),
+                                                            focusedBorder:
+                                                                UnderlineInputBorder(
+                                                                    borderSide: BorderSide(
+                                                                        color: Colors.black45,
+                                                                        width: 1.0)),
+                                                            prefixIcon: const Icon(
+                                                              FontAwesomeIcons.hashtag,
+                                                              color: Colors.black45,
+                                                              size: 16,
+                                                            ),
+
                                                           ),
-                                                          onPressed: () {}),
-                                                    ),
-                                                    validator: (value) {
-                                                      if (value.isEmpty) {
-                                                        return 'Please enter PNR';
-                                                      }
-                                                      return null;
-                                                    },
-                                                    obscureText: false,
+                                                          validator: (value) {
+                                                            if (value.isEmpty) {
+                                                              return 'Please enter PNR';
+                                                            }
+                                                            return null;
+                                                          },
+                                                          obscureText: false,
+                                                        ),
+                                                      ),
+                                                 
+                                                 
+                                                 
+                                                 IconButton(
+                                                                icon: Icon(
+                                                                  Icons.collections_bookmark,
+                                                                  size: 16,
+                                                                  color: Colors.blue,
+                                                                ),
+                                                                onPressed: ()async {
+
+ 
+ await Clipboard.setData(new ClipboardData(
+   text:snapshot.pnrController.text));
+
+
+
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+  duration: Duration(seconds: 3),
+            content: Text("Copied to Clipboard")
+)); 
+                                                                }),                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                    ],
                                                   ),
                                                   SizedBox(
                                                     height: ScreenUtil.getInstance()
@@ -677,7 +705,9 @@ if(curency=="TRY")z=1; else if(curency=="USD")z=2; else if(curency=="EUR")z=3;
                                         ),
                                       ),
                                    Container(
-                                                    child: FlatButton(
+                                                    child:
+                                                     FlatButton(
+                                                      
                                                       onPressed: () {
 
 
@@ -775,7 +805,7 @@ SizedBox(width: 10,),
                                                       disabledColor: Colors.blue,
                                                       padding: EdgeInsets.all(15.0),
                                                       child: Text(
-                                                        users.button,
+                                                              translator.translate("submit"),
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,

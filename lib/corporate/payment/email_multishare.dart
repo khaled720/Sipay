@@ -9,6 +9,7 @@ import 'package:fluttersipay/corporate/payment/success_multishare.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
 import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 TextEditingController _phoneController = TextEditingController();
 
 class Email_Multishare extends StatefulWidget {
@@ -90,7 +91,7 @@ void _add() {
               return new Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text('SHARE LINK'),
+                  title: Text(translator.translate("sharelink")),
                   flexibleSpace: Image(
                     image: AssetImage('assets/appbar_bg.png'),
                     height: 100,
@@ -140,7 +141,7 @@ void _add() {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'SHARE DPL LINK VIA E-MAIL',
+                               translator.translate("shareEmail"),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -153,8 +154,7 @@ void _add() {
                             ),
                             Container(
                               child: Text(
-                                'You can share the payment link DPL #9112 via E-mail.',
-                                style: TextStyle(
+                              translator.translate("shareInfo"), style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black45,
                                 ),
@@ -195,7 +195,7 @@ void _add() {
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Text('Expiry', style: TextStyle(color: Colors.black45, fontSize: 15)),
+                                  child: Text(translator.translate("expiry"), style: TextStyle(color: Colors.black45, fontSize: 15)),
                                 ),
                                 Container(
                                     child: Align(
@@ -220,7 +220,7 @@ void _add() {
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Text('Maximum number of use', style: TextStyle(color: Colors.black45, fontSize: 15)),
+                                  child: Text(translator.translate("maxNumofUse"), style: TextStyle(color: Colors.black45, fontSize: 15)),
                                 ),
                                 Expanded(
                                   child: Container(
@@ -249,7 +249,7 @@ void _add() {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                    'RECIEVER E-MAIL *',
+                                    translator.translate("recEmail")+' *',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black45,
@@ -378,7 +378,7 @@ if(empty>0){
 //fields req
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-            content: Text("Some required fields are missing !!")
+            content: Text(translator.translate("requiredField"))
 ));
 } 
 
@@ -388,7 +388,7 @@ else if(limit>0){
 //13<val
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-            content: Text("There are Invalid Emails !!")
+            content: Text(translator.translate("emailHint"))
 ));
 
 
@@ -425,7 +425,7 @@ if(map["statuscode"]==100){
 ///
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-            content: Text("Sending completed for Email Number "+(i+1).toString())
+            content: Text(translator.translate("emailResult")+(i+1).toString())
 ));
 
 }
@@ -435,7 +435,7 @@ else{
 
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-            content: Text("Sending failed Review Email Number "+(i+1).toString())
+            content: Text(translator.translate("sendingfailed")+(i+1).toString())
 ));
 
 
@@ -448,7 +448,7 @@ _key.currentState.showSnackBar(SnackBar(
 
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-            content: Text("Sending failed for Email Number "+(i+1).toString())
+            content: Text(translator.translate("sendingfailed")+(i+1).toString())
 ));
 
 
@@ -491,7 +491,7 @@ _key.currentState.showSnackBar(SnackBar(
                                 disabledColor: Colors.blue,
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  'SEND EMAIL ',
+                                translator.translate("sendEmail")  ,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

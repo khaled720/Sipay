@@ -4,6 +4,8 @@ import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:localize_and_translate/localize_and_translate.dart';
 class chargeback extends StatefulWidget {
   chargeback({Key key}) : super(key: key);
 
@@ -13,7 +15,14 @@ class chargeback extends StatefulWidget {
 
 class _chargebackState extends State<chargeback> {
 
-
+var xx= translator.translate("detailsList");
+List<String> list=[];
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    list=json.decode(xx);
+  }
 
 
   @override
@@ -22,7 +31,7 @@ class _chargebackState extends State<chargeback> {
       appBar: AppBar(
               centerTitle: true,
         
-              title: Text('CHARGEBACK HISTORY',style: TextStyle(fontSize: 15),),
+              title: Text(translator.translate("charge"),style: TextStyle(fontSize: 15),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -71,7 +80,7 @@ print(snapshot.data.body.toString());
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text("Payment Id: #"+
+                      child: Text(list[3]+": #"+
                         historyList[index]["payment_id"].toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
@@ -93,7 +102,7 @@ print(snapshot.data.body.toString());
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text( "Transaction Id: #"+historyList[index]["id"].toString()),
+                      child: Text( list[0]+": #"+historyList[index]["id"].toString()),
                     ),
                     Text(
                        historyList[index]["settlement_date_merchant"].toString(),

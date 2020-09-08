@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/add_bank_account_provider.dart';
 import 'package:fluttersipay/utils/dialog_utils/delete_bank_account_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import 'dart:convert';
@@ -26,6 +28,21 @@ class EditBankAccountScreen extends StatefulWidget {
 }
 
 class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
+ 
+var xx= translator.translate("currency");
+List<String> list=[];
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    list=json.decode(xx);
+  }
+
+ 
+ 
+ 
+ 
+ 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -46,7 +63,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("EDIT"),
+            title: Text(translator.translate("edit")),
             flexibleSpace: Image(
               image: AssetImage('assets/appbar_bg.png'),
               height: 100,
@@ -71,6 +88,12 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                 ),
                 onPressed: () {
                   // do something
+                    Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                 },
               )
             ],
@@ -94,7 +117,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         children: <Widget>[
                           Container(
                             child: Text(
-                              'EDIT BANK ACCOUNT',
+                             translator.translate("editBank"),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             ),
@@ -107,13 +130,14 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                                   snapshot.deleteBankAccount(() {
                                     Navigator.of(context).pop();
                                     Flushbar(
-                                      title: "Success",
-                                      message: 'Deleted successfully.',
+                                      title: translator.translate("success"),
+                         
+                                      message:  translator.translate("deleted"),
                                       duration: Duration(seconds: 3),
                                     )..show(context);
                                   }, (description) {
                                     Flushbar(
-                                      title: "Failure",
+                                      title: translator.translate("fail"),
                                       message: description,
                                       duration: Duration(seconds: 3),
                                     )..show(context);
@@ -133,7 +157,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        'ACCOUNT NAME',
+            translator.translate("accName"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       TextField(
@@ -158,7 +182,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        'BANK',
+                        translator.translate("bank"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       snapshot.bankList != null
@@ -178,7 +202,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        "CURRENCY",
+                        translator.translate("curr"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       Container(
@@ -222,7 +246,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        'ACCOUNT HOLDER NAME',
+                        translator.translate("accHolder"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       TextField(
@@ -247,10 +271,13 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        'IBAN',
+                        translator.translate("bank"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       TextField(
+                                inputFormatters: [
+        LengthLimitingTextInputFormatter(20),
+      ],
                         style: TextStyle(color: Colors.black),
                         controller: snapshot.ibanController,
                         decoration: InputDecoration(
@@ -272,7 +299,7 @@ class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
                         height: 20,
                       ),
                       Text(
-                        "STATUS",
+                        translator.translate("state"),
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       Container(
@@ -348,8 +375,7 @@ if(
   snapshot.selectedActiveDropDownValue!=""
   )
 {
-  print("A7a");
-
+  
   
 
 
@@ -373,13 +399,13 @@ if(
                              snapshot.editBankAccount((description) {
                               Navigator.of(context).pop();
                               Flushbar(
-                                title: "Success",
+                                title: translator.translate("success"),
                                 message: description,
                                 duration: Duration(seconds: 3),
                               )..show(context);
                             }, (description) {
                               Flushbar(
-                                title: "Failure",
+                                title: translator.translate("fail"),
                                 message: description,
                                 duration: Duration(seconds: 3),
                               )..show(context);
@@ -389,7 +415,7 @@ if(
                           disabledColor: Colors.blue,
                           padding: EdgeInsets.all(15.0),
                           child: Text(
-                            "SAVE",
+                            translator.translate("save"),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/money_transfer_settings_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
@@ -20,7 +22,7 @@ class TransferSettingsScreen extends StatefulWidget {
 }
 
 class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
-  List<String> _priority_data = ["AVAILABLE BALANCE", "TOTAL BALANCE"];
+  List<String> _priority_data = [translator.translate("availableBalance"),translator.translate("balance")];
   bool isallowed = false;
 
   @override
@@ -38,7 +40,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('TRANSFER SETTINGS'),
+              title: Text('TRANSFER SETTINGS not translated'),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -63,6 +65,12 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                   ),
                   onPressed: () {
                     // do something
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                   },
                 )
               ],

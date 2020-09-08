@@ -7,8 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/avaliable_banks_model.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/add_bank_account_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../loading_widget.dart';
@@ -54,16 +56,16 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
         child: FutureBuilder(
             future: loadJson(),
             builder: (context, snapshot) {
-              addaccount_json users;
+       
               var parsedJson;
               var footerJson;
               if (snapshot.hasData) {
                 parsedJson = json.decode(snapshot.data['merchant'].toString());
-                users = addaccount_json.fromJson(parsedJson);
+                
                 return new Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    title: Text(users.header),
+                    title: Text(translator.translate("addTic")),
                     flexibleSpace: Image(
                       image: AssetImage('assets/appbar_bg.png'),
                       height: 100,
@@ -87,6 +89,12 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                           color: Colors.white,
                         ),
                         onPressed: () {
+                            Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                           // do something
                         },
                       )
@@ -108,7 +116,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
                               Text(
-                                users.add,
+                                translator.translate("addTic")+" "+ translator.translate("accounts"),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
@@ -116,7 +124,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.account,
+                translator.translate("accName"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -141,7 +149,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.bank,
+                                   translator.translate("bank"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -163,7 +171,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.currency,
+                                translator.translate("curr"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -210,7 +218,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.accountHolder,
+                                 translator.translate("accHolder"),
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 12),
                               ),
@@ -237,11 +245,14 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.iban,
+                               translator.translate("iban"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
                               TextField(
+                                        inputFormatters: [
+        LengthLimitingTextInputFormatter(20),
+      ],
                                 style: TextStyle(color: Colors.black),
                                 controller: snapshot.ibanController,
                                 decoration: InputDecoration(
@@ -263,7 +274,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                 height: 20,
                               ),
                               Text(
-                                users.status,
+                                translator.translate("state"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -331,14 +342,14 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                     snapshot.addNewBankAccount(() {
                                       Navigator.of(context).pop();
                                       Flushbar(
-                                        title: "Success",
+                                        title:    translator.translate("success"),
                                         message:
-                                            'A new bank account was added successfully.',
+                                              translator.translate("addedbank"),
                                         duration: Duration(seconds: 3),
                                       )..show(context);
                                     }, (description) {
                                       Flushbar(
-                                        title: "Failure",
+                                        title:   translator.translate("fail"),
                                         message: description,
                                         duration: Duration(seconds: 3),
                                       )..show(context);
@@ -348,7 +359,7 @@ class _AddNewBankAccountScreenState extends State<AddNewBankAccountScreen> {
                                   disabledColor: Colors.blue,
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
-                                    users.button,
+                                     translator.translate("save"),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -438,3 +449,6 @@ class addaccount_json {
     return data;
   }
 }
+
+
+//3-32-35-38-44-56-

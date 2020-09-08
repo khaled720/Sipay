@@ -4,16 +4,19 @@ import 'package:country_pickers/utils/utils.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:country_provider/country_provider.dart' as cp;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/providers/profile_settings_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'dart:io';
@@ -31,66 +34,15 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
+ var _city="";
+ var _country="Afghanistan";
+ var _address="";
+
  
- 
- 
- 
- 
- 
- 
- 
-   ola.CountryPicker countryPicker;
- ola.Country country ;// se
+ int i=0;
 
  var local = ui.window.locale.countryCode ;
 
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-if(local==null)local='tr';
-
-for(var element in ola.countryCodes){
-if(local.toLowerCase()==element["ISO"]){
-  setState(() {
-    
-country = ola.Country.fromJson(element); 
-//countrycode=country.dialCode;
-  });
-}
-}
-   countryPicker = ola.CountryPicker(
-     onCountrySelected: (country) {
-      print(country);
-      setState(() {
-        this.country =country as ola.Country ;
-
-   //  countrycode=country.dialCode;
-      });
-
-   });
-
-
-//  if(widget.remem==null) widget.remem=false;
-
-
-
-
-
-
-
-  }
-
-
-
-getUser(){
-
-
-
-
-
-} 
- 
  
   @override
   Widget build(BuildContext context) {
@@ -107,12 +59,12 @@ getUser(){
             widget.repo,
             widget.userLoginInfo,
             CountryPickerUtils.getCountryByIsoCode('TR'),
-            TextEditingController(),
-            TextEditingController()),
+            TextEditingController(text:this._city),
+            TextEditingController(text:this._address)),
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('PROFILE SETTINGS'),
+              title: Text(translator.translate("profSettings")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -136,264 +88,299 @@ getUser(){
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
               ],
             ),
-            body: Consumer<ProfileSettingsProvider>(
-                builder: (context, snapshot, _) {
-              return Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Padding(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: ScreenUtil.getInstance().setHeight(60),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                child: CircleAvatar(
-                                    backgroundImage:
-                                        snapshot.userProfileImage != null
-                                            ? NetworkImage(
-                                                snapshot.userProfileImage
-                                                    .toString()
-                                                    .trim(),
-                                              )
-                                            : (snapshot.imageFromGallery != null
-                                                ? FileImage(
-                                                    snapshot.imageFromGallery,
-                                                  )
-                                                : Image.asset(
-                                                    'assets/user_avatar.png',
-                                                    fit: BoxFit.cover,
-                                                  ).image)),
-                                height: ScreenUtil.getInstance().setHeight(130),
-                                width: ScreenUtil.getInstance().setHeight(130),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 30,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        child: Text(
-                                          snapshot.userName,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        width: ScreenUtil.getInstance()
-                                            .setWidth(500),
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil.getInstance()
-                                            .setHeight(20),
-                                      ),
-                                      Container(
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            snapshot.phoneNumber,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.black45,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            child: FlatButton(
-                              onPressed: () {
-                                snapshot.pickImageFromLibrary(() {
-                                  Flushbar(
-                                      title: "Successful",
-                                      message: 'Image Uploaded!',
-                                      duration: Duration(seconds: 3))
-                                    ..show(context);
-                                });
-                              },
-                              color: Colors.blue,
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                "UPDATE LOGO",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            width: ScreenUtil.getInstance().setWidth(690),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            "COUNTRY:",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black45,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          snapshot.countriesList != null
-                              ? Container(
-child: GestureDetector(
-      child: Container(
-        margin:EdgeInsets.only(top:20),
-        width: 200,
-        height: 30,
-        child: Row(
+            body:
+            
+             FutureBuilder<Object>(
 
-          children: <Widget>[
 
-      Image.asset(country.flagUri, package: 'ola_like_country_picker',width: 30,height: 27,),
-     Expanded(child: Text(""+country.name+" ",
-     style: TextStyle(fontWeight: FontWeight.bold),
-     overflow: TextOverflow.ellipsis,))
+              future: http.get(
+global.APIEndPoints.kApiIndividualUserProfileEndPoint
+,headers: {
+"Accept":"application/json",
+"Authorization":userToken
+}),
+              builder: (context,dynamic snapsho) {
+if(!snapsho.hasData) return Center(child: CircularProgressIndicator());
 
-          ],
-        ),
-        
-      ),
-      onTap: () {
-        countryPicker.launch(context);
+Map map = json.decode(snapsho.data.body.toString());
+
+//this._country
+var countryID =map["data"]["user"]["country"].toString();
+
+  for(var element in map["data"]["countries"].entries){
+  if(countryID==element.key)_country=element.value;
   
-      })
+}  
+print(">>>> "+map["data"]["user"].toString());
+//print(">>>> "+map["data"]["countries"].toString());
+this._city=map["data"]["user"]["city"].toString();
+this._address=map["data"]["user"]["address"].toString();
+
+                return Consumer<ProfileSettingsProvider>(
+                    builder: (context, snapshot, _) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      SingleChildScrollView(
+                        child: Padding(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                height: ScreenUtil.getInstance().setHeight(60),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    child: CircleAvatar(
+                                        backgroundImage:
+                                            snapshot.userProfileImage != null
+                                                ? NetworkImage(
+                                                    snapshot.userProfileImage
+                                                        .toString()
+                                                        .trim(),
+                                                  )
+                                                : (snapshot.imageFromGallery != null
+                                                    ? FileImage(
+                                                        snapshot.imageFromGallery,
+                                                      )
+                                                    : Image.asset(
+                                                        'assets/user_avatar.png',
+                                                        fit: BoxFit.cover,
+                                                      ).image)),
+                                    height: ScreenUtil.getInstance().setHeight(130),
+                                    width: ScreenUtil.getInstance().setHeight(130),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left: 30,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            child: Text(
+                                              snapshot.userName,
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            width: ScreenUtil.getInstance()
+                                                .setWidth(500),
+                                          ),
+                                          SizedBox(
+                                            height: ScreenUtil.getInstance()
+                                                .setHeight(20),
+                                          ),
+                                          Container(
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                snapshot.phoneNumber,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black45,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                child: FlatButton(
+                                  onPressed: () {
+                                    snapshot.pickImageFromLibrary(() {
+                                      Flushbar(
+                                          title: "Successful",
+                                          message: 'Image Uploaded!',
+                                          duration: Duration(seconds: 3))
+                                        ..show(context);
+                                    });
+                                  },
+                                  color: Colors.blue,
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                   translator.translate("updatelogo"),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                width: ScreenUtil.getInstance().setWidth(690),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Text(
+                               translator.translate("country"),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black45,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              snapshot.countriesList != null
+                                  ? Container(
+child: DropdownButton(
+                                            icon:
+                                                Icon(Icons.keyboard_arrow_down),
+                                            items: 
+                            map["data"]["countries"].values.map<DropdownMenuItem<String>>((value) =>
+                     new DropdownMenuItem<String>(
+                      value: value,
+                      child: new Text(value),
+                    )
+                  ).toList()
+                                      ,      
+                                          
+                                            onChanged: (value) {
+                          setState(() {
+                          _country=value;
+                              
+                          });
+                                          },
+                                            value: _country,
+                                            isExpanded: true,
+                                          )
 ,
 
-                              )
-                              : SizedBox(
-                                  width: 0.0,
-                                ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            "CITY",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black45,
-                            ),
-                          ),
-                          TextField(
-                            style: TextStyle(color: Colors.black),
-                            controller: snapshot.cityController,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black26, width: 1.0)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black38, width: 1.0)),
-                                prefixIcon: const Icon(
-                                  Icons.location_on,
-                                  color: Colors.black38,
-                                  size: 16,
-                                )),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            "ADDRESS",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black45,
-                            ),
-                          ),
-                          TextField(
-                            controller: snapshot.addressController,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black26, width: 1.0)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black38, width: 1.0)),
-                                prefixIcon: const Icon(
-                                  Icons.location_on,
-                                  color: Colors.black38,
-                                  size: 16,
-                                )),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            child: FlatButton(
-                              onPressed: () {
-                                snapshot.saveProfileUpdate(() {
-                                  Navigator.of(context).pop();
-                                  Flushbar(
-                                      title: "Successful",
-                                      message:
-                                          'Your profile was successfully uploaded',
-                                      duration: Duration(seconds: 3))
-                                    ..show(context);
-                                }, () {
-                                  Flushbar(
-                                      title: "Failure",
-                                      message:
-                                          'Failed to update your profile. Please try again.',
-                                      duration: Duration(seconds: 3))
-                                    ..show(context);
-                                },
-                                countri:country.name
-                                );
-                              },
-                              color: Colors.blue,
-                              disabledColor: Colors.blue,
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                "SAVE",
+                                  )
+                                  : SizedBox(
+                                      width: 0.0,
+                                    ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Text(
+                              translator.translate("city"),
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 12,
+                                  color: Colors.black45,
                                 ),
                               ),
-                            ),
-                            width: ScreenUtil.getInstance().setWidth(690),
+                              TextField(
+                                style: TextStyle(color: Colors.black),
+                                controller: snapshot.cityController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black26, width: 1.0)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black38, width: 1.0)),
+                                    prefixIcon: const Icon(
+                                      Icons.location_on,
+                                      color: Colors.black38,
+                                      size: 16,
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Text(
+                             translator.translate("address"),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black45,
+                                ),
+                              ),
+                              TextField(
+                                controller: snapshot.addressController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black26, width: 1.0)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.black38, width: 1.0)),
+                                    prefixIcon: const Icon(
+                                      Icons.location_on,
+                                      color: Colors.black38,
+                                      size: 16,
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                child: FlatButton(
+                                  onPressed: () {
+                                    snapshot.saveProfileUpdate(() {
+                                      Navigator.of(context).pop();
+                                      Flushbar(
+                                          title: "Successful",
+                                          message:
+                                              'Your profile was successfully uploaded',
+                                          duration: Duration(seconds: 3))
+                                        ..show(context);
+                                    }, () {
+                                      Flushbar(
+                                          title: "Failure",
+                                          message:
+                                              'Failed to update your profile. Please try again.',
+                                          duration: Duration(seconds: 3))
+                                        ..show(context);
+                                    },
+                                    countri:_country
+                                    );
+                                  },
+                                  color: Colors.blue,
+                                  disabledColor: Colors.blue,
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                 translator.translate("save"),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                width: ScreenUtil.getInstance().setWidth(690),
+                              ),
+                              SizedBox(
+                                height: 60,
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 60,
-                          )
-                        ],
+                          padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                    ),
-                  ),
-                  //  Dashboardbottom(context, null, null, null),
-                  LoadingWidget(
-                    isVisible: snapshot.showLoad ?? false,
-                  )
-                ],
-              );
-            })));
+                      //  Dashboardbottom(context, null, null, null),
+                      LoadingWidget(
+                        isVisible: snapshot.showLoad ?? false,
+                      )
+                    ],
+                  );
+                });
+              }
+            )));
   }
 
   Widget _buildDropdownItem(Country country) => Row(

@@ -57,8 +57,12 @@ dependencies:
   ola_like_country_picker: ^0.1.2
   easy_dialog: any
   websafe_svg: ^1.1.0
-  flutter_native_image: ^0.0.5+2
   animated_dialog:
+  month_picker_dialog: ^0.3.2
+  localize_and_translate: ^2.0.2
+  
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,6 +118,8 @@ flutter:
     - assets/password.png
     - assets/verify_attention.png
     - assets/confirm.png
+    - assets/langs/en.json
+    - assets/langs/tr.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

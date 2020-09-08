@@ -10,20 +10,24 @@ import 'package:fluttersipay/bottom_navigator.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import './withdraw_history.dart';
 import 'create_withdraw.dart';
 
 class UserWithdrawalPanelScreen extends StatefulWidget {
+  UserWithdrawalPanelScreen(this.mainRepo, this.userWallets);
+
   final BaseMainRepository mainRepo;
   final List userWallets;
-  UserWithdrawalPanelScreen(this.mainRepo, this.userWallets);
+
   @override
   _UserWithdrawalPanelScreen createState() => _UserWithdrawalPanelScreen();
 }
 
 class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
   int _index = 0;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -41,15 +45,13 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
             future: DefaultAssetBundle.of(context)
                 .loadString('assets/json/Withdrawl/8.5Withdraw.json'),
             builder: (context, snapshot) {
-              WithdrawUIModel users;
-              var parsedJson;
+            
               if (snapshot.hasData) {
-                parsedJson = json.decode(snapshot.data.toString());
-                users = WithdrawUIModel.fromJson(parsedJson);
+            
                 return Scaffold(
                     appBar: AppBar(
                       centerTitle: true,
-                      title: Text(users.header),
+                      title: Text(translator.translate("withdraw").toUpperCase()),
                       flexibleSpace: Image(
                         image: AssetImage('assets/appbar_bg.png'),
                         height: 100,
@@ -101,7 +103,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 30, right: 30),
                                   child: Text(
-                                    users.abailable,
+                              translator.translate("availableBalance"),
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -256,7 +258,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                           disabledColor: Colors.blue,
                                           padding: EdgeInsets.all(15.0),
                                           child: Text(
-                                            users.button[0],
+                                          translator.translate("newReq"),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -299,7 +301,7 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                                           disabledColor: Colors.blue,
                                           padding: EdgeInsets.all(15.0),
                                           child: Text(
-                                            users.button[1],
+                                            translator.translate("WithHis"),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -320,7 +322,12 @@ class _UserWithdrawalPanelScreen extends State<UserWithdrawalPanelScreen> {
                           ),
                           getCustomNavigator(
                               context,
-                              users.footerTab,
+                        [
+    translator.translate("deposit"),
+    translator.translate("moneytrans"),
+    translator.translate("withdraw"),
+    translator.translate("exchange")
+  ],
                               2,
                               widget.mainRepo,
                               widget.userWallets,

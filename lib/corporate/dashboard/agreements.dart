@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/request_details.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../dashboard/merchant.dart';
 
@@ -35,7 +37,7 @@ class _Agreements_Panel extends State<Agreements_Panel> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('AGREEMENTS'),
+          title: Text(translator.translate("agreement")),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -59,6 +61,12 @@ class _Agreements_Panel extends State<Agreements_Panel> {
                 color: Colors.white,
               ),
               onPressed: () {
+                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                 // do something
               },
             )

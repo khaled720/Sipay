@@ -10,6 +10,7 @@ import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/register_provider.dart';
 import 'package:fluttersipay/login_screens/user_kyc_sms_verify.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
 
 import 'package:fluttersipay/utils/custom_text_style.dart';
@@ -25,20 +26,12 @@ class UserRegistrationScreen extends StatefulWidget {
 }
 
 class UserRegistrationScreenState extends State<UserRegistrationScreen> {
-  
-  
-  String countrycode;
-  Country s;
- 
-  String phoneNumber;
-   var local = ui.window.locale.countryCode ;
-
-
-
-
-   ola.CountryPicker countryPicker;
  ola.Country country ;// se
-
+  String countrycode;
+   ola.CountryPicker countryPicker;
+   var local = ui.window.locale.countryCode ;
+  String phoneNumber;
+  Country s;
 
 @override
   void initState() {
@@ -69,8 +62,6 @@ country = ola.Country.fromJson(element);
 
   }
 
-
-  
   @override
   Widget build(BuildContext context) {
 
@@ -86,15 +77,15 @@ country = ola.Country.fromJson(element);
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/register/2.2Registration.json'),
         builder: (context, snapshot) {
-          RegistrationModel users;
+         // RegistrationModel users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = RegistrationModel.fromJson(parsedJson);
+          //  users = RegistrationModel.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(translator.translate("registration").toString().toUpperCase()),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -151,7 +142,9 @@ country = ola.Country.fromJson(element);
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        users.registration,
+                                     
+                                      translator.translate("registration").toUpperCase(),
+
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -165,7 +158,7 @@ country = ola.Country.fromJson(element);
                                     ),
                                     Container(
                                       child: Text(
-                                        users.enter,
+                                        translator.translate("enterphone"),
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.black45,
@@ -187,7 +180,7 @@ country = ola.Country.fromJson(element);
                                               ),
                                               children: [
                                             TextSpan(
-                                                text: users.user.agreement,
+                                                text: translator.translate("user")+" "+translator.translate("agreement"),
                                                 style: TextStyle(
                                                     color: Colors.blue)),
                                             TextSpan(
@@ -195,7 +188,7 @@ country = ola.Country.fromJson(element);
                                                 style: TextStyle(
                                                     color: Colors.black45)),
                                             TextSpan(
-                                                text: users.user.privacy,
+                                                text: translator.translate("PPplicy"),
                                                 style: TextStyle(
                                                     color: Colors.blue)),
                                           ])),
@@ -262,7 +255,9 @@ snapshot.telephoneController.text="";
   ),
  
      Expanded(
-            child: TextField(
+            child: TextField(          inputFormatters: [
+        LengthLimitingTextInputFormatter(14),
+      ],
                                         style: TextStyle(color: Colors.black),
                                       //  controller: snapshot.telephoneController,
                                         onChanged: (val){
@@ -275,7 +270,7 @@ snapshot.telephoneController.text="";
                                         keyboardType: TextInputType.phone,
                                         decoration: InputDecoration(
                              
-                                            hintText: 'Phone Number',
+                                            hintText: translator.translate("phoneNo"),
                                             hintStyle: CustomTextStyle.formField(
                                                 context),
                                             errorText:
@@ -307,7 +302,7 @@ snapshot.telephoneController.text="";
                                     Align(
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                        users.already,
+                                       translator.translate("alreadyreg"),
                                         style: TextStyle(
                                           color: Colors.black45,
                                           fontSize: 16,
@@ -322,7 +317,7 @@ snapshot.telephoneController.text="";
                                               (route) => route.isFirst);
                                         },
                                         child: Text(
-                                          users.login,
+                                     translator.translate("loginhere"),
                                           style: TextStyle(
                                             color: Colors.blue,
                                             fontSize: 16,
@@ -359,7 +354,7 @@ snapshot.telephoneController.text="";
                                         disabledColor: Colors.blue,
                                         padding: EdgeInsets.all(15.0),
                                         child: Text(
-                                          users.button,
+                                      translator.translate("register").toUpperCase(),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,

@@ -1,0 +1,415 @@
+
+{
+
+
+
+
+    "infouEntred":
+    "Girdiğiniz bilgiler kayıtlarımızla eşleşmiyor.",
+    
+    "signup":
+    "Dijital cüzdanınızı oluşturmak için kaydolun!",
+    "userhavealready":
+    "Kullanıcı zaten kayıtlı Buraya tıklayın",
+    "createWallet":
+    "CÜZDANIZI OLUŞTURUN",
+    "alreadyreg":
+    "Zaten kayıtlı?",
+    "have":
+    "Hesabınız var mı? Buradan giriş yapın",
+    "registration":
+    "kayıt",
+    "enterphone":
+    "Kaydolmak için telefon numaranızı girin",
+    "user":
+    "Kullanıcı",
+    "loginhere":
+    "Giriş yapın",
+    "pass":
+    "PAROLA",
+    "userVer":
+    "KULLANICI DOĞRULAMA",
+    "surname":"SURNAME",
+    "tck":"TCKN",
+    "dob":
+    "Doğum tarihi",
+    "dgitalwallet":
+    "Dijital cüzdanınız başarıyla oluşturuldu! Kimlik bilgilerinizi girerek hesabınızı doğrulayın.",
+    
+    "loginfailed":
+    "GİRİŞ BAŞARISIZ",
+    "loginfailinfo":
+    "Girdiğiniz bilgiler eksik veya yanlış. Lütfen kontrol edin ve tekrar deneyin.",
+    
+    "moneyrequested":
+    "Para başarıyla istendi.",
+    "valid":"geçerli",
+    "moneytransSucc":
+    "Para transferiniz başarılı oldu.",
+    "recID":
+    "Alıcı Kimliği",
+    "transDate":
+    "İşlem günü: ",
+    "newtrans":
+    "YENİ TRANSFER",
+    "notfoundTr":
+    "İşlem bulunamadı.",
+    "incom":
+    "GELEN",
+    "outgoing":
+    "DIŞA DÖNÜK",
+    "curr":
+    "PARA BİRİMİ",
+    "faill":
+    "isteğiniz başarısız oldu!",
+    "newReq":
+    "YENİ İSTEK",
+    "creditallow":
+    "Kredi Kartı ile para yatırmanıza izin verilir",
+     "creditnotallow":
+     "Kredi Kartı ile para yatırmanıza izin verilmiyor",
+     
+     "amnt":
+     "Miktar",
+    
+     "youcan":
+     "Yalnızca adınızla kayıtlı bir banka hesabından para yatırabilirsiniz",
+     
+     "addedbank":
+     "Yeni bir banka hesabı başarıyla eklendi",
+    "card":"KART",
+    "try":"TRY",
+    "charge":
+    "GERİ BİLDİRİM GEÇMİŞİ",
+    "deleted":
+    "Başarıyla silindi.",
+    "codnotdelete":
+    "Banka hesabınız silinemedi",
+    "failedtoupdate":
+    "Hesap güncellenemedi. Lütfen tekrar deneyin",
+    "passupdated":
+    "Şifre güvenli bir şekilde güncellendi",
+    "emailupdated":
+    "E-posta adresi başarıyla güncellendi",
+    "transHis":
+    "ÖDEME DETAYLARI",
+    "att":
+    "DİKKAT",
+    "youmust":
+    "Bu sayfayı görüntülemek için hesabınızı doğrulamalısınız.",
+    "bever":
+    "DOĞRULANIN",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "login":"Giriş",
+    "register":"Kayıt Ol",
+    "individual":"Bireysel",
+    "corp":"Üye İşyeri",
+    "merchanr":"Üye İşyeri",
+    "phoneNo":"Telefon Numarası",
+    "phoneValidate":"Kullanıcı bulamadı. Buraya tıklayınız. ",
+    "remember":"Beni Hatırla",
+    "forgetPass":"Şifreyi unut",
+    "haveAccount":"Hesabın yok mu?",
+    "registerHere":"Buradan kaydol",
+    "urEmail":"e-posta adresiniz",
+    "urPass":"Şifreniz",
+    "resetPass":"Şifre Sıfırlama",
+    "forgetpass?":"Şifreni mi unuttun?",
+    "resetInfo":"Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
+    "email":"E-posta",
+    
+    "resetbtnText":"Şifre sıfırlama bağlantısı",
+    "emailValidate":"Lütfen geçerli bir e-posta adresi giriniz.",
+    
+    
+    "passInfo":"Giriş yapmak için şifrenizi giriniz.",
+    "diffrenAcc":"Başka bir hesapla giriş yapın.",
+    "verify":"Doğrula",
+    "invalidPass":"Yanlış parola",
+    
+    "smsverify":"SMS Doğrulama",
+    "verifiyInfo":"Telefonunuza gelen sms doğrulama kodunu giriniz. ",
+    "urPhone":"Telefon Numaranız",
+    "remainingTime":"Telefonunuza gelen kodu girmeniz için kalan süre",
+    "resend":"Kodu tekrar gönder",
+    "hint":" Doğrula düğmesini tıklayarak, şunu kabul etmiş sayılırsınız.",
+    "Userprivacy":"Kullanıcı Sözleşmesi",
+    "and":"and",
+    "PPplicy":"Gizlilik Sözleşmesi",
+    
+    
+    "balance":"Toplam Bakiye",
+    "availble":"Kullanılabilir Bakiye",
+    "lastActivity":"Son Hareketler",
+    
+    "withdraw":"Para Çekme",
+    "moneytrans":"Para Transferi ",
+    "dpl":"Dpl Link",
+    
+    
+    "menu":"Menü",
+    "dash":"Panel",
+    "tranaction":"İşlemler",
+    "deposit":"Para Yatırma",
+    "receive":"Alıcı",
+    "exchange":"Döviz İşlemleri",
+    "installRate":"Taksit Oranları",
+    "agreement":"Anlaşmalar",
+    "support":"Destek",
+    "setting":"Ayarlar",
+    "profile":"Profil",
+    "Noti":"Bildirimler",
+    "allNoti":"Tüm bildirimler",
+    "logout":"Çıkış",
+    "transactionHisstory":"İşlem Geçmişi",
+    "alltransaction":"Tüm İşlemler",
+    "currency":{"para birimi":["TRY","USD","EUR"]},
+    "transactionStatus":{"durum":["durumlar", "Tamamlandı", "Reddedildi", "Bekliyor", "Beklemede","İade edildi","Bekliyor","Harcama itirazı talep edildi","Başarısız"]},
+    "WithHis":"Para Çekim Geçmişi",
+    "availableBalance":"Kalan Bakiye",
+    "toBank":"Banka Hesabına",
+    "withdrawInfo":"Çekemek istediğiniz banka hesabını seçin ve tutarı belirleyin.",
+    "chooseAcc":"Kayıtlı hesabı seçin",
+    "amount":"Tutar",
+    "iban":"IBAN",
+    "holder":"Hesap Sahibi",
+    "TransFee":"İşlem Ücreti",
+    "swift":"Swift",
+    "newAmt":"Yeni Tutar",
+    "withdrawBtn":"Talep Gönder",
+    "withdrawHintDialog":"Hesabınıza yatırılacak tutar:",
+    "withdrawHintDialog2":"Tutar kullanılabilir bakiyenizden düşülecektir.",
+    "hintActions":{"actions":["İptal","Onayla"]},
+    "otp":"SMS Doğrulama",
+    "successful":"Başarılı",
+    "withdrawSuccessMsg":"Para çekim talebiniz gönderildi.",
+    "sendmoney":"Para Gönder",
+    "chooseWallet":"Alıcı Türü",
+    "chooseDeposit":"Para Yatırma Methodu",
+    "requestMoney":"Para Talep Et",
+    "merchantID":"Üye işyeri ID",
+    "merchantIDHint":"Üye işyeri Id girin",
+    "desc":"Açıklama",
+    "descHint":"Açıklama Girin",
+    "submitReq":"Talep Gönder",
+    "sender":"Alıcı telefon numarası",
+    "error":"Lütfen bu alanı doldurun ",
+    
+    
+    "dp":"DPL",
+    "onetime":"Tek kullanımlık",
+    "oneInfo":"Sadece tek kullanımlık ödeme bağlantısı oluşturun",
+    "multi":"Çok kullanımlık",
+    "multiInfo":"Sınıra ulaşana kadar çok kullanımlık ödeme bağlantısı oluşturun",
+    "dplHis":"DPL Geçmişi",
+    "dplhistoryInfo":" Tüm doğrudan ödeme bağlantısı işlem ayrıntılarını görün ",
+    "link" : "link",
+    "create":"oluşturma",
+    "setbyusr":"Tutara kullanıcı karar versin",
+    "productname":"Ürün adı",
+    "explain":"Ürün Açıklaması",
+    "explainInfo":"Açıklama",
+    "createdpl":"Link Oluştur",
+    "success":"Başarılı",
+    "fail":"Hatalı",
+    "successInfo":"Dpl başarılı bir şekilde oluşturuldu.",
+    "requiredField":"Lütfen bu alanı doldurun",
+    "dplFail":"Dpl oluşturulamadı",
+    
+    "expiry":"Son Kullanım Tarihi",
+    "sms":"SMS","whats":"WHATSAPP","copy":"Kopyala","cancel":"İptal",
+    
+    "sharelink":"Linki paylaş",
+    "shareEmail":"Linki e-posta ile paylaş",
+    "shareInfo":"Dpl linki paylaşabilirsiniz. ",
+    "via1":"via E-posta.",
+    "via2":"via SMS",
+    "recEmail":"Alıcı e-posta",
+    "sendEmail":"gönderen e-posta",
+    "emailResult":"Email’e gönderim tamamlandı ",
+    "emailHint":"Geçersiz e-posta",
+    
+    "shareSms":"Sms ile linki paylaş.",
+    "gsmNum":"Alıcı GSM",
+    "sendSms":"Sms gönder",
+    "dpllinkcopy":"Dpl link kopyalandı",
+    "GSMhint":"GSM numarası en az 13 hane olmalıdır",
+    "smsResult":"GSM numarası için gönderme tamamlandı",
+    
+    
+    "maxNumofUse":"Maximum Kullanım Sayısı",
+    "expireHour":"Son kullanım saati",
+    "expireDate":"Son kullanım tarihi",
+    
+    "bankTrans":"Havale EFT",
+    "depositInfo":"Havale EFT işlemini yalnızca kayıtlı bir banka hesabından gerçekleştirebilirsiniz.",
+    "bank":"Banka", 
+    "pnr":"PNR",
+    "submit":"GÖnder",
+    "depositError":"Lütfen bu alanı doldurun",
+    "depositDialogHint":"24 saat içerisinde ilgili tutarın gönderilmemesi durumunda işlem iptal olacaktır.",
+    "DepositSuccessMsg":"Para yatırma talebiniz başarıyla oluşturuldu.",
+    "cardDeposit":"Havale/EFT",
+    "cardInfo":"Kredi kartınızdan çekilen tutar toplam bakiyenize yansıyacaktır.",
+    "cardOwner":"Kart üzerindeki isim",
+    "cardNo":"Kredi kartı numarası",
+    "cvv":"CVV", "No":"Numara","name":"Ad",
+    "makeDep":"Para Yatırma",
+    
+    "attention":"Çok dikkat",
+    "installInfo":"Komisyonlara vergi dahildir. Tutar taksit sayısına göre değişmeyecektir. Minimum ödenecek tutar 25 TL",
+    "install":"taksitler",
+    "cards":"CARDS","bonus":"BONUS","paraf":"PARAF,ADVANTAGE Taksitler",
+    
+    
+    "supportTic":"Destek Talebi",
+    "addTic":"Yeni Talep",
+    "newTic":"Yeni destek talebi",
+    "categoryTic":"Kategori",
+    "categoryHint":"Kategori ",
+    "titleTic":"Başlık","ticketTichint":"Talep Başlığı",
+    "attachTic":"Dosya Seç",
+    "descTicHint":"Devam edin dinliyoruz",
+    "refund":"İade","tech":"Teknik","other":"Diğer","purch":"Satın Alma",
+    "successTic":" ….numaralı destek talebiniz açılmıştır.",
+    "failTic":"Destek talebiniz açılamadı !!",
+    "msgHint":"Mesaj",
+    "closeTic":"Bilet Kapandı",
+    "sendMsg":"Gönder",
+    "closedTic":"Bilet kapatıldı",
+    "created":"Tarinde oluşturuldu",
+    
+    "profSettings":"Profil ayarları",
+    "country":"Ülke","city":"Şehir","address":"Adres",
+    "updatelogo":"Logo yükle ",
+    "profileSuccess":"Profil resmi başarıyla yüklendi",
+    "profileFail":"Profil resmi güncellenemedi. Tekrar deneyin ",
+    
+    "curntPass":"Mevcut Şifre",
+    "newPass":"Yeni Şifre",
+    "ConfPass":"Yeni Şifre",
+    "changePassbtn":"Şifre Değiştir",
+    "passError":"Bu alan boş olamaz.",
+    
+    "notiSetting":"Bildirim ayarları",
+    "notiSettingInfo":"Bildirim seçeneklerini istediğiniz gibi açın veya kapatın",
+    "app":"APP",
+    "save":"Kaydet",
+    "transRef":"İade işlemleri",
+    "monReq":"Para Talep Et",
+    "weekReport":"Haftalık Rapor",
+    "logoutMsg":"Başarıyla çıkış yapıldı",
+    "security":"Güvenlik",
+    "moneysend":"Para gönder",
+    "moneyReq":"Para Talep Et",
+    "help":"Yardım",
+    "withdrawbtn":"Gelen para talepleri",
+    "NonsiUser":"Sipay Kullaıcısı Değil",
+    "accounts":"Banka Hesapları",
+    "addAcc":"Hesap Ekle",
+    "editBank":"Banka Hesabın düzenleme","edit":"Düzenleme",
+    "accName":"Banka Hesap Adı",
+    "accHolder":"Hesap Sahibinin Adı",
+    "state":"Durum",
+    "act":"Aktif","notact":"İnaktif",
+    
+    "transSettings":"Para Transferi Ayarları",
+    "money":"Para",
+    "allowReq":"Para talep etmeye izin verin",
+    "transferInfosettings":"Bu seçeneği kapatarak diğer kullancııların sizden para talep etmesini engellemiş olursunuz. Para gönderme ve paara talep etme fonksiyonları bu seçenekten etkilenmez. ",
+    "Transpriority":"Para Transferi önceliği"
+    
+    ,
+    "notiIf":"Bildirimler ",
+    "notiList":[
+        "Gönderilen para transferi işlem sonuçlarını bildir. ",
+        "Alınan para transferini bildir",
+        "Gönderilen para transferi taleplerini bildir",
+        "Gönderilen para transfer talebi sonuçlarını bildir", 
+        "Gelen para transferi taleplerini bildir",
+        "destek talebi güncellemelerini bildir",
+        "Cüzdan iadelerini bildir",
+        "ödeme bilgileri değişikliklerini bildir"
+    
+    
+    ]
+    
+    
+    ,
+    
+    "helpInfo":"Sorununuzu açıklayın",
+    "helpHint":"Para koyabilir miyim....",
+    "helpQuestionList":[
+        "Sipay Nedir?",
+        "Sipay kullanmak ücretli mi?",
+        "Nasıl kulanabilirim?",
+        "Sipay cüzdan ile neler yapabilirim?",
+        "Para yükleme limitim nedir?",
+        "7/24 para yükleyebilir miyim?",
+        "Havale ile sipay cüzdanıma nasıl para eklerim?",
+        "Kredi kartımla cüzdanıma nasıl para yüklerim?",
+        "Hesabıma para aktarılmazsa ne yapabilirim?",
+        "Birisi cüzdanıma para gönderebilir mi?"
+      ],
+    "helpAnswersList":[
+      " Kolay, hızlı ve güvenli ödemenin yeni yolu olan SiPay, 2019 Temmuz ayında Bankacılık Düzenleme ve Denetleme Kurumu'ndan Elektronik Para Kuruluşu olarak faaliyet göstermek üzere aldığı izin ile&nbsp;Türkiye’nin en genç yeni nesil dijital cüzdanıdır.",
+        " Kullanıcılarımız, hizmetlerimizden yararlanmak için herhangi bir üyelik ücreti ödememektedir.",
+        " SiPay’i kullanmak için yalnızca telefonunuza gönderilen tek kullanımlık şifreyi girmeniz yeterli. Hesabınızı oluşturun kolay ve güvenli alışverişin tadını çıkarın.",
+        " Dijital cüzdan sahibi olarak tüm üye iş yerlerimizden alışveriş yapabilir, dilediğiniz kişiye para gönderebilir, diğer kullanıcılardan cüzdanınıza para transfer etmesini isteyebilir, SiPay cüzdan hesabınızdaki paranızı dövize çevirebilir, hatta tanımladığınız banka hesabına masraf ödemeden para çekebilirsiniz. ",
+        " Standart Hesap sahibi iseniz para yükleyemezsiniz, ancak cüzdanınızda başka bir kullanıcıdan tarafınıza gönderilen 750,00 TL’yi tutabilirsiniz ve üye iş yerlerimizden birinde harcayabilirsiniz. ",
+        " SiPay cüzdanınıza dilerseniz kredi kartınızla, dilerseniz havale ile 7/24 para yükleyebilirsiniz. ",
+        " SiPay hesabınıza giriş yapın ve Para Yatır sayfasında yüklemek istediğiniz tutarı girin, ödeme yöntemi olarak Havale / EFT seçeneğini seçin. Açılan menüden para göndermek istediğiniz SiPay hesabını seçin ve Gönder’e basın. ",
+        " SiPay cüzdan hesabınıza girdikten sonra Para Yatır sayfasında yüklemek istediğiniz tutarı girin ve ödeme yöntemi olarak Kredi Kartı’nı seçin. Açılan menüde kart bilgilerinizi eksiksiz ve doğru olarak girin. Gönder’e basın. Güvenlik şifrenizi girdiğinizde bakiyeniz anında hesabınıza eklenecektir. ",
+        " Havale yaparken belirttiğimiz kriterlerin hepsini tamamladığınızdan,&nbsp;özellikle PNR kodunuzu doğru girdiğinizden emin olun. Hepsinden eminseniz size yardımcı olabilmemiz için bizi 0212 706 11 12’den arayarak talebinizi iletebilirsiniz. "
+        ," Doğrulanmış bir SiPay hesabı olan tüm kullanıcılarımız cüzdanınıza para gönderebilir."
+        
+        ]
+    
+    ,"faq":" SSS "
+    
+    
+    
+    ,
+    "SecurityTilte":"Şifreni ya da e-postanı değiştir",
+    "securityInfo": " Bu yaştan itibaren güvenlik nedeniyle şifrenizi ve e-postanızı değiştirebilirsiniz. Telefon numaranızı değiştirmek için lütfen müşteri hizmetlerimize başvurun. 0212706 11 12",
+    "changpass":"Şifreyi Değiştir",
+    "newEmailHint":"Yeni e-posta adresi"
+    ,"changEmail":"E-Postayı değiştir",
+    "activity":"Aktivite Detayları",
+    
+    
+    "detailsList1":"İşlem ID",
+    "detailsList2":"Ürün adı",
+    "detailsList3":"Tip",
+    "detailsList4":"Ödeme ID",
+    "detailsList5":"Güncelleme Tarihi"
+    ,
+
+      "transactionsList1": "İşlem ID",
+      "transactionsList2":   "Ödeme ID",
+      "transactionsList3":     "Kredi Kartı Numarası",
+      "transactionsList4":    "Güncelleme Tarihi",
+      "transactionsList5":     "Banka Adı",
+      "transactionsList6":     "Tarih",
+      "transactionsList7":   "Geri"
+        
+        
+    
+    }
+    

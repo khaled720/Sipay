@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/corporate/dashboard/merchant_repo.dart';
 import 'package:fluttersipay/corporate/dashboard/providers/corporate_notifications_provider.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import 'notification_settings.dart';
@@ -68,7 +70,7 @@ class _CorporateNotificationsScreenState
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('NOTIFICATIONS'),
+              title: Text(translator.translate("Noti")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -92,6 +94,12 @@ class _CorporateNotificationsScreenState
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
@@ -114,7 +122,7 @@ class _CorporateNotificationsScreenState
                           child: Row(
                             children: <Widget>[
                               Text(
-                                'ALL NOTIFICATIONS',
+                             translator.translate("allNoti"),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 17,

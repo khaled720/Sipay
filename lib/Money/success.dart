@@ -8,6 +8,7 @@ import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class TransferSuccessScreen extends StatefulWidget {
   final MainApiModel otpModel;
@@ -59,7 +60,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Money TRANSFER"),
+        title: Text( translator.translate("moneytrans")),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 120,
@@ -124,7 +125,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'SUCCESSFUL',
+                    translator.translate("successful"),
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 20,
@@ -139,7 +140,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Your money transfer was successful.',
+                    translator.translate("moneytransSucc"),
                       style: TextStyle(color: Colors.black45, fontSize: 18),
                     ),
                   ),
@@ -154,7 +155,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        'Amount Sent: ',
+                      translator.translate("amount")+": ",
                         style: TextStyle(color: Colors.black45, fontSize: 17),
                       ),
                     ),
@@ -190,7 +191,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                     ),
                     Expanded(
                       child: Text(
-                          widget.isB2B ? 'Receiver ID: ' : 'Reciever GSM NO: ',
+                          widget.isB2B ?  translator.translate("recID") :  translator.translate("sender"),
 //                          widget.userType == UserTypes.Individual
 //                              ? 'Reciever GSM NO: '
 //                              : 'Reciever Merchant ID: ',
@@ -228,7 +229,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                       width: 30,
                     ),
                     Expanded(
-                      child: Text('Transaction Date: ',
+                      child: Text( translator.translate("transDate"),
                           style:
                               TextStyle(color: Colors.black45, fontSize: 17)),
                     ),
@@ -268,7 +269,7 @@ class _TransferSuccessScreenState extends State<TransferSuccessScreen> {
                       disabledColor: Colors.blue,
                       padding: EdgeInsets.all(15.0),
                       child: Text(
-                        "NEW TRANSFER",
+                      translator.translate("newtrans"),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/deposit/json_models/c_bank_list_model.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttersipay/corporate/deposit/providers/corporate_create_deposit_provider.dart';
 import 'deposit_success.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 
 
@@ -53,17 +54,18 @@ class _Create_panel extends State<C_Create_deposits> {
       ),
       child: FutureBuilder(
           future: DefaultAssetBundle.of(context)
-              .loadString('assets/json/deposit/6.2Deposit_Transfer.json'),
+  .loadString('assets/json/deposit/6.2Deposit_Transfer.json'),
           builder: (context, snapshot) {
             transfer_json users;
             var parsedJson;
             if (snapshot.hasData) {
               parsedJson = json.decode(snapshot.data.toString());
               users = transfer_json.fromJson(parsedJson);
+         
               return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text(users.header),
+                  title: Text(translator.translate("deposit")),
                   flexibleSpace: Image(
                     image: AssetImage('assets/appbar_bg.png'),
                     height: 100,
@@ -92,6 +94,12 @@ class _Create_panel extends State<C_Create_deposits> {
                       ),
                       onPressed: () {
                         // do something
+                          Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                       },
                     )
                   ],
@@ -111,7 +119,7 @@ class _Create_panel extends State<C_Create_deposits> {
                               Padding(
                                 padding: EdgeInsets.only(left: 30, right: 30),
                                 child: Text(
-                                  users.abailable,
+                         translator.translate("availableBalance"),
                                   style: TextStyle(
                                       fontSize: 16, fontWeight: FontWeight.bold),
                                 ),
@@ -188,7 +196,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      users.description,
+                             translator.translate("bankTrans")+" "+translator.translate("deposit").toUpperCase(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold, fontSize: 16),
                                     ),
@@ -204,7 +212,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                       height: ScreenUtil.getInstance().setHeight(50),
                                     ),
                                     Text(
-                                      users.hintBank,
+                                     translator.translate("bank"),
                                       style:
                                       TextStyle(color: Colors.black54, fontSize: 12),
                                     ),
@@ -240,7 +248,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                             ScreenUtil.getInstance().setHeight(10),
                                           ),
                                           Text(
-                                            users.hintAmount,
+                                            translator.translate("amount")+"*",
                                             style: TextStyle(
                                                 color: Colors.black54, fontSize: 12),
                                           ),
@@ -279,7 +287,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                                       ),
                                                       validator: (value) {
                                                         if (value.isEmpty) {
-                                                          return 'Please enter AMOUNT';
+                                                          return translator.translate("error")+translator.translate("amount");
                                                         }
                                                         return null;
                                                       },
@@ -348,7 +356,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                             ScreenUtil.getInstance().setHeight(10),
                                           ),
                                           Text(
-                                            users.hintRegister,
+                                           translator.translate("register").toUpperCase(),
                                             style: TextStyle(
                                                 color: Colors.black54, fontSize: 12),
                                           ),
@@ -376,7 +384,7 @@ class _Create_panel extends State<C_Create_deposits> {
                                             ),
                                             validator: (value) {
                                               if (value.isEmpty) {
-                                                return 'Please enter REGISTER';
+                                                return translator.translate("error")+""+translator.translate("register").toUpperCase();
                                               }
                                               return null;
                                             },
@@ -387,78 +395,128 @@ class _Create_panel extends State<C_Create_deposits> {
                                             ScreenUtil.getInstance().setHeight(10),
                                           ),
                                           Text(
-                                            users.hintIban,
+                                           translator.translate("iban"),
                                             style: TextStyle(
                                                 color: Colors.black54, fontSize: 12),
                                           ),
-                                          TextFormField(
-                                            style: TextStyle(color: Colors.black),
-                                            controller: snapshot.ibanController,
-                                            decoration: InputDecoration(
-                                              enabledBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black45, width: 1.0)),
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black45, width: 1.0)),
-                                              prefixIcon: const Icon(
-                                                FontAwesomeIcons.hashtag,
-                                                color: Colors.black45,
-                                                size: 16,
-                                              ),
-                                              suffixIcon: IconButton(
-                                                  icon: Icon(
-                                                    Icons.collections_bookmark,
-                                                    size: 16,
+                                          Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                                                              child: TextFormField(
+                                                  style: TextStyle(color: Colors.black),
+                                                  controller: snapshot.ibanController,
+                                                  decoration: InputDecoration(
+                                                    enabledBorder: UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.black45, width: 1.0)),
+                                                    focusedBorder: UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.black45, width: 1.0)),
+                                                    prefixIcon: const Icon(
+                                                      FontAwesomeIcons.hashtag,
+                                                      color: Colors.black45,
+                                                      size: 16,
+                                                    ),
+                                          
                                                   ),
-                                                  onPressed: () {}),
-                                            ),
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return 'Please enter IBAN';
-                                              }
-                                              return null;
-                                            },
-                                            obscureText: false,
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return translator.translate("error")+translator.translate("iban");
+                                                    }
+                                                    return null;
+                                                  },
+                                                  obscureText: false,
+                                                ),
+                                              ),
+                                          
+                                          
+                                          IconButton(
+                                                        icon: Icon(
+                                                          Icons.collections_bookmark,
+                                                       color: Colors.blue,  // size: 16,
+                                                        ),
+                                                        onPressed: () async {
+
+ await Clipboard.setData(new ClipboardData(
+   text:snapshot.ibanController.text));
+
+
+
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+  duration: Duration(seconds: 3),
+            content: Text(translator.translate("copied"))
+));
+
+                                                        }),
+                                          
+                                          
+                                          
+                                          
+                                            ],
                                           ),
                                           SizedBox(
                                             height:
                                             ScreenUtil.getInstance().setHeight(10),
                                           ),
                                           Text(
-                                            users.hintPNR,
+                                          translator.translate("pnr"),
                                             style: TextStyle(
                                                 color: Colors.black54, fontSize: 12),
                                           ),
-                                          TextFormField(
-                                            style: TextStyle(color: Colors.black),
-                                            controller: snapshot.pnrController,
-                                            decoration: InputDecoration(
-                                              enabledBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black45, width: 1.0)),
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.black45, width: 1.0)),
-                                              prefixIcon: const Icon(
-                                                FontAwesomeIcons.hashtag,
-                                                color: Colors.black45,
-                                                size: 16,
-                                              ),
-                                              suffixIcon: IconButton(
-                                                  icon: Icon(
-                                                    Icons.collections_bookmark,
-                                                    size: 16,
+                                          Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                                                              child: TextFormField(
+                                                  style: TextStyle(color: Colors.black),
+                                                  controller: snapshot.pnrController,
+                                                  decoration: InputDecoration(
+                                                    enabledBorder: UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.black45, width: 1.0)),
+                                                    focusedBorder: UnderlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color: Colors.black45, width: 1.0)),
+                                                    prefixIcon: const Icon(
+                                                      FontAwesomeIcons.hashtag,
+                                                      color: Colors.black45,
+                                                      size: 16,
+                                                    ),
+                                    
                                                   ),
-                                                  onPressed: () {}),
-                                            ),
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return 'Please enter PNR';
-                                              }
-                                              return null;
-                                            },
-                                            obscureText: false,
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return translator.translate("error")+translator.translate("pnr");
+                                                    }
+                                                    return null;
+                                                  },
+                                                  obscureText: false,
+                                                ),
+                                              ),
+
+
+                                              IconButton(
+                                                        icon: Icon(
+                                                          Icons.collections_bookmark,
+                                                              color: Colors.blue,
+                                                                  ),
+                                                        onPressed: ()async{
+
+
+
+ await Clipboard.setData(new ClipboardData(
+   text:snapshot.pnrController.text));
+
+
+
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+  duration: Duration(seconds: 3),
+            content: Text(translator.translate("copied"))
+));
+
+
+
+                                                        }),
+                                            ],
                                           ),
                                           SizedBox(
                                             height:
@@ -517,14 +575,14 @@ Image.asset("assets/confirm.png",),
 
 
 Text(
-        "Deposit Amount: "+snapshot.amountController.text+" "+ snapshot.selectedCurrencyDropDownValue .toString()??"",textAlign: TextAlign.center,
+    translator.translate("deposit")+ " "   +translator.translate("ant")+": "+snapshot.amountController.text+" "+ snapshot.selectedCurrencyDropDownValue .toString()??"",textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold),
         textScaleFactor: 1.2,
       ),
 
 
 Text(
-        "if the amount is not sent within 24 hours,\n transaction will be canceled",
+       translator.translate("depositDialogHint"),
         textScaleFactor: 1.1,
         style: TextStyle(color:Colors.grey),
         textAlign: TextAlign.center,
@@ -536,12 +594,12 @@ Row(mainAxisAlignment: MainAxisAlignment.center,
 FlatButton(
   
   shape: Border.all(width: 0.5 ,color:Colors.grey),
-  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+  onPressed: (){Navigator.pop(context);}, child:Text(translator.translate("cancel") , style: TextStyle(color:Colors.grey),)
 
 ) ,
 SizedBox(width: 10,),
         FlatButton(
-         child:Text("Confirm",style: TextStyle(color:Colors.white),),
+         child:Text(translator.translate("conf"),style: TextStyle(color:Colors.white),),
           color: Colors.indigo,
           onPressed: (){
 
@@ -596,7 +654,7 @@ SizedBox(width: 10,),
                                               disabledColor: Colors.blue,
                                               padding: EdgeInsets.all(15.0),
                                               child: Text(
-                                                'SUBMIT',
+                                                translator.translate("submit"),
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,

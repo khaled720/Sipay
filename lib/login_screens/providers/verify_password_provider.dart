@@ -28,9 +28,11 @@ class VerifyPasswordProvider with ChangeNotifier {
   void _setPasswordErrorText(bool isError, String errorMsg) async{
 
 
- var x= await translator.GoogleTranslator().translate(errorMsg, from: 'tr', to: 'en');
-
-    isError ? _passwordErrorText = "Incorrect Password !"/*x*/ : _passwordErrorText = null;
+/*  var x= await translator.GoogleTranslator().translate(errorMsg??"", from: 'tr', to: 'en');
+ */
+    isError ? _passwordErrorText = "Incorrect Password !"/*x*/ 
+    
+    : _passwordErrorText = null;
 
 
 

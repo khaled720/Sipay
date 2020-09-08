@@ -12,6 +12,7 @@ import 'package:fluttersipay/deposit/json_models/main_deposit_ui_model.dart';
 import 'package:fluttersipay/deposit/providers/deposit_panel_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import './create_deposit_card.dart';
 
@@ -48,17 +49,25 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
             future: DefaultAssetBundle.of(context)
                 .loadString('assets/json/deposit/6.1DepositMethod.json'),
             builder: (context, snapshot) {
-              DepositMainUIModel users;
-              var parsedJson;
+  
+
               if (snapshot.hasData) {
-                parsedJson = json.decode(snapshot.data.toString());
-                users = DepositMainUIModel.fromJson(parsedJson);
+
               //  if (_value == null) _value = users.method[0];
-                _listViewData = users.method;
+                _listViewData = [
+translator.translate("deposit").toUpperCase().toString(),
+translator.translate("moneytrans").toUpperCase().toString(),
+translator.translate("withdraw").toUpperCase().toString(),
+translator.translate("exchange").toUpperCase().toString()
+
+                ];
                 return Scaffold(
                     appBar: AppBar(
                       centerTitle: true,
-                      title: Text(users.header),
+                      title: Text(
+translator.translate("deposit").toUpperCase()
+
+                      ),
                       flexibleSpace: Image(
                         image: AssetImage('assets/appbar_bg.png'),
                         height: 100,
@@ -110,7 +119,8 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 30, right: 30),
                                   child: Text(
-                                    users.abailable,
+                               
+translator.translate("availableBalance"),
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
@@ -199,7 +209,7 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        users.deposit,
+                                      translator.translate("deposit").toUpperCase(),
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -218,14 +228,15 @@ class _DepositPanelScreenState extends State<DepositPanelScreen> {
                                    decoration:InputDecoration(
 
 prefixIcon: Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
-hintText: "CHOOSE DEPOSIT METHOD..."
+hintText:    translator.translate("chooseDeposit")
+                                  
 ,hintStyle: TextStyle(fontSize:12),
                                    ),
                                  //       hint: Text(users.choose),
                                         icon: Icon(Icons.keyboard_arrow_down),
-                                        items: ["BANK TRANSFER","CARD"]
-
-                                            .map<DropdownMenuItem<String>>(
+                    items: [translator.translate("bankTrans").toUpperCase().toString()
+                           ,translator.translate("card").toString(),
+                                  ].map<DropdownMenuItem<String>>(
                                                 (String value) {
                                           return DropdownMenuItem<String>(
 
@@ -316,9 +327,9 @@ hintText: "CHOOSE DEPOSIT METHOD..."
    createDeposit(repo, wallets) {
 
 //var list = json.decode(wallets.toString());
+print(_value.toString()+"<<<>>>>"+_listViewData[1].toString());
 
-
-    if (_value == _listViewData[0]) {
+    if (_value.toString().toUpperCase() != translator.translate("card").toUpperCase()) {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -352,7 +363,7 @@ if(acceptedCurrenciesID.length!=0){
     icon: Icon(Icons.warning,color: Colors.red,size: 25,),
                   margin: EdgeInsets.all(8),
                   borderRadius: 15,
-                  message:  "You are not allowed to deposit by Credit Card",
+                  message:  translator.translate("creditnotallow"),
                   duration:  Duration(seconds: 5),              
                 )..show(context);
 

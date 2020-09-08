@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart';
 import 'dart:ui' as ui;
 import './new_ticket.dart';
-
 import 'dart:convert';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
@@ -22,7 +22,7 @@ class closed_ticket extends StatefulWidget {
 }
 
 class _closed_ticketState extends State<closed_ticket> {
- var liss=[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10];
+
 var listOfTickets=[];
 var currency;
 
@@ -62,7 +62,7 @@ if(val==null)
               );
             }).toList(),
             hint: Text(
-              "Please Select ",
+            translator.translate("categoryHint"),
               style: TextStyle(
                 color: Colors.black45,
               ),),
@@ -89,7 +89,8 @@ if(val==null)
     return Scaffold(
          appBar: AppBar(
               centerTitle: true,
-              title: Text("SUPPORT",style: TextStyle(fontSize: 15),),
+              title: Text(   translator.translate("support").toUpperCase()
+              ,style: TextStyle(fontSize: 15),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -165,7 +166,7 @@ Row(
 crossAxisAlignment: CrossAxisAlignment.end,
    children: <Widget>[
 
-   Text("Created on:",
+   Text(   translator.translate("created")+": ",
     
     style: TextStyle(
     
@@ -294,7 +295,7 @@ color: Colors.grey
 Center(
   child:   Padding(
     padding: const EdgeInsets.all(8.0),
-    child: Text("Ticket has been closed",
+    child: Text(   translator.translate("closedTic"),
     
     style: TextStyle(
     
@@ -326,7 +327,7 @@ SizedBox(height: 0,),
       
           
       
-                  'OPEN NEW TICKET',
+                   translator.translate("newTic"),
       
           
       

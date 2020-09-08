@@ -14,8 +14,9 @@ import 'package:fluttersipay/corporate/withdrawal/json_models/withdraw_request_u
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 import '../base_main_repo.dart';
 
 int button_set = 0;
@@ -63,25 +64,30 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
             future: DefaultAssetBundle.of(context)
                 .loadString('assets/json/Withdrawl/8.6Withdraw_request.json'),
             builder: (context, snapshot) {
-              RequestWithdrawUiModel users;
-              var parsedJson;
+           //   RequestWithdrawUiModel users;
+            //  var parsedJson;
               if (snapshot.hasData) {
-                parsedJson = json.decode(snapshot.data.toString());
-                users = RequestWithdrawUiModel.fromJson(parsedJson);
+           //     parsedJson = json.decode(snapshot.data.toString());
+             //   users = RequestWithdrawUiModel.fromJson(parsedJson);
                 if (tryValue1 == null &&
                     tryValue2 == null &&
                     tryValue3 == null &&
                     tryValue4 == null &&
                     savedAccount == null &&
                     bankValue == null) {
-                  tryValue1 = tryValue2 = tryValue3 = tryValue4 = users.trys[0];
-                  savedAccount = users.accountSelect[0];
-                  bankValue = users.bankSelect[0];
+                  tryValue1 = tryValue2 = tryValue3 = tryValue4 = "try";
+
+                  ////////////////////////////////////////////////
+                  /////////////////////////////////////////////////
+                  savedAccount ="YAPIKREDI SAVINGS";
+                  bankValue = "T.C.ZIRAAT BANKASI A.S.";
+                  //////////////////////////////////////////////
+                  ///////////////////////////////////////////////
                 }
                 return Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
-                    title: Text(users.header),
+                    title: Text(translator.translate("withdraw")),
                     flexibleSpace: Image(
                       image: AssetImage('assets/appbar_bg.png'),
                       height: 100,
@@ -134,7 +140,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 30, right: 30),
                                 child: Text(
-                                  users.abailable,
+                                  translator.translate("availableBalance"),
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -219,7 +225,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      users.tobank ?? '',
+                             translator.translate("toBank"),
+                                
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
@@ -229,7 +236,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(10),
                                     ),
                                     Text(
-                                      users.select ?? '',
+                                   translator.translate("withdrawInfo"),
+                                
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 15),
                                     ),
@@ -238,7 +246,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(30),
                                     ),
                                     Text(
-                                      users.withdrawField[0] ?? '',
+                               translator.translate("chooseAcc"),
+                                
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 12),
                                     ),
@@ -248,8 +257,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                 Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.savedBanksDropdown,
                                             onChanged: (value)async {
-                          
-                           var model  =await widget.mainRepo;
+                        
                             snapshot.ibanController.text=value.myiban;
                                               snapshot
                                                   .setSavedBankAccountDropdownValue(
@@ -267,7 +275,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(30),
                                     ),
                                     Text(
-                                      users.withdrawField[1],
+                                 translator.translate("bank"),
+                                
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 12),
                                     ),
@@ -293,7 +302,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           .setHeight(30),
                                     ),
                                     Text(
-                                      users.withdrawField[2],
+                                  translator.translate("curr"),
+                                
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 12),
                                     ),
@@ -341,7 +351,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                               .setHeight(10),
                                         ),
                                         Text(
-                                          users.withdrawField[3],
+                                     translator.translate("accHolder"),
+                                
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -379,7 +390,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                               .setHeight(10),
                                         ),
                                         Text(
-                                          users.withdrawField[4],
+                                        translator.translate("iban"),
+                                
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -404,7 +416,9 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           ),
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter IBAN';
+                                              return   translator.translate("error")+  translator.translate("iban").toLowerCase();
+                                
+                                
                                             }
                                             return null;
                                           },
@@ -421,7 +435,8 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
-                                                'SWIFT CODE',
+                                                  translator.translate("swift"),
+                                
                                                 style: TextStyle(
                                                     color: Colors.black54,
                                                     fontSize: 12),
@@ -458,7 +473,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                   ),
                                                   validator: (value) => value
                                                           .isEmpty
-                                                      ? 'Please enter Swift Code'
+                                                      ?  translator.translate("error")+ translator.translate("swift")
                                                       : null),
                                               SizedBox(
                                                 height: 10,
@@ -467,7 +482,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           ),
                                         ),
                                         Text(
-                                          users.withdrawField[5],
+                                    translator.translate("withdraw").toUpperCase()+ " "+translator.translate("amount").toUpperCase(),
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -511,7 +526,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                   ),
                                                   validator: (value) {
                                                     if (value.isEmpty) {
-                                                      return 'Please enter WITHDRAW AMOUNT';
+                                                      return translator.translate("error") +translator.translate("withdraw").toUpperCase()+ " "+translator.translate("amount").toUpperCase();
                                                     }
                                                     return null;
                                                   },
@@ -583,7 +598,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           height: 10,
                                         ),
                                         Text(
-                                          users.withdrawField[6],
+                                   translator.translate("TransFee"),
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -694,7 +709,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           height: 10,
                                         ),
                                         Text(
-                                        "NEW AMOUNT", // users.withdrawField[7],
+                                     translator.translate("newAmt"), // users.withdrawField[7],
                                           style: TextStyle(
                                               color: Colors.black54,
                                               fontSize: 12),
@@ -831,7 +846,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                 },
                                               ),
                                               Container(
-                                                child: Text(users.save),
+                                                child: Text(translator.translate("save")),
                                               )
                                             ],
                                           ),
@@ -953,8 +968,8 @@ SizedBox(width: 10,),
                                           }, (description) async {
          
                                             Flushbar(
-                                              title: "Failure",
-                                              message: "Something went worng ,try again later",
+                                              title: translator.translate("fail"),
+                                              message: translator.translate("faill"),
                                               duration: Duration(seconds: 3),
                                             )..show(context);
                                           });
@@ -964,7 +979,7 @@ SizedBox(width: 10,),
                                         disabledColor: Colors.blue,
                                         padding: EdgeInsets.all(15.0),
                                         child: Text(
-                                          users.button[button_set],
+                            translator.translate("submitReq") ,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,

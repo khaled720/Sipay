@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/dashboard/providers/transaction_history_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
@@ -31,9 +32,10 @@ class TransactionHistoryScreen extends StatefulWidget {
 
 class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   var amount=1;
-  var _tryValue = "CURRENCY";
-  List<String> _listTryData = ["CURRENCY", "TRY", "USD", "EUR"];
-  var _typeValue = "TYPES";
+  List<String> list=["TRY","USD","EUR"];
+
+  var _tryValue = "TRY";
+  List<String> _listTryData ; var _typeValue = "TYPES";
   List<String> _listTypeData = [
     "TYPES",
     "Purchase",
@@ -47,6 +49,14 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending','Stand By','Refunded','Awaiting','Chargeback Requested','Failed'];
   DateTime endDate;
   DateTime startDate;
+
+
+@override
+void initState() { 
+  super.initState();
+  _listTryData = [ "TRY","USD","EUR"];
+ 
+}
 
   Future<dynamic> startDatePicker() async {
     var order = await getDate();
@@ -101,22 +111,22 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 
          widget.userType==UserTypes.Corporate?   FlatButton(
 
-child: Text("Chargeback"),
+child: Text(""),
 onPressed: (){
 
 
-
+/* 
 Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => chargeback()
-)); 
+));  */
 
 },
 
             ):Container(),
               ],
-              title: Text('TRANSACTION HISTORY',style: TextStyle(fontSize: 12),),
+              title: Text(translator.translate("transactionHisstory"),style: TextStyle(fontSize: 12),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -314,9 +324,12 @@ Navigator.push(
                                               );
                                             }).toList(),
                                             onChanged: (value) {
+                                              setState(() {
+                                                _tryValue=value;
+                                              });
                                               snapshot.selectedCurrency = value;
                                             },
-                                            value: snapshot.selectedCurrency,
+                                            value: _tryValue,
                                             isExpanded: true,
                                           ),
                                         ),
@@ -546,7 +559,7 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
                               ),
                               Align(
                                 child: Text(
-                                  'ALL TRANSACTIONS',
+                             translator.translate("alltransaction"),
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -630,10 +643,12 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
                                                     TransactionData.Date,
                                                     index) ??
                                             '',
+                                
                                         type:
                                             snapshot.getDataFromTransactionsList(
-                                                TransactionData.Type, index)) ??
-                                    '';
+                                                TransactionData.Type, index)) ??'';
+
+                                  
                               }),
                         ),
                         SizedBox(
@@ -654,8 +669,8 @@ hintStyle: TextStyle(fontSize: MediaQuery.of(context).size.width/35)
   }
 
   Widget transactionsList(
-      {String title, String value, String id, String dates, String type}) {
-        print(id+type);
+      {String title, String value, String id, String dates, String type,bool isUser}) {
+        print(type);
     var _color;
     if (type == "0")
       _color = Colors.red;

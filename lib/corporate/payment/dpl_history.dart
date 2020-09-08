@@ -11,7 +11,7 @@ import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 class Dpl_History_Panel extends StatefulWidget {
   Dpl_History_Panel({Key key}) : super(key: key);
   @override
@@ -138,7 +138,7 @@ void initState() {
     return Scaffold(key: _key,
         appBar: AppBar(
           centerTitle: true,
-          title: Text("DPL HISTORY"),
+          title: Text( translator.translate("dplHis")),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -210,7 +210,7 @@ void initState() {
                                         style: BorderStyle.none,
                                       ),
                                       child: new Text(
-                                        'ACTIVE',
+                                         translator.translate("act"),
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: incoming_state
@@ -241,7 +241,7 @@ void initState() {
                                       style: BorderStyle.none,
                                     ),
                                     child: new Text(
-                                      'PASSIVE',
+                                       translator.translate("passive"),
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: incoming_state
@@ -277,7 +277,7 @@ void initState() {
               
               height: MediaQuery.of(context).size.height/1.5,
               
-              child: Center(child: Text("No Data To Display")))
+              child: Center(child: Text( translator.translate("nodata"))))
              :   ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -286,7 +286,7 @@ void initState() {
                   primary: true,
                   itemBuilder: (BuildContext content, int index){
                   
-                  String text=activeList[index]["type"]==1?"One Time Link":"Multi Time Link";
+                  String text=activeList[index]["type"]==1? translator.translate("onetime")+" "+translator.translate("link"):translator.translate("multi")+" "+translator.translate("link");
               String title="#"+activeList[index]["id"].toString()+"-"+text;
           return      GestureDetector(
       onTap: (){
@@ -322,7 +322,7 @@ void initState() {
                               ),
                             ),
                             Text(
-                           activeList[index]['is_amount_set_by_user']==1? "Set by User"
+                           activeList[index]['is_amount_set_by_user']==1?translator.translate("setbyusr")
                                      :
                            activeList[index]['amount'].toString() +" "+activeList[index]["currencies"]['code'].toString(),
                               style: TextStyle(
@@ -340,7 +340,7 @@ void initState() {
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                  "CREATED"
+                                  translator.translate("created")
                               ),
                             ),
                             Text(
@@ -353,7 +353,7 @@ void initState() {
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                  "EXPIRY"
+                                  translator.translate("expiry")
                               ),
                             ),
                             Text(
@@ -383,7 +383,7 @@ await Clipboard.setData(new ClipboardData(text:global.APIEndPoints.dplLink+  act
 
 _key.currentState.showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-          content: Text("DPL Link Copied")
+          content: Text(     translator.translate("dpllinkcopy"))
 ));
 
 
@@ -434,7 +434,7 @@ _key.currentState.showSnackBar(SnackBar(
               
               height: MediaQuery.of(context).size.height/1.5,
               
-              child: Center(child: Text("No Data To Display")))
+              child: Center(child: Text( translator.translate("nodata"))))
              :  ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -443,7 +443,7 @@ _key.currentState.showSnackBar(SnackBar(
                   primary: true,
                   itemBuilder: (BuildContext content, int index){
                   
-                  String text=passiveList[index]["type"]==1?"One Time Link":"Multi Time Link";
+                  String text=passiveList[index]["type"]==1? translator.translate("onetime")+" "+translator.translate("link"):translator.translate("multi")+" "+translator.translate("link");
               String title="#"+passiveList[index]["id"].toString()+"-"+text;
 
 
@@ -481,7 +481,7 @@ _key.currentState.showSnackBar(SnackBar(
                               ),
                             ),
                             Text(
-                            passiveList[index]['is_amount_set_by_user']==1? "Set by User"
+                            passiveList[index]['is_amount_set_by_user']==1?translator.translate("setbyusr")
                                      :
                            passiveList[index]['amount'].toString() +" "+passiveList[index]["currencies"]['code'].toString(),
                            style: TextStyle(
@@ -499,7 +499,7 @@ _key.currentState.showSnackBar(SnackBar(
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                  "CREATED"
+                    translator.translate("created")
                               ),
                             ),
                             Text(
@@ -512,7 +512,7 @@ _key.currentState.showSnackBar(SnackBar(
                           children: <Widget>[
                             Expanded(
                               child: Text(
-                                  "EXPIRY"
+                             translator.translate("expiry")
                               ),
                             ),
                             Text(

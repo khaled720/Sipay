@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/Send_corp.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:fluttersipay/corporate/money/providers/money_panel_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../../base_main_repo.dart';
 
 class MoneyPanelScreen extends StatefulWidget {
@@ -18,8 +19,8 @@ class MoneyPanelScreen extends StatefulWidget {
 }
 
 class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
-  var _value = "MERCHANT";
-  List<String> _listViewData = ["MERCHANT","INDIVIDUAL"];
+  var _value = translator.translate("merchanr");
+  List<String> _listViewData = [ translator.translate("merchanr"), translator.translate("individual")];
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("MONEY  TRANSFER"),
+              title: Text( translator.translate("moneytrans")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -61,6 +62,12 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
@@ -79,7 +86,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                         Padding(
                           padding: EdgeInsets.only(left: 30, right: 30),
                           child: Text(
-                            'AVAILABLE BALANCE',
+                            translator.translate("availableBalance"),
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -102,7 +109,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(0) +
+                               double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2) +
                                           '₺',
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -122,7 +129,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      snapshot.getAvailableWalletAmount(1) +
+                              double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2) +
                                           "\$",
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
@@ -134,7 +141,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    snapshot.getAvailableWalletAmount(2) + '€',
+                             double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2) + '€',
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 16),
                                   ),
@@ -152,7 +159,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'SEND MONEY',
+                            translator.translate("sendmoney"),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -161,7 +168,7 @@ class _MoneyPanelScreenState extends State<MoneyPanelScreen> {
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
                               Text(
-                                'CHOOSE WALLET TYPE',
+                                translator.translate("chooseWallet"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),

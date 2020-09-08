@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../../avaliable_banks_model.dart';
 import '../../base_main_repo.dart';
@@ -17,12 +18,12 @@ class AddBankAccountProvider with ChangeNotifier {
   AvailableBankModel _selectedBankDropDownValue;
   List<DropdownMenuItem<AvailableBankModel>> _banksDropDown;
   var _currenciesList = ['TRY', 'USD', 'EUR'];
-  String _selectedCurrencyDropDownValue = 'TRY';
-  var _activeList = ['ACTIVE', 'NOT ACTIVE'];
+  String _selectedCurrencyDropDownValue = translator.translate("try");
+  var _activeList = [translator.translate("act"), translator.translate("notact")];
 
   TextEditingController get accountNameTextController =>
       _accountNameTextController;
-  String _selectedActiveDropDownValue = 'ACTIVE';
+  String _selectedActiveDropDownValue = translator.translate("act");
   bool _showLoading = false;
   String _addBankErrorText;
 
@@ -91,7 +92,7 @@ class AddBankAccountProvider with ChangeNotifier {
       _accountHolderNameController.text = _bankModel['account_holder_name'];
       _ibanController.text = _bankModel['iban'];
       _selectedActiveDropDownValue =
-          _bankModel['status'] == 1 ? 'ACTIVE' : 'NOT ACTIVE';
+          _bankModel['status'] == 1 ? translator.translate("act") : translator.translate("notact");
       _selectedCurrencyDropDownValue =
           AppUtils.mapCurrencyIDToText(_bankModel['currency_id']);
     }
@@ -121,7 +122,7 @@ class AddBankAccountProvider with ChangeNotifier {
       _setShowLoading(false);
     } catch (e) {
       _setShowLoading(false);
-      onFailure('Couldn\'t delete your bank account');
+      onFailure(translator.translate("codnotdelete"));
     }
   }
 
@@ -141,7 +142,7 @@ class AddBankAccountProvider with ChangeNotifier {
           _accountHolderNameController.text.trim(),
           _accountNameTextController.text.trim(),
           '',
-          _selectedActiveDropDownValue == 'Active' ? '1' : '0');
+          _selectedActiveDropDownValue == translator.translate("active") ? '1' : '0');
       _setShowLoading(false);
       addBankModel.statusCode == 100
           ? onSuccess()
@@ -150,7 +151,7 @@ class AddBankAccountProvider with ChangeNotifier {
       _setShowLoading(true);
       Future.delayed(Duration(seconds: 1));
       _setShowLoading(false);
-      _setAddBankErrorText('One of the fields is empty. Please try again.');
+      _setAddBankErrorText(translator.translate("depositError"));
     }
   }
 
@@ -172,7 +173,7 @@ class AddBankAccountProvider with ChangeNotifier {
             _accountHolderNameController.text.trim(),
             _accountNameTextController.text.trim(),
             '',
-            _selectedActiveDropDownValue == 'ACTIVE' ? '1' : '0');
+            _selectedActiveDropDownValue == translator.translate("act") ? '1' : '0');
         _setShowLoading(false);
         print("@#@#@ "+addBankModel.data.toString());
         addBankModel.statusCode == 100
@@ -186,15 +187,15 @@ class AddBankAccountProvider with ChangeNotifier {
             
       } catch (e) {
         _setShowLoading(false);
-        onFailure('Failed to update account. Please try again '+e.toString());
+        onFailure(translator.translate("failedtoupdate"));
 
-        print('Failed to update account. Please try again '+e.toString());
+        print(translator.translate("failedtoupdate"));
       }
     } else {
       _setShowLoading(true);
       Future.delayed(Duration(seconds: 1));
       _setShowLoading(false);
-      _setAddBankErrorText('One of the fields is empty. Please try again.');
+      _setAddBankErrorText(translator.translate("depositError"));
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 TextEditingController _SMSController = TextEditingController();
 Widget C_SMSVERIFICAION() {
   return Verify();
@@ -36,11 +36,11 @@ class _sms_verify extends State<Verify> {
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = sms_verify.fromJson(parsedJson);
+          //  users = sms_verify.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(translator.translate("deposit").toUpperCase()),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -80,7 +80,7 @@ class _sms_verify extends State<Verify> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'SMS VERIFICATION',
+                           translator.translate("smsverify"),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -93,8 +93,8 @@ class _sms_verify extends State<Verify> {
                         ),
                         Container(
                           child: Text(
-                            "Enter the verification code you received on your phone.",
-                            style: TextStyle(
+                        translator.translate("verifiyInfo")
+                        ,  style: TextStyle(
                               fontSize: 16,
                               color: Colors.black45,
                             ),
@@ -118,7 +118,7 @@ class _sms_verify extends State<Verify> {
                                 height: ScreenUtil.getInstance().setHeight(80),
                               ),
                               Text(
-                                users.remain,
+                            translator.translate("remainingTime"),
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black45,
@@ -164,7 +164,7 @@ class _sms_verify extends State<Verify> {
                                               ModalRoute.withName('/'));
                                         },
                                         child: Text(
-                                          users.resend,
+                              translator.translate("resend"),
                                           style: TextStyle(
                                             color: Colors.blue,
                                             fontSize: 14,
@@ -195,7 +195,7 @@ class _sms_verify extends State<Verify> {
                             disabledColor: Colors.blue,
                             padding: EdgeInsets.all(15.0),
                             child: Text(
-                              users.button,
+                            translator.translate("verify"),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,

@@ -2,6 +2,9 @@ import"package:flutter/material.dart";
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
+//owner #khaled
+
 class dplSettings extends StatefulWidget {
   dplSettings({Key key}) : super(key: key);
 

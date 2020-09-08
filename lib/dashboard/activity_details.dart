@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 
+import 'package:localize_and_translate/localize_and_translate.dart';
+
 class ActivityDetailsScreen extends StatefulWidget {
   
   var body;
@@ -13,8 +15,29 @@ class ActivityDetailsScreen extends StatefulWidget {
 }
 
 class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
+var xx;
+List<String> list=[];
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    list=translator.currentLanguage=='en'?[
 
- 
+"Transaction ID",
+"Entity Name",
+"Type",
+"Payment ID",
+"Updated st"
+
+]:[
+  "İşlem ID",
+    "Ürün adı",
+    "Tip",
+    "Ödeme ID",
+    "Güncelleme Tarihi"
+];
+    
+  }
     @override
   Widget build(BuildContext context) {
 print(widget.body.toString());
@@ -25,7 +48,7 @@ print(widget.body.toString());
 
   appBar: AppBar(
               centerTitle: true,
-              title: Text('ACTIVITY DETAILS'),
+              title: Text( translator.translate("activity").toUpperCase()),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -88,7 +111,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Transaction ID",style: TextStyle(
+        leading: Text(list[0],style: TextStyle(
   
           fontSize: 15,
   
@@ -124,7 +147,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Entity Name",style: TextStyle(
+        leading: Text(list[1],style: TextStyle(
   
           fontSize: 15,
   
@@ -162,7 +185,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Type",style: TextStyle(
+        leading: Text(list[2],style: TextStyle(
   
           fontSize: 15,
   
@@ -193,7 +216,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Payment ID",style: TextStyle(
+        leading: Text(list[3],style: TextStyle(
   
           fontSize: 15,
   
@@ -256,7 +279,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Amount",style: TextStyle(
+        leading: Text(translator.translate("amount"),style: TextStyle(
   
           fontSize: 15,
   
@@ -285,7 +308,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Created at",style: TextStyle(
+        leading: Text(translator.translate("created"),style: TextStyle(
   
           fontSize: 15,
   
@@ -314,7 +337,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Updated at",style: TextStyle(
+        leading: Text(list[4],style: TextStyle(
   
           fontSize: 15,
   

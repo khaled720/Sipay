@@ -156,15 +156,18 @@ class AppUtils {
       mapCorporateWithdrawalBankListToDropdownMenuItems(List banks) {
     List<DropdownMenuItem<CorporateWithdrawalBankModel>> dropdownBanks = List();
     for (CorporateWithdrawalBankModel bank in banks) {
+      if(bank.logo==null)bank.logo="";
       DropdownMenuItem dropdownMenuItem =
           DropdownMenuItem<CorporateWithdrawalBankModel>(
         value: bank,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-          Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+          Container(child:  bank.logo.contains("svg")?
+              WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+             :  Image.network(bank.logo) 
        ,   width: 40,
-          ),
+      ),
             SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -183,13 +186,16 @@ class AppUtils {
       mapWithdrawalBankListToDropdownMenuItems(List banks) {
     List<DropdownMenuItem<WithdrawalBankModel>> dropdownBanks = List();
     for (WithdrawalBankModel bank in banks) {
+      if(bank.logo==null)bank.logo=""; 
       DropdownMenuItem dropdownMenuItem = DropdownMenuItem<WithdrawalBankModel>(
         value: bank,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
         //    Icon(Icons.note),
-          Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+          Container(child:  bank.logo.contains("svg")?
+              WebsafeSvg.network(bank.logo,width: 40,height: 25)
+             :  Image.network(bank.logo) 
        ,   width: 40,
           ),
        // SvgPicture.network(bank.logo.toString() )
@@ -197,7 +203,7 @@ class AppUtils {
             SizedBox(width: 7),
             Expanded(
               child: Text(
-                bank.name ?? '',
+             bank.name ?? '',
               ),
             )
           ],
@@ -212,19 +218,22 @@ class AppUtils {
       mapAvailableBankListToDropdownMenuItems(List banks) {
     List<DropdownMenuItem<AvailableBankModel>> dropdownBanks = List();
     for (AvailableBankModel bank in banks) {
+      if(bank.logo==null)bank.logo="";
       DropdownMenuItem dropdownMenuItem = DropdownMenuItem<AvailableBankModel>(
         value: bank,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
           //  Icon(Icons.note),
-                 Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+                 Container(child: bank.logo.contains("svg")?
+              WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+             :  Image.network(bank.logo) 
        ,   width: 40,
           ),
             SizedBox(width: 20),
             Expanded(
               child: Text(
-                bank.name,
+        bank.name,
               ),
             )
           ],
@@ -239,12 +248,15 @@ class AppUtils {
       List<BankModel> banks) {
     List<DropdownMenuItem<BankModel>> dropdownBanks = List();
     for (BankModel bank in banks) {
+          if(bank.logo==null)bank.logo="";
       DropdownMenuItem dropdownMenuItem = DropdownMenuItem<BankModel>(
         value: bank,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-              Container(child: WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+              Container(child: bank.logo.contains("svg")?
+              WebsafeSvg.network(bank.logo??"",width: 40,height: 25)
+             :  Image.network(bank.logo) 
        ,   width: 40,
           ),
             SizedBox(width: 10),

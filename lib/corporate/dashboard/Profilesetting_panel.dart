@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:archive/archive.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart' as dio ;
@@ -16,6 +17,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart'as http;
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'dart:io';
@@ -80,15 +82,15 @@ upload2Image(File image,context) async {
     //  print("<<<<<<<<<<<<><<<<<<<<<<   "+result.toString());
     
      Flushbar(
-                                      title: "Successful",
-                                      message: 'Image Uploaded!',
+                                      title: translator.translate("success")
+                               ,       message: translator.translate("imgsucc"),
                                       duration: Duration(seconds: 3))
                                     ..show(context);
     } catch (err) {
      // print('ERROR  $err');
       Flushbar(
-                                      title: "Successful",
-                                      message: 'Image was not Uploaded!',
+                                      title: translator.translate("fail"),
+                                      message: translator.translate("imgfail"),
                                       duration: Duration(seconds: 3))
                                     ..show(context);
     }
@@ -97,7 +99,7 @@ upload2Image(File image,context) async {
 
 
 /////////////////////////////////////////////////
-Future uploadImage(File file)async{
+/* Future uploadImage(File file)async{
 
 
 
@@ -152,7 +154,7 @@ print("E = "+e.toString() );
 
 
 
-
+ */
 
 
 
@@ -211,7 +213,7 @@ country = ola.Country.fromJson(element);
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('PROFILE SETTINGS'),
+              title: Text(translator.translate("profSettings")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -235,6 +237,12 @@ country = ola.Country.fromJson(element);
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
@@ -359,7 +367,7 @@ snapshot.setImagegalary(image);
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "UPDATE LOGO",
+                              translator.translate("updatelogo"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -388,7 +396,7 @@ snapshot.setImagegalary(image);
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "Current Password",
+                              hintText:translator.translate("curntPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -414,7 +422,7 @@ snapshot.setImagegalary(image);
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "New Password",
+                              hintText:translator.translate("newPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -440,7 +448,7 @@ snapshot.setImagegalary(image);
                                 color: Colors.black26,
                                 size: 20,
                               ),
-                              hintText: "Confirm Password",
+                              hintText: translator.translate("ConfPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -455,16 +463,16 @@ snapshot.setImagegalary(image);
                                 snapshot.savePasswordUpdate(() {
                                   Navigator.of(context).pop();
                                   Flushbar(
-                                      title: "Successful",
+                                      title: translator.translate("success"),
                                       message:
-                                          'Your Password was successfully uploaded',
+                                        translator.translate("passupdated"),
                                       duration: Duration(seconds: 3))
                                     ..show(context);
                                 }, () {
                                   Flushbar(
-                                      title: "Failure",
+                                      title: translator.translate("fail"),
                                       message:
-                                          'Failed to update your password. Please try again.',
+                                        translator.translate("failedtoupdate"),
                                       duration: Duration(seconds: 3))
                                     ..show(context);
                                 });
@@ -473,7 +481,7 @@ snapshot.setImagegalary(image);
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "CHANGE PASSWORD",
+                                translator.translate("changePassbtn"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -495,6 +503,9 @@ snapshot.setImagegalary(image);
                   ),
                 ],
               );
-            })));
+            }
+            )
+            )
+            );
   }
 }

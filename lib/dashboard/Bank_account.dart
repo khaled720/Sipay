@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/bank_account_provider.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:fluttersipay/utils/dialog_utils/delete_bank_account_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import 'add_new_account.dart';
@@ -36,7 +38,7 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('BANK ACCOUNTS'),
+              title: Text(  translator.translate("accounts")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -61,6 +63,12 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
                   ),
                   onPressed: () {
                     // do something
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                   },
                 )
               ],
@@ -83,7 +91,7 @@ class _BankAccountScreenState extends State<BankAccountScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(
-                                'ADD NEW',
+                                 translator.translate("addAcc"),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
@@ -179,7 +187,7 @@ Widget Accounts_list(
                           child: Text(
                             AppUtils.mapCurrencyIDToText(
                                     bankModel['currency_id']) ??
-                                'TRY',
+                                  translator.translate("try"),
                             textAlign: TextAlign.left,
                           ),
                         ),
@@ -205,7 +213,7 @@ Widget Accounts_list(
                       Expanded(
                         child: Container(
                           child: Text(
-                            bankModel['status'] == 1 ? 'ACTIVE' : 'NOT ACTIVE',
+                            bankModel['status'] == 1 ?   translator.translate("act") :   translator.translate("notact"),
                             textAlign: TextAlign.left,
                           ),
                         ),

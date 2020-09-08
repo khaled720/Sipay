@@ -1,0 +1,397 @@
+
+{
+    "nodata":"No Data To Display",
+    "passive":"PASSIVE",
+    "chobnk":"CHOOSE BANK",
+    "copied":"Copied to Clipboared"
+    ,
+    "failedlogout":"Failed to logout. Please try again.",
+    
+    "infouEntred":"The information you entered does not match our records.",
+"newdep":"NEW DEPOSIT",
+"imgsucc":"Image was Uploaded successfully",
+"imgfail":"Image was not Uploaded!",
+"conf":"Confirm",
+"sendingfailed":"Sending failed for Email number",
+
+
+
+
+
+"signup":"Sign up to create your digital wallet!",
+"userhavealready":"User already registered Click here to ",
+"createWallet":"CREATE YOUR WALLET",
+"alreadyreg":"Already registered?",
+"have":"Have account?Login here",
+"registration":"registration",
+"enterphone":"Enter your phone number to register",
+"user":"User",
+"loginhere":"Login here",
+"pass":"PASSWORD",
+"userVer":"USER VERIFICATION",
+"surname":"SURNAME",
+"tck":"TCKN",
+"dob":"Date Of Birth",
+"dgitalwallet":"Your digital wallet has been created successfully! Verify your acount by entering your credentials.",
+"loginfailed":"LOGIN FAILED",
+"loginfailinfo":"The information you entered is incomplete or incorrect. Please check and try again.",
+"moneyrequested":"Money was requested successfully.",
+"valid":"valid",
+"moneytransSucc":"Your money transfer was successful.",
+"recID":"Receiver ID",
+"transDate":"Transaction Date: ",
+"newtrans":"NEW TRANSFER",
+"notfoundTr":"Transaction not found.",
+"incom":"INCOMING",
+"outgoing":"OUTGOING",
+"curr":"CURRENCY",
+"faill":"your request failed !",
+"newReq":"NEW REQUEST",
+"creditallow":"You are allowed to deposit by Credit Card using",
+"creditnotallow":"You are not allowed to deposit by Credit Card",
+"amnt":"Amount",
+"youcan":"You can only deposit money from a bank account registered with your name",
+"addedbank":"A new bank account was added successfully",
+"card":"CARD",
+"try":"TRY",
+"charge":"CHARGEBACK HISTORY",
+"deleted":"Deleted successfully.",
+"codnotdelete":"Couldn't delete your bank account",
+"failedtoupdate":"Failed to update account. Please try again ",
+"passupdated":"Password updated seccessfully",
+"emailupdated":"Email address updated successfully",
+"transHis":"TRANSACTION DETAILS",
+"att":"ATTENTION",
+"youmust":"You must verify your account to view this page.",
+"bever":"BE VERIFIED",
+
+"login":"Login",
+"register":"register",
+"individual":"INDIVIDUAL",
+"corp":"CORPORATE",
+"merchanr":"MERCHANT",
+"phoneNo":"Phone Number",
+"phoneValidate":"User not found Click here to ",
+"remember":"Remember Me",
+"forgetPass":"Forget Password",
+"haveAccount":"Don't have an accoount",
+"registerHere":"Register Here",
+"urEmail":"Your email address",
+"urPass":"Your Password",
+"resetPass":"RESET PASSWORD",
+"forgetpass?":"FORGET YOUR PASSWORD?",
+"resetInfo":"Enter your e-mail address linked to your account to reset your password.",
+
+"email":"E-mail",
+
+"resetbtnText":"SEND RESET LINK",
+"emailValidate":"Please enter a valid e-mail address",
+
+
+"passInfo":"Enter your password to login",
+"diffrenAcc":"Login With Diffrent Account",
+"verify":"VERIFY",
+"invalidPass":"Incorrect Password",
+
+"smsverify":"SMS VERFICATION",
+"verifiyInfo":"Enter The SMS Verification code you received on your phone ",
+"urPhone":"Your phone number",
+"remainingTime":"Remaining time to enter your code",
+"resend":"Resend the code",
+"hint":"By clicking the Verify button,you deemed that you agreed to the ",
+"Userprivacy":"User Privacy",
+"and":"and",
+"PPplicy":"Privacy Policy",
+
+
+"balance":"TOTAL BALANCE",
+"availble":"AVAILABLE",
+"lastActivity":"LAST ACTIVITIES",
+
+"withdraw":"Withdraw",
+"moneytrans":"Money Transfer",
+"dpl":"Payment Link",
+
+
+"menu":"MENU",
+"dash":"Dashboard",
+"tranaction":"Transactions",
+"deposit":"Deposit",
+"receive":"Receive",
+"exchange":"Exchange",
+"installRate":"Installment Rates",
+"agreement":"Agreements",
+"support":"Support",
+"setting":"Settings",
+"profile":"Profile",
+"Noti":"Notifications",
+"allNoti":"ALL NOTIFICATIONS",
+"logout":"LOGOUT",
+"transactionHisstory":"TRANSACTIONS HISTORY",
+"alltransaction":"ALL TRANSACTIONS",
+
+"currency":["TRY","USD","EUR"],
+
+"transactionStatus":{"status":["STATES", "Completed", "Rejected", "Pending",
+    "Stand By","Refunded","Awaiting",
+    "Chargeback Requested","Failed"]},
+
+
+    "WithHis":"Withdrawal History",
+    "availableBalance":"AVAILABLE BALANCE",
+"toBank":"TO BANK ACCOUNT",
+"withdrawInfo":"Select the bank account you wish to withdraw and determine the amount",
+"chooseAcc":"CHOOSE SAVED ACCOUNT",
+"amount":"AMOUNT",
+"iban":"IBAN",
+"holder":"ACCOUNT HOLDER",
+"TransFee":"TRANSACTION FEE",
+"swift":"SEIFT CODE",
+"newAmt":"NEW AMOUNT",
+"withdrawBtn":"SEND REQUEST",
+"withdrawHintDialog":"Amount to be Credit to your bank account:",
+"withdrawHintDialog2":"Amount wil be deducted from your Available balance",
+"hintActions":{"actions":["Cancel","Confirm"]},
+"otp":"OTP VERIFICATION",
+"successful":"SUCCESSFUL",
+"withdrawSuccessMsg":"Your withdrawal request has been successfully created.",
+
+
+"sendmoney":"SEND MONEY",
+"chooseWallet":"CHOOSE WALLET TYPE",
+
+"chooseDeposit":"CHOOSE DEPOSIT METHOD",
+
+"requestMoney":"REQUEST MONEY",
+"merchantID":"MERCHANT ID",
+"merchantIDHint":"Enter Merchant ID",
+"desc":"DESCRIPTION",
+"descHint":"Enter Description",
+"submitReq":"SUBMIT REQUEST",
+"sender":"SENDER PHONE NUMBER",
+"error":"Please enter ",
+
+
+"dp":"DPL",
+"onetime":"ONE TIME",
+"oneInfo":"Create Payment link that works just one time",
+"multi":"MULTI TIME",
+"multiInfo":"Create Payment link that works multiple times until it reaches its limit",
+"dplHis":"DPL HISTORY",
+"dplhistoryInfo":"See all the direct payment link transaction details",
+"link" : "LINK",
+"create":"CREATE",
+"setbyusr":"Set by user",
+"productname":"PRODUCT NAME",
+"explain":"EXPLANATION",
+"explainInfo":"Please enter an explaintoin",
+"createdpl":"CREATE DPL",
+"success":"SUCCESS",
+"fail":"FAILURE",
+"successInfo":"has been created successfully! \n You can copy and share the link to directly get paid.",
+"requiredField":"Some Required Fields are Missing",
+"dplFail":"Failed to create dpl",
+
+"expiry":"Expiry",
+"sms":"SMS","whats":"WHATSAPP","copy":"COPY","cancel":"Cancel",
+
+"sharelink":"SHARE LINK",
+"shareEmail":"SHARE DPL LINK VIA E-MAIL",
+"shareInfo":"You can share the payment link DPL ",
+"via1":"via E-mail.",
+"via2":"via SMS",
+"recEmail":"RECIEVER E-Mail",
+"sendEmail":"SEND EMAIL",
+"emailResult":"Sending completed for Email number ",
+"emailHint":"There are Invalid Emails",
+
+"shareSms":"SHARE DPL LINK VIA SMS",
+"gsmNum":"RECIEVER GSM Number",
+"sendSms":"SEND SMS",
+"dpllinkcopy":"DPL Link Copied",
+"GSMhint":"GSM Number Must be at least 13 digits",
+"smsResult":"Sending completed for GSM number ",
+
+
+"maxNumofUse":"Maximum Number of use",
+"expireHour":"Expiry Hour",
+"expireDate":"Expiry Date",
+
+"bankTrans":"BANK TRANSFER",
+"depositInfo":"You can only deposit money from a bank account registred with your name",
+"bank":"BANK", 
+"pnr":"PNR",
+"submit":"SUBMIT",
+"depositError":"One of the fields is empty. Please try again",
+"depositDialogHint":"if the amount is not sent within 24 hours,\ntransaction will be canaceled",
+"DepositSuccessMsg":"Your Deposit request has been successfully created.",
+
+"cardDeposit":"CARD DEPOSIT",
+"cardInfo":"Credit card deposits will be added to your total balance",
+"cardOwner":"CREDIT CARD OWNER NAME",
+"cardNo":"Credit Card Number",
+"cvv":"CVV", "No":"Number","name":"NAME",
+"makeDep":"MAKE DEPOSIT",
+
+"attention":"PAY ATTENTION",
+"installInfo":"The Commissions include taxes The amount will not change according to the number of installments.\nThe minimum amount that can be paid is 25 TL",
+"install":"installments",
+"cards":"CARDS","bonus":"BONUS",
+"paraf":"PARAF,ADVANTAGE Installments",
+
+
+"supportTic":"SUPPORT TICKETS",
+"addTic":"ADD NEW",
+"newTic":"Open New Support Ticket",
+"categoryTic":"CATEGORY",
+"categoryHint":"Please Select Category ",
+"titleTic":"Title",
+"ticketTichint":"Ticket Title",
+"attachTic":"Attach File",
+"descTicHint":"Go ahead we're listening",
+"refund":"Refund","tech":"Technical",
+"other":"Other","purch":"Purchase",
+"successTic":"Your Support Ticket was opened successfully",
+"failTic":"Your Support Ticket was not opened !!",
+"msgHint":"Type your message here...",
+"closeTic":"CLOSE TICKET",
+"sendMsg":"SEND",
+"closedTic":"Ticket has been closed",
+"created":"Created at",
+
+"profSettings":"PROFILE SETTINGS",
+"country":"Country","city":"City","address":"Address",
+"updatelogo":"UPDATE LOGO",
+"profileSuccess":"Your profile was updated successfully",
+"profileFail":"Your profile was not updated .try again",
+
+"curntPass":"Current Password",
+"newPass":"New Password",
+"ConfPass":"Confirm Password",
+"changePassbtn":"CHANGE PASSWORD",
+"passError":"This field can't be empty",
+
+"notiSetting":"NOTIFICATION SETTINGS",
+"notiSettingInfo":"Turn on or turn off notification options as desired",
+"app":"APP",
+"save":"SAVE",
+"transRef":"Transaction Refunds",
+"monReq":"Money Request",
+"weekReport":"Weekly Report",
+"logoutMsg":"Log out successfully",
+"security":"Security",
+"moneysend":"Send Money",
+"moneyReq":"Requset Money",
+"help":"Help",
+"withdrawbtn":"INCOMMING REQUESTS",
+"NonsiUser":"Non Sipay User",
+"accounts":"BANK ACCOUNTS",
+"addAcc":"ADD NEW",
+"editBank":"EDIT BANK ACCOUNT","edit":"EDIT",
+"accName":"ACCOUNT NAME",
+"accHolder":"ACCOUNT HOLDER NAME",
+"state":"STATUS",
+"act":"ACTIVE","notact":"NOT ACTIVE",
+
+"transSettings":"TRANSFER SETTINGD",
+"money":"MONEY",
+"allowReq":"ALLOW REQUESTS",
+"transferInfosettings":"Turning this option off prevents other users from requesting money fro you .Sending and Requesting money functions are not affected by this option"
+,
+"Transpriority":"MONEY TRANSFER PRIORITY"
+
+,
+"notiIf":"Notify me of ",
+"notiList":[
+    "money transfer result",
+    "incoming money transfer",
+    "money transfer requests sent",
+    "the result of the money transfer request sent",
+    "incoming money transfer request",
+    "support tickets updates",
+    "wallet refunds",
+    "payment information changes"
+
+
+]
+
+
+,
+
+"helpInfo":"Describe Your issue",
+"helpHint":"can I put money in my....",
+"helpQuestionList":
+[
+    "What is SiPay?",
+    "Is it paid to use SiPay?",
+    "How do I use it?",
+    "What can I do with SiPay Wallet?",
+    "What is My Desposit Limit?",
+    "Can I Make Deposit 24/7?",
+    "How do I deposit money to my SiPay wallet by bank transfer?",
+    "How do I deposit money to my wallet with my credit card?",
+    "What should I do if money is not transferred to my account?",
+    "Can someone send money to my wallet?"
+  ],
+"helpAnswersList":[
+    "The easy, fast and secure way of payment, SiPay, is Turkey's youngest new generation of digital wallets with permission to operate as it receives Electronic Money Institution Licence in July 2019 from the Banking Regulation and Supervision Agency.",
+    "Our users do not pay any membership fees to benefit from our services.",
+    "To use SiPay, you only need to enter the one-time password that sends to your mobile phone. Create your special wallet account, enjoy easy and secure shopping.",
+    "As a digital wallet owner, you can shop from all of our merchants, send money to any person, ask other users to transfer money to your wallet, convert your money in your SiPay wallet account to foreign currency, or even withdraw money from the bank account that you&#39;ve defined. ",
+    "If you're a Standard Account user, you can't deposit money, but you can keep 750,00 TRY sent to you from another user in your wallet.If you are a Verified Account user, you can deposit 50.000 TRY, if you have a Contracted Account you can deposit 250.000 TRY.",
+    "You can deposit money to your SiPay wallet with your credit card or by bank transfer 24/7.",
+    "Log into your SiPay account and enter the amount you&#39;d like to deposit on the Deposit page, select Bank Transfer as your payment method. Select the SiPay account to which you want to send money from the drop-down menu and press Send.",
+    "After logging into your SiPay wallet account, enter the amount you&#39;d like to deposit on the Deposit page and select Credit Card as your payment method. In the menu that opens, enter your card information completely and accurately. Press send. Once you enter your security password, your balance will be added to your account instantly",
+    "When making a transfer, make sure you meet all the criteria we have specified, especially check if you have entered your PNR code correctly. If you are sure of all of us, please call us at 0212 706 11 12."
+    ,"All users with a verified SiPay account can send money to your wallet."
+    
+    ]
+
+,"faq":"F.A.Q"
+
+
+
+,
+"SecurityTilte":"CHANGE Your PASSWORD OE E-MAIL",
+"securityInfo": "You can change your password and e-mail for security reasons from this age. To change your phone number please contact to our customer services. 0 212 706 11 12",
+"changpass":"CHANGE PASSWORD",
+"newEmailHint":"New Email Address"
+,"changEmail":"CHANGE EMAIL",
+
+"activity":"ACTIVITY DETAILS",
+
+
+    "detailsList1":"Transaction ID",
+    "detailsList2":"Entity Name",
+    "detailsList3":"Type",
+    "detailsList4":"Payment ID",
+    "detailsList5":"Updated at",
+
+    "transactionsList1":"Transaction ID",
+    "transactionsList2": "Order ID",
+    "transactionsList3":"Payment ID",
+    "transactionsList4": "Credit Card NO",
+    "transactionsList5":"Updated st",
+    "transactionsList6":"bank Name",
+    "transactionsList7":"date",
+    "transactionsList8":"BACK"
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

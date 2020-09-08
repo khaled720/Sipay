@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 
+import 'package:localize_and_translate/localize_and_translate.dart';
+
 class ActivityDetailsScreen extends StatefulWidget {
   
   var body;
@@ -25,7 +27,8 @@ print(widget.body.toString());
 
   appBar: AppBar(
               centerTitle: true,
-              title: Text('ACTIVITY DETAILS'),
+              title: Text(translator.translate("activity")),
+
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -88,7 +91,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Transaction ID",style: TextStyle(
+        leading: Text(translator.translate("detailsList1") ,style: TextStyle(
   
           fontSize: 15,
   
@@ -124,7 +127,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Entity Name",style: TextStyle(
+        leading: Text(translator.translate("detailsList2"),style: TextStyle(
   
           fontSize: 15,
   
@@ -162,7 +165,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Type",style: TextStyle(
+        leading: Text(translator.translate("detailsList3"),style: TextStyle(
   
           fontSize: 15,
   
@@ -193,7 +196,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Payment ID",style: TextStyle(
+        leading: Text(translator.translate("detailsList4"),style: TextStyle(
   
           fontSize: 15,
   
@@ -256,7 +259,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Amount",style: TextStyle(
+        leading: Text(translator.translate("amount"),style: TextStyle(
   
           fontSize: 15,
   
@@ -285,7 +288,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Created at",style: TextStyle(
+        leading: Text(translator.translate("created"),style: TextStyle(
   
           fontSize: 15,
   
@@ -314,7 +317,7 @@ body: Container(
   
         child: ListTile(   
   
-        leading: Text("Updated at",style: TextStyle(
+        leading: Text(translator.translate("detailsList5"),style: TextStyle(
   
           fontSize: 15,
   

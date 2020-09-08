@@ -84,7 +84,7 @@ class ProfileSettingsProvider with ChangeNotifier {
         _cityController.text.trim().isNotEmpty &&
         _addressController.text.trim().isNotEmpty)
          {
-      int index = _countriesList.indexOf(countri) + 1;
+      var index =_countriesList.indexOf(countri) + 1;
       print(_countriesList.length.toString()+" #########################33333");
     /*   if (selectedCountry.name == 'Turkey')
         index = _countriesList.indexOf('Türkiye') + 1; */

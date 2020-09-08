@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart';
 import 'dart:ui' as ui;
 import 'dart:convert';
@@ -24,10 +25,11 @@ var listOfTickets=[];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( 
+      backgroundColor: Colors.white,
          appBar: AppBar(
               centerTitle: true,
-              title: Text("SUPPORT TICKETS",style: TextStyle(fontSize: 15),),
+              title: Text(     translator.translate("supportTic"),style: TextStyle(fontSize: 15),),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -84,7 +86,7 @@ var listOfTickets=[];
     
         
     
-                'ADD NEW',
+                     translator.translate("addTic"),
     
         
     
@@ -115,8 +117,7 @@ var listOfTickets=[];
           onPressed: () {
     
         // NAVIGATE TO ADD TICKET SCREEN
-    
-        print("Pressd");
+   
     
         
                   Navigator.pushReplacement(
@@ -227,7 +228,7 @@ if(mylist[index]['status']=='open'){
   
   
   
-  Text("#"+mylist[index]['ticket_id'].toString()+" Support Ticket",
+  Text("#"+mylist[index]['ticket_id'].toString(),//+
   
   style: TextStyle(
   
@@ -243,7 +244,8 @@ if(mylist[index]['status']=='open'){
   
     fontSize: 15,
   
-  color: Colors.red
+   color:mylist[index]['status']=="closed"? Colors.red:Colors.green
+  
   
     //fontWeight: FontWeight.bold
   

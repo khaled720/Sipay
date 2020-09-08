@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import 'deposit_success.dart';
 
@@ -23,6 +25,7 @@ Widget Create_Card(accList) {
 
 class Card_panel extends StatefulWidget {
   var accList;
+
   Card_panel({this.accList});
   @override
   _Card_panel createState() => _Card_panel();
@@ -40,18 +43,27 @@ TextEditingController _AMOUNT_ontroller = TextEditingController();
   String _time=DateTime.now().year.toString()+"/"+DateTime.now().month.toString() ;
   DateTime date= new DateTime(DateTime.now().year,DateTime.now().month);
 
+  var selectedDate;
+
+var act;
+var lis;
 @override
   void initState() {
+    lis=["Cancel","Confirm"];
+    act=["Cancel","Confirm"];
     // TODO: implement initState
     super.initState();
     //getCurrencies();
+    curencies=["TRY","USD","EUR"];
+    cnt="TRY";
   }
 
 
   final _formKey = GlobalKey<FormState>();
 
+List<String> curencies;
 
-String cnt="TRY";
+String cnt;
   List currencyList =new List();
 int currency =1;
 
@@ -91,7 +103,7 @@ if(val==null)
               );
             }).toList(),
             hint: Text(
-              "TRY",
+              cnt,
               style: TextStyle(
                 color: Colors.black45,
               ),),
@@ -114,7 +126,7 @@ if(val==null)
 
     
 
-
+/* 
 getCurrencies(){
 
 var response= http.get(global.APIEndPoints.createApi,headers:{
@@ -140,7 +152,7 @@ response.then((value){
 });
 
 
-}
+} */
 
 
 
@@ -159,16 +171,16 @@ response.then((value){
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.3Deposit_card.json'),
         builder: (context, snapshot) {
-          DepositCardUIModel users;
+         // DepositCardUIModel users;
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = DepositCardUIModel.fromJson(parsedJson);
-            if (_try_value == null) _try_value = users.trys[0];
+           // users = DepositCardUIModel.fromJson(parsedJson);
+            if (_try_value == null) _try_value = 0;
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(translator.translate("deposit")),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -215,7 +227,7 @@ response.then((value){
                     Padding(
                       padding: EdgeInsets.only(left: 30, right: 30),
                       child: Text(
-                        users.abailable,
+                     translator.translate("availableBalance"),
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -238,7 +250,7 @@ response.then((value){
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.abailableBalances[0] + '₺',
+                           "55555" + '₺',
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -257,7 +269,7 @@ response.then((value){
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  users.abailableBalances[1] + "\$",
+                                "55555"+ "\$",
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 16),
                                 ),
@@ -268,7 +280,7 @@ response.then((value){
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                users.abailableBalances[2] + '€',
+                        "55555" + '€',
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 16),
                               ),
@@ -286,7 +298,7 @@ response.then((value){
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            users.card,
+                      translator.translate("cardDeposit"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
@@ -294,7 +306,7 @@ response.then((value){
                             height: ScreenUtil.getInstance().setHeight(10),
                           ),
                           Text(
-                            users.credit,
+                           translator.translate("cardInfo"),
                             style:
                                 TextStyle(color: Colors.black54, fontSize: 12),
                           ),
@@ -321,7 +333,7 @@ response.then((value){
                                       ScreenUtil.getInstance().setHeight(10),
                                 ),
                                 Text(
-                                  users.depositFields[0],
+                                 translator.translate("cardOwner"),
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -343,7 +355,7 @@ response.then((value){
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Please enter NAME';
+                                      return translator.translate("error")+translator.translate("name");
                                     }
                                     return null;
                                   },
@@ -354,7 +366,7 @@ response.then((value){
                                       ScreenUtil.getInstance().setHeight(10),
                                 ),
                                 Text(
-                                  users.depositFields[1],
+                                translator.translate("cardNo"),
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -377,7 +389,7 @@ response.then((value){
                                   ),
                                   validator: (value) {
                                     if (value.isEmpty) {
-                                      return 'Please enter NUMBER';
+                                      return translator.translate("error")+translator.translate("No");
                                     }
                                     return null;
                                   },
@@ -388,7 +400,7 @@ response.then((value){
                                       ScreenUtil.getInstance().setHeight(20),
                                 ),
                                 Text(
-                             "EXPIRY"  //   users.abailableBalances[2],
+                         translator.translate("expiry")  //   users.abailableBalances[2],
                                  , style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -405,7 +417,35 @@ response.then((value){
 //                                                    borderRadius: BorderRadius.circular(5.0)),
 //                                                elevation: 4.0,
                                                     onPressed: () {
-                                                      DatePicker.showDatePicker(
+
+
+
+
+ showMonthPicker(
+                context: context,
+                firstDate: DateTime.now(),
+                lastDate: DateTime(DateTime.now().year + 15),
+                initialDate: selectedDate ?? DateTime.now(),
+                locale: Locale("en"),
+              ).then((date) {
+                if (date != null) {
+                  setState(() {
+                    selectedDate = date;
+                      _time = '${date.month}/${date.year} ';
+                  });
+                }
+              });
+
+
+
+
+
+
+
+
+
+
+                                                 /*      DatePicker.showDatePicker(
                                                       
                                                           context,
                                                       
@@ -417,15 +457,14 @@ response.then((value){
                                                           showTitleActions:
                                                               true,
                                                           onConfirm: (time) {
-                                                _time =
-                                                            '${time.year}/${time.month} ';
+                                              
                                                           date = new DateTime(time.year,time.month);
                                                    
                                                         setState(() {});
                                                       },
                                                           currentTime:
                                                               DateTime.now(),
-                                                         );
+                                                         ); */
                                                       setState(() {});
                                                     },
                                                     child: Container(
@@ -484,7 +523,7 @@ response.then((value){
                                           keyboardType: TextInputType.number,
                                           controller: _CVV_ontroller,
                                           decoration: InputDecoration(
-                                            hintText: "CVV",
+                                            hintText: translator.translate("cvv"),
                                             enabledBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.black45,
@@ -501,7 +540,7 @@ response.then((value){
                                           ),
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter CVV';
+                                              return translator.translate("error")+translator.translate("cvv");
                                             }
                                             return null;
                                           },
@@ -516,7 +555,7 @@ response.then((value){
                                       ScreenUtil.getInstance().setHeight(30),
                                 ),
                                 Text(
-                                  users.depositFields[3],
+                                  translator.translate("amount"),
                                   style: TextStyle(
                                       color: Colors.black54, fontSize: 12),
                                 ),
@@ -548,7 +587,7 @@ response.then((value){
                                           ),
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter AMOUNT';
+                                              return translator.translate("error")+translator.translate("amount");
                                             }
                                             return null;
                                           },
@@ -567,7 +606,7 @@ response.then((value){
                                                 Icons.keyboard_arrow_down,
                                                 size: 16,
                                               ),
-                                              items:["TRY","USD","EUR"]
+                                              items:[this.curencies[0],this.curencies[1],this.curencies[2]]
                                                   .map<
                                                           DropdownMenuItem<
                                                               String>>(
@@ -632,7 +671,7 @@ response.then((value){
     icon: Icon(Icons.warning,color: Colors.red,size: 25,),
                   margin: EdgeInsets.all(8),
                   borderRadius: 15,
-                  message:  "You are allowed to deposit by Credit Card using "+widget.accList.toString()+" only",
+                  message:  translator.translate("creditallow")+widget.accList.toString(),
                   duration:  Duration(seconds: 5),              
                 )..show(context);
 
@@ -663,15 +702,16 @@ Image.asset("assets/confirm.png",),
 
 
 Text(
-        "Deposit Amount: "+_AMOUNT_ontroller.text+" "+ this.cnt.toString()??"",textAlign: TextAlign.center,
+       translator.translate("deposit")+" "+translator.translate("amnt")+": " +_AMOUNT_ontroller.text+" "+ this.cnt.toString()??"",textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold),
         textScaleFactor: 1.2,
       ),
 
 
 Text(
-        "if the amount is not sent within 24 hours,\n transaction will be canceled",
-        textScaleFactor: 1.1,
+   
+    translator.translate("depositDialogHint"),
+    textScaleFactor: 1.1,
         style: TextStyle(color:Colors.grey),
         textAlign: TextAlign.center,
       ),
@@ -682,12 +722,15 @@ Row(mainAxisAlignment: MainAxisAlignment.center,
 FlatButton(
   
   shape: Border.all(width: 0.5 ,color:Colors.grey),
-  onPressed: (){Navigator.pop(context);}, child:Text("Cancel" , style: TextStyle(color:Colors.grey),)
+  onPressed: (){Navigator.pop(context);}, child:Text(lis[0].toString() , style: TextStyle(color:Colors.grey),)
 
 ) ,
 SizedBox(width: 10,),
         FlatButton(
-         child:Text("Confirm",style: TextStyle(color:Colors.white),),
+         child:Text(  
+           
+           lis[1].toString()
+           ,style: TextStyle(color:Colors.white),),
           color: Colors.indigo,
           onPressed: (){
 
@@ -726,7 +769,7 @@ Flushbar(
     icon: Icon(Icons.check_circle,color: Colors.amber,size: 25,),
                   margin: EdgeInsets.all(8),
                   borderRadius: 15,
-                  message:  "Success",
+                  message: translator.translate("success"),
                   duration:  Duration(seconds: 5),              
                 )..show(context);
                                                
@@ -799,7 +842,7 @@ print(val.body);
                                     disabledColor: Colors.blue,
                                     padding: EdgeInsets.all(15.0),
                                     child: Text(
-                                      users.button,
+                                   translator.translate("makeDep"),
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

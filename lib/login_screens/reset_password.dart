@@ -6,8 +6,9 @@ import 'package:fluttersipay/login_screens/login_repo.dart';
 import 'package:fluttersipay/login_screens/providers/reset_password_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:fluttersipay/utils/custom_text_style.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
 
 class ResetPasswordScreen extends StatefulWidget {
   @override
@@ -28,7 +29,10 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("RESET PASSWORD"),
+          title: Text(
+translator.translate("resetPass")
+
+          ),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -70,7 +74,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: Padding(
                           padding: EdgeInsets.only(top: 30.0, left: 30.0),
                           child: Text(
-                            'FORGOT YOUR PASSWORD?',
+                                translator.translate("forgetpass?"),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -84,8 +88,8 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 30.0, right: 30.0),
                             child: Text(
-                              'Enter your e-mail address linked to your account to reset your password.',
-                              style: TextStyle(fontSize: 16),
+                              translator.translate("resetInfo")
+                         ,     style: TextStyle(fontSize: 16),
                             ),
                           ),
                         ),
@@ -100,7 +104,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               style: TextStyle(color: Colors.black38),
                               controller: snapshot.emailController,
                               decoration: InputDecoration(
-                                hintText: 'E-mail',
+                                hintText:      translator.translate("email"),
                                 errorText: snapshot.emailErrorText,
                                 hintStyle: CustomTextStyle.formField(context),
                                 enabledBorder: UnderlineInputBorder(
@@ -128,12 +132,12 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             child: FlatButton(
                               onPressed: (){
                                 snapshot.resetPassword((msg) async{
-        var translation = await translator.GoogleTranslator().translate(msg, to: 'pl');
+        var translation = await translator1.GoogleTranslator().translate(msg, to: 'en');
    
                                   print(msg);
                                   Navigator.of(context).pop();
                                   Flushbar(
-                                      title: "Successful",
+                                      title:translator.translate("successful"),
                                       message:translation.toString(),
                                       duration: Duration(seconds: 5))
                                     ..show(context);
@@ -143,7 +147,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                'SEND RESET LINK',
+                                translator.translate("resetbtnText"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

@@ -11,6 +11,7 @@ import 'package:fluttersipay/login_screens/password_verify.dart';
 import 'package:fluttersipay/login_screens/providers/login_provider.dart';
 import 'package:fluttersipay/login_screens/reset_password.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:ola_like_country_picker/ola_like_country_picker.dart' as ola;
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
@@ -94,7 +95,8 @@ countrycode=country.dialCode;
       text:widget.remem==true?widget.passCor:""
       
       ),
-            TextEditingController(text:widget.remem?widget.phone:"")
+            TextEditingController(text:widget.remem?widget.phone.toString()
+            .replaceFirst("+"+countrycode,""):"")
             ,widget.remem
             ),
         child: Scaffold(body: SingleChildScrollView(
@@ -158,7 +160,7 @@ countrycode=country.dialCode;
                                               style: BorderStyle.none,
                                             ),
                                             child: new Text(
-                                              'INDIVIDUAL',
+                              translator.translate("individual"),           //     'INDIVIDUAL',
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: snapshot
@@ -194,7 +196,7 @@ countrycode=country.dialCode;
                                             style: BorderStyle.none,
                                           ),
                                           child: new Text(
-                                            'CORPORATE',
+                                          translator.translate("corp"),
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color:
@@ -241,7 +243,7 @@ countrycode=country.dialCode;
                   mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'User not found Click here to ',
+                         translator.translate("phoneValidate"),
                         style: TextStyle(
                           color: Colors.red,
                         ),
@@ -255,7 +257,7 @@ countrycode=country.dialCode;
                                       UserRegistrationScreen()));
                         },
                         child: Text(
-                          'register',
+                            translator.translate("register"),
                           style: TextStyle(
                             color: Colors.blue,
                           ),
@@ -341,7 +343,9 @@ snapshot.telephoneController.text="";
 
              snapshot.setRememberPassword(value);
                                             }),
-                                        Text("Remember Me"),
+                                        Text(
+                                           translator.translate("remember")
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -358,7 +362,7 @@ snapshot.telephoneController.text="";
                                           );
                                         },
                                         child: Text(
-                                          'Forgot Password',
+                                     translator.translate("forgetPass"),
                                           style: TextStyle(
                                             color: Colors.blue,
                                           ),
@@ -377,7 +381,8 @@ snapshot.telephoneController.text="";
                               child: FlatButton(
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
-                                  'LOGIN',
+                                        translator.translate("login")
+                                      ,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

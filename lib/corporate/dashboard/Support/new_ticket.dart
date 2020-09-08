@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:path/path.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart';
@@ -66,7 +67,7 @@ if(val==null)
               );
             }).toList(),
             hint: Text(
-              "Please Select ",
+                 translator.translate("categoryHint"),
               style: TextStyle(
                 color: Colors.black45,
               ),),
@@ -170,7 +171,7 @@ upload2Image(File image,context) async {
     } catch (err) {
      // print('ERROR  $err');
       Flushbar(
-                                      title: "Successful",
+                                      title: "Failure",
                                       message: 'Image was not Uploaded!',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
@@ -240,7 +241,7 @@ upload2Image(File image,context) async {
         mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
 
-Text("Open New Support Ticket",
+Text(     translator.translate("newTic"),
 style: TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.bold),)
@@ -250,7 +251,7 @@ style: TextStyle(
 
 SizedBox(height: 20,),
 
-Text("CATEGORY",
+Text(     translator.translate("categoryTic"),
 style: TextStyle(
   fontSize: 10,
   color: Colors.grey),),
@@ -258,7 +259,7 @@ DropDown(["Deposit","Withdraw","Refund","Technical","Other","Purchase","Money Tr
 ,
 //Deposit Withdraw Refund Technical Other Purchase Money Transfer
 SizedBox(height: 20,),
-Text("Title",
+Text(     translator.translate("titleTic"),
 style: TextStyle(
   fontSize: 10,
   color: Colors.grey),),
@@ -267,7 +268,7 @@ controller: title,
   decoration: InputDecoration(
 //prefixIcon: Icon(FontAwesomeIcons.commentDots),
 
-hintText: "Ticket Title"
+hintText:      translator.translate("ticketTichint"),
 
   ),
 
@@ -294,7 +295,7 @@ hintText: "Ticket Title"
         
             
         
-                    'Attach File',
+                 translator.translate("attachTic"),
         
             
         
@@ -342,7 +343,7 @@ hintText: "Ticket Title"
         
 
 
-Text("DESCRIPTION",
+Text(     translator.translate("desc").toUpperCase(),
 style: TextStyle(
   fontSize: 10,
   color: Colors.grey),),
@@ -352,7 +353,7 @@ controller: desc,
   decoration: InputDecoration(
 prefixIcon: Icon(FontAwesomeIcons.commentDots),
 
-hintText: "Go ahead we're listening..."
+hintText:      translator.translate("descTicHint"),
 
   ),
 )
@@ -377,7 +378,7 @@ hintText: "Go ahead we're listening..."
         
             
         
-                    'SUBMIT',
+                         translator.translate("submit").toUpperCase(),
         
             
         
@@ -445,13 +446,13 @@ try
 
        });
  
-      //[4] ADD IMAGE TO UPLOAD
+      if(image!=null){
       var file = await dio.MultipartFile.fromFile(image.path,
             filename: basename(image.path),
             contentType: MediaType("attachment", basename(image.path)));
 
       formData.files.add(MapEntry('attachment', file));
-
+      }
       var response = await dioRequest.post(
        global.APIEndPoints.kApiSupportFormEndpoint,
         data: formData,
@@ -468,6 +469,11 @@ try
                                       message: 'Your Support Ticket was opened successfully',
                                       duration: Duration(seconds: 3))
                                     ..show(context);
+                                    desc.text="";title.text="";
+setState(() { 
+  category=null;
+image=null;category_ID=null;
+});
     } catch (err) {
      // print('ERROR  $err');
       Flushbar(

@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import '../dashboard/merchant.dart';
 
@@ -65,7 +67,7 @@ class _Installment_Rates extends State<Installment_Rates> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('INSTALLMENT RATES'),
+          title: Text(translator.translate("installRate")),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -90,6 +92,12 @@ class _Installment_Rates extends State<Installment_Rates> {
               ),
               onPressed: () {
                 // do something
+                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
               },
             )
           ],
@@ -105,7 +113,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  'PAY ATTENTION',
+           translator.translate("attention"),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -115,8 +123,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  'The commissions include taxes.\nThe amount will not change according to the number of installments.\nThe minimum amount that can be paid is 25 TL.',
-                  style: TextStyle(fontSize: 15, color: Colors.black54, height: 2),
+               translator.translate("installInfo"),   style: TextStyle(fontSize: 15, color: Colors.black54, height: 2),
                 ),
               ),
               SizedBox(
@@ -125,7 +132,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  'INSTALLMENT RATES',
+                translator.translate("installRate").toUpperCase(),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -158,7 +165,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  'CARDS',
+                  translator.translate("cards"),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -211,7 +218,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${num+1} installments $rate',
+                  '${num+1} '+translator.translate("install")+'$rate',
                   style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
               )),
@@ -222,7 +229,7 @@ class _Installment_Rates extends State<Installment_Rates> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${num+1} installments $rate',
+                  '${num+1} '+translator.translate("install")+ '$rate',
                   style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
               )),

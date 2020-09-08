@@ -6,6 +6,7 @@ import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/providers/security_otp_provider.dart';
 import 'package:fluttersipay/otp/otp_base_screen.dart';
 import 'package:fluttersipay/utils/constants.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 
@@ -36,7 +37,7 @@ class _SecurityOTPScreenState extends State<SecurityOTPScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('OTP VERIFICATION'),
+        title: Text(translator.translate("otp")),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 100,
@@ -77,7 +78,7 @@ class _SecurityOTPScreenState extends State<SecurityOTPScreen> {
                 verifyOTP: snapshot.verifyOTP,
                 onFailure: (description) {
                   Flushbar(
-                    title: "Failure",
+                    title: translator.translate("fail"),
                     message: description,
                     duration: Duration(seconds: 3),
                   )..show(context);
@@ -85,11 +86,11 @@ class _SecurityOTPScreenState extends State<SecurityOTPScreen> {
                 onSuccess: (model) {
                   Navigator.of(context).pop();
                   Flushbar(
-                    title: "Success",
+                    title: translator.translate("success"),
                     message:
                         widget.securityMethod == SecuritySettingsTypes.Password
-                            ? 'Password updated successfully.'
-                            : 'Email address updated successfully',
+                            ? translator.translate("passupdated")
+                            : translator.translate("emailupdated"),
                     duration: Duration(seconds: 3),
                   )..show(context);
                 },

@@ -8,6 +8,10 @@ import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
+////////// NOT TRANSLATED
+
+
 class IndividualAttentionScreen extends StatefulWidget {
   final MainApiModel otpModel;
   final UserTypes userType;

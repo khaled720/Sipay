@@ -8,7 +8,18 @@ import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/repos/individual_repo.dart';
 import 'package:fluttersipay/utils/app_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+
+
+
+
+
+////////// NOT TRANSLATED
+
+
+
+
 
 class MoneyRequestsListScreen extends StatefulWidget {
   final IndividualMainRepository mainRepository;
@@ -97,7 +108,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("MONEY REQUEST"),
+              title: Text(translator.translate("moneyReq")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -176,7 +187,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                               style: BorderStyle.none,
                                             ),
                                             child: new Text(
-                                              'INCOMING',
+                                                translator.translate("incom"),
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: snapshot.incomingState
@@ -212,7 +223,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                                             style: BorderStyle.none,
                                           ),
                                           child: new Text(
-                                            'OUTGOING',
+                                           translator.translate("outgoing"),
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: snapshot.incomingState
@@ -302,7 +313,7 @@ class _MoneyRequestsListScreenState extends State<MoneyRequestsListScreen> {
                 snapshot.incomingState
                     ? snapshot.moneyTransferRequestsList[index]["id"].toString()
                     : snapshot.moneyTransferSendList[index]["id"].toString(),
-                incomingState ? 'receive' : 'send',
+                incomingState ?   translator.translate("receive").toLowerCase() :   translator.translate("sendMsg"),
               ),
             ));
       },

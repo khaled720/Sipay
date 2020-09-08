@@ -7,10 +7,12 @@ import 'package:fluttersipay/Money/providers/request_money_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import '../base_main_repo.dart';
 import '../bottom_navigator.dart';
+import 'dart:convert';
 
 class RequestMoneyScreen extends StatefulWidget {
   final BaseMainRepository baseRepo;
@@ -23,11 +25,17 @@ class RequestMoneyScreen extends StatefulWidget {
 }
 
 class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
+  
+
+
+ List<String> _list_cur = [  "TRY" 
+  ,"USD","EUR"  ];
   List<String> _list_footer = [
-    "Deposit",
-    "Money Transfer",
-    "Withdraw",
-    "Exchange"
+   
+    translator.translate("deposit"),
+   translator.translate("moneytrans"),
+   translator.translate("withdraw"),
+   translator.translate("exhange")
   ];
   int _index = 0;
 
@@ -51,7 +59,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("Request MONEY"),
+              title: Text(translator.translate("requestMoney")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -101,7 +109,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                         Padding(
                           padding: EdgeInsets.only(left: 30, right: 30),
                           child: Text(
-                            'AVAILABLE BALANCE',
+               translator.translate("availableBalance"),
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -180,7 +188,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'REQUEST MONEY',
+                    translator.translate("requestMoney"),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
@@ -195,8 +203,8 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                         ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'SENDER PHONE NUMBER',
-                                    style: TextStyle(
+                               translator.translate("sender"),
+                         style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
                                   TextFormField(
@@ -235,13 +243,13 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
                                         Icon(
-                                            snapshot.receiverData ==
-                                                    'Non SiPay User'
+                                            snapshot.receiverData == translator.translate("NonsiUser").toString()
+                    
                                                 ? FontAwesomeIcons.userTimes
                                                 : FontAwesomeIcons.userCheck,
                                             size: 15.0,
                                             color: snapshot.receiverData ==
-                                                    'Non SiPay User'
+                                        translator.translate("NonsiUser").toString()
                                                 ? Colors.red
                                                 : Colors.blue),
                                         SizedBox(
@@ -251,7 +259,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                           snapshot.receiverData ?? '',
                                           style: TextStyle(
                                               color: snapshot.receiverData ==
-                                                      'Non SiPay User'
+                                                     translator.translate("NonsiUser").toString()
                                                   ? Colors.red
                                                   : Colors.blue),
                                         ),
@@ -302,7 +310,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                         ),
                                   ),
                                   Text(
-                                    'AMOUNT',
+                                    translator.translate("amount").toString(),
                                     style: TextStyle(fontSize: 12),
                                   ),
                                   Container(
@@ -360,7 +368,8 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                                 Icons.keyboard_arrow_down,
                                                 size: 16,
                                               ),
-                                              items: snapshot.currencyList.map<
+                                              items:
+                                            _list_cur.map<
                                                       DropdownMenuItem<String>>(
                                                   (String value) {
                                                 return DropdownMenuItem<String>(
@@ -417,7 +426,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                         ScreenUtil.getInstance().setHeight(20),
                                   ),
                                   Text(
-                                    'DESCRIPTION',
+                  translator.translate("desc"),
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 12),
                                   ),
@@ -426,7 +435,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                     keyboardType: TextInputType.text,
                                     controller: snapshot.descriptionController,
                                     decoration: InputDecoration(
-                                      hintText: "Enter Description",
+                                      hintText:   translator.translate("descHint"),
                                       enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.black45,
@@ -443,7 +452,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
-                                        return 'Please enter DESCRIPTION';
+                                        return   translator.translate("error")+translator.translate("desc").toLowerCase();
                                       }
                                       return null;
                                     },
@@ -459,15 +468,17 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                         snapshot.createMoneyRequest(() {
                                           Navigator.of(context).pop();
                                           Flushbar(
-                                            title: "Successful",
+                                            title:translator.translate("successful"),
                                             message:
-                                                'Money was requested successfully.',
+                                       translator.translate("moneyrequested")         ,
                                             duration: Duration(seconds: 3),
                                           )..show(context);
                                         }, (description) {
                                           Flushbar(
-                                            title: "Failure",
+                                            title:  translator.translate("fail")    ,
+                                   //////////////////////////////////////////////////
                                             message: description,
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////                                   
                                             duration: Duration(seconds: 3),
                                           )..show(context);
                                         });
@@ -476,7 +487,7 @@ class _RequestMoneyScreenState extends State<RequestMoneyScreen> {
                                       disabledColor: Colors.blue,
                                       padding: EdgeInsets.all(15.0),
                                       child: Text(
-                                        "SUBMIT REQUEST",
+                                          translator.translate("submitReq")   ,
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

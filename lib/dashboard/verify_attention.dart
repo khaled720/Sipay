@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/Money/success.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 Widget Verify_attention() {
   return Verify_attention_panel();
@@ -29,7 +31,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("MONEY TRANSFER"),
+        title: Text(translator.translate("moneytrans")),
         flexibleSpace: Image(
           image: AssetImage('assets/appbar_bg.png'),
           height: 120,
@@ -54,6 +56,13 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
             ),
             onPressed: () {
               // do something
+            
+              Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
             },
           )
         ],
@@ -86,7 +95,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'ATTENTION',
+                    translator.translate("att"),
                       style: TextStyle(
                           color: Colors.orange,
                           fontSize: 20,
@@ -120,7 +129,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 40.0, right: 30.0),
-                  child: Text('You must verify your account to view this page.',
+                  child: Text(translator.translate("youmust"),
                       style: TextStyle(color: Colors.black45, fontSize: 15)),
                 ),
                 SizedBox(
@@ -145,7 +154,7 @@ class _Verify_attention_panel extends State<Verify_attention_panel> {
                           disabledColor: Colors.blue,
                           padding: EdgeInsets.all(15.0),
                           child: Text(
-                            "BE VERIFIED",
+                         translator.translate("bever"),
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,

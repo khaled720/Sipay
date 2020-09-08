@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/notification_settings_provider.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../base_main_repo.dart';
@@ -56,7 +58,7 @@ class _NotificationSettingsScreenState
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('NOTIFICATION SETTINGS'),
+              title: Text(translator.translate("notiSetting")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -80,6 +82,12 @@ class _NotificationSettingsScreenState
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
@@ -104,7 +112,7 @@ class _NotificationSettingsScreenState
                                 height: 30,
                               ),
                               Text(
-                                'NOTIFICATION SETTINGS',
+                            translator.translate("notiSetting"),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
@@ -112,8 +120,7 @@ class _NotificationSettingsScreenState
                                 height: 20,
                               ),
                               Text(
-                                'Turn on or turn off notification options as desired.',
-                                style: TextStyle(
+                           translator.translate("notiSettingInfo"),     style: TextStyle(
                                     color: Colors.black54, fontSize: 16),
                               ),
                               SizedBox(
@@ -140,7 +147,7 @@ class _NotificationSettingsScreenState
                                             height: 5,
                                           ),
                                           Text(
-                                            'APP',
+                                          translator.translate("app"),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 10,
@@ -166,7 +173,7 @@ class _NotificationSettingsScreenState
                                             height: 5,
                                           ),
                                           Text(
-                                            'SMS',
+                                          translator.translate("sms"),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 10,
@@ -192,7 +199,7 @@ class _NotificationSettingsScreenState
                                             height: 5,
                                           ),
                                           Text(
-                                            'E-MAIL',
+                                            translator.translate("email"),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 10,
@@ -341,7 +348,7 @@ class _NotificationSettingsScreenState
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "SAVE",
+                                translator.translate("save"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

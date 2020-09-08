@@ -2,7 +2,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-var isIndividual=false;
+var isIndividual;
 var userName;
 String  userToken;
 

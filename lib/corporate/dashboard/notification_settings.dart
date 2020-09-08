@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import 'merchant.dart';
 
@@ -50,7 +51,11 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
     return new Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('NOTIFICATION SETTINGS'),
+          title: Text(
+            translator.translate("Noti").toUpperCase()+" "+
+            translator.translate("setting").toUpperCase()
+
+          ),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -96,16 +101,20 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                           height: 30,
                         ),
                         Text(
-                          'NOTIFICATION SETTINGS',
+                          translator.translate("Noti").toUpperCase()+" "+
+            translator.translate("setting").toUpperCase()
+,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          'Turn on or turn off notification options as desired.',
-                          style: TextStyle(color: Colors.black54, fontSize: 16),
+                         Text(
+                      
+                         translator.translate("notiSettingInfo"),
+
+                       style: TextStyle(color: Colors.black54, fontSize: 16),
                         ),
                         SizedBox(
                           height: 30,
@@ -129,7 +138,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'APP',
+                                       translator.translate("app"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.black45),
@@ -175,7 +184,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'E-MAIL',
+                                          translator.translate("email"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.black45),
@@ -219,7 +228,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                         disabledColor: Colors.blue,
                         padding: EdgeInsets.all(15.0),
                         child: Text(
-                          "SAVE",
+                          translator.translate("save"),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,

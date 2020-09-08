@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/base_main_repo.dart';
+import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/providers/security_settings_provider.dart';
 import 'package:fluttersipay/dashboard/security_otp_screen.dart';
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-   import 'package:translator/translator.dart' as translator;
+   import 'package:translator/translator.dart' as translator1;
     
 class SecurityScreen extends StatefulWidget {
   final BaseMainRepository mainRepository;
@@ -44,7 +46,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('SECURITY'),
+              title: Text(translator.translate("security")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -68,6 +70,12 @@ class _SecurityScreenState extends State<SecurityScreen> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                     // do something
                   },
                 )
@@ -89,7 +97,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                "CHANGE YOUR PASSWORD OR E-MAIL",
+                               translator.translate("SecurityTitle"),
                                 style: TextStyle(
                                   fontSize: 16,
                                 ),
@@ -103,8 +111,8 @@ class _SecurityScreenState extends State<SecurityScreen> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "You can change your password and e-mail for security reasons from this age. To change your phone number please contact to our customer services. 0 212 706 11 12",
-                                style: TextStyle(
+                         translator.translate("securityInfo"),
+                             style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.black38,
                                   height: 1.6,
@@ -132,7 +140,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "Current Password",
+                              hintText: translator.translate("curntPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -158,7 +166,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "New Password",
+                              hintText: translator.translate("newPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -184,7 +192,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 color: Colors.black26,
                                 size: 20,
                               ),
-                              hintText: "Confirm Password",
+                              hintText: translator.translate("ConfPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -206,10 +214,10 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                           passwordModel,
                                           widget.mainRepository)));
                                 }, (description) async{
-                                   var translation = await translator.GoogleTranslator().translate(description, to: 'en');
+                                   var translation = await translator1.GoogleTranslator().translate(description, to: 'en');
    
                                   Flushbar(
-                                    title: "Failure",
+                                    title: translator.translate("fail"),
                                     message: translation.toString(),
                                     duration: Duration(seconds: 3),
                                   )..show(context);
@@ -219,7 +227,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "CHANGE PASSWORD",
+                            translator.translate("changePassbtn"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -249,7 +257,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 color: Colors.black26,
                                 size: 16,
                               ),
-                              hintText: "Current Password",
+                              hintText:translator.translate("curntPass"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -275,7 +283,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                 color: Colors.black26,
                                 size: 20,
                               ),
-                              hintText: "New E-mail Address",
+                              hintText: translator.translate("newEmailHint"),
                               hintStyle:
                                   TextStyle(color: Colors.black26, height: 1.3),
                             ),
@@ -295,10 +303,10 @@ class _SecurityScreenState extends State<SecurityScreen> {
                                           emailModel,
                                           widget.mainRepository)));
                                 }, (msg) async{
-                                   var translation = await translator.GoogleTranslator().translate(msg, to: 'pl');
+                                   var translation = await translator1.GoogleTranslator().translate(msg, to: 'pl');
    
                                   Flushbar(
-                                    title: "Failure",
+                                    title: translator.translate("fail"),
                                     message: translation.toString(),
                                     duration: Duration(seconds: 3),
                                   )..show(context);
@@ -308,7 +316,7 @@ class _SecurityScreenState extends State<SecurityScreen> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "CHANGE E-MAIL",
+                                translator.translate("changeEmail"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

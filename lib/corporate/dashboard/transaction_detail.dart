@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget C_Transaction_detail() {
@@ -54,7 +55,7 @@ class _Transaction_detail_Panel extends State<Transaction_detail_Panel> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("TRANSATION DETAILS"),
+          title: Text("TRANSATION DETAILS cor"),
           flexibleSpace: Image(
             image: AssetImage('assets/appbar_bg.png'),
             height: 100,
@@ -78,6 +79,12 @@ class _Transaction_detail_Panel extends State<Transaction_detail_Panel> {
                 color: Colors.white,
               ),
               onPressed: () {
+                  Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                Live_Support(),
+                                          ));
                 // do something
               },
             )

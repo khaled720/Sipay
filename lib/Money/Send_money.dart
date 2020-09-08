@@ -7,6 +7,7 @@ import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
 
 import '../bottom_navigator.dart';
@@ -23,13 +24,14 @@ class MoneyTransferSendScreen extends StatefulWidget {
 }
 
 class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
-  var _value = "INDIVIDUAL";
-  List<String> _listViewData = ["INDIVIDUAL", "MERCHANT"];
+  var _value = translator.translate("merchanr");
+  List<String> _listViewData = [translator.translate("individual"), translator.translate("merchanr")];
   List<String> _list_footer = [
-    "Deposit",
-    "Money Transfer",
-    "Withdraw",
-    "Exchange"
+   
+   translator.translate("deposit"),
+    translator.translate("moneytrans"),
+    translator.translate("withdraw"),
+    translator.translate("exchange")
   ];
   int _index = 0;
   @override
@@ -48,7 +50,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text("MONEY TRANSFER"),
+              title: Text(translator.translate("moneytrans").toUpperCase()),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -99,7 +101,8 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                         Padding(
                           padding: EdgeInsets.only(left: 30, right: 30),
                           child: Text(
-                            'AVAILABLE BALANCE',
+                      translator.translate("availableBalance"),
+          
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -123,7 +126,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                     alignment: Alignment.center,
                                     child: Text(
                         
-                                                      
+                                                       
                             double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+
                                           '₺',
                                       style: TextStyle(
@@ -178,7 +181,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'SEND MONEY',
+                    translator.translate("sendmoney"),
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -187,7 +190,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                 height: ScreenUtil.getInstance().setHeight(30),
                               ),
                               Text(
-                                'CHOOSE WALLET TYPE',
+                                 translator.translate("chooseWallet"),
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -276,7 +279,7 @@ class _MoneyTransferSendScreenState extends State<MoneyTransferSendScreen> {
                                   disabledColor: Colors.blue,
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
-                                    "INCOMMING REQUESTS",
+                                  translator.translate("withdrawbtn"),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,

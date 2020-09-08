@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttersipay/deposit/json_models/deposit_success_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class DepositSuccessScreen extends StatefulWidget {
   final DepositSuccessModel successModel;
@@ -29,15 +30,15 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
         future: DefaultAssetBundle.of(context)
             .loadString('assets/json/deposit/6.2.1Deposit_succes.json'),
         builder: (context, snapshot) {
-          success_json users;
+        
           var parsedJson;
           if (snapshot.hasData) {
             parsedJson = json.decode(snapshot.data.toString());
-            users = success_json.fromJson(parsedJson);
+        //    users = success_json.fromJson(parsedJson);
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(users.header),
+                title: Text(translator.translate("deposit").toUpperCase()),
                 flexibleSpace: Image(
                   image: AssetImage('assets/appbar_bg.png'),
                   height: 100,
@@ -94,6 +95,8 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
+                        //////////////////////////////////////////////////////
+                        ///////////////////////////////////////////////////////
                               widget.successModel.status,
                               style: TextStyle(
                                   color: Colors.green,
@@ -109,6 +112,8 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
+                              ///////////////////////////////////////////
+                              /////////////////////////////////////////
                               widget.successModel.message,
                               style: TextStyle(
                                   color: Colors.black45, fontSize: 15),
@@ -185,7 +190,7 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('IBAN: ' + widget.successModel.iban),
+                              child: Text(translator.translate("iban").toUpperCase()+': ' + widget.successModel.iban),
                             ),
                           ],
                         ),
@@ -212,7 +217,7 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('PNR: ' + widget.successModel.pnr),
+                              child: Text(translator.translate("pnr").toUpperCase()+': ' + widget.successModel.pnr),
                             )
                           ],
                         ),
@@ -232,14 +237,14 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                               width: 30,
                             ),
                             Icon(
-                              Icons.map,
+                          FontAwesomeIcons.moneyBillWaveAlt,
                               color: Colors.black45,
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Expanded(
-                              child: Text('AMOUNT: ' +
+                              child: Text(translator.translate("amount").toUpperCase()+': ' +
                                   widget.successModel.amount +
                                   widget.successModel.currencyText),
                             )
@@ -307,10 +312,20 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                                         color: Colors.blue,
                                         size: 20,
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () {
+
+
+// Whats app
+
+
+
+
+
+
+                                      },
                                     ),
                                     Text(
-                                      users.footerTab[2],
+                                   translator.translate("whats").toUpperCase(),
                                       style: TextStyle(
                                           fontSize: 8, color: Colors.black45),
                                     ),
@@ -329,7 +344,7 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                                       onPressed: () {},
                                     ),
                                     Text(
-                                      users.footerTab[3],
+                                     translator.translate("copy").toUpperCase(),
                                       style: TextStyle(
                                           fontSize: 8, color: Colors.black45),
                                     ),
@@ -348,7 +363,7 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                                       onPressed: () {},
                                     ),
                                     Text(
-                                      users.footerTab[4],
+                                      translator.translate("cancel").toUpperCase(),
                                       style: TextStyle(
                                           fontSize: 8, color: Colors.black45),
                                     ),
@@ -366,14 +381,22 @@ class _DepositSuccessScreenState extends State<DepositSuccessScreen> {
                           child: Container(
                             child: FlatButton(
                               onPressed: () {
-                                Navigator.popUntil(
-                                    context, ModalRoute.withName('/merchant'));
-                              },
+                             var   count=0;
+
+                             Navigator.popUntil(context, (route){
+
+return count++==3;
+
+                             });
+                        
+                        
+                        
+                          },
                               color: Colors.blue,
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                users.button,
+                           translator.translate("dash").toUpperCase(),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
