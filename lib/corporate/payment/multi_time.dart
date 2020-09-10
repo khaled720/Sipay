@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/utils/api_endpoints.dart' as global;
 import 'package:http/http.dart' as http;
 import 'package:fluttersipay/corporate/global_data.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 TextEditingController _SMSController = TextEditingController();
 
 Widget Multi_Time() {
@@ -611,7 +612,7 @@ if(val==null)
                                         ScreenUtil.getInstance().setHeight(50),
                                   ),
                                   Text(
-                                    'EXPLANATION *',
+                                    translator.translate("explain"),
                                     style: TextStyle(
                                         color: check_state
                                             ? Colors.black26
@@ -638,7 +639,7 @@ if(val==null)
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Please enter an explanation.',
+                                         translator.translate("explainInfo"),
                                           style: TextStyle(
                                               color: check_state
                                                   ? Colors.black26
@@ -758,7 +759,7 @@ if(val==null)
                                     Scaffold.of(context).showSnackBar(SnackBar(
                                         duration: Duration(seconds: 2),
                                         content: Text(
-                                            "Some required data are missing !!")));
+                                            translator.translate("requiredField"))));
                                   }
 
                                   /*   Navigator.pop(context);
@@ -793,7 +794,7 @@ if(val==null)
                                             ),
                                       SizedBox(
                                         child: Text(
-                                          "CREATE DPL",
+                                        translator.translate("createdpl"),
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 16,

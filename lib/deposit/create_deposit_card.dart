@@ -746,8 +746,8 @@ headers: {
 body: {
 "amount":_AMOUNT_ontroller.text,
 "currency_id":currency.toString(),
-"expiry_month":date.month.toString(),
-"expiry_year":date.year.toString(),
+"expiry_month":selectedDate.month.toString(),
+"expiry_year":selectedDate.year.toString(),
 "name":_name_ontroller.text,
 "card_no":_card_controller.text,
 "cvv":_CVV_ontroller.text,
@@ -760,9 +760,10 @@ body: {
 
 
 
-).then((value) => print(value.body.toString()));
+).then((value){
 
 
+if(value.body.toString().contains("100")){
 
 
 Flushbar(
@@ -772,6 +773,35 @@ Flushbar(
                   message: translator.translate("success"),
                   duration:  Duration(seconds: 5),              
                 )..show(context);
+
+
+
+}else{
+
+
+
+
+
+
+Flushbar(
+    icon: Icon(Icons.check_circle,color: Colors.amber,size: 25,),
+                  margin: EdgeInsets.all(8),
+                  borderRadius: 15,
+                  message: translator.translate("fail"),
+                  duration:  Duration(seconds: 5),              
+                )..show(context);
+
+
+
+}
+
+
+
+});
+
+
+
+
                                                
                                                         }),
                                   
@@ -789,7 +819,6 @@ Flushbar(
     )
   );
 
-       Navigator.pop(context);
 
 /* 
 http.get(

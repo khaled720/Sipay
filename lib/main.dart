@@ -26,12 +26,10 @@ class Main extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+      return MaterialApp(
       title: 'SiPay',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
-
-
       localizationsDelegates: translator.delegates,
       locale: translator.locale,
       supportedLocales: translator.locals(),

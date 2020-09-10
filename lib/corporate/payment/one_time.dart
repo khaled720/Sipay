@@ -500,7 +500,7 @@ contentPadding: EdgeInsets.all(2)
   
                                     Text(
   
-                                      'EXPLANATION *',
+                                      'EXPLANATION',
   
                                       style: TextStyle(color:check_state ? Colors.black26 : Colors.red, fontSize: 12),
   

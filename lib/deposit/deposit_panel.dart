@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flushbar/flushbar.dart';
-
+import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -224,7 +224,7 @@ translator.translate("availableBalance"),
                                             color: Colors.black54,
                                             fontSize: 12),
                                       ), */
-                                      DropdownButtonFormField<String>(
+                                    isIndividual? DropdownButtonFormField<String>(
                                    decoration:InputDecoration(
 
 prefixIcon: Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
@@ -236,6 +236,51 @@ hintText:    translator.translate("chooseDeposit")
                                         icon: Icon(Icons.keyboard_arrow_down),
                     items: [translator.translate("bankTrans").toUpperCase().toString()
                            ,translator.translate("card").toString(),
+                                  ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+
+                                            value: value,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                
+                                                SizedBox(width: 10),
+                                                Expanded(
+                                                  child: Text(
+                                                    value,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _value = value;
+                                          });
+
+
+                 createDeposit(snapshot.mainRepo,
+                                                snapshot.userWallets);  
+
+                                        },
+                                        value: _value,
+                                        isExpanded: true,
+                                      ):DropdownButtonFormField<String>(
+                                   decoration:InputDecoration(
+
+prefixIcon: Icon(FontAwesomeIcons.wallet,color: Colors.grey,),
+hintText:    translator.translate("chooseDeposit")
+                                  
+,hintStyle: TextStyle(fontSize:12),
+                                   ),
+                                 //       hint: Text(users.choose),
+                                        icon: Icon(Icons.keyboard_arrow_down),
+                    items: [translator.translate("bankTrans").toUpperCase().toString()
+                          
                                   ].map<DropdownMenuItem<String>>(
                                                 (String value) {
                                           return DropdownMenuItem<String>(

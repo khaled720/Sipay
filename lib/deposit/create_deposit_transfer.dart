@@ -710,17 +710,7 @@ if(curency==curencies[0])z=1; else if(curency==curencies[1])z=2; else if(curency
                                                       
                                                       onPressed: () {
 
-
-
-
-                                                      snapshot.createDeposit(
-                                                            (successModel) {
-
-
-return
-
-
- showDialog(context: context,
+return showDialog(context: context,
    
     child: AnimatedDialog(
 
@@ -769,15 +759,24 @@ SizedBox(width: 10,),
          child:Text("Confirm",style: TextStyle(color:Colors.white),),
           color: Colors.indigo,
           onPressed: (){
+                            snapshot.createDeposit(
+                                                            (successModel) {
 
-  
-                                                          Navigator.pushReplacement(
+
+
+
+
+      Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
                                                                 builder: (context) =>
                                                                     DepositSuccessScreen(
                                                                         successModel),
                                                               ));
+   
+                                                            });
+  
+                                                    
                                                         }),
                                          
        
@@ -794,8 +793,8 @@ SizedBox(width: 10,),
     )
   );
 
-   
-                                                            });
+
+                          
 
 
 

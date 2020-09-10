@@ -132,8 +132,11 @@ translator.translate("resetPass")
                             child: FlatButton(
                               onPressed: (){
                                 snapshot.resetPassword((msg) async{
-        var translation = await translator1.GoogleTranslator().translate(msg, to: 'en');
-   
+        var translation ;
+        
+          if(translator.currentLanguage=="en")translation = await translator1.GoogleTranslator().translate(msg, to: 'en');
+  else translation = await translator1.GoogleTranslator().translate(msg, to: 'tr');
+  
                                   print(msg);
                                   Navigator.of(context).pop();
                                   Flushbar(

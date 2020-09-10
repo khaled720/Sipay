@@ -12,7 +12,8 @@ import 'package:fluttersipay/corporate/withdrawal/providers/providers/create_ban
 import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart' as translator;
+import 'package:translator/translator.dart' as translator1;
+import 'package:localize_and_translate/localize_and_translate.dart';
 import '../../base_main_repo.dart';
 import 'json_models/corporate_withdrawal_bank_model.dart';
 
@@ -232,7 +233,7 @@ TextEditingController iban= new TextEditingController();
                                           .setHeight(40),
                                     ),
                                     Text(
-                                      'CHOOSE SAVED ACCOUNT',
+                                      translator.translate("chooseAcc"),
                                       style: TextStyle(
                                           color: Colors.black26, fontSize: 12),
                                     ),
@@ -243,8 +244,8 @@ TextEditingController iban= new TextEditingController();
                                                 Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.banksDropdown,
                                             onChanged: (bank) {
-                                              snapshot.selectedDropDownValue =
-                                                  bank;
+                                            /*   snapshot.selectedDropDownValue =
+                                                  bank; */
                                         setState(() {
                                         snapshot.accountHolderController.text=bank.accountHolderName;
                                           iban.text=bank.iban;
@@ -267,7 +268,7 @@ TextEditingController iban= new TextEditingController();
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          'AMOUNT',
+                                         translator.translate("amount")   ,
                                           style: TextStyle(
                                               color: Colors.black26,
                                               fontSize: 12),
@@ -311,7 +312,7 @@ TextEditingController iban= new TextEditingController();
                                                   ),
                                                   validator: (value) {
                                                     if (value.isEmpty) {
-                                                      return 'Please enter WITHDRAW AMOUNT';
+                                                      return   translator.translate("error")+  translator.translate("withdraw")+" "+  translator.translate("amount");
                                                     }
                                                     return null;
                                                   },
@@ -406,7 +407,7 @@ TextEditingController iban= new TextEditingController();
                                           
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter IBAN';
+                                              return   translator.translate("error")+  translator.translate("iban");
                                             }
                                             return null;
                                           },
@@ -417,7 +418,7 @@ TextEditingController iban= new TextEditingController();
                                         ),
                                         
       Text(
-                                          'ACCOUNT HOLDER',
+                                            translator.translate("holder"),
                                           style: TextStyle(
                                               color: Colors.black26,
                                               fontSize: 12),
@@ -501,7 +502,7 @@ TextEditingController iban= new TextEditingController();
                                                   ),
                                                   validator: (value) {
                                                     if (value.isEmpty) {
-                                                      return 'Please enter TRANSACTION FEE';
+                                                      return   translator.translate("error")+  translator.translate("TransFee");
                                                     }
                                                     return null;
                                                   },
@@ -763,14 +764,7 @@ TextEditingController iban= new TextEditingController();
                                       child: FlatButton(
                                         onPressed: () {
                                     
-                                    
-                                    
-                                          snapshot.createWithdrawal(
-                                              (phoneNumber, otpModel, mainRepo,
-                                                  userType) {
-
-
-   
+                                 
  showDialog(context: context,
    
     child: AnimatedDialog(
@@ -822,11 +816,15 @@ SizedBox(width: 10,),
           onPressed: (){
  
  
-                                      
+                                 
+                                          snapshot.createWithdrawal(
+                                              (phoneNumber, otpModel, mainRepo,
+                                                  userType) {
 
-  
 
-          Navigator.of(context).push(
+
+        
+  Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                          WithdrawalOTPScreen(
@@ -836,6 +834,21 @@ SizedBox(width: 10,),
                                                             mainRepo)
                                                 ));
                                           
+                                       
+                                          }, (msg) async {
+                                                var translation = await translator1.GoogleTranslator().translate(msg, to: 'en');
+   
+                                            Flushbar(
+                                              title: translator.translate("fail"),
+                                              message: translation.toString(),
+                                              duration: Duration(seconds: 3),
+                                            )..show(context);
+                                          });
+//                                        
+
+  
+
+        
 
 
                                   
@@ -865,20 +878,8 @@ SizedBox(width: 10,),
 
     )
   );
-
-        
-
-                                       
-                                          }, (msg) async {
-                                                var translation = await translator.GoogleTranslator().translate(msg, to: 'en');
-   
-                                            Flushbar(
-                                              title: "Failure",
-                                              message: translation.toString(),
-                                              duration: Duration(seconds: 3),
-                                            )..show(context);
-                                          });
-//                                      Navigator.push(
+      
+                                  //     Navigator.push(
 //                                          context,
 //                                          MaterialPageRoute(
 //                                            builder: (context) =>

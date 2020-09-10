@@ -6,6 +6,7 @@ import 'package:fluttersipay/corporate/dashboard/support.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/email_sharelink.dart';
 import 'package:fluttersipay/corporate/payment/sms_sharelink.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 import 'dpl_history.dart';
 
@@ -90,7 +91,7 @@ class _Dpl_Passivedetal_Panel extends State<Dpl_Passivedetal_Panel> {
               Padding(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 child: Text(
-                  "You can check this direct payment link's detais below",
+                  "",//"You can check this direct payment link's detais below",
                   style: TextStyle(fontSize: 16, color: Colors.black38),
                 ),
               ),
@@ -100,12 +101,12 @@ class _Dpl_Passivedetal_Panel extends State<Dpl_Passivedetal_Panel> {
              Container(
                 child: Column(
 children: <Widget>[
-detail_list(title:"Type",value:widget.map['type']==1?"One Time":"Multi Time" ),
-detail_list(title:"Status",value:widget.map['status'].toString() ),
-detail_list(title:"Created",value:widget.map['created_at'].toString() ),
-detail_list(title:"Expiry",value:widget.map['type']==1?widget.map['expire_date']: widget.map["expire_date"].toString().replaceFirst("00:", widget.map["expire_time"].toString()+":") ),
-detail_list(title:"Amount",value:widget.map['is_amount_set_by_user']==1? "Set by User":widget.map['amount'].toString(),),
-detail_list(title:"Maximum Number of uses",value:widget.map['max_number_of_uses'].toString()),
+detail_list(title:translator.translate("detailsList3"),value:widget.map['type']==1?translator.translate("onetime"):translator.translate("multi")),
+detail_list(title:translator.translate("state"),value:widget.map['status'].toString() ),
+detail_list(title:translator.translate("created"),value:widget.map['created_at'].toString() ),
+detail_list(title:translator.translate("expiry"),value:widget.map['type']==1?widget.map['expire_date']: widget.map["expire_date"].toString().replaceFirst("00:", widget.map["expire_time"].toString()+":") ),
+detail_list(title:translator.translate("amnt"),value:widget.map['is_amount_set_by_user']==1? translator.translate("setbyusr"):widget.map['amount'].toString(),),
+detail_list(title:translator.translate("maxNumofUse"),value:widget.map['max_number_of_uses'].toString()),
 detail_list(title:"Times used",value:widget.map['number_of_uses'].toString() ),
 
 ]

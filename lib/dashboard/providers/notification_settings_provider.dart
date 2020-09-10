@@ -84,12 +84,17 @@ class NotificationSettingsProvider with ChangeNotifier {
   getNotificationSettings() async {
     MainApiModel userSavedNotificationSettings =
         await _baseMainRepository.notificationSettings();
+
+
+        print(">>>>- "+userSavedNotificationSettings.data.toString());
+
     _notificationListMap =
         userSavedNotificationSettings.data['notification_list'];
     List checkedSMSList =
         userSavedNotificationSettings.data['checked_sms_list'];
     List checkedEmail =
         userSavedNotificationSettings.data['checked_email_list'];
+
     _uncheckedSMSList = userSavedNotificationSettings.data['hidden_sms_list'];
     _uncheckedEmailList =
         userSavedNotificationSettings.data['hidden_email_list'];
@@ -97,6 +102,7 @@ class NotificationSettingsProvider with ChangeNotifier {
       _notificationSettingsUI.add(_notificationListMap[key]);
       _checkedSMSList.add(checkedSMSList.contains(int.parse(key)));
       _checkedEmailList.add(checkedEmail.contains(int.parse(key)));
+      
     }
     notifyListeners();
   }

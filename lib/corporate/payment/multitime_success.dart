@@ -9,6 +9,7 @@ import 'package:fluttersipay/utils/api_endpoints.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fluttersipay/corporate/payment/sms_multishare.dart';
 import 'package:fluttersipay/corporate/payment/email_multishare.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'dpl_history.dart';
 
 
@@ -45,7 +46,7 @@ class _Multitime_Success_panel extends State<Multitime_Success_panel> {
               return Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
-                  title: Text('SHARE LINK'),
+                  title: Text(translator.translate("sharelink")),
                   flexibleSpace: Image(
                     image: AssetImage('assets/appbar_bg.png'),
                     height: 100,
@@ -110,7 +111,7 @@ class _Multitime_Success_panel extends State<Multitime_Success_panel> {
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
-                                users.success,
+                                translator.translate("success"),
                                 style: TextStyle(
                                     color: Colors.green,
                                     fontSize: 20,
@@ -176,7 +177,7 @@ widget.dpl['amount'].toString(),
                                 width: 30,
                               ),
                               Expanded(
-                                child: Text('Expiry', style: TextStyle(color: Colors.black45, fontSize: 15)),
+                                child: Text('translator.translate("expiry")', style: TextStyle(color: Colors.black45, fontSize: 15)),
                               ),
                               Container(
                                   child: Align(
@@ -206,7 +207,7 @@ widget.dpl['amount'].toString(),
                               SizedBox(
                                 width: 30,
                               ),
-                              Text('Maximum number of use', style: TextStyle(color: Colors.black45, fontSize: 15)),
+                              Text(translator.translate("maxNumofUse"), style: TextStyle(color: Colors.black45, fontSize: 15)),
                               Expanded(
                                 child: Container(
                                     child: Align(
@@ -253,7 +254,7 @@ widget.dpl['amount'].toString(),
                                         },
                                       ),
                                       Text(
-                                        users.footerTab[0],
+                                    translator.translate("email"),
                                         style: TextStyle(
                                             fontSize: 8, color: Colors.black45),
                                       ),
@@ -277,7 +278,7 @@ widget.dpl['amount'].toString(),
                                         },
                                       ),
                                       Text(
-                                        users.footerTab[1],
+                                  translator.translate("sms"),
                                         style: TextStyle(
                                             fontSize: 8, color: Colors.black45),
                                       ),
@@ -296,7 +297,7 @@ widget.dpl['amount'].toString(),
                                         onPressed: () {},
                                       ),
                                       Text(
-                                        users.footerTab[2],
+                                    translator.translate("whats"),
                                         style: TextStyle(
                                             fontSize: 8, color: Colors.black45),
                                       ),
@@ -330,7 +331,7 @@ widget.dpl['amount'].toString(),
                                         },
                                       ),
                                       Text(
-                                        users.footerTab[3],
+                                    translator.translate("copy"),
                                         style: TextStyle(
                                             fontSize: 8, color: Colors.black45),
                                       ),
@@ -349,7 +350,7 @@ widget.dpl['amount'].toString(),
                                         onPressed: () {Navigator.pop(context);},
                                       ),
                                       Text(
-                                        'cancel',
+                                      translator.translate("cancel"),
                                         style: TextStyle(
                                             fontSize: 8, color: Colors.black45),
                                       ),

@@ -1,7 +1,13 @@
 
 {
 
-
+  "nodata":"Gösterilecek bilgi yok",
+  "passive":"pasif",
+  "chobnk":"banka seç",
+  "copied":"Clipboared'e kopyalandı"
+  ,
+  "failedlogout":"Çıkış yapılamadı. Lütfen tekrar deneyin.",
+  
 
 
     "infouEntred":
@@ -355,31 +361,33 @@
     
     "helpInfo":"Sorununuzu açıklayın",
     "helpHint":"Para koyabilir miyim....",
-    "helpQuestionList":[
-        "Sipay Nedir?",
-        "Sipay kullanmak ücretli mi?",
-        "Nasıl kulanabilirim?",
-        "Sipay cüzdan ile neler yapabilirim?",
-        "Para yükleme limitim nedir?",
-        "7/24 para yükleyebilir miyim?",
-        "Havale ile sipay cüzdanıma nasıl para eklerim?",
-        "Kredi kartımla cüzdanıma nasıl para yüklerim?",
-        "Hesabıma para aktarılmazsa ne yapabilirim?",
-        "Birisi cüzdanıma para gönderebilir mi?"
-      ],
-    "helpAnswersList":[
-      " Kolay, hızlı ve güvenli ödemenin yeni yolu olan SiPay, 2019 Temmuz ayında Bankacılık Düzenleme ve Denetleme Kurumu'ndan Elektronik Para Kuruluşu olarak faaliyet göstermek üzere aldığı izin ile&nbsp;Türkiye’nin en genç yeni nesil dijital cüzdanıdır.",
-        " Kullanıcılarımız, hizmetlerimizden yararlanmak için herhangi bir üyelik ücreti ödememektedir.",
-        " SiPay’i kullanmak için yalnızca telefonunuza gönderilen tek kullanımlık şifreyi girmeniz yeterli. Hesabınızı oluşturun kolay ve güvenli alışverişin tadını çıkarın.",
-        " Dijital cüzdan sahibi olarak tüm üye iş yerlerimizden alışveriş yapabilir, dilediğiniz kişiye para gönderebilir, diğer kullanıcılardan cüzdanınıza para transfer etmesini isteyebilir, SiPay cüzdan hesabınızdaki paranızı dövize çevirebilir, hatta tanımladığınız banka hesabına masraf ödemeden para çekebilirsiniz. ",
-        " Standart Hesap sahibi iseniz para yükleyemezsiniz, ancak cüzdanınızda başka bir kullanıcıdan tarafınıza gönderilen 750,00 TL’yi tutabilirsiniz ve üye iş yerlerimizden birinde harcayabilirsiniz. ",
-        " SiPay cüzdanınıza dilerseniz kredi kartınızla, dilerseniz havale ile 7/24 para yükleyebilirsiniz. ",
-        " SiPay hesabınıza giriş yapın ve Para Yatır sayfasında yüklemek istediğiniz tutarı girin, ödeme yöntemi olarak Havale / EFT seçeneğini seçin. Açılan menüden para göndermek istediğiniz SiPay hesabını seçin ve Gönder’e basın. ",
-        " SiPay cüzdan hesabınıza girdikten sonra Para Yatır sayfasında yüklemek istediğiniz tutarı girin ve ödeme yöntemi olarak Kredi Kartı’nı seçin. Açılan menüde kart bilgilerinizi eksiksiz ve doğru olarak girin. Gönder’e basın. Güvenlik şifrenizi girdiğinizde bakiyeniz anında hesabınıza eklenecektir. ",
-        " Havale yaparken belirttiğimiz kriterlerin hepsini tamamladığınızdan,&nbsp;özellikle PNR kodunuzu doğru girdiğinizden emin olun. Hepsinden eminseniz size yardımcı olabilmemiz için bizi 0212 706 11 12’den arayarak talebinizi iletebilirsiniz. "
-        ," Doğrulanmış bir SiPay hesabı olan tüm kullanıcılarımız cüzdanınıza para gönderebilir."
+    
+    "helpQuestionList1":    "Sipay Nedir?",
+    "helpQuestionList2":"Sipay kullanmak ücretli mi?",
+    "helpQuestionList3":     "Nasıl kulanabilirim?",
+    "helpQuestionList4": "Sipay cüzdan ile neler yapabilirim?",
+    "helpQuestionList5":  "Para yükleme limitim nedir?",
+    "helpQuestionList6":  "7/24 para yükleyebilir miyim?",
+    "helpQuestionList7":  "Havale ile sipay cüzdanıma nasıl para eklerim?",
+    "helpQuestionList8"  : "Kredi kartımla cüzdanıma nasıl para yüklerim?",
+    "helpQuestionList9":   "Hesabıma para aktarılmazsa ne yapabilirim?",
+    "helpQuestionList10": "Birisi cüzdanıma para gönderebilir mi?"
+      ,
+  
+      "helpAnswersList1":  " Kolay, hızlı ve güvenli ödemenin yeni yolu olan SiPay, 2019 Temmuz ayında Bankacılık Düzenleme ve Denetleme Kurumu'ndan Elektronik Para Kuruluşu olarak faaliyet göstermek üzere aldığı izin ile&nbsp;Türkiye’nin en genç yeni nesil dijital cüzdanıdır.",
+      "helpAnswersList2":   " Kullanıcılarımız, hizmetlerimizden yararlanmak için herhangi bir üyelik ücreti ödememektedir.",
+      "helpAnswersList3":   " SiPay’i kullanmak için yalnızca telefonunuza gönderilen tek kullanımlık şifreyi girmeniz yeterli. Hesabınızı oluşturun kolay ve güvenli alışverişin tadını çıkarın.",
+      "helpAnswersList4":    " Dijital cüzdan sahibi olarak tüm üye iş yerlerimizden alışveriş yapabilir, dilediğiniz kişiye para gönderebilir, diğer kullanıcılardan cüzdanınıza para transfer etmesini isteyebilir, SiPay cüzdan hesabınızdaki paranızı dövize çevirebilir, hatta tanımladığınız banka hesabına masraf ödemeden para çekebilirsiniz. ",
+      "helpAnswersList5":    " Standart Hesap sahibi iseniz para yükleyemezsiniz, ancak cüzdanınızda başka bir kullanıcıdan tarafınıza gönderilen 750,00 TL’yi tutabilirsiniz ve üye iş yerlerimizden birinde harcayabilirsiniz. ",
+      "helpAnswersList6":  " SiPay cüzdanınıza dilerseniz kredi kartınızla, dilerseniz havale ile 7/24 para yükleyebilirsiniz. ",
+      "helpAnswersList7":   " SiPay hesabınıza giriş yapın ve Para Yatır sayfasında yüklemek istediğiniz tutarı girin, ödeme yöntemi olarak Havale / EFT seçeneğini seçin. Açılan menüden para göndermek istediğiniz SiPay hesabını seçin ve Gönder’e basın. ",
+      "helpAnswersList8":  " SiPay cüzdan hesabınıza girdikten sonra Para Yatır sayfasında yüklemek istediğiniz tutarı girin ve ödeme yöntemi olarak Kredi Kartı’nı seçin. Açılan menüde kart bilgilerinizi eksiksiz ve doğru olarak girin. Gönder’e basın. Güvenlik şifrenizi girdiğinizde bakiyeniz anında hesabınıza eklenecektir. ",
+      "helpAnswersList9": " Havale yaparken belirttiğimiz kriterlerin hepsini tamamladığınızdan,&nbsp;özellikle PNR kodunuzu doğru girdiğinizden emin olun. Hepsinden eminseniz size yardımcı olabilmemiz için bizi 0212 706 11 12’den arayarak talebinizi iletebilirsiniz. "
+        ,
         
-        ]
+        "helpAnswersList10" : " Doğrulanmış bir SiPay hesabı olan tüm kullanıcılarımız cüzdanınıza para gönderebilir."
+        
+        
     
     ,"faq":" SSS "
     

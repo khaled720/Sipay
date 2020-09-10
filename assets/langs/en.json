@@ -320,32 +320,41 @@
 
 "helpInfo":"Describe Your issue",
 "helpHint":"can I put money in my....",
-"helpQuestionList":
-[
-    "What is SiPay?",
-    "Is it paid to use SiPay?",
-    "How do I use it?",
-    "What can I do with SiPay Wallet?",
-    "What is My Desposit Limit?",
-    "Can I Make Deposit 24/7?",
-    "How do I deposit money to my SiPay wallet by bank transfer?",
-    "How do I deposit money to my wallet with my credit card?",
-    "What should I do if money is not transferred to my account?",
-    "Can someone send money to my wallet?"
-  ],
-"helpAnswersList":[
-    "The easy, fast and secure way of payment, SiPay, is Turkey's youngest new generation of digital wallets with permission to operate as it receives Electronic Money Institution Licence in July 2019 from the Banking Regulation and Supervision Agency.",
-    "Our users do not pay any membership fees to benefit from our services.",
-    "To use SiPay, you only need to enter the one-time password that sends to your mobile phone. Create your special wallet account, enjoy easy and secure shopping.",
-    "As a digital wallet owner, you can shop from all of our merchants, send money to any person, ask other users to transfer money to your wallet, convert your money in your SiPay wallet account to foreign currency, or even withdraw money from the bank account that you&#39;ve defined. ",
-    "If you're a Standard Account user, you can't deposit money, but you can keep 750,00 TRY sent to you from another user in your wallet.If you are a Verified Account user, you can deposit 50.000 TRY, if you have a Contracted Account you can deposit 250.000 TRY.",
-    "You can deposit money to your SiPay wallet with your credit card or by bank transfer 24/7.",
-    "Log into your SiPay account and enter the amount you&#39;d like to deposit on the Deposit page, select Bank Transfer as your payment method. Select the SiPay account to which you want to send money from the drop-down menu and press Send.",
-    "After logging into your SiPay wallet account, enter the amount you&#39;d like to deposit on the Deposit page and select Credit Card as your payment method. In the menu that opens, enter your card information completely and accurately. Press send. Once you enter your security password, your balance will be added to your account instantly",
-    "When making a transfer, make sure you meet all the criteria we have specified, especially check if you have entered your PNR code correctly. If you are sure of all of us, please call us at 0212 706 11 12."
-    ,"All users with a verified SiPay account can send money to your wallet."
+
+    "helpQuestionList1": "What is SiPay?",
+    "helpQuestionList2":  "Is it paid to use SiPay?",
+    "helpQuestionList3":  "How do I use it?",
+    "helpQuestionList4":  "What can I do with SiPay Wallet?",
+    "helpQuestionList5":  "What is My Desposit Limit?",
+    "helpQuestionList6":  "Can I Make Deposit 24/7?",
+    "helpQuestionList7":  "How do I deposit money to my SiPay wallet by bank transfer?",
+    "helpQuestionList8": "How do I deposit money to my wallet with my credit card?",
+    "helpQuestionList9":  "What should I do if money is not transferred to my account?",
+    "helpQuestionList10":  "Can someone send money to my wallet?"
+
+   ,
+"helpAnswersList1": "The easy, fast and secure way of payment, SiPay, is Turkey's youngest new generation of digital wallets with permission to operate as it receives Electronic Money Institution Licence in July 2019 from the Banking Regulation and Supervision Agency.",
     
-    ]
+"helpAnswersList2":"Our users do not pay any membership fees to benefit from our services.",
+    
+"helpAnswersList3":"To use SiPay, you only need to enter the one-time password that sends to your mobile phone. Create your special wallet account, enjoy easy and secure shopping.",
+    
+"helpAnswersList4":"As a digital wallet owner, you can shop from all of our merchants, send money to any person, ask other users to transfer money to your wallet, convert your money in your SiPay wallet account to foreign currency, or even withdraw money from the bank account that you&#39;ve defined. ",
+   
+"helpAnswersList5": "If you're a Standard Account user, you can't deposit money, but you can keep 750,00 TRY sent to you from another user in your wallet.If you are a Verified Account user, you can deposit 50.000 TRY, if you have a Contracted Account you can deposit 250.000 TRY.",
+   
+"helpAnswersList6": "You can deposit money to your SiPay wallet with your credit card or by bank transfer 24/7.",
+   
+"helpAnswersList7": "Log into your SiPay account and enter the amount you&#39;d like to deposit on the Deposit page, select Bank Transfer as your payment method. Select the SiPay account to which you want to send money from the drop-down menu and press Send.",
+  
+"helpAnswersList8":  "After logging into your SiPay wallet account, enter the amount you&#39;d like to deposit on the Deposit page and select Credit Card as your payment method. In the menu that opens, enter your card information completely and accurately. Press send. Once you enter your security password, your balance will be added to your account instantly",
+    
+"helpAnswersList9":"When making a transfer, make sure you meet all the criteria we have specified, especially check if you have entered your PNR code correctly. If you are sure of all of us, please call us at 0212 706 11 12."
+    ,
+    
+"helpAnswersList10":"All users with a verified SiPay account can send money to your wallet."
+    
+    
 
 ,"faq":"F.A.Q"
 

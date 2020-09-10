@@ -132,7 +132,7 @@ class _NotificationSettingsScreenState
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
                                     Container(
-                                      child: Column(
+                           /*            child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         mainAxisAlignment:
@@ -154,7 +154,7 @@ class _NotificationSettingsScreenState
                                                 color: Colors.black45),
                                           )
                                         ],
-                                      ),
+                                      ), */
                                       width: 40,
                                     ),
                                     Container(
@@ -266,14 +266,23 @@ class _NotificationSettingsScreenState
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: <Widget>[
-                                                    Container(
-                                                      child: Checkbox(
+                                                   /*  Container(
+                                                      child:
+                                                       Checkbox(
                                                         value: true,
                                                         onChanged:
-                                                            (bool value) {},
+                                                            (bool value) {
+
+
+//print(snapshot.[index].toString());
+                                    
+                                                            }
+                                                            
+                                                            
+                                                            ,
                                                       ),
                                                       width: 40,
-                                                    ),
+                                                    ), */
                                                     Container(
                                                       child: Checkbox(
                                                         value: snapshot
@@ -331,14 +340,14 @@ class _NotificationSettingsScreenState
                                 snapshot.saveNotificationSettings(() {
                                   Navigator.of(context).pop();
                                   Flushbar(
-                                    title: "Success",
+                                    title: translator.translate("success"),
                                     message:
                                         'Notification Settings updated successfully.',
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 }, (description) {
                                   Flushbar(
-                                    title: "Failure",
+                                    title: translator.translate("fail"),
                                     message: description,
                                     duration: Duration(seconds: 3),
                                   )..show(context);

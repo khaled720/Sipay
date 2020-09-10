@@ -25,21 +25,37 @@ class _Help_detail_Panel extends State<Help_detail_Panel> {
 
  List<dynamic> xx;
 
-  List<dynamic> help_list ;/* [
-    "What is SiPay?",//1
-    "Is it paid to use SiPay?",
-    "How do I use it?",//2
-    "What can I do with SiPay Wallet?",
-    "What is My Desposit Limit?",//3
-    "Can I Make Deposit 24/7?",//4
-    "How do I deposit money to my SiPay wallet by bank transfer?",
-    "How do I deposit money to my wallet with my credit card?",
-    "What should I do if money is not transferred to my account?",
-    "Can someone send money to my wallet?"
-  ]; */
+  List<dynamic> help_list= [
+    translator.translate("helpQuestionList1"),//1
+     translator.translate("helpQuestionList2"),
+      translator.translate("helpQuestionList3"),
+        translator.translate("helpQuestionList4"),
+          translator.translate("helpQuestionList5"),
+            translator.translate("helpQuestionList6"),
+              translator.translate("helpQuestionList7"),
+                translator.translate("helpQuestionList8"),
+                  translator.translate("helpQuestionList9"),
+                    translator.translate("helpQuestionList10"),
+  ]; 
 var expandList=[0,0,0,0,0,0,0,0,0,0];
 var help_list2=[],list2=[],expandList2=[];
-var list;/* =[
+var list=[
+
+
+    translator.translate("helpAnswersList1"),//1
+     translator.translate("helpAnswersList2"),
+      translator.translate("helpAnswersList3"),
+        translator.translate("helpAnswersList4"),
+          translator.translate("helpAnswersList5"),
+            translator.translate("helpAnswersList6"),
+              translator.translate("helpAnswersList7"),
+                translator.translate("helpAnswersList8"),
+                  translator.translate("helpAnswersList9"),
+                    translator.translate("helpAnswersList10"),
+
+
+
+];/* =[
 "The easy, fast and secure way of payment, SiPay, is Turkey's youngest new generation of digital wallets with permission to operate as it receives Electronic Money Institution Licence in July 2019 from the Banking Regulation and Supervision Agency.",
 "Our users do not pay any membership fees to benefit from our services.",
 "To use SiPay, you only need to enter the one-time password that sends to your mobile phone. Create your special wallet account, enjoy easy and secure shopping.",
@@ -59,9 +75,7 @@ var list;/* =[
    x= translator.translate("helpQuestionList") as List;
    xx= translator.translate("helpAnswersList") as List; */
  
-    help_list=[];//x
-
-    list=[];//xx
+ 
   }
   @override
   Widget build(BuildContext context) {

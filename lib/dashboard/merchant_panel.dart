@@ -909,7 +909,7 @@ translator.translate("security")
                                                           SizedBox(width: 10),
                                                           SizedBox(
                                                             child: Image.asset(
-                                                              'icons/flags/png/ru.png',
+                                                              'icons/flags/png/tr.png',
                                                               package:
                                                                   'country_icons',
                                                               width: 20,

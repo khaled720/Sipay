@@ -92,7 +92,8 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
 
   void setSavedBankAccountDropdownValue(WithdrawalBankModel value) {
     _savedAccountSelectedDropdownValue = value;
-    //this._selectedBankDropDownValue=value;
+    //_selectedBankDropDownValue=value;
+    
     if (value.name != 'No accounts found') {
       _savedAccount = true;
       _currentSelectedBank = value;
@@ -119,10 +120,43 @@ class CreateBankWithdrawProvider extends TransactionsScreenBaseProvider {
     notifyListeners();
   }
 
+
+myBanks(Name) async {
+List bankMaps;
+ this.mainRepo.getWithdrawForm().then((userBankList) {
+
+ bankMaps = userBankList.data['bankList'];
+for(var bank in bankMaps)
+if(bank["name"].toString().contains(Name)){
+
+  this._selectedBankDropDownValue=WithdrawalBankModel(
+bank["id"]
+,
+bank["name"],
+bank["code"],
+null,
+bank["issuer_name"],
+null,
+bank["country"]
+,bank["logo"]
+,bank["status"]
+  );
+}
+
+
+  });
+ // print(userBankList.data.toString());
+ 
+ 
+notifyListeners();
+}
+
+
   void availableBanksList() async {
     MainApiModel userBankList = await this.mainRepo.getWithdrawForm();
     if (userBankList.statusCode == 100) {
       List bankMaps = userBankList.data['bankList'];
+
       _bankList = List();
       for (Map bank in bankMaps)
         _bankList.add(WithdrawalBankModel.fromMap(bank, false));

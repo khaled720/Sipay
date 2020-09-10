@@ -11,11 +11,15 @@ class LoginRepository {
 
   //Individual login
   Future<MainApiModel> individualLogin(String phone) async {
-    print("xxxxxxx");
+   
     Map<String, String> values = {'phone': phone};
     String result = await NetworkHelper.makePostRequest(
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
    
+/*  print("xxxxxxx"+result.toString());
+      var map=json.decode(result);
+
+    userName=map["data"]["user"]["name"].toString(); */
     return MainApiModel.mapJsonToModel(result);
   }
 
@@ -46,7 +50,10 @@ class LoginRepository {
         APIEndPoints.kAPIIndividualLoginEndPoint, values, null);
 
 var map=json.decode(result);
+ print("xxxxxxx"+result.toString());
+;
 
+    userName=map["data"]["user"]["name"].toString();
    // userName=map["data"]["user"]["name"].toString()??"not found"; 
     return MainApiModel.mapJsonToModel(result);
   }

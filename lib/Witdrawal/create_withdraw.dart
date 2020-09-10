@@ -81,6 +81,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                   /////////////////////////////////////////////////
                   savedAccount ="YAPIKREDI SAVINGS";
                   bankValue = "T.C.ZIRAAT BANKASI A.S.";
+            
                   //////////////////////////////////////////////
                   ///////////////////////////////////////////////
                 }
@@ -127,180 +128,215 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                   body: Consumer<CreateBankWithdrawProvider>(
                       builder: (context, snapshot, _) {
                         snapshot.accountHolderController.text=userName.toString()??"";
-                    return Stack(
-                      alignment: Alignment.center,
-                      children: <Widget>[
-                        SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                height: ScreenUtil.getInstance().setHeight(50),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 30, right: 30),
-                                child: Text(
-                                  translator.translate("availableBalance"),
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              SizedBox(
-                                height: ScreenUtil.getInstance().setHeight(50),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                        decoration: new BoxDecoration(
-                                          border: Border(
-                                            right: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Align(
+                    var bnkcontroller;
+                                        return Stack(
                                           alignment: Alignment.center,
-                                          child: Text(
-                                  
+                                          children: <Widget>[
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: ScreenUtil.getInstance().setHeight(50),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(left: 30, right: 30),
+                                                    child: Text(
+                                                      translator.translate("availableBalance"),
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: ScreenUtil.getInstance().setHeight(50),
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Expanded(
+                                                        child: Container(
+                                                            decoration: new BoxDecoration(
+                                                              border: Border(
+                                                                right: BorderSide(
+                                                                  color: Colors.black54,
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            child: Align(
+                                                              alignment: Alignment.center,
+                                                              child: Text(
                                                       
-                            double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+
-                                                '₺',
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 16),
-                                          ),
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                        decoration: new BoxDecoration(
-                                          border: Border(
-                                            right: BorderSide(
-                                              color: Colors.black54,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                         
-                                                      
-                            double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2)+
-                                                "\$",
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontSize: 16),
-                                          ),
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                               
-                                                      
-                            double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2)+
-                                              '€',
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: ScreenUtil.getInstance().setHeight(50),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(left: 30.0, right: 30.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                             translator.translate("toBank"),
-                                
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
-                                    SizedBox(
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(10),
-                                    ),
-                                    Text(
-                                   translator.translate("withdrawInfo"),
-                                
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(30),
-                                    ),
-                                    Text(
-                               translator.translate("chooseAcc"),
-                                
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 12),
-                                    ),
-                                    snapshot.savedBanksDropdown != null
-                                        ? DropdownButton<WithdrawalBankModel>(
-                                            icon:
-                                                Icon(Icons.keyboard_arrow_down),
-                                            items: snapshot.savedBanksDropdown,
-                                            onChanged: (value)async {
-                        
-                            snapshot.ibanController.text=value.myiban;
-                                              snapshot
-                                                  .setSavedBankAccountDropdownValue(
-                                                      value);
-                                            },
-                                            value: snapshot
-                                                .savedAccountSelectedDropdownValue,
-                                            isExpanded: true,
-                                          )
-                                        : SizedBox(
-                                            width: 0.0,
-                                          ),
-                                    SizedBox(
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(30),
-                                    ),
-                                    Text(
-                                 translator.translate("bank"),
-                                
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 12),
-                                    ),
-                                    snapshot.bankList != null
-                                        ? DropdownButton<WithdrawalBankModel>(
-                                        
-                                            icon: Icon(Icons.keyboard_arrow_down),
-                                            items: snapshot.banksDropdown,
-                                            onChanged: (bank) {
-                                           snapshot.selectedDropDownValue=bank;
-                                                  //       snapshot.ibanController.text=bank.myibans;
-                                            ///    print("===>>>>>  "+bank.myiban.toString());
-                                            },
-                                            value: snapshot.selectedBankDropDownValue,
-                                            isExpanded: true,
-                                          
-                                          )
-                                        : SizedBox(
-                                            width: 0.0,
-                                          ),
-                                    SizedBox(
-                                      height: ScreenUtil.getInstance()
-                                          .setHeight(30),
-                                    ),
+                                                                          
+                                                double.parse(snapshot.getAvailableWalletAmount(0).toString()).toStringAsFixed(2)+
+                                                                    '₺',
+                                                                style: TextStyle(
+                                                                    color: Colors.black54,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                            decoration: new BoxDecoration(
+                                                              border: Border(
+                                                                right: BorderSide(
+                                                                  color: Colors.black54,
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            child: Align(
+                                                              alignment: Alignment.center,
+                                                              child: Text(
+                                                             
+                                                                          
+                                                double.parse(snapshot.getAvailableWalletAmount(1).toString()).toStringAsFixed(2)+
+                                                                    "\$",
+                                                                style: TextStyle(
+                                                                    color: Colors.black54,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                          child: Align(
+                                                            alignment: Alignment.center,
+                                                            child: Text(
+                                                   
+                                                                          
+                                                double.parse(snapshot.getAvailableWalletAmount(2).toString()).toStringAsFixed(2)+
+                                                                  '€',
+                                                              style: TextStyle(
+                                                                  color: Colors.black54,
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: ScreenUtil.getInstance().setHeight(50),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.only(left: 30.0, right: 30.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: <Widget>[
+                                                        Text(
+                                                 translator.translate("toBank"),
+                                                    
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.bold,
+                                                              fontSize: 16),
+                                                        ),
+                                                        SizedBox(
+                                                          height: ScreenUtil.getInstance()
+                                                              .setHeight(10),
+                                                        ),
+                                                        Text(
+                                                       translator.translate("withdrawInfo"),
+                                                    
+                                                          style: TextStyle(
+                                                              color: Colors.black54, fontSize: 15),
+                                                        ),
+                                                        SizedBox(
+                                                          height: ScreenUtil.getInstance()
+                                                              .setHeight(30),
+                                                        ),
+                                                        Text(
+                                                   translator.translate("chooseAcc"),
+                                                    
+                                                          style: TextStyle(
+                                                              color: Colors.black54, fontSize: 12),
+                                                        ),
+                                                        snapshot.savedBanksDropdown != null
+                                                            ? DropdownButton<WithdrawalBankModel>(
+                                                                icon:
+                                                                    Icon(Icons.keyboard_arrow_down),
+                                                                items: snapshot.savedBanksDropdown,
+                                                                onChanged: (value)async {
+           //         snapshot.selectedDropDownValue=value;
+                                                                     
+                            //    snapshot.setSavedBankAccountDropdownValue(value);
+                                        //    snapshot.selectedBankDropDownValue.logo=value.logo;
+                    
+           //        snapshot.myBanks(value.name);
+                                                snapshot.ibanController.text=value.myiban;
+                                                                  snapshot
+                                                                      .setSavedBankAccountDropdownValue(
+                                                                          value);
+                    
+                    
+                    print(snapshot.savedAccountSelectedDropdownValue.name);
+                    print(snapshot.selectedBankDropDownValue.name);
+                    
+                                                                },
+                                                                value: snapshot
+                                                                    .savedAccountSelectedDropdownValue,
+                                                                isExpanded: true,
+                                                              )
+                                                            : SizedBox(
+                                                                width: 0.0,
+                                                              ),
+                                                        SizedBox(
+                                                          height: ScreenUtil.getInstance()
+                                                              .setHeight(30),
+                                                        ),
+                                                        Text(
+                                                     translator.translate("bank"),
+                                                    
+                                                          style: TextStyle(
+                                                              color: Colors.black54, fontSize: 12),
+                                                        ),
+                                                        snapshot.bankList != null
+                                                            ? DropdownButton<WithdrawalBankModel>(
+                                                            
+                                                                icon: Icon(Icons.keyboard_arrow_down),
+                                                                items: snapshot.banksDropdown,
+                                                                onChanged: (bank) {
+                                                               ///////snapshot.selectedDropDownValue=bank;
+                                                                      //       snapshot.ibanController.text=bank.myibans;
+                                                                ///    print("===>>>>>  "+bank.myiban.toString());
+                                                                },
+                                                                value:
+                                                                /*  snapshot
+                                                                    . *///savedAccountSelectedDropdownValue,
+                                                                 snapshot.selectedBankDropDownValue,
+                                                                isExpanded: true,
+                                                              
+                                                              )
+                                                            : SizedBox(
+                                                                width: 0.0,
+                                                              ),
+                                                        SizedBox(
+                                                          height: ScreenUtil.getInstance()
+                                                              .setHeight(30),
+                                                        ),
+                    
+                    
+                    
+                    
+                    
+             /*        TextFormField(
+                      controller: bnkcontroller,
+decoration: InputDecoration(
+contentPadding: EdgeInsets.all(0),
+hintText: 'Choose',
+suffixIcon: Icon(Icons.keyboard_arrow_down)
+),
+
+
+
+
+) */
+
+
+
+
                                     Text(
                                   translator.translate("curr"),
                                 
@@ -379,7 +415,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                           ),
                                           validator: (value) {
                                             if (value.isEmpty) {
-                                              return 'Please enter ACCOUNT HOLDER NAME';
+                                              return  translator.translate("error") +translator.translate("accHolder");
                                             }
                                             return null;
                                           },

@@ -125,7 +125,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Container(
-                                child: Column(
+                       /*          child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -144,7 +144,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                                           fontSize: 10, color: Colors.black45),
                                     )
                                   ],
-                                ),
+                                ), */
                                 width: 40,
                               ),
                               Container(
@@ -286,7 +286,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         Container(
-                          child: Checkbox(
+                        /*   child: Checkbox(
                             value: _check_value[number][0],
                             onChanged: (bool value) {
                               setState(() {
@@ -294,7 +294,7 @@ class _Notification_SettingsPanel extends State<Notification_SettingsPanel> {
                               });
                             },
                             checkColor: Colors.black38,
-                          ),
+                          ), */
                           width: 40,
                         ),
                         Container(

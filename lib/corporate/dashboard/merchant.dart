@@ -814,7 +814,7 @@ return inCaps;
                                                           SizedBox(width: 10),
                                                           SizedBox(
                                                             child: Image.asset(
-                                                              'icons/flags/png/ru.png',
+                                                              'icons/flags/png/tr.png',
                                                               package:
                                                                   'country_icons',
                                                               width: 20,
@@ -1145,7 +1145,7 @@ passCor=prefs.getString("passCor");
                   children: <Widget>[
                     Container(
                       child: Text(
-                        users.total,
+                  translator.translate("balance"),
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -1193,7 +1193,7 @@ passCor=prefs.getString("passCor");
                   children: <Widget>[
                     Container(
                       child: Text(
-                        users.available,
+                      translator.translate("availableBalance"),
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

@@ -546,14 +546,10 @@ class _Create_panel extends State<C_Create_deposits> {
                                           Container(
                                             child: FlatButton(
                                               onPressed: () {
-                                                snapshot.createDeposit(
-
-                                                        (successModel) {
 
 
-return
 
- showDialog(context: context,
+showDialog(context: context,
    
     child: AnimatedDialog(
 
@@ -603,7 +599,12 @@ SizedBox(width: 10,),
           color: Colors.indigo,
           onPressed: (){
 
-  
+                                                snapshot.createDeposit(
+
+                                                        (successModel) {
+
+
+
                                                            Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
@@ -612,6 +613,24 @@ SizedBox(width: 10,),
                                                                     successModel
                                                                     ),
                                                           ));
+
+ 
+
+   
+
+
+
+
+
+
+
+
+
+
+
+                                             
+                                                    });
+  
                                                         }),
                                          
        
@@ -628,20 +647,7 @@ SizedBox(width: 10,),
     )
   );
 
-   
 
-
-
-
-
-
-
-
-
-
-
-                                             
-                                                    });
 //                                                      Navigator.pushReplacement(
 //                                                          context,
 //                                                          MaterialPageRoute(

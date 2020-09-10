@@ -115,7 +115,7 @@ String email;
                             ),
                             Container(
                               child: Text(
-                                'You can share the payment link DPL #'+widget.dpl["id"].toString()+' via E-mail.',
+                                translator.translate("shareInf")+' #'+widget.dpl["id"].toString()+' via E-mail.',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.black45,
@@ -129,7 +129,7 @@ String email;
                             Row(
                               children: <Widget>[
                                 Container(
-                                  child: Text('DPL #'+widget.dpl["id"].toString()+'-One Time Link',
+                                  child: Text(translator.translate("dpl")+' #'+widget.dpl["id"].toString()+'-One Time Link',
                                    style: TextStyle(color: Colors.black45, fontSize: 15)),
                                 ),
                                 Expanded(
@@ -137,7 +137,7 @@ String email;
                                       child: Align(
                                         alignment: Alignment.bottomRight,
                                         child: Text(
-                                     widget.dpl['is_amount_set_by_user']==1? "Set by User":
+                                     widget.dpl['is_amount_set_by_user']==1? translator.translate("setbyusr"):
                                      widget.dpl['amount'].toString(),
                                           style: TextStyle(color: Colors.black87, fontSize: 15),
                                         ),
@@ -158,7 +158,7 @@ String email;
                             Row(
                               children: <Widget>[
                                 Expanded(
-                                  child: Text('Expiry', style: TextStyle(color: Colors.black45, fontSize: 15)),
+                                  child: Text(translator.translate("expiry"), style: TextStyle(color: Colors.black45, fontSize: 15)),
                                 ),
                                 Container(
                                     child: Align(
@@ -184,7 +184,7 @@ String email;
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                'RECIEVER E-Mail *',
+                                translator.translate("recEmail")+' *',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.black45,
@@ -211,7 +211,7 @@ String email;
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      users.fail.user,
+                                  "", //   users.fail.user,
                                       style: TextStyle(
                                         color: Colors.red,
                                       ),
@@ -221,7 +221,7 @@ String email;
                                         Navigator.pop(context);
                                       },
                                       child: Text(
-                                        users.fail.login,
+                                       translator.translate("login"),
                                         style: TextStyle(
                                           color: Colors.blue,
                                         ),
@@ -283,7 +283,7 @@ if(email==null){
 
 Scaffold.of(context).showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-        content: Text("Please enter an E-mail !")
+        content: Text(translator.translate("error")+translator.translate("email"))
 ));
 
 }else{

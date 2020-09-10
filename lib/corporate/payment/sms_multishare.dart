@@ -264,7 +264,7 @@ void _add() {
                                     ),
                                   ),
                            SizedBox(
-                              width:80,
+                              width:70,
                             ),         
 
                             InkWell(
@@ -337,7 +337,7 @@ this.controllers.removeAt(_count);
                            controllers.forEach((element) { 
 
                           if(element.text=="")empty++;
-                          if(element.text.length<13)limit=true;
+                          if(element.text.length<12)limit=true;
                            });
 
 if(empty>0){
@@ -354,7 +354,7 @@ Scaffold.of(context).showSnackBar(SnackBar(
 //13<val
 Scaffold.of(context).showSnackBar(SnackBar(
   duration: Duration(seconds: 2),
-          content: Text("GSM Number must be at least 13 digits")
+          content: Text("GSM Number must be at least 12 digits")
 ));
 
 
