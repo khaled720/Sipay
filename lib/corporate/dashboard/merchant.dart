@@ -880,14 +880,13 @@ passCor=prefs.getString("passCor");
 
  });
 
-//print("PPPPPPPAAAAAAAASSSSSSSSSSSSSSS "+pass);
 
                                                 snapshot.logoutMerchant(() {
                                                   Navigator.of(context)
                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                  MyLoginPage(remem??false,email??"",pass,phone??"",false,passCor??""),));
+                  MyLoginPage(remem??false,email??"","",phone??"",false,""),));
                                                   Flushbar(
                                                     title: translator.translate("success"),
                                                     message:
@@ -1365,7 +1364,7 @@ Widget Dashboardbottom(BuildContext context, MerchantPanelProvider snapshot) {
                       height: 5,
                     ),
                     Text(
-                      'Withdraw',
+                      translator.translate("withdraw"),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -1402,7 +1401,7 @@ Widget Dashboardbottom(BuildContext context, MerchantPanelProvider snapshot) {
                       height: 5,
                     ),
                     Text(
-                      'Money Transfer',
+                      translator.translate("moneytrans"),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
@@ -1437,7 +1436,7 @@ Widget Dashboardbottom(BuildContext context, MerchantPanelProvider snapshot) {
                       height: 5,
                     ),
                     Text(
-                      'Payment Link',
+                   translator.translate("dpl"),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),

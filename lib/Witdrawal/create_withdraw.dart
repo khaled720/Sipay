@@ -279,9 +279,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                                     .savedAccountSelectedDropdownValue,
                                                                 isExpanded: true,
                                                               )
-                                                            : SizedBox(
-                                                                width: 0.0,
-                                                              ),
+                                                            : Center(child: CupertinoActivityIndicator()),
                                                         SizedBox(
                                                           height: ScreenUtil.getInstance()
                                                               .setHeight(30),
@@ -292,7 +290,7 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                           style: TextStyle(
                                                               color: Colors.black54, fontSize: 12),
                                                         ),
-                                                        snapshot.bankList != null
+                                                        snapshot.savedBanksDropdown != null
                                                             ? DropdownButton<WithdrawalBankModel>(
                                                             
                                                                 icon: Icon(Icons.keyboard_arrow_down),
@@ -309,13 +307,12 @@ class _CreateWithdrawScreenState extends State<CreateWithdrawScreen> {
                                                                 isExpanded: true,
                                                               
                                                               )
-                                                            : SizedBox(
-                                                                width: 0.0,
-                                                              ),
-                                                        SizedBox(
+                                                            : Center(child: CupertinoActivityIndicator()),
+                                                      
+                                                      /*   SizedBox(
                                                           height: ScreenUtil.getInstance()
                                                               .setHeight(30),
-                                                        ),
+                                                        ), */
                     
                     
                     

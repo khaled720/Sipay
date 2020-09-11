@@ -237,7 +237,7 @@ TextEditingController iban= new TextEditingController();
                                       style: TextStyle(
                                           color: Colors.black26, fontSize: 12),
                                     ),
-                                    snapshot.bankList != null
+                                    snapshot.banksDropdown != null
                                         ? DropdownButton<
                                             CorporateWithdrawalBankModel>(
                                             icon:
@@ -256,9 +256,11 @@ TextEditingController iban= new TextEditingController();
                                                 .selectedBankDropDownValue,
                                             isExpanded: true,
                                           )
-                                        : SizedBox(
-                                            width: 0.0,
-                                          ),
+                                      :Center(child: CupertinoActivityIndicator(
+
+
+                                        
+                                      )),
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
                                           .setHeight(30),

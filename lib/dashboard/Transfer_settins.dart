@@ -9,6 +9,7 @@ import 'package:fluttersipay/loading_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import 'package:translator/translator.dart' as trans;
 
 import '../base_main_repo.dart';
 
@@ -40,7 +41,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('TRANSFER SETTINGS not translated'),
+              title: Text(translator.translate("transSettings")),
               flexibleSpace: Image(
                 image: AssetImage('assets/appbar_bg.png'),
                 height: 100,
@@ -74,7 +75,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                   },
                 )
               ],
-            ),
+            ), 
             body: Consumer<MoneyTransferSettingsProvider>(
                 builder: (context, snapshot, _) {
               return Stack(
@@ -91,15 +92,15 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                             height: 20,
                           ),
                           Text(
-                            'MONEY TRANSFER SETTINGS',
+                        translator.translate("moneytrans").toUpperCase()+translator.translate("setting"),
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                                fontWeight: FontWeight.bold, fontSize: 14),
                           ),
                           SizedBox(
                             height: 40,
                           ),
                           Text(
-                            'MONEY TRANSFER REQUEST',
+                         translator.translate("moneytrans").toUpperCase()+translator.translate("req"),
                             style:
                                 TextStyle(color: Colors.black54, fontSize: 12),
                           ),
@@ -127,7 +128,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      'ALLOW REQUESTS',
+                                   translator.translate("allowReq"),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20),
@@ -167,16 +168,15 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                                       ),
                                     ),
                                     TextSpan(
-                                        text:
-                                            'Turning this option off prevents other users from requesting money from you. Sending and requesting money functions are not affected by this optiion.',
-                                        style:
+                                        text:translator.translate("transferInfosettings")
+                                  ,   style:
                                             TextStyle(color: Colors.black45)),
                                   ])),
                           SizedBox(
                             height: 50,
                           ),
                           Text(
-                            'MONEY TRANSFER PRIORITY',
+                            translator.translate("Transpriority"),
                             style:
                                 TextStyle(color: Colors.black54, fontSize: 12),
                           ),
@@ -217,14 +217,19 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                                 snapshot.saveMoneyTransferSettings(() {
                                   Navigator.of(context).pop();
                                   Flushbar(
-                                    title: "Success",
-                                    message: 'Settings updated successfully.',
+                                    title: translator.translate("success"),
+                                    message:translator.translate("setupdated"),
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 }, (description) {
                                   Flushbar(
-                                    title: "Failure",
-                                    message: description,
+                                    title: translator.translate("fail"),
+                                    message: translator.currentLanguage=="en"?
+                                    trans.GoogleTranslator().translate(description,to: "en").toString()
+                                    :
+                                   trans.GoogleTranslator().translate(description,to: "tr").toString()
+                                    
+                                    ,
                                     duration: Duration(seconds: 3),
                                   )..show(context);
                                 });
@@ -233,7 +238,7 @@ class _TransferSettingsScreenState extends State<TransferSettingsScreen> {
                               disabledColor: Colors.blue,
                               padding: EdgeInsets.all(15.0),
                               child: Text(
-                                "SAVE",
+                                translator.translate("save"),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

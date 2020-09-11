@@ -3,8 +3,9 @@
 
 
 
- 
+ "req":"REQUEST",
 
+ "setupdated":"Settings updated seccessfully",
 
     "nodata":"No Data To Display",
     "passive":"PASSIVE",
@@ -299,7 +300,7 @@
 "state":"STATUS",
 "act":"ACTIVE","notact":"NOT ACTIVE",
 
-"transSettings":"TRANSFER SETTINGD",
+"transSettings":"TRANSFER SETTINGS",
 "money":"MONEY",
 "allowReq":"ALLOW REQUESTS",
 "transferInfosettings":"Turning this option off prevents other users from requesting money fro you .Sending and Requesting money functions are not affected by this option"
