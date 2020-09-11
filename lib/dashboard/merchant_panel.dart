@@ -928,8 +928,8 @@ translator.translate("security")
                                                   ],
                                                   onChanged: (value) {
 print(value.toString());
-                                                    if(value=="tr")translator.setNewLanguage(context, newLanguage: "tr", restart: true);
-                                                    if(value=="en")translator.setNewLanguage(context, newLanguage: "en", restart: true);
+                                                    if(value=="tr")translator.setNewLanguage(context, newLanguage: "tr", restart: false);
+                                                    if(value=="en")translator.setNewLanguage(context, newLanguage: "en", restart: false);
                                                    
                                                     setState(() {
                                                       _language_value = value;

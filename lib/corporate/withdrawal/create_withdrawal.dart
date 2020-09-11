@@ -244,8 +244,8 @@ TextEditingController iban= new TextEditingController();
                                                 Icon(Icons.keyboard_arrow_down),
                                             items: snapshot.banksDropdown,
                                             onChanged: (bank) {
-                                            /*   snapshot.selectedDropDownValue =
-                                                  bank; */
+                                               snapshot.selectedDropDownValue =
+                                                  bank; 
                                         setState(() {
                                         snapshot.accountHolderController.text=bank.accountHolderName;
                                           iban.text=bank.iban;

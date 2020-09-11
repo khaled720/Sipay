@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import 'package:flushbar/flushbar.dart';
+import 'package:fluttersipay/corporate/dashboard/providers/merchant_panel_dashboard_provider.dart';
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttersipay/corporate/money/money_panel.dart';
+import 'package:fluttersipay/corporate/payment/payment_link.dart';
+import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/dashboard/merchant_panel.dart';
 import 'package:fluttersipay/deposit/json_models/main_deposit_ui_model.dart';
@@ -25,7 +29,8 @@ class DepositPanelScreen extends StatefulWidget {
   final BaseMainRepository mainRepo;
   final UserTypes userType;
   final List userWallets;
-  DepositPanelScreen(this.mainRepo, this.userWallets, this.userType);
+  MerchantPanelProvider snapshot;
+  DepositPanelScreen(this.mainRepo, this.userWallets, this.userType,{this.snapshot});
   @override
   _DepositPanelScreenState createState() => _DepositPanelScreenState();
 }
@@ -357,8 +362,8 @@ hintText:    translator.translate("chooseDeposit")
                               ],
                             ),
                           ),
-                          Dashboardbottom(context, widget.mainRepo,
-                              widget.userWallets, widget.userType),
+                    isIndividual?Dashboardbottom(context, widget.mainRepo,
+                              widget.userWallets, widget.userType):Dashboardbottom2(context,widget.snapshot),
                         ],
                       );
                     }));
@@ -419,4 +424,154 @@ if(acceptedCurrenciesID.length!=0){
 
     }
   }
+
+Widget Dashboardbottom2(BuildContext context, MerchantPanelProvider snapshot) {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: SizedBox(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.database,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Withdraw',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CreateCorporateWithdrawalsPanelScreen(
+                                snapshot.corporateMainRepository,
+                                snapshot.userWallets),
+                      ));
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.paperPlane,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Money Transfer',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MoneyPanelScreen(
+                            snapshot.corporateMainRepository,
+                            snapshot.userWallets),
+                      ));
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.link,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Payment Link',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Payment_Link(),
+                      ));
+                },
+              ),
+            ),
+          ),
+//          Expanded(
+//            flex: 1,
+//            child: Container(
+//              color: Colors.blue,
+//              child: FlatButton(
+//                child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: <Widget>[
+//                    Icon(
+//                      FontAwesomeIcons.creditCard,
+//                      color: Colors.white,
+//                      size: 15,
+//                    ),
+//                    SizedBox(
+//                      height: 5,
+//                    ),
+//                    Text(
+//                      'Mobile POS',
+//                      style: TextStyle(color: Colors.white, fontSize: 12),
+//                    ),
+//                  ],
+//                ),
+//                onPressed: () {
+//                  Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                        builder: (context) => limits_Panel(),
+//                      ));
+//                },
+//              ),
+//            ),
+//          ),
+        ],
+      ),
+      height: 60,
+      width: double.infinity,
+    ),
+  );
+}
 }

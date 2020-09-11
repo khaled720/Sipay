@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
 import 'package:fluttersipay/login_screens/login_repo.dart';
+import 'package:fluttersipay/login_screens/privacy_Policy.dart';
 import 'package:fluttersipay/login_screens/providers/register_provider.dart';
+import 'package:fluttersipay/login_screens/user_Agreement.dart';
 import 'package:fluttersipay/login_screens/user_kyc_sms_verify.dart';
 import 'package:fluttersipay/utils/constants.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
@@ -172,29 +174,61 @@ country = ola.Country.fromJson(element);
                                           .setHeight(10),
                                     ),
                                     Container(
-                                      child: RichText(
-                                          text: TextSpan(
+                                      child: Row(
+                                        /*   text: TextSpan(
                                               // set the default style for the children TextSpans
                                               style: TextStyle(
                                                 fontSize: 16,
-                                              ),
+                                              ), */
                                               children: [
-                                            TextSpan(
-                                                text: translator.translate("user")+" "+translator.translate("agreement"),
-                                                style: TextStyle(
-                                                    color: Colors.blue)),
-                                            TextSpan(
-                                                text: ' & ',
+                                            InkWell(
+
+
+                                              onTap: (){
+//user agree
+
+   Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      agree()));
+
+
+                                              },
+                                                  child: Text(
+                                                   translator.translate("user")+" "+translator.translate("agreement"),
+                                                  style: TextStyle(
+                                                      color: Colors.blue)),
+                                            ),
+                                            Text(
+                                                 ' & ',
                                                 style: TextStyle(
                                                     color: Colors.black45)),
-                                            TextSpan(
-                                                text: translator.translate("PPplicy"),
-                                                style: TextStyle(
-                                                    color: Colors.blue)),
-                                          ])),
-                                      width: ScreenUtil.getInstance()
-                                          .setWidth(690),
-                                    ),
+                                            InkWell(
+onTap: (){
+   Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      pPolicy()));
+
+
+
+
+
+
+
+},
+                                                child: Text(
+                                                   translator.translate("PPplicy"),
+                                                  style: TextStyle(
+                                                      color: Colors.blue)),
+                                            ),
+                                          ])
+                                          )
+                                          ,
+                                  
+                                    
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
                                           .setHeight(200),

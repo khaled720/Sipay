@@ -29,13 +29,13 @@ class EditBankAccountScreen extends StatefulWidget {
 
 class _EditBankAccountScreenState extends State<EditBankAccountScreen> {
  
-var xx= translator.translate("currency");
-List<String> list=[];
+//var xx= translator.translate("currency");
+List<String> list=["TRY","USD","EUR"];
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    list=json.decode(xx);
+    
   }
 
  
