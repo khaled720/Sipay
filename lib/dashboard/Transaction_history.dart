@@ -46,7 +46,8 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     'Exchange'
   ];
   var _statusValue = "STATES";
-  List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending','Stand By','Refunded','Awaiting','Chargeback Requested','Failed'];
+  List<String> _listStatusData = ["STATES", "Completed", "Rejected", 'Pending'
+  ,'Stand By','Refunded','Awaiting','Chargeback Requested','Failed'];
   DateTime endDate;
   DateTime startDate;
 

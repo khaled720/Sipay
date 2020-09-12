@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:fluttersipay/base_main_repo.dart';
 import 'package:fluttersipay/main_api_data_model.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class MoneyTransferSettingsProvider with ChangeNotifier {
   BaseMainRepository _baseMainRepository;
@@ -38,7 +39,7 @@ class MoneyTransferSettingsProvider with ChangeNotifier {
     MainApiModel moneyTransferSettingsUpdateModel =
         await _baseMainRepository.moneyTransferSettingsUpdate(
             _checkBoxValue ? 1 : 0,
-            _selectedDropDownValue == 'AVAILABLE BALANCE' ? 0 : 1);
+            _selectedDropDownValue == translator.translate("availableBalance") ? 0 : 1);
     moneyTransferSettingsUpdateModel.statusCode == 100
         ? onSuccess()
         : onFailure(moneyTransferSettingsUpdateModel.description);
@@ -53,8 +54,8 @@ class MoneyTransferSettingsProvider with ChangeNotifier {
         moneyTransferSettings['enable_money_transfer'] == 1 ? true : false;
     _selectedDropDownValue =
         moneyTransferSettings['money_transfer_from_total_balance'] == 0
-            ? 'AVAILABLE BALANCE'
-            : 'TOTAL BALANCE';
+            ? translator.translate("availableBalance")
+            : translator.translate("balance");
     notifyListeners();
   }
 }

@@ -34,6 +34,8 @@ class _Onetime_Success_panel extends State<Onetime_Success_panel>  {
   
   @override
   Widget build(BuildContext context) {
+print(widget.dpl["exchange_rate"]);
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -160,7 +162,9 @@ class _Onetime_Success_panel extends State<Onetime_Success_panel>  {
                                       alignment: Alignment.bottomRight,
                                       child: Text(
                               widget.dpl['is_amount_set_by_user']==1? "Set by User":
-                              widget.dpl['amount'].toString(),
+            widget.dpl['currency'].toString()=="1"?      widget.dpl['amount'].toString()+" "+"TRY":
+                  widget.dpl['currency'].toString()=="2"?      widget.dpl['amount'].toString()+" "+"USD":      widget.dpl['amount'].toString()+" "+"EUR"
+                  ,
                                            style: TextStyle(color: Colors.black87, fontSize: 15),
                                       ),
                                     )),

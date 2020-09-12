@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:flushbar/flushbar.dart';
+import 'package:fluttersipay/Exchange/exchange.dart';
+import 'package:fluttersipay/Money/Send_money.dart';
+import 'package:fluttersipay/Witdrawal/witdrawal.dart';
 import 'package:fluttersipay/corporate/dashboard/providers/merchant_panel_dashboard_provider.dart';
 import 'package:fluttersipay/corporate/global_data.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +14,7 @@ import 'package:fluttersipay/corporate/money/money_panel.dart';
 import 'package:fluttersipay/corporate/payment/payment_link.dart';
 import 'package:fluttersipay/corporate/withdrawal/create_withdrawal.dart';
 import 'package:fluttersipay/dashboard/Live_support.dart';
-import 'package:fluttersipay/dashboard/merchant_panel.dart';
+
 import 'package:fluttersipay/deposit/json_models/main_deposit_ui_model.dart';
 import 'package:fluttersipay/deposit/providers/deposit_panel_provider.dart';
 import 'package:fluttersipay/utils/constants.dart';
@@ -574,4 +577,169 @@ Widget Dashboardbottom2(BuildContext context, MerchantPanelProvider snapshot) {
     ),
   );
 }
+
+
+}
+
+Widget Dashboardbottom(BuildContext context, BaseMainRepository baseRepo,
+    var wallets, UserTypes userType) {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: SizedBox(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.white,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+              FontAwesomeIcons.moneyBillWaveAlt,
+                      color: Colors.blue,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                  translator.translate("deposit"),
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: ()async {
+/* baseRepo.depositForm().then((x){
+print("111111111111111111=>"+x.data.toString());
+print("222222222222222222=>"+"/////"+wallets.toString());
+print("33333333333333333=>"+userType.toString());
+
+}); */
+//print("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+            /*     Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          DepositPanelScreen(baseRepo, wallets, userType)));  */
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.paperPlane,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                    translator.translate("moneytrans"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => userType == UserTypes.Individual
+                              ? MoneyTransferSendScreen(baseRepo, wallets)
+                              : MoneyPanelScreen(baseRepo, wallets)));
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.database,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                     translator.translate("withdraw"),
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  userType == UserTypes.Individual
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                UserWithdrawalPanelScreen(baseRepo, wallets),
+                          ))
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context2) =>
+                                CreateCorporateWithdrawalsPanelScreen(
+                                    baseRepo, wallets),
+                          ));
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.blue,
+              child: FlatButton(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      FontAwesomeIcons.exchangeAlt,
+                      color: Colors.white,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                 translator.translate("exchange"),
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ExchangePanelScreen(
+                            baseRepo, wallets, UserTypes.Individual),
+                      ));
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+      height: 60,
+      width: double.infinity,
+    ),
+  );
 }

@@ -975,10 +975,10 @@ passCor=prefs.getString("passCor");
 
                                                 snapshot.logoutUser(() {
                                                   Navigator.of(context)
-                                                      .pushReplacement(
+                                                       .pushReplacement(
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                  MyLoginPage(remem??false,email??"",pass,phone??"",false,passCor??""),));
+                  MyLoginPage(remem??false,email??"","",phone??"",false,""),));
 
 
 
@@ -1478,13 +1478,9 @@ Widget Dashboardbottom(BuildContext context, BaseMainRepository baseRepo,
                 ),
                 onPressed: ()async {
 baseRepo.depositForm().then((x){
-
-
 print("111111111111111111=>"+x.data.toString());
 print("222222222222222222=>"+"/////"+wallets.toString());
 print("33333333333333333=>"+userType.toString());
-  
-
 
 });
 //print("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");

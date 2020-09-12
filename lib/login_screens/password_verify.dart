@@ -250,7 +250,7 @@ translator.translate("pass")
                         SharedPreferences prefs = await SharedPreferences.getInstance();
 
                                     snapshot.verifyPassword((loginData) {
-prefs.setString("pass", snapshot.passwordController.text);
+//prefs.setString("pass", snapshot.passwordController.text);
 print("SUCCESS.........indi pass saved........"+prefs.getString("pass").toString());
 
                                       Navigator.of(context).push(

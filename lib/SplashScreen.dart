@@ -84,8 +84,8 @@ setState(() {
 
 phone=prefs.getString("phone")??"";
 email=prefs.getString("email")??"";
-pass=prefs.getString("pass")??"";
-passCor=prefs.getString("passCor")??"";
+///////pass=prefs.getString("pass")??"";
+//////passCor=prefs.getString("passCor")??"";
 //type=prefs.getString("type")??false;
 
 });
@@ -153,8 +153,8 @@ this.pass.toString()+"  --3--  "+this.phone.toString()
    
  
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context)=> MyLoginPage(this.remem,this.email,this.pass,
-      this.phone,this.type,this.passCor),
+      builder: (context)=> MyLoginPage(this.remem,this.email,"",
+      this.phone,this.type,""),
      )); 
      
      

@@ -92,7 +92,7 @@ countrycode=country.dialCode;
             TextEditingController(text:widget.remem?widget.email:""),
     TextEditingController(
       //PASSWORD
-      text:widget.remem==true?widget.passCor:""
+/*       text:widget.remem==true?widget.passCor:"" */
       
       ),
             TextEditingController(text:widget.remem?widget.phone.toString()
@@ -420,7 +420,7 @@ isIndividual=true;
                                             builder: (context) =>
                                                 VerifyPasswordScreen(
                                                     loginData
-                                          ,pass: snapshot.rememberPassword?widget.pass:"",
+                                       //   ,pass: snapshot.rememberPassword?widget.pass:"",
                                                     
                                                     )
                                                     
@@ -434,7 +434,7 @@ isIndividual=false;
 
 if(snapshot.rememberPassword==true){
             prefs.setString("email", snapshot.emailController.text);
-            prefs.setString("passCor", snapshot.passwordController.text);
+           // prefs.setString("passCor", snapshot.passwordController.text);
               //   prefs.setString("Type", "cor");
 }          
                 
